@@ -10,4 +10,5 @@ export type Player = {
     cidade: string,
     nacionalidade: string,
     foto: string
+    estatisticas?: object[]
 }

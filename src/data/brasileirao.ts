@@ -9,7 +9,8 @@ export const Brasileirao: Team[] = [
         logo: "arapongas-golden-phoenix.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 2,
@@ -19,7 +20,8 @@ export const Brasileirao: Team[] = [
         logo: "assis-captains.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 3,
@@ -29,7 +31,8 @@ export const Brasileirao: Team[] = [
         logo: "bears.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 4,
@@ -39,7 +42,8 @@ export const Brasileirao: Team[] = [
         logo: "brasilia-templarios.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 5,
@@ -49,7 +53,8 @@ export const Brasileirao: Team[] = [
         logo: "brasilia-wizards.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 6,
@@ -59,7 +64,8 @@ export const Brasileirao: Team[] = [
         logo: "bravos.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 7,
@@ -69,7 +75,8 @@ export const Brasileirao: Team[] = [
         logo: "brown-spiders.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 8,
@@ -79,7 +86,8 @@ export const Brasileirao: Team[] = [
         logo: "caragua-ghostship.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 9,
@@ -89,7 +97,8 @@ export const Brasileirao: Team[] = [
         logo: "chape.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 10,
@@ -99,7 +108,8 @@ export const Brasileirao: Team[] = [
         logo: "corinthians-steamrollers.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 11,
@@ -109,7 +119,8 @@ export const Brasileirao: Team[] = [
         logo: "coritiba-crocodiles.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 12,
@@ -119,7 +130,8 @@ export const Brasileirao: Team[] = [
         logo: "coritiba-crocodiles.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 13,
@@ -129,7 +141,8 @@ export const Brasileirao: Team[] = [
         logo: "criciuma-iron-tigers.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 14,
@@ -139,7 +152,8 @@ export const Brasileirao: Team[] = [
         logo: "cruzeiro.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 15,
@@ -149,7 +163,8 @@ export const Brasileirao: Team[] = [
         logo: "curitiba-lions.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 16,
@@ -159,7 +174,8 @@ export const Brasileirao: Team[] = [
         logo: "erechim-coroados.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 17,
@@ -169,7 +185,8 @@ export const Brasileirao: Team[] = [
         logo: "flamengo-imperadores.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 18,
@@ -179,7 +196,8 @@ export const Brasileirao: Team[] = [
         logo: "franca-carrascos.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 19,
@@ -189,7 +207,8 @@ export const Brasileirao: Team[] = [
         logo: "gama-leoes-de-juda.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 20,
@@ -199,7 +218,8 @@ export const Brasileirao: Team[] = [
         logo: "goianos.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 21,
@@ -209,7 +229,8 @@ export const Brasileirao: Team[] = [
         logo: "gravatai-spartans.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 22,
@@ -219,7 +240,8 @@ export const Brasileirao: Team[] = [
         logo: "guarulhos-rhynos.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 23,
@@ -229,7 +251,8 @@ export const Brasileirao: Team[] = [
         logo: "londrina-bristlebacks.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 24,
@@ -239,7 +262,8 @@ export const Brasileirao: Team[] = [
         logo: "maringa-pyros.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 25,
@@ -249,7 +273,8 @@ export const Brasileirao: Team[] = [
         logo: "matilha-dos-vales.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 26,
@@ -259,7 +284,8 @@ export const Brasileirao: Team[] = [
         logo: "moura-lacerda-dragons.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 27,
@@ -269,7 +295,8 @@ export const Brasileirao: Team[] = [
         logo: "ocelots.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 28,
@@ -279,7 +306,8 @@ export const Brasileirao: Team[] = [
         logo: "parana-guardian-saints.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 29,
@@ -289,7 +317,8 @@ export const Brasileirao: Team[] = [
         logo: "parana-hp.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 30,
@@ -299,7 +328,8 @@ export const Brasileirao: Team[] = [
         logo: "ponta-grossa-phantoms.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 31,
@@ -309,7 +339,8 @@ export const Brasileirao: Team[] = [
         logo: "ponte-preta-gorilas.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 32,
@@ -319,7 +350,8 @@ export const Brasileirao: Team[] = [
         logo: "rio-preto-weilers.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 33,
@@ -329,7 +361,8 @@ export const Brasileirao: Team[] = [
         logo: "sao-bernardo-avengers.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 34,
@@ -339,17 +372,19 @@ export const Brasileirao: Team[] = [
         logo: "sao-jose-jets.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 35,
         nome: "Six Spartans",
         cidade: "Recife",
         fundacao: "01/01/2000",
-        logo: "spartans.png",
+        logo: "six-spartans.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 36,
@@ -359,7 +394,8 @@ export const Brasileirao: Team[] = [
         logo: "sorocaba-vipers.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 37,
@@ -369,7 +405,8 @@ export const Brasileirao: Team[] = [
         logo: "tatuape-monsters.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 38,
@@ -379,7 +416,8 @@ export const Brasileirao: Team[] = [
         logo: "taubate.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 39,
@@ -389,7 +427,8 @@ export const Brasileirao: Team[] = [
         logo: "tritoes.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 40,
@@ -399,17 +438,19 @@ export const Brasileirao: Team[] = [
         logo: "uberlandia-lobos.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 41,
         nome: "Vikings Berseker",
         cidade: "Recife",
         fundacao: "01/01/2000",
-        logo: "vikings-berseker.png",
+        logo: "vikings-bersekers.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 42,
@@ -419,7 +460,8 @@ export const Brasileirao: Team[] = [
         logo: "vikings.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
     {
         id: 43,
@@ -429,6 +471,7 @@ export const Brasileirao: Team[] = [
         logo: "werewolves.png",
         background: "bg-recife-mariners.png",
         conferencia: 1,
-        nacionais: 1
+        nacionais: 1,
+        brasileirao: true
     },
 ]

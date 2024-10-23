@@ -1,3 +1,5 @@
+import { Player } from "./player"
+
 export type Team = {
     id: number,
     nome: string,
@@ -7,5 +9,6 @@ export type Team = {
     background: string,
     conferencia: number,
     nacionais: number
-    jogadores?:Object[]
+    brasileirao?: boolean
+    jogadores?: Player[]
 }
