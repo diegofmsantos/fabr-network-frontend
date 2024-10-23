@@ -23,7 +23,7 @@ export const Table = () => {
 
     return (
         <div>
-            <header className="w-full h-44 bg-[#17181C] flex flex-col justify-center items-center gap-4 border-b-2 border-[#96E301]">
+            <header className="w-full h-44 bg-[#17181C] flex flex-col justify-center items-center gap-4 border-b-2 border-[#96E301] fixed">
                 <Image src={`/assets/logo-fabr-color.png`} width={150} height={150} alt="logo-fabr" />
                 <div className="flex justify-center items-center gap-4 mb-2">
                     <div className="border-r-2 border-white/70 pr-4 ">
@@ -56,29 +56,27 @@ export const Table = () => {
             </header>
 
             {selectedButton === 'bfa' &&
-                <div>
+                <div className="grid grid-cols-3 gap-4 p-3 pt-48">
                     {BFA.map(item => (
-                        <Link href={`/${item.nome}`} className="flex items-center gap-8 px-2 py-1 pl-4 border-b" key={item.nome}>
-                            <div className="flex items-center gap-2 min-w-52">
-                                <Image src={`/assets/bfa/logos-bfa/${item.logo}`} alt="Logo" width={25} height={25} quality={100} />
-                                <div className="text-sm">{item.nome}</div>
+                        <Link href={`/${item.nome}`} className="border border-gray-400 rounded-lg" key={item.nome}>
+                            <div className="flex flex-col justify-center items-center gap-2 min-h-28 p-2">
+                                <Image src={`/assets/bfa/logos-bfa/${item.logo}`} alt="Logo" width={50} height={50} quality={100} />
+                                <div className="text-sm text-center font-bold">{item.nome}</div>
                             </div>
-                            <FontAwesomeIcon icon={faAngleRight} className="w-3 h-3 opacity-50" />
                         </Link>
                     ))}
                 </div>
             }
 
             {selectedButton === 'brasileirao' &&
-                <div>
+                <div className="grid grid-cols-3 gap-4 p-3 pt-48">
                     {Brasileirao.map(item => (
-                        <Link href={`/${item.nome}`} className="flex items-center gap-8 px-2 py-1 pl-4 border-b" key={item.nome}>
-                            <div className="flex items-center gap-2 min-w-52">
-                                <Image src={`/assets/brasileirao/logos-brasileirao/${item.logo}`} alt="Logo" width={30} height={30} quality={100} />
-                                <div className="text-sm">{item.nome}</div>
-                            </div>
-                            <FontAwesomeIcon icon={faAngleRight} className="w-3 h-3 opacity-50" />
-                        </Link>
+                        <Link href={`/${item.nome}`} className="border border-gray-400 rounded-lg" key={item.nome}>
+                        <div className="flex flex-col justify-center items-center gap-2 min-h-28 p-2">
+                            <Image src={`/assets/brasileirao/logos-brasileirao/${item.logo}`} alt="Logo" width={50} height={50} quality={100} />
+                            <div className="text-sm text-center font-bold">{item.nome}</div>
+                        </div>
+                    </Link>
                     ))}
                 </div>
             }
