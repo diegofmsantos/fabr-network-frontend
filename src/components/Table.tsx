@@ -2,84 +2,56 @@
 
 import { BFA } from "@/data/bfa"
 import { Brasileirao } from "@/data/brasileirao"
-import { faAngleRight } from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import Image from "next/image"
 import Link from "next/link"
+import { Footer } from "./Footer"
 import { useState } from "react"
-import { Button } from "./ui/button"
 
 export const Table = () => {
 
-    const [selectedButton, setSelectedButton] = useState<'bfa' | 'brasileirao' | null>('bfa')
-
-    const handleShowBfa = () => {
-        setSelectedButton('bfa')
-    }
-
-    const handleShowBrasileirao = () => {
-        setSelectedButton('brasileirao')
-    }
+    const [selectedButton, setSelectedButton] = useState<'bfa' | 'brasileirao'>('bfa')
 
     return (
         <div>
-            <header className="w-full h-44 bg-[#17181C] flex flex-col justify-center items-center gap-4 border-b-2 border-[#96E301] fixed">
-                <Image src={`/assets/logo-fabr-color.png`} width={150} height={150} alt="logo-fabr" />
-                <div className="flex justify-center items-center gap-4 mb-2">
-                    <div className="border-r-2 border-white/70 pr-4 ">
-                        <Button
-                            label="Liga BFA"
-                            onClick={handleShowBfa}
-                            isSelected={selectedButton === 'bfa'}
-                        >
-                            <Image
-                                src={`${selectedButton === 'bfa' ? '/assets/logo-bfa-color.png' : '/assets/logo-bfa-preto.png'}`}
-                                alt="Logo BFA"
-                                width={50}
-                                height={50}
-                                quality={100} />
-                        </Button>
-                    </div>
-                    <Button
-                        label="Brasileirão"
-                        onClick={handleShowBrasileirao}
-                        isSelected={selectedButton === 'brasileirao'}
-                    >
-                        <Image
-                            src={`${selectedButton === 'brasileirao' ? '/assets/logo-brasileirao-color.png' : '/assets/logo-brasileirao-preto.png'}`}
-                            alt="Logo BFA"
-                            width={50}
-                            height={50}
-                            quality={100} />
-                    </Button>
-                </div>
+            <header className="w-full h-20 rounded-xl bg-[#DBDBDF] flex justify-start items-center gap-32 px-2 fixed">
+                <Image src={`/assets/logo-fabr-color.png`} width={90} height={90} alt="logo-fabr" />
+                <div className="font-semibold">Times</div>
             </header>
 
             {selectedButton === 'bfa' &&
-                <div className="grid grid-cols-3 gap-4 p-3 pt-48">
-                    {BFA.map(item => (
-                        <Link href={`/${item.nome}`} className="border border-gray-400 rounded-lg" key={item.nome}>
-                            <div className="flex flex-col justify-center items-center gap-2 min-h-28 p-2">
-                                <Image src={`/assets/bfa/logos-bfa/${item.logo}`} alt="Logo" width={50} height={50} quality={100} />
-                                <div className="text-sm text-center font-bold">{item.nome}</div>
-                            </div>
-                        </Link>
-                    ))}
+                <div>
+                    <h1 className="text-[51px] bg-[#ECECEC] text-black px-2 font-extrabold italic leading-[55px] pt-24">ESCOLHA SEU TIME</h1>
+                    <div className="grid grid-cols-4 gap-4 p-3 bg-[#ECECEC] mb-16">
+                        {BFA.map(item => (
+                            <Link href={`/${item.nome}`} className="border border-gray-400 rounded-lg" key={item.nome}>
+                                <div className="text-center text-[31px] font-extrabold italic">{item.sigla}</div>
+                                <div className="flex flex-col -mt-7 justify-center items-center gap-2 min-h-28 p-2">
+                                    <Image src={`/assets/bfa/capacetes-bfa/${item.capacete}`} alt="Logo" width={90} height={90} quality={100} />
+                                    <Image src={`/assets/bfa/logos-bfa/${item.logo}`} alt="Logo" width={25} height={25} quality={100} />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             }
 
             {selectedButton === 'brasileirao' &&
-                <div className="grid grid-cols-3 gap-4 p-3 pt-48">
-                    {Brasileirao.map(item => (
-                        <Link href={`/${item.nome}`} className="border border-gray-400 rounded-lg" key={item.nome}>
-                        <div className="flex flex-col justify-center items-center gap-2 min-h-28 p-2">
-                            <Image src={`/assets/brasileirao/logos-brasileirao/${item.logo}`} alt="Logo" width={50} height={50} quality={100} />
-                            <div className="text-sm text-center font-bold">{item.nome}</div>
-                        </div>
-                    </Link>
-                    ))}
+                <div>
+                    <h1 className="text-[51px] bg-[#ECECEC] text-black px-2 font-extrabold italic leading-[55px] pt-24">ESCOLHA SEU TIME</h1>
+                    <div className="grid grid-cols-4 gap-4 p-3 bg-[#ECECEC] mb-16">
+                        {Brasileirao.map(item => (
+                            <Link href={`/${item.nome}`} className="border border-gray-400 rounded-lg" key={item.nome}>
+                                <div className="text-center text-[31px] font-extrabold italic">{item.sigla}</div>
+                                <div className="flex flex-col -mt-7 justify-center items-center gap-2 min-h-28 p-2">
+                                    <Image src={`/assets/brasileirao/capacetes-brasileirao/${item.capacete}`} alt="Logo" width={90} height={90} quality={100} />
+                                    <Image src={`/assets/brasileirao/logos-brasileirao/${item.logo}`} alt="Logo" width={25} height={25} quality={100} />
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             }
+            <Footer selectedButton={selectedButton} setSelectedButton={setSelectedButton} />
         </div>
     )
 }
