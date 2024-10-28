@@ -4,6 +4,7 @@ export type Team = {
     id: number,
     nome: string,
     sigla: string
+    cor?: string
     cidade: string,
     fundacao: string,
     logo: string,

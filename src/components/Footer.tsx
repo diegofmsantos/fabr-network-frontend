@@ -19,7 +19,7 @@ export const Footer = ({ selectedButton, setSelectedButton }: Props) => {
     }
 
     return (
-        <footer className="bg-[#DBDBDF] h-16 flex justify-center w-full fixed bottom-0">
+        <footer className="bg-[#DBDBDF] h-16 flex justify-center w-full fixed bottom-0 z-50">
             <div className="w-full h-full flex justify-center items-center">
                 <div className="flex-1 h-full bg-red-200">
                     <Button

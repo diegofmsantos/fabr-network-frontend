@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { Player } from '../../../types/player';  // Importando o tipo Player
 import { Team } from '../../../types/team';      // Importando o tipo Team
+import Link from 'next/link';
 
 // Função para buscar o jogador por ID
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
@@ -43,12 +44,12 @@ export default function JogadorPage() {
         <div>
             <header className="w-full h-32 bg-[#17181C] flex flex-col justify-center items-center gap-4">
                 <Image src={`/assets/logo-fabr-color.png`} width={100} height={100} alt="logo" />
-                <div className="flex justify-center items-center gap-4 mb-2">
+                <Link href={`/${currentTeam?.nome}`} className="flex justify-center items-center gap-4 mb-2">
                     <button className='flex justify-center items-center gap-2 border p-2 bg-white w-20 h-6 font-bold text-xs rounded-lg'>
                         <FontAwesomeIcon icon={faAngleLeft} />
-                        Times
+                        {currentTeam ? currentTeam.sigla : "Times"}
                     </button>
-                </div>
+                </Link>
             </header>
             <div className='p-2 bg-blue-700 h-32 flex flex-col gap-8'>
                 <Image src={`/assets/bfa/jogadores-bfa/${currentPlayer.foto}`} width={100} height={100} alt={`${currentPlayer.nome} foto`} />
