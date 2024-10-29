@@ -3,12 +3,13 @@ export type Player = {
     nome: string,
     time: string,
     posicao: string,
+    setor: string,
     numero: number,
     idade: number,
     altura: string,
     peso: number,
     cidade: string,
     nacionalidade: string,
-    foto: string
-    estatisticas?: object[]
+    camisa: string
+    estatisticas?: Object[]
 }

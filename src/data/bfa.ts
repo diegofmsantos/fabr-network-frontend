@@ -5,182 +5,348 @@ export const BFA: Team[] = [
         id: 1,
         nome: "Almirantes",
         sigla: 'ALM',
+        abreviacao:'',
         cor: '#00845D',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "almirantes.png",
         capacete: 'capacete-almirantes.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
         brasileirao: false,
+        jogadores: [
+
+        ],
     },
     {
         id: 2,
         nome: "América Locomotiva",
         sigla: 'AME',
-        cor: '#7538',
+        abreviacao:'',
+        cor: '#007538',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "america-locomotiva.png",
         capacete: 'capacete-america-locomotiva.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 3,
         nome: "Caruaru Wolves",
         sigla: 'WOL',
+        abreviacao:'',
         cor: '#FF3900',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "caruaru-wolves.png",
         capacete: 'capacete-caruaru-wolves.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 4,
         nome: "Cavalaria 2 de Julho",
         sigla: 'CAV',
+        abreviacao:'',
         cor: '#FFCD00',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "cavalaria-2-de-julho.png",
         capacete: 'capacete-cavalaria-2-de-julho.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 5,
         nome: "Cuiabá Arsenal",
         sigla: 'ARS',
+        abreviacao:'',
         cor: '#00412F',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "cuiaba-arsenal.png",
         capacete: 'capacete-cuiaba-arsenal.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 6,
         nome: "Fortaleza Tritões",
         sigla: 'FOR',
+        abreviacao:'',
         cor: '#000E4A',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "fortaleza-tritoes.png",
         capacete: 'capacete-fortaleza-tritoes.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 7,
         nome: "Galo",
         sigla: 'GAL',
+        abreviacao:'',
         cor: '#292929',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "galo.png",
         capacete: 'capacete-galo.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 8,
         nome: "Istepôs",
         sigla: 'IST',
+        abreviacao:'',
         cor: '#FF2E33',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "istepos.png",
         capacete: 'capacete-istepos.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 9,
         nome: "João Pessoa Espectros",
         sigla: 'ESP',
+        abreviacao:'',
         cor: '#FF0000',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "joao-pessoa-espectros.png",
         capacete: 'capacete-joao-pessoa-espectros.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 10,
         nome: "Manaus",
         sigla: 'MAN',
+        abreviacao:'',
         cor: '#00991C',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "manaus.png",
         capacete: 'capacete-manaus.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 11,
         nome: "Mossoró Petroleiros",
         sigla: 'PET',
+        abreviacao:'',
         cor: '#00AC9F',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "mossoro-petroleiros.png",
         capacete: 'capacete-mossoro-petroleiros.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 12,
         nome: "Porto Velho Miners",
         sigla: 'MIN',
+        abreviacao:'',
         cor: '#FFCE00',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "porto-velho-miners.png",
         capacete: 'capacete-porto-velho-miners.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 13,
         nome: "Recife Mariners",
         sigla: 'MAR',
+        abreviacao:'',
         cor: '#005AB9',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "recife-mariners.png",
         capacete: 'capacete-recife-mariners.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
         brasileirao: false,
         jogadores: [
             {
@@ -188,13 +354,14 @@ export const BFA: Team[] = [
                 nome: "Athos Daniel",
                 time: "Recife Mariners",
                 posicao: "TE",
+                setor: 'ataque',
                 numero: 0,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "athos.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_passadas: "100",
@@ -212,13 +379,14 @@ export const BFA: Team[] = [
                 nome: "Danillo Farias",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 1,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "danillo.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_recebidas: "100",
@@ -234,13 +402,14 @@ export const BFA: Team[] = [
                 nome: "Vinicius Moura",
                 time: "Recife Mariners",
                 posicao: "RB",
+                setor: 'ataque',
                 numero: 2,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "vinicius.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_corridas: "100",
@@ -256,13 +425,14 @@ export const BFA: Team[] = [
                 nome: "Pedro Brito",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 3,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -284,13 +454,14 @@ export const BFA: Team[] = [
                 nome: "Isaac James",
                 time: "Recife Mariners",
                 posicao: "CB/R",
+                setor: 'ataque',
                 numero: 4,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "athos.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_passadas: "100",
@@ -308,13 +479,14 @@ export const BFA: Team[] = [
                 nome: "Marcos Hercules",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 5,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "danillo.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_recebidas: "100",
@@ -330,13 +502,14 @@ export const BFA: Team[] = [
                 nome: "Oshay Dunmore",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 6,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "vinicius.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_corridas: "100",
@@ -352,13 +525,14 @@ export const BFA: Team[] = [
                 nome: "Pedro Henrique",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 7,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -380,13 +554,14 @@ export const BFA: Team[] = [
                 nome: "Davi Renan",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 9,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "athos.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_passadas: "100",
@@ -404,13 +579,14 @@ export const BFA: Team[] = [
                 nome: "Leonardo Fragoso",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 10,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "danillo.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_recebidas: "100",
@@ -426,13 +602,14 @@ export const BFA: Team[] = [
                 nome: "Alvaro Fadini",
                 time: "Recife Mariners",
                 posicao: "QB",
+                setor: 'ataque',
                 numero: 11,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "vinicius.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_corridas: "100",
@@ -448,13 +625,14 @@ export const BFA: Team[] = [
                 nome: "José Victor",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 13,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -476,13 +654,14 @@ export const BFA: Team[] = [
                 nome: "Renan Sousa",
                 time: "Recife Mariners",
                 posicao: "RB",
+                setor: 'ataque',
                 numero: 14,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "athos.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_passadas: "100",
@@ -500,13 +679,14 @@ export const BFA: Team[] = [
                 nome: "Sávio Pereira",
                 time: "Recife Mariners",
                 posicao: "QB",
+                setor: 'ataque',
                 numero: 16,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "danillo.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_recebidas: "100",
@@ -522,13 +702,14 @@ export const BFA: Team[] = [
                 nome: "Paulo Henrique Mota",
                 time: "Recife Mariners",
                 posicao: "K",
+                setor: 'ataque',
                 numero: 17,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "vinicius.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_corridas: "100",
@@ -544,13 +725,14 @@ export const BFA: Team[] = [
                 nome: "Michael Alves",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 18,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -572,13 +754,14 @@ export const BFA: Team[] = [
                 nome: "David Anderson",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 19,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "athos.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_passadas: "100",
@@ -596,13 +779,14 @@ export const BFA: Team[] = [
                 nome: "Iuri Borges",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 20,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "danillo.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_recebidas: "100",
@@ -618,13 +802,14 @@ export const BFA: Team[] = [
                 nome: "Erivelton Glosma",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 21,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "vinicius.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         jardas_corridas: "100",
@@ -640,13 +825,14 @@ export const BFA: Team[] = [
                 nome: "Vinicius Guerra",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 22,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -668,13 +854,14 @@ export const BFA: Team[] = [
                 nome: "Guilherme Bunn",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 23,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -696,13 +883,14 @@ export const BFA: Team[] = [
                 nome: "Pedro Accioly",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 25,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -724,13 +912,14 @@ export const BFA: Team[] = [
                 nome: "Marcelo Sherman",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 26,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -752,13 +941,14 @@ export const BFA: Team[] = [
                 nome: "Gustavo Frazão",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 27,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -780,13 +970,14 @@ export const BFA: Team[] = [
                 nome: "Douglas Soares",
                 time: "Recife Mariners",
                 posicao: "P",
+                setor: 'ataque',
                 numero: 29,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -808,13 +999,14 @@ export const BFA: Team[] = [
                 nome: "Eduardo Santos",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 30,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -836,13 +1028,14 @@ export const BFA: Team[] = [
                 nome: "Roberto de Lemos",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 31,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -864,13 +1057,14 @@ export const BFA: Team[] = [
                 nome: "Thomaz Beda",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 32,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -892,13 +1086,14 @@ export const BFA: Team[] = [
                 nome: "Erick Santos",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 33,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -920,13 +1115,14 @@ export const BFA: Team[] = [
                 nome: "Iuri Perrier",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 35,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -948,13 +1144,14 @@ export const BFA: Team[] = [
                 nome: "Felipe Xavier",
                 time: "Recife Mariners",
                 posicao: "RB",
+                setor: 'ataque',
                 numero: 38,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -976,13 +1173,14 @@ export const BFA: Team[] = [
                 nome: "Gabriel Benjamin",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 39,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1004,13 +1202,14 @@ export const BFA: Team[] = [
                 nome: "Ysrael Yoseph",
                 time: "Recife Mariners",
                 posicao: "CB",
+                setor: 'ataque',
                 numero: 40,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1032,13 +1231,14 @@ export const BFA: Team[] = [
                 nome: "Pedro Manoel",
                 time: "Recife Mariners",
                 posicao: "RB",
+                setor: 'ataque',
                 numero: 42,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1060,13 +1260,14 @@ export const BFA: Team[] = [
                 nome: "Lucas Adolfo",
                 time: "Recife Mariners",
                 posicao: "RB",
+                setor: 'ataque',
                 numero: 44,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "lucas-adolfo.jpeg",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1088,13 +1289,14 @@ export const BFA: Team[] = [
                 nome: "Igor Silvério",
                 time: "Recife Mariners",
                 posicao: "S",
+                setor: 'ataque',
                 numero: 48,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1116,13 +1318,14 @@ export const BFA: Team[] = [
                 nome: "Walber Sena",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 49,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1144,13 +1347,14 @@ export const BFA: Team[] = [
                 nome: "Felipe Siqueira",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 50,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1172,13 +1376,14 @@ export const BFA: Team[] = [
                 nome: "Marcelo Barbosa",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 51,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1200,13 +1405,14 @@ export const BFA: Team[] = [
                 nome: "Samuel Braz",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 52,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1228,13 +1434,14 @@ export const BFA: Team[] = [
                 nome: "Caio Vieira",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 53,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1256,13 +1463,14 @@ export const BFA: Team[] = [
                 nome: "Guilherme Costa",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 54,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1284,13 +1492,14 @@ export const BFA: Team[] = [
                 nome: "Tharcio Alves",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 55,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1312,13 +1521,14 @@ export const BFA: Team[] = [
                 nome: "João Neto",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 56,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1340,13 +1550,14 @@ export const BFA: Team[] = [
                 nome: "Gabriel Tavares",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 57,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1368,13 +1579,14 @@ export const BFA: Team[] = [
                 nome: "Rodolfo Henrique",
                 time: "Recife Mariners",
                 posicao: "LB",
+                setor: 'ataque',
                 numero: 58,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1396,13 +1608,14 @@ export const BFA: Team[] = [
                 nome: "Pedro Henrique Corrêa",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 59,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1424,13 +1637,14 @@ export const BFA: Team[] = [
                 nome: "Flávio Santos",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 62,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1452,13 +1666,14 @@ export const BFA: Team[] = [
                 nome: "Felipe José",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 64,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1480,13 +1695,14 @@ export const BFA: Team[] = [
                 nome: "David José",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 65,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1508,13 +1724,14 @@ export const BFA: Team[] = [
                 nome: "Ricardo Augusto",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 66,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1536,13 +1753,14 @@ export const BFA: Team[] = [
                 nome: "Bruno Sherman",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 68,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1564,13 +1782,14 @@ export const BFA: Team[] = [
                 nome: "Lenin Albuquerque",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 71,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1592,13 +1811,14 @@ export const BFA: Team[] = [
                 nome: "Breno Araujo",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 72,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1620,13 +1840,14 @@ export const BFA: Team[] = [
                 nome: "Alvaro Carneiro",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 73,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1648,13 +1869,14 @@ export const BFA: Team[] = [
                 nome: "Marcos Munhoz",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 75,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1676,13 +1898,14 @@ export const BFA: Team[] = [
                 nome: "Luan Caio",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 77,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1704,13 +1927,14 @@ export const BFA: Team[] = [
                 nome: "Josué Severino",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 78,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1732,13 +1956,14 @@ export const BFA: Team[] = [
                 nome: "Josimar Antônio",
                 time: "Recife Mariners",
                 posicao: "OL",
+                setor: 'ataque',
                 numero: 79,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1760,13 +1985,14 @@ export const BFA: Team[] = [
                 nome: "Vinicius Santiago",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 83,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1788,13 +2014,14 @@ export const BFA: Team[] = [
                 nome: "Alexsandro Costa",
                 time: "Recife Mariners",
                 posicao: "TE",
+                setor: 'ataque',
                 numero: 86,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1816,13 +2043,14 @@ export const BFA: Team[] = [
                 nome: "Jose Henrique",
                 time: "Recife Mariners",
                 posicao: "TE",
+                setor: 'ataque',
                 numero: 87,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1844,13 +2072,14 @@ export const BFA: Team[] = [
                 nome: "Akin Dagba",
                 time: "Recife Mariners",
                 posicao: "WR",
+                setor: 'ataque',
                 numero: 88,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1872,13 +2101,14 @@ export const BFA: Team[] = [
                 nome: "Pedro Morais",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 88,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1900,13 +2130,14 @@ export const BFA: Team[] = [
                 nome: "Victor José",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 91,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1928,13 +2159,14 @@ export const BFA: Team[] = [
                 nome: "Diogo Sales",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 92,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1956,13 +2188,14 @@ export const BFA: Team[] = [
                 nome: "Nelson Ferreira",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 93,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -1984,13 +2217,14 @@ export const BFA: Team[] = [
                 nome: "Matheus Bacalhau",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 94,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -2012,13 +2246,14 @@ export const BFA: Team[] = [
                 nome: "Gilberto Portela",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 96,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -2040,13 +2275,14 @@ export const BFA: Team[] = [
                 nome: "Tulio Albuquerque",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 97,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -2068,13 +2304,14 @@ export const BFA: Team[] = [
                 nome: "João Guilherme",
                 time: "Recife Mariners",
                 posicao: "DL",
+                setor: 'ataque',
                 numero: 99,
                 idade: 31,
                 altura: "1,73",
                 peso: 67,
                 cidade: "Recife",
-                nacionalidade: "brasileiro",
-                foto: "pedro.png",
+                nacionalidade: "brasil.png",
+                camisa: "camisa-recife-mariners.png",
                 estatisticas: [
                     {
                         sack: "1",
@@ -2097,112 +2334,216 @@ export const BFA: Team[] = [
         id: 14,
         nome: "Remo Lions",
         sigla: 'LIO',
+        abreviacao:'',
         cor: '#00112B',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "remo-lions.png",
         capacete: 'capacete-remo-lions.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 15,
         nome: "Rondonópolis Hawks",
         sigla: 'HAW',
-        cor: '#1743',
+        abreviacao:'',
+        cor: '#011D44',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "rondonopolis-hawks.png",
         capacete: 'capacete-rondonopolis-hawks.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 16,
         nome: "Santa Maria Soldiers",
         sigla: 'SOL',
+        abreviacao:'',
         cor: '#4B5238',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "santa-maria-soldiers.png",
         capacete: 'capacete-santa-maria-soldiers.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 17,
         nome: "Sergipe Redentores",
         sigla: 'RED',
+        abreviacao:'',
         cor: '#00C8B3',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "sergipe-redentores.png",
         capacete: 'capacete-sergipe-redentores.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 18,
         nome: "Sinop Coyotes",
         sigla: 'COY',
+        abreviacao:'',
         cor: '#C1090B',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "sinop-coyotes.png",
         capacete: 'capacete-sinop-coyotes.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 19,
         nome: "Timbó Rex",
         sigla: 'REX',
+        abreviacao:'',
         cor: '#FF0000',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "timbo-rex.png",
         capacete: 'capacete-timbo-rex.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 20,
         nome: "Tubarões do Cerrado",
         sigla: 'TUB',
-        cor: '#4389',
+        abreviacao:'',
+        cor: '#1F4586',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "tubaroes-do-cerrado.png",
         capacete: 'capacete-tubaroes-do-cerrado.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     },
     {
         id: 21,
         nome: "Vasco Almirantes",
         sigla: 'VAS',
-        cor: '#292929',
+        abreviacao:'',
+        cor: '#000',
         cidade: "Recife",
         fundacao: "01/01/2000",
         logo: "vasco-almirantes.png",
         capacete: 'capacete-vasco-almirantes.png',
-        background: "bg-recife-mariners.png",
-        conferencia: 1,
-        nacionais: 1,
-        brasileirao: false
+        titulos: [
+            {
+            nacionais: 1,
+            regionais: 1,
+            estaduais: 1
+            }
+        ],
+        estadio: '',
+        presidente: '',
+        head_coach: '',
+        coord_ofen: '',
+        coord_defen: '',
+        brasileirao: false,
+        jogadores: [
+
+        ]
     }
 ]

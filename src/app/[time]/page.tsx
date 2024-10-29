@@ -35,9 +35,14 @@ export default function Page() {
         <div>
             <div className='fixed w-full'>
                 <div className='p-4 w-full h-[450px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
-                    <Link href={'/'} className='absolute top-10 left-5 rounded-lg text-xs text-white p-1 bg-black/20'>{currentTeam.sigla} <FontAwesomeIcon icon={faAngleDown} /></Link>
+                    <Link
+                        href={'/'}
+                        className='absolute top-10 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20'>
+                        {currentTeam.sigla}
+                        <FontAwesomeIcon icon={faAngleDown} className='ml-1'/>
+                    </Link>
                     <div className='flex flex-col justify-center items-center mt-20'>
-                        <div className='text-[48px] w-48 text-white text-center px-2 font-extrabold italic leading-[35px] tracking-[-3px]'>{currentTeam.nome.toLocaleUpperCase()}</div>
+                        <div className='text-[48px] text-white text-center px-2 font-extrabold italic leading-[35px] tracking-[-3px]'>{currentTeam.nome.toLocaleUpperCase()}</div>
                         <div className='w-48 h-48 rotate-[15deg]'>
                             <Image
                                 src={capacetePath}
