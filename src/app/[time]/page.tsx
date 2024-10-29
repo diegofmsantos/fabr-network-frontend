@@ -1,45 +1,50 @@
 "use client";
 
-import { useParams } from 'next/navigation'
-import { BFA } from '../../data/bfa'
-import { Brasileirao } from '../../data/brasileirao'
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
+import { useParams } from 'next/navigation';
+import { BFA } from '../../data/bfa';
+import { Brasileirao } from '../../data/brasileirao';
+import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 import { ButtonTime } from '@/components/ui/buttonTime';
+import { useState } from 'react';
+import { ButtonSetor } from '@/components/ui/buttonSetor';
+import { Jogador } from '@/components/Jogador';
+import { Time } from '@/components/Time';
 
 export default function Page() {
+    const params = useParams();
+    const time = Array.isArray(params.time) ? params.time[0] : params.time;
 
-    const params = useParams()
-    const time = Array.isArray(params.time) ? params.time[0] : params.time
+    const timeBFA = BFA.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
+    const timeDataBrasileirao = Brasileirao.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
+    const currentTeam = timeBFA || timeDataBrasileirao;
 
-    // Encontra o time em BFA
-    const timeBFA = BFA.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase())
-
-    // Encontra o time em Brasileirao
-    const timeDataBrasileirao = Brasileirao.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase())
-
-    // Usa os dados do time encontrado
-    const currentTeam = timeBFA || timeDataBrasileirao
-
-    // Se currentTeam for undefined, exibe "Time não encontrado"
     if (!currentTeam) {
-        return <div>Time não encontrado</div>
+        return <div>Time não encontrado</div>;
     }
 
-    const logoPath = currentTeam.brasileirao ? `/assets/brasileirao/logos-brasileirao/${currentTeam.logo}` : `/assets/bfa/logos-bfa/${currentTeam.logo}`
-    const capacetePath = currentTeam.brasileirao ? `/assets/brasileirao/capacetes-brasileirao/${currentTeam.capacete}` : `/assets/bfa/capacetes-bfa/${currentTeam.capacete}`
+    const capacetePath = currentTeam.brasileirao
+        ? `/assets/brasileirao/capacetes-brasileirao/${currentTeam.capacete}`
+        : `/assets/bfa/capacetes-bfa/${currentTeam.capacete}`;
+
+    const [selectedButton, setSelectedButton] = useState("time");
+
+    const handleShowTime = () => setSelectedButton("time");
+    const handleShowJogadores = () => setSelectedButton("jogadores");
+
+    const [selectedSetor, setSelectedSetor] = useState("ATAQUE");
 
     return (
         <div>
-            <div className='fixed w-full'>
-                <div className='p-4 w-full h-[450px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
+            <div className='w-full fixed'>
+                <div className='p-4 w-full h-[400px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
                     <Link
                         href={'/'}
                         className='absolute top-10 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20'>
                         {currentTeam.sigla}
-                        <FontAwesomeIcon icon={faAngleDown} className='ml-1'/>
+                        <FontAwesomeIcon icon={faAngleDown} className='ml-1' />
                     </Link>
                     <div className='flex flex-col justify-center items-center mt-20'>
                         <div className='text-[48px] text-white text-center px-2 font-extrabold italic leading-[35px] tracking-[-3px]'>{currentTeam.nome.toLocaleUpperCase()}</div>
@@ -54,39 +59,58 @@ export default function Page() {
                         </div>
                     </div>
                     <div className='flex justify-between gap-8'>
-                        <ButtonTime label='TIME' />
-                        <ButtonTime label='JOGADORES' />
+                        <ButtonTime label='TIME' onClick={handleShowTime} isSelected={selectedButton === "time"} />
+                        <ButtonTime label='JOGADORES' onClick={handleShowJogadores} isSelected={selectedButton === "jogadores"} />
                     </div>
                 </div>
-                <section className='flex bg-white justify-between items-center px-3 text-3xl h-20 font-extrabold italic leading-[35px] tracking-[-2px]'>
-                    <div>ATAQUE</div>
-                    <div>DEFESA</div>
-                    <div>SPECIAL</div>
-                </section>
-                <div>
-                    <div className='py-1 px-4 flex justify-between items-center text-xs text-white' style={{ backgroundColor: currentTeam.cor }}>
-                        <div className='w-5'>#</div>
-                        <div className='w-[175px]'>Nome</div>
-                        <div className='w-12 flex justify-center items-center'>Posição</div>
-                        <div className='w-12 flex justify-center items-center'>Idade</div>
-                        <div className='w-12 flex justify-center items-center'>Altura</div>
-                        <div className='w-12 flex justify-center items-center'>Peso</div>
-                    </div>
-                </div>
-            </div>
-            <div className='pt-[553px]'>
-                {currentTeam.jogadores?.map(jogador => (
-                    <Link href={`/${time}/${jogador.id}`} key={jogador.id} className='flex justify-between items-center px-3 py-1 border-b text-sm'>
-                        <div className='w-5'>{jogador.numero}</div>
-                        <div className='w-[160px] pl-2'>{jogador.nome}</div>
-                        <div className='w-12 flex justify-center items-center'>{jogador.posicao}</div>
-                        <div className='w-12 flex justify-center items-center'>{jogador.idade}</div>
-                        <div className='w-12 flex justify-center items-center'>{jogador.altura}</div>
-                        <div className='w-12 flex justify-center items-center'>{jogador.peso}</div>
-                    </Link>
-                ))}
             </div>
 
+            {selectedButton === "jogadores" && (
+                <div className='pt-[400px]'>
+                    <div className='fixed'>
+                        <section className='flex py-5 px-3 bg-white justify-between items-center'>
+                            <ButtonSetor
+                                label="ATAQUE"
+                                borderColor={currentTeam.cor}
+                                isSelected={selectedSetor === "ATAQUE"}
+                                onClick={() => setSelectedSetor("ATAQUE")}
+                            />
+                            <ButtonSetor
+                                label="DEFESA"
+                                borderColor={currentTeam.cor}
+                                isSelected={selectedSetor === "DEFESA"}
+                                onClick={() => setSelectedSetor("DEFESA")}
+                            />
+                            <ButtonSetor
+                                label="SPECIAL"
+                                borderColor={currentTeam.cor}
+                                isSelected={selectedSetor === "SPECIAL"}
+                                onClick={() => setSelectedSetor("SPECIAL")}
+                            />
+                        </section>
+
+                        <div className=''>
+                            <div className='py-1 px-4 flex justify-between items-center text-xs text-white' style={{ backgroundColor: currentTeam.cor }}>
+                                <div className='w-5'>#</div>
+                                <div className='w-[175px]'>Nome</div>
+                                <div className='w-12 flex justify-center items-center'>Posição</div>
+                                <div className='w-12 flex justify-center items-center'>Idade</div>
+                                <div className='w-12 flex justify-center items-center'>Altura</div>
+                                <div className='w-12 flex justify-center items-center'>Peso</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='mt-[100px]'>
+                        <Jogador currentTeam={currentTeam} />
+                    </div>
+                </div>
+            )}
+
+            {selectedButton === "time" && (
+                <div className='pt-[405px]'>
+                    <Time currentTeam={currentTeam} />
+                </div>
+            )}
         </div>
     );
 }

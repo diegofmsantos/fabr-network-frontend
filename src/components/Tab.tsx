@@ -5,10 +5,10 @@ import { Button } from "./ui/button"
 
 type Props = {
     selectedButton: 'bfa' | 'brasileirao'
-    setSelectedButton: (vaue: 'bfa' | 'brasileirao') => void
+    setSelectedButton: (value: 'bfa' | 'brasileirao') => void
 }
 
-export const Footer = ({ selectedButton, setSelectedButton }: Props) => {
+export const Tab = ({ selectedButton, setSelectedButton }: Props) => {
 
     const handleShowBfa = () => {
         setSelectedButton('bfa')

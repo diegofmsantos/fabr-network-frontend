@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { Player } from '../../../types/player'
 import { Team } from '../../../types/team'
-import Link from 'next/link'
 
 // Função para buscar o jogador por ID
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
@@ -25,7 +24,7 @@ const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time:
 
 export default function JogadorPage() {
     const params = useParams()
-    const router = useRouter(); // Hook para navegação
+    const router = useRouter()
     const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
 
     // Busca o jogador no BFA e no Brasileirao
@@ -52,8 +51,9 @@ export default function JogadorPage() {
                     className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
+                <div className='text-white font-bold text-xs mb-4'>{currentTeam?.nome}</div>
                 <div className='flex justify-center items-end'>
-                    <div className='flex flex-col justify-around items-start'>
+                    <div className='flex flex-col items-start'>
                         <div className='text-[34px] text-white px-2 font-extrabold italic leading-[45px] tracking-[-3px]'>
                             {currentPlayer.nome}
                         </div>
@@ -80,33 +80,124 @@ export default function JogadorPage() {
                     </div>
                 </div>
             </div>
-            <div className='flex justify-around my-7'>
-                <button
-                    className='w-36 h-10 flex flex-col justify-center items-center text-md font-bold rounded-md text-white' style={{ backgroundColor: currentTeam?.cor }}
-                >BIO
-                </button>
-                <button
-                    className='w-36 h-10 flex flex-col justify-center items-center text-md font-bold rounded-md text-white' style={{ backgroundColor: currentTeam?.cor }}
-                >ESTATÍSTICAS
-                </button>
-            </div>
-            <div className="p-4">
-                <h2 className="text-xl font-bold">Dados do Jogador</h2>
-                <p>Posição: {currentPlayer.posicao}</p>
-                <p>Idade: {currentPlayer.idade}</p>
-                <p>Altura: {currentPlayer.altura}</p>
-                <p>Peso: {currentPlayer.peso} kg</p>
-                <p>Cidade: {currentPlayer.cidade}</p>
-                <p>Nacionalidade: {currentPlayer.nacionalidade}</p>
-
-                <h3 className="text-lg font-bold mt-4">Estatísticas</h3>
-                {currentPlayer.estatisticas?.map((estatistica, index) => (
-                    <div key={index}>
-                        {Object.entries(estatistica).map(([key, value]) => (
-                            <p key={key}>{`${key.replace('_', ' ')}: ${value}`}</p>
-                        ))}
+            <div className='p-4 flex flex-col gap-8'>
+                <div>
+                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
+                        style={{ backgroundColor: currentTeam?.cor }}>BIO</div>
+                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                        <div className="border-b border-black/40 flex justify-start gap-28">
+                            <div>
+                                <div className="text-sm">PESO</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">ALTURA</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
+                            </div>
+                        </div>
+                        <div className="border-b border-black/40 flex justify-start gap-28">
+                            <div>
+                                <div className="text-sm">IDADE</div>
+                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">CIDADE</div>
+                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
+                            </div>
+                        </div>
+                        <div className='flex justify-start gap-20'>
+                            <div>
+                                <div className="text-sm">EXPERIÊNCIA</div>
+                                <div className="text-xl font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">TIME FORMADOR</div>
+                                <div className='flex gap-2 items-center'>
+                                    <div className="text-lg font-extrabold italic">{currentTeam?.nome}</div>
+                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                ))}
+                </div>
+                <div>
+                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                        style={{ backgroundColor: currentTeam?.cor }}>ESTATÍSTICAS</div>
+                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                        <div className="border-b border-black/40 flex justify-start gap-28">
+                            <div>
+                                <div className="text-sm">PESO</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">ALTURA</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
+                            </div>
+                        </div>
+                        <div className="border-b border-black/40 flex justify-start gap-28">
+                            <div>
+                                <div className="text-sm">IDADE</div>
+                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">CIDADE</div>
+                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
+                            </div>
+                        </div>
+                        <div className='flex justify-start gap-20'>
+                            <div>
+                                <div className="text-sm">EXPERIÊNCIA</div>
+                                <div className="text-xl font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">TIME FORMADOR</div>
+                                <div className='flex gap-2 items-center'>
+                                    <div className="text-lg font-extrabold italic">{currentTeam?.nome}</div>
+                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                        style={{ backgroundColor: currentTeam?.cor }}>ESTATÍSTICAS</div>
+                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                        <div className="border-b border-black/40 flex justify-start gap-28">
+                            <div>
+                                <div className="text-sm">PESO</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">ALTURA</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
+                            </div>
+                        </div>
+                        <div className="border-b border-black/40 flex justify-start gap-28">
+                            <div>
+                                <div className="text-sm">IDADE</div>
+                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">CIDADE</div>
+                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
+                            </div>
+                        </div>
+                        <div className='flex justify-start gap-20'>
+                            <div>
+                                <div className="text-sm">EXPERIÊNCIA</div>
+                                <div className="text-xl font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
+                            </div>
+                            <div>
+                                <div className="text-sm">TIME FORMADOR</div>
+                                <div className='flex gap-2 items-center'>
+                                    <div className="text-lg font-extrabold italic">{currentTeam?.nome}</div>
+                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

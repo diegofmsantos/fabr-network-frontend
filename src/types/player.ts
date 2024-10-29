@@ -4,6 +4,7 @@ export type Player = {
     time: string,
     posicao: string,
     setor: string,
+    experiencia: number
     numero: number,
     idade: number,
     altura: string,

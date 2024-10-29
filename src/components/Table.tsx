@@ -4,7 +4,7 @@ import { BFA } from "@/data/bfa"
 import { Brasileirao } from "@/data/brasileirao"
 import Image from "next/image"
 import Link from "next/link"
-import { Footer } from "./Footer"
+import { Tab } from "./Tab"
 import { useState } from "react"
 
 export const Table = () => {
@@ -36,7 +36,7 @@ export const Table = () => {
                                 ></div>
 
                                 {/* Conteúdo principal */}
-                                <div className="relative text-center text-[31px] font-extrabold italic z-10">
+                                <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[22px] min-[400px]:text-[31px] md:text-[45px]">
                                     <div>{item.sigla}</div>
                                     <div className="flex flex-col -mt-6 justify-center items-center gap-2 min-h-28 p-2">
                                         <Image src={`/assets/bfa/capacetes-bfa/${item.capacete}`} alt="Logo" width={90} height={90} quality={100} />
@@ -71,7 +71,7 @@ export const Table = () => {
                                 ></div>
 
                                 {/* Conteúdo principal */}
-                                <div className="relative text-center text-[31px] font-extrabold italic z-10">
+                                <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[22px] min-[400px]:text-[31px] md:text-[45px]">
                                     <div>{item.sigla}</div>
                                     <div className="flex flex-col -mt-6 justify-center items-center gap-2 min-h-28 p-2">
                                         <Image src={`/assets/brasileirao/capacetes-brasileirao/${item.capacete}`} alt="Logo" width={90} height={90} quality={100} />
@@ -83,7 +83,7 @@ export const Table = () => {
                     </div>
                 </div>
             }
-            <Footer selectedButton={selectedButton} setSelectedButton={setSelectedButton} />
+            <Tab selectedButton={selectedButton} setSelectedButton={setSelectedButton} />
         </div>
     )
 }

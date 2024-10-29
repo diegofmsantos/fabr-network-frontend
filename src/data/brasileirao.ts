@@ -13,9 +13,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-brown-spiders.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -25,7 +25,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ],
     },
     {
@@ -40,9 +40,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-corinthians-steamrollers.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -52,7 +52,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -67,9 +67,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-coritiba-crocodiles.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -79,7 +79,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -94,9 +94,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-cruzeiro.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -106,7 +106,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -121,9 +121,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-flamengo-imperadores.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -133,7 +133,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -148,9 +148,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-gama-leoes-de-juda.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -160,7 +160,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -175,9 +175,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-guarulhos-rhynos.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -187,7 +187,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -202,9 +202,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-moura-lacerda-dragons.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -214,7 +214,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -229,9 +229,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-parana-hp.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -241,7 +241,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -256,9 +256,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-rio-preto-weilers.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -268,7 +268,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -283,9 +283,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-six-spartans.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -295,7 +295,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     },
     {
@@ -310,9 +310,9 @@ export const Brasileirao: Team[] = [
         capacete: 'capacete-tritoes.png',
         titulos: [
             {
-                nacionais: 1,
-                regionais: 1,
-                estaduais: 1
+                nacionais: "0",
+                regionais: "0",
+                estaduais: "0"
             }
         ],
         estadio: '',
@@ -322,7 +322,7 @@ export const Brasileirao: Team[] = [
         coord_defen: '',
         brasileirao: true,
         jogadores: [
-            
+
         ]
     }
 ]
