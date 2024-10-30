@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useParams } from 'next/navigation';
 import { BFA } from '../../data/bfa';
@@ -16,7 +16,6 @@ import { Time } from '@/components/Time';
 export default function Page() {
     const params = useParams();
     const time = Array.isArray(params.time) ? params.time[0] : params.time;
-
     const timeBFA = BFA.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
     const timeDataBrasileirao = Brasileirao.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
     const currentTeam = timeBFA || timeDataBrasileirao;
@@ -30,7 +29,6 @@ export default function Page() {
         : `/assets/bfa/capacetes-bfa/${currentTeam.capacete}`;
 
     const [selectedButton, setSelectedButton] = useState("time");
-
     const handleShowTime = () => setSelectedButton("time");
     const handleShowJogadores = () => setSelectedButton("jogadores");
 
@@ -66,9 +64,9 @@ export default function Page() {
             </div>
 
             {selectedButton === "jogadores" && (
-                <div className='pt-[400px]'>
-                    <div className='fixed'>
-                        <section className='flex py-5 px-3 bg-white justify-between items-center'>
+                <div className="pt-[400px]">
+                    <div className="fixed">
+                        <section className="flex py-5 px-3 bg-white justify-between items-center">
                             <ButtonSetor
                                 label="ATAQUE"
                                 borderColor={currentTeam.cor}
@@ -89,19 +87,22 @@ export default function Page() {
                             />
                         </section>
 
-                        <div className=''>
-                            <div className='py-1 px-4 flex justify-between items-center text-xs text-white' style={{ backgroundColor: currentTeam.cor }}>
-                                <div className='w-5'>#</div>
-                                <div className='w-[175px]'>Nome</div>
-                                <div className='w-12 flex justify-center items-center'>Posição</div>
-                                <div className='w-12 flex justify-center items-center'>Idade</div>
-                                <div className='w-12 flex justify-center items-center'>Altura</div>
-                                <div className='w-12 flex justify-center items-center'>Peso</div>
+                        <div>
+                            <div
+                                className="py-1 px-4 flex justify-between items-center text-xs text-white"
+                                style={{ backgroundColor: currentTeam.cor }}
+                            >
+                                <div className="w-5">#</div>
+                                <div className="w-[175px]">Nome</div>
+                                <div className="w-12 flex justify-center items-center">Posição</div>
+                                <div className="w-12 flex justify-center items-center">Idade</div>
+                                <div className="w-12 flex justify-center items-center">Altura</div>
+                                <div className="w-12 flex justify-center items-center">Peso</div>
                             </div>
                         </div>
                     </div>
-                    <div className='mt-[100px]'>
-                        <Jogador currentTeam={currentTeam} />
+                    <div className="mt-[104px]">
+                        <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
                     </div>
                 </div>
             )}

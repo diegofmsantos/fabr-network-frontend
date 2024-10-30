@@ -3,7 +3,7 @@ export type Player = {
     nome: string,
     time: string,
     posicao: string,
-    setor: string,
+    setor: "Ataque" | "Defesa" | "Special",
     experiencia: number
     numero: number,
     idade: number,
