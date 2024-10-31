@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useParams } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { BFA } from '../../data/bfa';
 import { Brasileirao } from '../../data/brasileirao';
 import Image from 'next/image';
@@ -8,13 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { ButtonTime } from '@/components/ui/buttonTime';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonSetor } from '@/components/ui/buttonSetor';
 import { Jogador } from '@/components/Jogador';
 import { Time } from '@/components/Time';
 
 export default function Page() {
     const params = useParams();
+    const router = useRouter();
+    const searchParams = useSearchParams();
     const time = Array.isArray(params.time) ? params.time[0] : params.time;
     const timeBFA = BFA.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
     const timeDataBrasileirao = Brasileirao.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
@@ -28,11 +30,22 @@ export default function Page() {
         ? `/assets/brasileirao/capacetes-brasileirao/${currentTeam.capacete}`
         : `/assets/bfa/capacetes-bfa/${currentTeam.capacete}`;
 
-    const [selectedButton, setSelectedButton] = useState("time");
-    const handleShowTime = () => setSelectedButton("time");
-    const handleShowJogadores = () => setSelectedButton("jogadores");
-
+    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
     const [selectedSetor, setSelectedSetor] = useState("ATAQUE");
+
+    useEffect(() => {
+        setSelectedButton(searchParams.get("show") || "time");
+    }, [searchParams]);
+
+    const handleShowTime = () => {
+        router.replace(`?show=time`);
+        setSelectedButton("time");
+    };
+
+    const handleShowJogadores = () => {
+        router.replace(`?show=jogadores`);
+        setSelectedButton("jogadores");
+    };
 
     return (
         <div>
@@ -64,7 +77,7 @@ export default function Page() {
             </div>
 
             {selectedButton === "jogadores" && (
-                <div className="pt-[400px]">
+                <div className="pt-[400px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
                     <div className="fixed">
                         <section className="flex py-5 px-3 bg-white justify-between items-center">
                             <ButtonSetor
@@ -87,9 +100,9 @@ export default function Page() {
                             />
                         </section>
 
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div
-                                className="py-1 px-4 flex justify-between items-center text-xs text-white"
+                                className="w-screen py-1 px-4 flex justify-between items-center text-xs text-white md:text-[14px] md:h-7 xl:h-10 xl:text-lg xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto"
                                 style={{ backgroundColor: currentTeam.cor }}
                             >
                                 <div className="w-5">#</div>
@@ -101,7 +114,7 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-[104px]">
+                    <div className="mt-[104px] xl:mt-[123px] xl:border">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
                     </div>
                 </div>

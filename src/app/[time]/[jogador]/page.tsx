@@ -45,20 +45,20 @@ export default function JogadorPage() {
 
     return (
         <div>
-            <div className='px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam?.cor }}>
+            <div className='px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px]' style={{ backgroundColor: currentTeam?.cor }}>
                 <button
-                    onClick={() => router.back()} // Volta para a página anterior
+                    onClick={() => router.back()} 
                     className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
-                <div className='text-white font-bold text-xs mb-4'>{currentTeam?.nome}</div>
-                <div className='flex justify-center items-end'>
+                <div className='text-white font-bold text-xs mb-4 md:pt-4'>{currentTeam?.nome}</div>
+                <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
                     <div className='flex flex-col items-start'>
-                        <div className='text-[32px] text-white px-2 font-extrabold italic leading-[45px] tracking-[-3px]'>
+                        <div className='text-[32px] text-white px-2 font-extrabold italic leading-[45px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
                             {currentPlayer.nome}
                         </div>
                         <div className='flex items-center gap-2'>
-                            <div className='text-[34px] text-white text-center px-2 font-extrabold italic tracking-[-3px]'>
+                            <div className='text-[34px] text-white text-center px-2 font-extrabold italic tracking-[-3px] md:text-4xl'>
                                 {currentPlayer.posicao}
                             </div>
                             <div>
@@ -69,51 +69,51 @@ export default function JogadorPage() {
                             <Image src={logopath} alt='logo' width={100} height={100} quality={70} />
                         </div>
                     </div>
-                    <div className='min-w-48 min-h-48'>
+                    <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-72 md:min-h-72 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
                         <Image
                             src={camisasPath}
                             alt={`${currentTeam?.nome} camisa`}
-                            width={200}
-                            height={200}
+                            width={250}
+                            height={250}
                             quality={100}
                         />
                     </div>
                 </div>
             </div>
             <div className='p-4 flex flex-col gap-8'>
-                <div>
+                <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                     <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                         style={{ backgroundColor: currentTeam?.cor }}>BIO</div>
                     <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg">
                         <div className="border-b border-black/40 flex justify-start gap-24">
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm">PESO</div>
+                                <div className="text-sm md:text-lg">PESO</div>
                                 <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
                             </div>
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm">ALTURA</div>
+                                <div className="text-sm md:text-lg">ALTURA</div>
                                 <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura.toFixed(2).replace('.', ',')}</div>
                             </div>
                         </div>
                         <div className="border-b border-black/40 flex justify-start gap-24">
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-sm font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                                <div className="text-sm md:text-lg">IDADE</div>
+                                <div className="text-sm font-extrabold italic mb-1 md:text-lg">{currentPlayer.idade}</div>
                             </div>
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-sm font-extrabold italic mb-1">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
+                                <div className="text-sm md:text-lg">CIDADE</div>
+                                <div className="text-sm font-extrabold italic mb-1 md:text-lg">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
                             </div>
                         </div>
                         <div className='flex justify-start gap-24'>
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-sm font-extrabold italic">-</div>
+                                <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
+                                <div className="text-sm font-extrabold italic md:text-lg">-</div>
                             </div>
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm">TIME FORMADOR</div>
+                                <div className="text-sm md:text-lg">TIME FORMADOR</div>
                                 <div className='flex gap-2 items-center'>
-                                    <div className="text-sm font-extrabold italic">{currentTeam?.nome.toLocaleUpperCase()}</div>
+                                    <div className="text-sm font-extrabold italic md:text-lg">{currentTeam?.nome.toLocaleUpperCase()}</div>
                                 </div>
                             </div>
                         </div>
@@ -129,20 +129,20 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.passe.fumble_de_passador > 0
                     ) &&
                     (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS(PASSE)
                             </div>
-                            <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg">
+                            <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg lg:p-6">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">PASSES(COMP/TENT)</div>
+                                        <div className="text-xs md:text-lg">PASSES(COMP/TENT)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.passe.passes_completos}/{currentPlayer.estatisticas.passe.passes_tentados}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">PASSES(%)</div>
+                                        <div className="text-xs md:text-lg">PASSES(%)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {(
                                                 (currentPlayer.estatisticas.passe.passes_completos / currentPlayer.estatisticas.passe.passes_tentados) * 100
@@ -152,13 +152,13 @@ export default function JogadorPage() {
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-xs md:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.passe.jardas_de_passe}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-xs md:text-lg">JARDAS (AVG)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {(currentPlayer.estatisticas.passe.jardas_de_passe / currentPlayer.estatisticas.passe.passes_tentados)
                                                 .toFixed(2)
@@ -168,13 +168,13 @@ export default function JogadorPage() {
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-xs md:text-lg">TOUCHDOWNS</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.td_passados}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">INTERCEPTAÇÕES</div>
+                                        <div className="text-xs md:text-lg">INTERCEPTAÇÕES</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.interceptacoes_sofridas}
                                         </div>
@@ -182,13 +182,13 @@ export default function JogadorPage() {
                                 </div>
                                 <div className='flex justify-start gap-28'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">SACKS</div>
+                                        <div className="text-xs md:text-lg">SACKS</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.sacks_sofridos}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-xs md:text-lg">FUMBLES</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.fumble_de_passador}
                                         </div>
@@ -207,7 +207,7 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.corrida.tds_corridos > 0 ||
                         currentPlayer.estatisticas.corrida.fumble_de_corredor > 0
                     ) && (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div
                                 className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}
@@ -266,7 +266,7 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.recepcao.alvo > 0 ||
                         currentPlayer.estatisticas.recepcao.fumble_de_recebedor > 0
                     ) && (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS(RECEPÇÃO)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
@@ -319,7 +319,7 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.retorno.td_retornados > 0 ||
                         currentPlayer.estatisticas.retorno.fumble_retornador > 0
                     ) && (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS(RETORNO)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
@@ -355,7 +355,7 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.defesa.td_defensivo > 0
                     ) &&
                     (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS(DEFESA)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
@@ -417,7 +417,7 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.kicker.fg_41_50 !== ""
                     ) &&
                     (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS(KICKER)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
@@ -510,7 +510,7 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.punter.punts > 0 ||
                         currentPlayer.estatisticas.punter.jardas_de_punt > 0
                     ) && (
-                        <div>
+                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS(PUNTER)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">

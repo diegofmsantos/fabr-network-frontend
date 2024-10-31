@@ -1,223 +1,16 @@
 import { Team } from "@/types/team";
 
-export const BFA: Team[] = [
-    {
-        id: 1,
-        nome: "Almirantes",
-        sigla: 'ALM',
-        cor: '#00845D',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "almirantes.png",
-        capacete: 'capacete-almirantes.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
+export const Rex: Team[] = [
 
-        ],
-    },
     {
-        id: 2,
-        nome: "América Locomotiva",
-        sigla: 'AME',
-        cor: '#007538',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "america-locomotiva.png",
-        capacete: 'capacete-america-locomotiva.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 3,
-        nome: "Caruaru Wolves",
-        sigla: 'WOL',
-        cor: '#FF3900',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "caruaru-wolves.png",
-        capacete: 'capacete-caruaru-wolves.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 4,
-        nome: "Cavalaria 2 de Julho",
-        sigla: 'CAV',
-        cor: '#FFCD00',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "cavalaria-2-de-julho.png",
-        capacete: 'capacete-cavalaria-2-de-julho.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 5,
-        nome: "Cuiabá Arsenal",
-        sigla: 'ARS',
-        cor: '#00412F',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "cuiaba-arsenal.png",
-        capacete: 'capacete-cuiaba-arsenal.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 6,
-        nome: "Fortaleza Tritões",
-        sigla: 'FOR',
-        cor: '#000E4A',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "fortaleza-tritoes.png",
-        capacete: 'capacete-fortaleza-tritoes.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 7,
-        nome: "Galo",
-        sigla: 'GAL',
-        cor: '#292929',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "galo.png",
-        capacete: 'capacete-galo.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 8,
-        nome: "Istepôs",
-        sigla: 'IST',
-        cor: '#FF2E33',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "istepos.png",
-        capacete: 'capacete-istepos.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 9,
-        nome: "João Pessoa Espectros",
-        sigla: 'ESP',
+        id: 19,
+        nome: "Timbó Rex",
+        sigla: 'REX',
         cor: '#FF0000',
-        cidade: "Recife/PE",
+        cidade: "Timbó/SC",
         fundacao: "01/01/2000",
-        logo: "joao-pessoa-espectros.png",
-        capacete: 'capacete-joao-pessoa-espectros.png',
+        logo: "timbo-rex.png",
+        capacete: 'capacete-timbo-rex.png',
         titulos: [
             {
                 nacionais: "",
@@ -230,116 +23,12 @@ export const BFA: Team[] = [
         head_coach: '',
         coord_ofen: '',
         coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 10,
-        nome: "Manaus",
-        sigla: 'MAN',
-        cor: '#00991C',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "manaus.png",
-        capacete: 'capacete-manaus.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 11,
-        nome: "Mossoró Petroleiros",
-        sigla: 'PET',
-        cor: '#00AC9F',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "mossoro-petroleiros.png",
-        capacete: 'capacete-mossoro-petroleiros.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 12,
-        nome: "Porto Velho Miners",
-        sigla: 'MIN',
-        cor: '#FFCE00',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "porto-velho-miners.png",
-        capacete: 'capacete-porto-velho-miners.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 13,
-        nome: "Recife Mariners",
-        sigla: 'MAR',
-        cor: '#005AB9',
-        cidade: "Recife/PE",
-        fundacao: "19/12/2006",
-        logo: "recife-mariners.png",
-        capacete: 'capacete-recife-mariners.png',
-        titulos: [
-            {
-                nacionais: "0",
-                regionais: "2x (2023, 2024)",
-                estaduais: "1x (2017)"
-            }
-        ],
-        estadio: 'Arruda',
-        presidente: 'Roberto Lemos',
-        head_coach: 'Lucas David',
-        coord_ofen: 'Alex Kirby',
-        coord_defen: 'Heitor Medeiros',
         brasileirao: false,
         jogadores: [
             {
                 id: 1,
                 nome: "Athos Daniel",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "TE",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -347,9 +36,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.90,
                 peso: 105,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -409,7 +98,7 @@ export const BFA: Team[] = [
             {
                 id: 2,
                 nome: "Danillo Farias",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "WR",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -417,9 +106,9 @@ export const BFA: Team[] = [
                 idade: 32,
                 altura: 1.78,
                 peso: 77,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -479,7 +168,7 @@ export const BFA: Team[] = [
             {
                 id: 3,
                 nome: "Vinicius Moura",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "RB",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -487,9 +176,9 @@ export const BFA: Team[] = [
                 idade: 25,
                 altura: 1.71,
                 peso: 99,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -549,7 +238,7 @@ export const BFA: Team[] = [
             {
                 id: 4,
                 nome: "Pedro Brito",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -557,9 +246,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.83,
                 peso: 67,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -619,7 +308,7 @@ export const BFA: Team[] = [
             {
                 id: 5,
                 nome: "Isaac James",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB/R",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -627,9 +316,9 @@ export const BFA: Team[] = [
                 idade: 27,
                 altura: 1.83,
                 peso: 90,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 1,
@@ -689,7 +378,7 @@ export const BFA: Team[] = [
             {
                 id: 6,
                 nome: "Marcos Hercules",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "DL",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -697,9 +386,9 @@ export const BFA: Team[] = [
                 idade: 32,
                 altura: 1.91,
                 peso: 106,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -759,7 +448,7 @@ export const BFA: Team[] = [
             {
                 id: 7,
                 nome: "Oshay Dunmore",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -767,9 +456,9 @@ export const BFA: Team[] = [
                 idade: 30,
                 altura: 1.95,
                 peso: 96,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -829,7 +518,7 @@ export const BFA: Team[] = [
             {
                 id: 8,
                 nome: "Pedro Henrique",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -837,9 +526,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.73,
                 peso: 83,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -899,7 +588,7 @@ export const BFA: Team[] = [
             {
                 id: 9,
                 nome: "Davi Renan",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -907,9 +596,9 @@ export const BFA: Team[] = [
                 idade: 30,
                 altura: 1.80,
                 peso: 92,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -969,7 +658,7 @@ export const BFA: Team[] = [
             {
                 id: 10,
                 nome: "Leonardo Fragoso",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "WR",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -977,9 +666,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.88,
                 peso: 90,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1039,7 +728,7 @@ export const BFA: Team[] = [
             {
                 id: 11,
                 nome: "Alvaro Fadini",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "QB",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -1047,9 +736,9 @@ export const BFA: Team[] = [
                 idade: 37,
                 altura: 1.91,
                 peso: 105,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 91,
@@ -1109,7 +798,7 @@ export const BFA: Team[] = [
             {
                 id: 12,
                 nome: "José Victor",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "WR",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -1117,9 +806,9 @@ export const BFA: Team[] = [
                 idade: 32,
                 altura: 1.74,
                 peso: 81,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1179,7 +868,7 @@ export const BFA: Team[] = [
             {
                 id: 13,
                 nome: "Renan Sousa",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "RB",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -1189,7 +878,7 @@ export const BFA: Team[] = [
                 peso: 74,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1249,7 +938,7 @@ export const BFA: Team[] = [
             {
                 id: 14,
                 nome: "Sávio Pereira",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "QB",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -1259,7 +948,7 @@ export const BFA: Team[] = [
                 peso: 80,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1319,7 +1008,7 @@ export const BFA: Team[] = [
             {
                 id: 15,
                 nome: "Paulo Henrique Mota",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "K",
                 setor: 'Special',
                 experiencia: 0,
@@ -1329,7 +1018,7 @@ export const BFA: Team[] = [
                 peso: 65,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1389,7 +1078,7 @@ export const BFA: Team[] = [
             {
                 id: 16,
                 nome: "Michael Alves",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "WR",
                 setor: 'Ataque',
                 experiencia: 0,
@@ -1399,7 +1088,7 @@ export const BFA: Team[] = [
                 peso: 70,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1459,7 +1148,7 @@ export const BFA: Team[] = [
             {
                 id: 17,
                 nome: "David Anderson",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -1467,9 +1156,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.80,
                 peso: 73,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1529,7 +1218,7 @@ export const BFA: Team[] = [
             {
                 id: 18,
                 nome: "Iuri Borges",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: 'Defesa',
                 experiencia: 0,
@@ -1537,9 +1226,9 @@ export const BFA: Team[] = [
                 idade: 33,
                 altura: 1.67,
                 peso: 72,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1599,7 +1288,7 @@ export const BFA: Team[] = [
             {
                 id: 19,
                 nome: "Erivelton Glosma",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -1607,9 +1296,9 @@ export const BFA: Team[] = [
                 idade: 21,
                 altura: 1.80,
                 peso: 82,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1669,7 +1358,7 @@ export const BFA: Team[] = [
             {
                 id: 20,
                 nome: "Vinicius Guerra",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -1677,9 +1366,9 @@ export const BFA: Team[] = [
                 idade: 25,
                 altura: 1.70,
                 peso: 85,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1739,7 +1428,7 @@ export const BFA: Team[] = [
             {
                 id: 21,
                 nome: "Guilherme Bunn",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -1747,9 +1436,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.73,
                 peso: 83,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1809,7 +1498,7 @@ export const BFA: Team[] = [
             {
                 id: 22,
                 nome: "Pedro Accioly",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -1817,9 +1506,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.86,
                 peso: 102,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1879,7 +1568,7 @@ export const BFA: Team[] = [
             {
                 id: 23,
                 nome: "Marcelo Sherman",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -1887,9 +1576,9 @@ export const BFA: Team[] = [
                 idade: 32,
                 altura: 1.82,
                 peso: 98,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -1949,7 +1638,7 @@ export const BFA: Team[] = [
             {
                 id: 24,
                 nome: "Gustavo Frazão",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -1957,9 +1646,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.76,
                 peso: 93,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2019,7 +1708,7 @@ export const BFA: Team[] = [
             {
                 id: 25,
                 nome: "Douglas Soares",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "P",
                 setor: "Special",
                 experiencia: 0,
@@ -2027,9 +1716,9 @@ export const BFA: Team[] = [
                 idade: 30,
                 altura: 1.89,
                 peso: 130,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2089,7 +1778,7 @@ export const BFA: Team[] = [
             {
                 id: 26,
                 nome: "Eduardo Santos",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2097,9 +1786,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.83,
                 peso: 84,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2159,7 +1848,7 @@ export const BFA: Team[] = [
             {
                 id: 27,
                 nome: "Roberto de Lemos",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2167,9 +1856,9 @@ export const BFA: Team[] = [
                 idade: 29,
                 altura: 1.75,
                 peso: 91,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2229,7 +1918,7 @@ export const BFA: Team[] = [
             {
                 id: 28,
                 nome: "Thomaz Beda",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2237,9 +1926,9 @@ export const BFA: Team[] = [
                 idade: 28,
                 altura: 1.81,
                 peso: 81,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2299,7 +1988,7 @@ export const BFA: Team[] = [
             {
                 id: 29,
                 nome: "Erick Santos",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2307,9 +1996,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.83,
                 peso: 93,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2369,7 +2058,7 @@ export const BFA: Team[] = [
             {
                 id: 30,
                 nome: "Felipe Xavier",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "RB",
                 setor: "Ataque",
                 experiencia: 0,
@@ -2377,9 +2066,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.75,
                 peso: 105,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2439,7 +2128,7 @@ export const BFA: Team[] = [
             {
                 id: 31,
                 nome: "Gabriel Benjamin",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2447,9 +2136,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.83,
                 peso: 80,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2509,7 +2198,7 @@ export const BFA: Team[] = [
             {
                 id: 32,
                 nome: "Ysrael Yoseph",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "CB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2517,9 +2206,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.75,
                 peso: 75,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2579,7 +2268,7 @@ export const BFA: Team[] = [
             {
                 id: 33,
                 nome: "Pedro Manoel",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "RB",
                 setor: "Ataque",
                 experiencia: 0,
@@ -2587,9 +2276,9 @@ export const BFA: Team[] = [
                 idade: 25,
                 altura: 1.65,
                 peso: 83,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2649,7 +2338,7 @@ export const BFA: Team[] = [
             {
                 id: 34,
                 nome: "Lucas Adolfo",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "RB",
                 setor: "Ataque",
                 experiencia: 0,
@@ -2657,9 +2346,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.81,
                 peso: 103,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2719,7 +2408,7 @@ export const BFA: Team[] = [
             {
                 id: 35,
                 nome: "Iuri Perrier",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2727,9 +2416,9 @@ export const BFA: Team[] = [
                 idade: 26,
                 altura: 1.76,
                 peso: 88,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2789,7 +2478,7 @@ export const BFA: Team[] = [
             {
                 id: 36,
                 nome: "Igor Silvério",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "S",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2797,9 +2486,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.73,
                 peso: 84,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2859,7 +2548,7 @@ export const BFA: Team[] = [
             {
                 id: 37,
                 nome: "Walber Sena",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "DL",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2867,9 +2556,9 @@ export const BFA: Team[] = [
                 idade: 32,
                 altura: 1.72,
                 peso: 98,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2929,7 +2618,7 @@ export const BFA: Team[] = [
             {
                 id: 38,
                 nome: "Felipe Siqueira",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -2937,9 +2626,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.83,
                 peso: 110,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -2999,7 +2688,7 @@ export const BFA: Team[] = [
             {
                 id: 39,
                 nome: "Marcelo Barbosa",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "OL",
                 setor: "Ataque",
                 experiencia: 0,
@@ -3007,9 +2696,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.95,
                 peso: 160,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3069,7 +2758,7 @@ export const BFA: Team[] = [
             {
                 id: 40,
                 nome: "Samuel Braz",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -3077,9 +2766,9 @@ export const BFA: Team[] = [
                 idade: 31,
                 altura: 1.76,
                 peso: 90,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3139,7 +2828,7 @@ export const BFA: Team[] = [
             {
                 id: 41,
                 nome: "Caio Vieira",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -3147,9 +2836,9 @@ export const BFA: Team[] = [
                 idade: 28,
                 altura: 1.83,
                 peso: 99,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3209,7 +2898,7 @@ export const BFA: Team[] = [
             {
                 id: 42,
                 nome: "Guilherme Costa",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "OL",
                 setor: "Ataque",
                 experiencia: 0,
@@ -3217,9 +2906,9 @@ export const BFA: Team[] = [
                 idade: 32,
                 altura: 1.92,
                 peso: 130,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3279,7 +2968,7 @@ export const BFA: Team[] = [
             {
                 id: 43,
                 nome: "Tharcio Alves",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "OL",
                 setor: "Ataque",
                 experiencia: 0,
@@ -3287,9 +2976,9 @@ export const BFA: Team[] = [
                 idade: 27,
                 altura: 1.87,
                 peso: 145,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3349,7 +3038,7 @@ export const BFA: Team[] = [
             {
                 id: 44,
                 nome: "João Neto",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "OL",
                 setor: "Ataque",
                 experiencia: 0,
@@ -3357,9 +3046,9 @@ export const BFA: Team[] = [
                 idade: 36,
                 altura: 1.95,
                 peso: 118,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3419,7 +3108,7 @@ export const BFA: Team[] = [
             {
                 id: 45,
                 nome: "Gabriel Tavares",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -3427,9 +3116,9 @@ export const BFA: Team[] = [
                 idade: 23,
                 altura: 1.83,
                 peso: 101,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3489,7 +3178,7 @@ export const BFA: Team[] = [
             {
                 id: 46,
                 nome: "Rodolfo Henrique",
-                time: "Recife Mariners",
+                time: "Timbó Rex",
                 posicao: "LB",
                 setor: "Defesa",
                 experiencia: 0,
@@ -3497,9 +3186,9 @@ export const BFA: Team[] = [
                 idade: 24,
                 altura: 1.83,
                 peso: 105,
-                cidade: "Recife/PE",
+                cidade: "Timbó/SC",
                 nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
+                camisa: "camisa-timbo-rex.png",
                 estatisticas: {
                     passe: {
                         passes_completos: 0,
@@ -3555,1825 +3244,9 @@ export const BFA: Team[] = [
                         jardas_de_punt: 0,
                     }
                 }
-            },
-            {
-                id: 47,
-                nome: "Pedro H. Corrêa",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 59,
-                idade: 34,
-                altura: 1.75,
-                peso: 98,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 48,
-                nome: "Flávio Santos",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 62,
-                idade: 24,
-                altura: 1.94,
-                peso: 137,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 49,
-                nome: "Felipe José",
-                time: "Recife Mariners",
-                posicao: "OL",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 64,
-                idade: 38,
-                altura: 1.92,
-                peso: 109,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 50,
-                nome: "David José",
-                time: "Recife Mariners",
-                posicao: "OL",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 65,
-                idade: 24,
-                altura: 1.94,
-                peso: 150,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 51,
-                nome: "Bruno Sherman",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 68,
-                idade: 33,
-                altura: 1.85,
-                peso: 129,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 7,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 52,
-                nome: "Lênin Albuquerque",
-                time: "Recife Mariners",
-                posicao: "OL",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 71,
-                idade: 24,
-                altura: 2.03,
-                peso: 155,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 53,
-                nome: "Breno Araujo",
-                time: "Recife Mariners",
-                experiencia: 0,
-                posicao: "OL",
-                setor: "Ataque",
-                numero: 72,
-                idade: 24,
-                altura: 1.83,
-                peso: 115,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 3,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 54,
-                nome: "Alvaro Carneiro",
-                time: "Recife Mariners",
-                experiencia: 0,
-                posicao: "OL",
-                setor: "Ataque",
-                numero: 73,
-                idade: 24,
-                altura: 1.74,
-                peso: 122,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 55,
-                nome: "Marcos Munhoz",
-                time: "Recife Mariners",
-                experiencia: 0,
-                posicao: "OL",
-                setor: "Ataque",
-                numero: 75,
-                idade: 25,
-                altura: 1.98,
-                peso: 125,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 56,
-                nome: "Josué Severino",
-                time: "Recife Mariners",
-                posicao: "OL",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 78,
-                idade: 24,
-                altura: 1.87,
-                peso: 155,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 57,
-                nome: "Pollys Sacramento",
-                time: "Recife Mariners",
-                posicao: "OL",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 79,
-                idade: 24,
-                altura: 1.93,
-                peso: 129,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 58,
-                nome: "Vinicius Santiago",
-                time: "Recife Mariners",
-                posicao: "WR",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 83,
-                idade: 27,
-                altura: 1.80,
-                peso: 80,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 3,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 59,
-                nome: "Alexsandro Costa",
-                time: "Recife Mariners",
-                posicao: "TE",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 86,
-                idade: 38,
-                altura: 1.90,
-                peso: 108,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 1,
-                        alvo: 2,
-                        jardas_recebidas: 10,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 60,
-                nome: "Jose Henrique",
-                time: "Recife Mariners",
-                posicao: "TE",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 87,
-                idade: 34,
-                altura: 1.87,
-                peso: 102,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 1,
-                        alvo: 2,
-                        jardas_recebidas: 7,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 61,
-                nome: "Akin Dagba",
-                time: "Recife Mariners",
-                posicao: "WR",
-                setor: "Ataque",
-                experiencia: 0,
-                numero: 88,
-                idade: 26,
-                altura: 1.82,
-                peso: 86,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 62,
-                nome: "Pedro Morais",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 88,
-                idade: 34,
-                altura: 1.85,
-                peso: 109,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 2,
-                        tackles_for_loss: 1,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 63,
-                nome: "Victor José",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 91,
-                idade: 32,
-                altura: 1.75,
-                peso: 120,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 64,
-                nome: "Diogo Sales",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 92,
-                idade: 37,
-                altura: 1.80,
-                peso: 90,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 65,
-                nome: "Nelson Ferreira",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 93,
-                idade: 26,
-                altura: 1.85,
-                peso: 130,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 5,
-                        tackles_for_loss: 1,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 1
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 66,
-                nome: "Matheus Bacalhau",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 94,
-                idade: 24,
-                altura: 1.83,
-                peso: 110,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 1,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 67,
-                nome: "Gilberto Portela",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 96,
-                idade: 30,
-                altura: 1.86,
-                peso: 118,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 0,
-                        sacks_forcado: 0,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 68,
-                nome: "Tulio Albuquerque",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 97,
-                idade: 30,
-                altura: 1.83,
-                peso: 112,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 5,
-                        tackles_for_loss: 4,
-                        sacks_forcado: 1,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
-            {
-                id: 69,
-                nome: "João Guilherme",
-                time: "Recife Mariners",
-                posicao: "DL",
-                setor: "Defesa",
-                experiencia: 0,
-                numero: 99,
-                idade: 24,
-                altura: 1.90,
-                peso: 120,
-                cidade: "Recife/PE",
-                nacionalidade: "brasil.png",
-                camisa: "camisa-recife-mariners.png",
-                estatisticas: {
-                    passe: {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        fumble_de_passador: 0
-                    },
-                    corrida: {
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        tds_corridos: 0,
-                        fumble_de_corredor: 0
-                    },
-                    recepcao: {
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        tds_recebidos: 0,
-                        fumble_de_recebedor: 0
-                    },
-                    retorno: {
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        fumble_retornador: 0
-                    },
-                    defesa: {
-                        tackles_totais: 0,
-                        tackles_for_loss: 1,
-                        sacks_forcado: 1,
-                        fumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 2,
-                        safety: 0,
-                        td_defensivo: 1
-                    },
-                    kicker: {
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        fg_mais_longo: 0,
-                        fg_0_10: '',
-                        fg_11_20: '',
-                        fg_21_30: '',
-                        fg_31_40: '',
-                        fg_41_50: ''
-                    },
-                    punter: {
-                        punts: 0,
-                        jardas_de_punt: 0,
-                    }
-                }
-            },
+            }
         ]
     },
-    {
-        id: 14,
-        nome: "Remo Lions",
-        sigla: 'LIO',
-        cor: '#00112B',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "remo-lions.png",
-        capacete: 'capacete-remo-lions.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
 
-        ]
-    },
-    {
-        id: 15,
-        nome: "Rondonópolis Hawks",
-        sigla: 'HAW',
-        cor: '#011D44',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "rondonopolis-hawks.png",
-        capacete: 'capacete-rondonopolis-hawks.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
 
-        ]
-    },
-    {
-        id: 16,
-        nome: "Santa Maria Soldiers",
-        sigla: 'SOL',
-        cor: '#4B5238',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "santa-maria-soldiers.png",
-        capacete: 'capacete-santa-maria-soldiers.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 17,
-        nome: "Sergipe Redentores",
-        sigla: 'RED',
-        cor: '#00C8B3',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "sergipe-redentores.png",
-        capacete: 'capacete-sergipe-redentores.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 18,
-        nome: "Sinop Coyotes",
-        sigla: 'COY',
-        cor: '#C1090B',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "sinop-coyotes.png",
-        capacete: 'capacete-sinop-coyotes.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 19,
-        nome: "Timbó Rex",
-        sigla: 'REX',
-        cor: '#FF0000',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "timbo-rex.png",
-        capacete: 'capacete-timbo-rex.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 20,
-        nome: "Tubarões do Cerrado",
-        sigla: 'TUB',
-        cor: '#1F4586',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "tubaroes-do-cerrado.png",
-        capacete: 'capacete-tubaroes-do-cerrado.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    },
-    {
-        id: 21,
-        nome: "Vasco Almirantes",
-        sigla: 'VAS',
-        cor: '#000',
-        cidade: "Recife/PE",
-        fundacao: "01/01/2000",
-        logo: "vasco-almirantes.png",
-        capacete: 'capacete-vasco-almirantes.png',
-        titulos: [
-            {
-                nacionais: "",
-                regionais: "",
-                estaduais: ""
-            }
-        ],
-        estadio: '',
-        presidente: '',
-        head_coach: '',
-        coord_ofen: '',
-        coord_defen: '',
-        brasileirao: false,
-        jogadores: [
-
-        ]
-    }
 ]

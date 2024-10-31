@@ -17,7 +17,7 @@ export const Time = ({ currentTeam }: Props) => {
 
 
     return (
-        <div className="p-4 flex flex-col gap-8">
+        <div className="p-4 flex flex-col gap-8 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
             <div>
                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                     style={{ backgroundColor: currentTeam.cor }}>BIO</div>
@@ -32,7 +32,7 @@ export const Time = ({ currentTeam }: Props) => {
                     </div>
                     <div>
                         <div className="text-sm">ESTÁDIO</div>
-                        <div className="text-xl font-extrabold italic">{currentTeam.estadio}</div>
+                        <div className="text-xl font-extrabold italic">{currentTeam.estadio.toLocaleUpperCase()}</div>
                     </div>
                 </div>
             </div>
