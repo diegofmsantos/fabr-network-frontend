@@ -54,7 +54,7 @@ export default function JogadorPage() {
                 <div className='text-white font-bold text-xs mb-4'>{currentTeam?.nome}</div>
                 <div className='flex justify-center items-end'>
                     <div className='flex flex-col items-start'>
-                        <div className='text-[34px] text-white px-2 font-extrabold italic leading-[45px] tracking-[-3px]'>
+                        <div className='text-[32px] text-white px-2 font-extrabold italic leading-[45px] tracking-[-3px]'>
                             {currentPlayer.nome}
                         </div>
                         <div className='flex items-center gap-2'>
@@ -69,12 +69,12 @@ export default function JogadorPage() {
                             <Image src={logopath} alt='logo' width={100} height={100} quality={70} />
                         </div>
                     </div>
-                    <div className='w-60 h-60'>
+                    <div className='min-w-48 min-h-48'>
                         <Image
                             src={camisasPath}
                             alt={`${currentTeam?.nome} camisa`}
-                            width={230}
-                            height={230}
+                            width={200}
+                            height={200}
                             quality={100}
                         />
                     </div>
@@ -84,300 +84,464 @@ export default function JogadorPage() {
                 <div>
                     <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                         style={{ backgroundColor: currentTeam?.cor }}>BIO</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                    <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg">
                         <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
+                            <div className='flex-1 justify-start'>
                                 <div className="text-sm">PESO</div>
                                 <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
                             </div>
-                            <div>
+                            <div className='flex-1 justify-start'>
                                 <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura.toFixed(2).replace('.', ',')}</div>
                             </div>
                         </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
+                        <div className="border-b border-black/40 flex justify-start gap-24">
+                            <div className='flex-1 justify-start'>
                                 <div className="text-sm">IDADE</div>
-                                <div className="text-md font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                                <div className="text-sm font-extrabold italic mb-1">{currentPlayer.idade}</div>
                             </div>
-                            <div>
+                            <div className='flex-1 justify-start'>
                                 <div className="text-sm">CIDADE</div>
-                                <div className="text-md font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
+                                <div className="text-sm font-extrabold italic mb-1">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
                             </div>
                         </div>
-                        <div className='flex justify-start gap-16'>
-                            <div>
+                        <div className='flex justify-start gap-24'>
+                            <div className='flex-1 justify-start'>
                                 <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-md font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
+                                <div className="text-sm font-extrabold italic">-</div>
                             </div>
-                            <div>
+                            <div className='flex-1 justify-start'>
                                 <div className="text-sm">TIME FORMADOR</div>
                                 <div className='flex gap-2 items-center'>
-                                    <div className="text-md font-extrabold italic">{currentTeam?.nome}</div>
-                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                                    <div className="text-sm font-extrabold italic">{currentTeam?.nome.toLocaleUpperCase()}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(PASSE)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
+                {currentPlayer.estatisticas?.passe &&
+                    (
+                        currentPlayer.estatisticas.passe.passes_completos > 0 ||
+                        currentPlayer.estatisticas.passe.jardas_de_passe > 0 ||
+                        currentPlayer.estatisticas.passe.td_passados > 0 ||
+                        currentPlayer.estatisticas.passe.interceptacoes_sofridas > 0 ||
+                        currentPlayer.estatisticas.passe.sacks_sofridos > 0 ||
+                        currentPlayer.estatisticas.passe.fumble_de_passador > 0
+                    ) &&
+                    (
+                        <div>
+                            <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS(PASSE)
                             </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">PASSES(COMP/TENT)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.passe.passes_completos}/{currentPlayer.estatisticas.passe.passes_tentados}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">PASSES(%)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {(
+                                                (currentPlayer.estatisticas.passe.passes_completos / currentPlayer.estatisticas.passe.passes_tentados) * 100
+                                            ).toFixed(0).replace('.', ',')}%
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.passe.jardas_de_passe}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {(currentPlayer.estatisticas.passe.jardas_de_passe / currentPlayer.estatisticas.passe.passes_tentados)
+                                                .toFixed(2)
+                                                .replace('.', ',')}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.passe.td_passados}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">INTERCEPTAÇÕES</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.passe.interceptacoes_sofridas}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-start gap-28'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">SACKS</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.passe.sacks_sofridos}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.passe.fumble_de_passador}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
                         </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-md font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                    )}
+
+                {currentPlayer.estatisticas?.corrida &&
+                    (
+                        currentPlayer.estatisticas.corrida.corridas > 0 ||
+                        currentPlayer.estatisticas.corrida.jardas_corridas > 0 ||
+                        currentPlayer.estatisticas.corrida.tds_corridos > 0 ||
+                        currentPlayer.estatisticas.corrida.fumble_de_corredor > 0
+                    ) && (
+                        <div>
+                            <div
+                                className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}
+                            >
+                                STATS(CORRIDA)
                             </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-md font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">CORRIDAS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.corrida.corridas}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.corrida.jardas_corridas}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {(currentPlayer.estatisticas.corrida.jardas_corridas / currentPlayer.estatisticas.corrida.corridas)
+                                                .toFixed(2)
+                                                .replace('.', ',')}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.corrida.tds_corridos}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-start gap-16'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.corrida.fumble_de_corredor}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                         </div>
-                        <div className='flex justify-start gap-16'>
-                            <div>
-                                <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-md font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
+                    )
+                }
+
+                {currentPlayer.estatisticas?.recepcao &&
+                    (
+                        currentPlayer.estatisticas.recepcao.jardas_recebidas > 0 ||
+                        currentPlayer.estatisticas.recepcao.recepcoes > 0 ||
+                        currentPlayer.estatisticas.recepcao.alvo > 0 ||
+                        currentPlayer.estatisticas.recepcao.fumble_de_recebedor > 0
+                    ) && (
+                        <div>
+                            <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS(RECEPÇÃO)</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.recepcao.jardas_recebidas}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {(currentPlayer.estatisticas.recepcao.jardas_recebidas / currentPlayer.estatisticas.recepcao.alvo)
+                                                .toFixed(2)
+                                                .replace('.', ',')}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-sm">RECEPÇÕES</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.recepcao.recepcoes}/{currentPlayer.estatisticas.recepcao.alvo}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.recepcao.tds_recebidos}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-start gap-20'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.recepcao.fumble_de_recebedor}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <div className="text-sm">TIME FORMADOR</div>
-                                <div className='flex gap-2 items-center'>
-                                    <div className="text-md font-extrabold italic">{currentTeam?.nome}</div>
-                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+
+                        </div>
+                    )}
+
+                {currentPlayer.estatisticas?.retorno &&
+                    (
+                        currentPlayer.estatisticas.retorno.jardas_retornadas > 0 ||
+                        currentPlayer.estatisticas.retorno.td_retornados > 0 ||
+                        currentPlayer.estatisticas.retorno.fumble_retornador > 0
+                    ) && (
+                        <div>
+                            <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS(RETORNO)</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.jardas_retornadas}</div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.td_retornados}</div>
+                                    </div>
+                                </div>
+                                <div className="flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.fumble_retornador}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(CORRIDA)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-md font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-md font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                        <div className='flex justify-start gap-16'>
-                            <div>
-                                <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-md font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">TIME FORMADOR</div>
-                                <div className='flex gap-2 items-center'>
-                                    <div className="text-md font-extrabold italic">{currentTeam?.nome}</div>
-                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                    )}
+
+                {currentPlayer.estatisticas?.defesa &&
+                    (
+                        currentPlayer.estatisticas.defesa.tackles_totais > 0 ||
+                        currentPlayer.estatisticas.defesa.tackles_for_loss > 0 ||
+                        currentPlayer.estatisticas.defesa.sacks_forcado > 0 ||
+                        currentPlayer.estatisticas.defesa.fumble_forcado > 0 ||
+                        currentPlayer.estatisticas.defesa.interceptacao_forcada > 0 ||
+                        currentPlayer.estatisticas.defesa.passe_desviado > 0 ||
+                        currentPlayer.estatisticas.defesa.safety > 0 ||
+                        currentPlayer.estatisticas.defesa.td_defensivo > 0
+                    ) &&
+                    (
+                        <div>
+                            <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS(DEFESA)</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TACKELS (TOTAIS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.tackles_totais}</div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TACKLES (FOR LOSS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.tackles_for_loss}</div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">SACKS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.sacks_forcado}</div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FUMBLES FORÇADOS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.fumble_forcado}</div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">INTERCEPTAÇÕES</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.interceptacao_forcada}</div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">PASSES DESVIADOS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.passe_desviado}</div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-start gap-28'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">SAFETY</div>
+                                        <div className="text-[34px] font-extrabold italic">{currentPlayer.estatisticas.defesa.safety}</div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">TOUCHDOWN</div>
+                                        <div className="text-[34px] font-extrabold italic">{currentPlayer.estatisticas.defesa.td_defensivo}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(RECEPÇÃO)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                        <div className='flex justify-start gap-20'>
-                            <div>
-                                <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-xl font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(RETORNO)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(DEFESA)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                        <div className='flex justify-start gap-16'>
-                            <div>
-                                <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-xl font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">TIME FORMADOR</div>
-                                <div className='flex gap-2 items-center'>
-                                    <div className="text-lg font-extrabold italic">{currentTeam?.nome}</div>
-                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                    )}
+
+                {currentPlayer.estatisticas?.kicker &&
+                    (
+                        currentPlayer.estatisticas.kicker.xp_bons > 0 ||
+                        currentPlayer.estatisticas.kicker.tentativas_de_xp > 0 ||
+                        currentPlayer.estatisticas.kicker.fg_bons > 0 ||
+                        currentPlayer.estatisticas.kicker.tentativas_de_fg > 0 ||
+                        currentPlayer.estatisticas.kicker.fg_mais_longo > 0 ||
+                        currentPlayer.estatisticas.kicker.fg_0_10 !== "" ||
+                        currentPlayer.estatisticas.kicker.fg_11_20 !== "" ||
+                        currentPlayer.estatisticas.kicker.fg_21_30 !== "" ||
+                        currentPlayer.estatisticas.kicker.fg_31_40 !== "" ||
+                        currentPlayer.estatisticas.kicker.fg_41_50 !== ""
+                    ) &&
+                    (
+                        <div>
+                            <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS(KICKER)</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">EXTRA-POINTS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.kicker.xp_bons}/{currentPlayer.estatisticas.kicker.tentativas_de_xp}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">EXTRA-POINTS (%)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.kicker.tentativas_de_xp > 0
+                                                ? ((currentPlayer.estatisticas.kicker.xp_bons / currentPlayer.estatisticas.kicker.tentativas_de_xp) * 100)
+                                                    .toFixed(2)
+                                                    .replace('.', ',') + '%'
+                                                : '0%'}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FIELD GOALS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.kicker.fg_bons}/{currentPlayer.estatisticas.kicker.tentativas_de_fg}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FIELD GOALS (%)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.kicker.tentativas_de_fg > 0
+                                                ? ((currentPlayer.estatisticas.kicker.fg_bons / currentPlayer.estatisticas.kicker.tentativas_de_fg) * 100)
+                                                    .toFixed(2)
+                                                    .replace('.', ',') + '%'
+                                                : '0%'}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">MAIS LONGO</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.kicker.fg_mais_longo}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FG (0-10 JDS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.kicker.fg_0_10}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-start gap-28'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FG (11-20 JDS)</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.kicker.fg_11_20}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FG (21-30 JDS)</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.kicker.fg_21_30}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='flex justify-start gap-28'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FG (31-40 JDS)</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.kicker.fg_31_40}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">FG (41-50 JDS)</div>
+                                        <div className="text-[34px] font-extrabold italic">
+                                            {currentPlayer.estatisticas.kicker.fg_41_50}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(KICKER)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">CIDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer?.cidade}</div>
-                            </div>
-                        </div>
-                        <div className='flex justify-start gap-16'>
-                            <div>
-                                <div className="text-sm">EXPERIÊNCIA</div>
-                                <div className="text-xl font-extrabold italic">{currentPlayer?.experiencia} ANOS</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">TIME FORMADOR</div>
-                                <div className='flex gap-2 items-center'>
-                                    <div className="text-lg font-extrabold italic">{currentTeam?.nome}</div>
-                                    <Image src={logopath} width={30} height={30} quality={100} alt='logo' />
+                    )}
+
+                {currentPlayer.estatisticas?.punter &&
+                    (
+                        currentPlayer.estatisticas.punter.punts > 0 ||
+                        currentPlayer.estatisticas.punter.jardas_de_punt > 0
+                    ) && (
+                        <div>
+                            <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS(PUNTER)</div>
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="border-b border-black/40 flex justify-start gap-24">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">PUNTS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.punter.punts}
+                                        </div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.punter.jardas_de_punt}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="border-b border-black/40 flex justify-start gap-28">
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">
+                                            {currentPlayer.estatisticas.punter.punts > 0
+                                                ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(2)
+                                                : '0'}%
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
-                    </div>
-                </div>
-                <div>
-                    <div className="border py-2 px-3 font-extrabold text-white text-xs w-32 flex justify-center items-center rounded-md mb-3"
-                        style={{ backgroundColor: currentTeam?.cor }}>STATS(PUNTER)</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start gap-24">
-                            <div>
-                                <div className="text-sm">PESO</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
-                            </div>
-                            <div>
-                                <div className="text-sm">ALTURA</div>
-                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura}</div>
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40 flex justify-start gap-28">
-                            <div>
-                                <div className="text-sm">IDADE</div>
-                                <div className="text-lg font-extrabold italic mb-1">{currentPlayer.idade}</div>
-                            </div>
-                            
-                        </div>
-                       
-                    </div>
-                </div>
+                    )}
             </div>
         </div>
     );

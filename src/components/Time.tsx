@@ -28,7 +28,7 @@ export const Time = ({ currentTeam }: Props) => {
                     </div>
                     <div className="border-b border-black/40">
                         <div className="text-sm">CIDADE</div>
-                        <div className="text-lg font-extrabold italic mb-1">{currentTeam.cidade}</div>
+                        <div className="text-lg font-extrabold italic mb-1">{currentTeam.cidade.toLocaleUpperCase()}</div>
                     </div>
                     <div>
                         <div className="text-sm">ESTÁDIO</div>

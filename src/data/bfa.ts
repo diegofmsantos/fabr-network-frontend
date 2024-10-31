@@ -5,9 +5,8 @@ export const BFA: Team[] = [
         id: 1,
         nome: "Almirantes",
         sigla: 'ALM',
-        abreviacao: '',
         cor: '#00845D',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "almirantes.png",
         capacete: 'capacete-almirantes.png',
@@ -32,9 +31,8 @@ export const BFA: Team[] = [
         id: 2,
         nome: "América Locomotiva",
         sigla: 'AME',
-        abreviacao: '',
         cor: '#007538',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "america-locomotiva.png",
         capacete: 'capacete-america-locomotiva.png',
@@ -59,9 +57,8 @@ export const BFA: Team[] = [
         id: 3,
         nome: "Caruaru Wolves",
         sigla: 'WOL',
-        abreviacao: '',
         cor: '#FF3900',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "caruaru-wolves.png",
         capacete: 'capacete-caruaru-wolves.png',
@@ -86,9 +83,8 @@ export const BFA: Team[] = [
         id: 4,
         nome: "Cavalaria 2 de Julho",
         sigla: 'CAV',
-        abreviacao: '',
         cor: '#FFCD00',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "cavalaria-2-de-julho.png",
         capacete: 'capacete-cavalaria-2-de-julho.png',
@@ -113,9 +109,8 @@ export const BFA: Team[] = [
         id: 5,
         nome: "Cuiabá Arsenal",
         sigla: 'ARS',
-        abreviacao: '',
         cor: '#00412F',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "cuiaba-arsenal.png",
         capacete: 'capacete-cuiaba-arsenal.png',
@@ -140,9 +135,8 @@ export const BFA: Team[] = [
         id: 6,
         nome: "Fortaleza Tritões",
         sigla: 'FOR',
-        abreviacao: '',
         cor: '#000E4A',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "fortaleza-tritoes.png",
         capacete: 'capacete-fortaleza-tritoes.png',
@@ -167,9 +161,8 @@ export const BFA: Team[] = [
         id: 7,
         nome: "Galo",
         sigla: 'GAL',
-        abreviacao: '',
         cor: '#292929',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "galo.png",
         capacete: 'capacete-galo.png',
@@ -194,9 +187,8 @@ export const BFA: Team[] = [
         id: 8,
         nome: "Istepôs",
         sigla: 'IST',
-        abreviacao: '',
         cor: '#FF2E33',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "istepos.png",
         capacete: 'capacete-istepos.png',
@@ -221,9 +213,8 @@ export const BFA: Team[] = [
         id: 9,
         nome: "João Pessoa Espectros",
         sigla: 'ESP',
-        abreviacao: '',
         cor: '#FF0000',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "joao-pessoa-espectros.png",
         capacete: 'capacete-joao-pessoa-espectros.png',
@@ -248,9 +239,8 @@ export const BFA: Team[] = [
         id: 10,
         nome: "Manaus",
         sigla: 'MAN',
-        abreviacao: '',
         cor: '#00991C',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "manaus.png",
         capacete: 'capacete-manaus.png',
@@ -275,9 +265,8 @@ export const BFA: Team[] = [
         id: 11,
         nome: "Mossoró Petroleiros",
         sigla: 'PET',
-        abreviacao: '',
         cor: '#00AC9F',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "mossoro-petroleiros.png",
         capacete: 'capacete-mossoro-petroleiros.png',
@@ -302,9 +291,8 @@ export const BFA: Team[] = [
         id: 12,
         nome: "Porto Velho Miners",
         sigla: 'MIN',
-        abreviacao: '',
         cor: '#FFCE00',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "porto-velho-miners.png",
         capacete: 'capacete-porto-velho-miners.png',
@@ -329,9 +317,8 @@ export const BFA: Team[] = [
         id: 13,
         nome: "Recife Mariners",
         sigla: 'MAR',
-        abreviacao: '',
         cor: '#005AB9',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "19/12/2006",
         logo: "recife-mariners.png",
         capacete: 'capacete-recife-mariners.png',
@@ -358,61 +345,66 @@ export const BFA: Team[] = [
                 experiencia: 0,
                 numero: 0,
                 idade: 31,
-                altura: "1,90",
+                altura: 1.90,
                 peso: 105,
                 cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
-                        passes_completos: '',
-                        passes_tentados: '',
-                        passes: '',
-                        jardas_de_passe: '',
-                        avg_jardas_de_passe: '',
-                        td_passados: '',
-                        interceptacoes_sofridas: '',
-                        sacks_sofridos: '',
-                        flumble_de_passador: '',
-                        corridas: '',
-                        jardas_corridas: '',
-                        avg_jardas_de_corrida: '',
-                        tds_corridos: '',
-                        flumble_de_corredor: '',
+                estatisticas: {
+                    passe: {
+                        passes_completos: 0,
+                        passes_tentados: 0,
+                        jardas_de_passe: 0,
+                        td_passados: 0,
+                        interceptacoes_sofridas: 0,
+                        sacks_sofridos: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 0,
+                        jardas_corridas: 0,
+                        tds_corridos: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 24,
                         alvo: 36,
                         jardas_recebidas: 367,
-                        avg_jardas_de_recepcao: 10.2,
                         tds_recebidos: 4,
-                        flumble_de_recebedor: 1,
+                        fumble_de_recebedor: 1
+                    },
+                    retorno: {
                         jardas_retornadas: 4,
-                        td_retornados: '',
-                        flumble_retornador: '',
-                        tackles_totais: '',
-                        tackels_for_loss: '',
-                        sacks_forcado: '',
-                        flumble_forcado: '',
-                        interceptacao_forcada: '',
-                        passe_desviado: '',
-                        safety: '',
-                        td_defensivo: '',
-                        xp_bons: '',
-                        tentativas_de_xp: '',
-                        extra_point: '',
-                        fg_bons: '',
-                        tentativas_de_fg: '',
-                        field_goal: '',
-                        fg_mais_longo: '',
+                        td_retornados: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 0,
+                        tackles_for_loss: 0,
+                        sacks_forcado: 0,
+                        fumble_forcado: 0,
+                        interceptacao_forcada: 0,
+                        passe_desviado: 0,
+                        safety: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
+                        xp_bons: 0,
+                        tentativas_de_xp: 0,
+                        fg_bons: 0,
+                        tentativas_de_fg: 0,
+                        fg_mais_longo: 0,
                         fg_0_10: '',
                         fg_11_20: '',
                         fg_21_30: '',
                         fg_31_40: '',
-                        fg_41_50: '',
-                        punts: '',
-                        jardas_de_punt: '',
-                        avg_jds_punt: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 2,
@@ -422,62 +414,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 1,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
+                idade: 32,
+                altura: 1.78,
+                peso: 77,
                 cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 1,
+                        jardas_corridas: 14,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
-                        tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 21,
+                        alvo: 36,
+                        jardas_recebidas: 212,
+                        tds_recebidos: 1,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 104,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 3,
@@ -487,62 +484,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 2,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 25,
+                altura: 1.71,
+                peso: 99,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 21,
+                        jardas_corridas: 103,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 4,
+                        alvo: 4,
+                        jardas_recebidas: 19,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 4,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 4,
@@ -552,62 +554,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 3,
-                idade: 31,
-                altura: "1,73",
+                idade: 24,
+                altura: 1.83,
                 peso: 67,
-                cidade: "Recife",
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 10,
+                        tackles_for_loss: 0,
+                        sacks_forcado: 1,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 5,
@@ -617,62 +624,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 4,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 27,
+                altura: 1.83,
+                peso: 90,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        passes: "0%",
-                        jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
+                estatisticas: {
+                    passe: {
+                        passes_completos: 1,
+                        passes_tentados: 1,
+                        jardas_de_passe: 6,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 4,
+                        jardas_corridas: 15,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
-                        tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 1,
+                        alvo: 2,
+                        jardas_recebidas: 25,
+                        tds_recebidos: 1,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 278,
+                        td_retornados: 1,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 10,
+                        tackles_for_loss: 1,
+                        sacks_forcado: 2,
+                        fumble_forcado: 0,
+                        interceptacao_forcada: 4,
+                        passe_desviado: 2,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 1
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 6,
@@ -682,62 +694,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 5,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 32,
+                altura: 1.91,
+                peso: 106,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        tackles_for_loss: 2,
+                        sacks_forcado: 2,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 7,
@@ -747,62 +764,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 6,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 30,
+                altura: 1.95,
+                peso: 96,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
-                        td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 26,
+                        td_retornados: 1,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 1,
+                        tackles_for_loss: 4,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
-                        passe_desviado: 0,
+                        passe_desviado: 3,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 8,
@@ -812,62 +834,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 7,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.73,
+                peso: 83,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 3,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
-                        passe_desviado: 0,
+                        passe_desviado: 2,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 9,
@@ -877,62 +904,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 9,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 30,
+                altura: 1.80,
+                peso: 92,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 2,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 1,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 10,
@@ -942,62 +974,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 10,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.88,
+                peso: 90,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
-                        tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 12,
+                        alvo: 20,
+                        jardas_recebidas: 159,
+                        tds_recebidos: 2,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 11,
@@ -1007,62 +1044,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 11,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 37,
+                altura: 1.91,
+                peso: 105,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
-                        passes_completos: 0,
-                        passes_tentados: 0,
-                        passes: "0%",
-                        jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
-                        td_passados: 0,
-                        interceptacoes_sofridas: 0,
-                        sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                estatisticas: {
+                    passe: {
+                        passes_completos: 91,
+                        passes_tentados: 143,
+                        jardas_de_passe: 1113,
+                        td_passados: 16,
+                        interceptacoes_sofridas: 1,
+                        sacks_sofridos: 3,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 4,
+                        jardas_corridas: 10,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 12,
@@ -1072,62 +1114,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 13,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 32,
+                altura: 1.74,
+                peso: 81,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
-                        tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 9,
+                        alvo: 14,
+                        jardas_recebidas: 120,
+                        tds_recebidos: 1,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 13,
@@ -1137,62 +1184,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 14,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
+                idade: 25,
+                altura: 1.65,
+                peso: 74,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 1,
+                        jardas_corridas: -3,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 14,
@@ -1202,62 +1254,67 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 16,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
+                idade: 27,
+                altura: 1.79,
+                peso: 80,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 1,
+                        jardas_corridas: -3,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 15,
@@ -1267,62 +1324,67 @@ export const BFA: Team[] = [
                 setor: 'Special',
                 experiencia: 0,
                 numero: 17,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
+                idade: 22,
+                altura: 1.71,
+                peso: 65,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
-                        xp_bons: 0,
-                        tentativas_de_xp: 0,
-                        extra_point: "0%",
-                        fg_bons: 0,
-                        tentativas_de_fg: 0,
-                        field_goal: "0%",
-                        fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        td_defensivo: 0
+                    },
+                    kicker: {
+                        xp_bons: 20,
+                        tentativas_de_xp: 21,
+                        fg_bons: 5,
+                        tentativas_de_fg: 8,
+                        fg_mais_longo: 42,
+                        fg_0_10: '0',
+                        fg_11_20: '0',
+                        fg_21_30: '3/3',
+                        fg_31_40: '1/2',
+                        fg_41_50: '1/3'
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 16,
@@ -1332,127 +1394,137 @@ export const BFA: Team[] = [
                 setor: 'Ataque',
                 experiencia: 0,
                 numero: 18,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
+                idade: 24,
+                altura: 1.70,
+                peso: 70,
                 cidade: "Recife",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
-                        tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 1,
+                        alvo: 1,
+                        jardas_recebidas: 14,
+                        tds_recebidos: 1,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 17,
                 nome: "David Anderson",
                 time: "Recife Mariners",
-                posicao: "WR",
+                posicao: "CB",
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 19,
                 idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                altura: 1.80,
+                peso: 73,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 18,
@@ -1462,62 +1534,67 @@ export const BFA: Team[] = [
                 setor: 'Defesa',
                 experiencia: 0,
                 numero: 20,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 33,
+                altura: 1.67,
+                peso: 72,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 4,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 19,
@@ -1527,62 +1604,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 21,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 21,
+                altura: 1.80,
+                peso: 82,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 20,
@@ -1592,62 +1674,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 22,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 25,
+                altura: 1.70,
+                peso: 85,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 1,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
-                        interceptacao_forcada: 0,
+                        fumble_forcado: 0,
+                        interceptacao_forcada: 1,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 21,
@@ -1657,62 +1744,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 23,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.73,
+                peso: 83,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 4,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 2,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 22,
@@ -1722,62 +1814,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 25,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.86,
+                peso: 102,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 23,
@@ -1787,62 +1884,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 26,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 32,
+                altura: 1.82,
+                peso: 98,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 1,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 24,
@@ -1853,61 +1955,66 @@ export const BFA: Team[] = [
                 experiencia: 0,
                 numero: 27,
                 idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                altura: 1.76,
+                peso: 93,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        tackles_for_loss: 0,
+                        sacks_forcado: 1,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 25,
@@ -1917,62 +2024,67 @@ export const BFA: Team[] = [
                 setor: "Special",
                 experiencia: 0,
                 numero: 29,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 30,
+                altura: 1.89,
+                peso: 130,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 8,
+                        jardas_de_punt: 373,
                     }
-                ]
+                }
             },
             {
                 id: 26,
@@ -1982,62 +2094,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 30,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.83,
+                peso: 84,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 27,
@@ -2047,62 +2164,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 31,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 29,
+                altura: 1.75,
+                peso: 91,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 4,
+                        tackles_for_loss: 2,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 1,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 28,
@@ -2112,62 +2234,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 32,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 28,
+                altura: 1.81,
+                peso: 81,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 2,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
-                        interceptacao_forcada: 0,
-                        passe_desviado: 0,
+                        fumble_forcado: 0,
+                        interceptacao_forcada: 1,
+                        passe_desviado: 1,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 29,
@@ -2178,61 +2305,66 @@ export const BFA: Team[] = [
                 experiencia: 0,
                 numero: 33,
                 idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                altura: 1.83,
+                peso: 93,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 2,
+                        tackles_for_loss: 1,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 30,
@@ -2242,62 +2374,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 38,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.75,
+                peso: 105,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
-                        tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 5,
+                        jardas_corridas: 40,
+                        tds_corridos: 1,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 31,
@@ -2307,62 +2444,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 39,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.83,
+                peso: 80,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 6,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 32,
@@ -2372,62 +2514,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 40,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.75,
+                peso: 75,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 33,
@@ -2437,62 +2584,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 42,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 25,
+                altura: 1.65,
+                peso: 83,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 3,
+                        jardas_corridas: 36,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 34,
@@ -2503,61 +2655,66 @@ export const BFA: Team[] = [
                 experiencia: 0,
                 numero: 44,
                 idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                altura: 1.81,
+                peso: 103,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
-                        corridas: 0,
-                        jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
-                        tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
-                        tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
+                        corridas: 53,
+                        jardas_corridas: 256,
+                        tds_corridos: 4,
+                        fumble_de_corredor: 1
+                    },
+                    recepcao: {
+                        recepcoes: 17,
+                        alvo: 21,
+                        jardas_recebidas: 157,
+                        tds_recebidos: 4,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 16,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '0',
+                        fg_11_20: '0',
+                        fg_21_30: '3/3',
+                        fg_31_40: '1/2',
+                        fg_41_50: '1/3'
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 35,
@@ -2567,62 +2724,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 45,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 26,
+                altura: 1.76,
+                peso: 88,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 36,
@@ -2632,62 +2794,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 48,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.73,
+                peso: 84,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0
                     }
-                ]
+                }
             },
             {
                 id: 37,
@@ -2697,62 +2864,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 49,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 32,
+                altura: 1.72,
+                peso: 98,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 1,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 38,
@@ -2762,62 +2934,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 50,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.83,
+                peso: 110,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 1,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
-                        interceptacao_forcada: 0,
+                        fumble_forcado: 0,
+                        interceptacao_forcada: 1,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 39,
@@ -2828,61 +3005,66 @@ export const BFA: Team[] = [
                 experiencia: 0,
                 numero: 51,
                 idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                altura: 1.95,
+                peso: 160,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 40,
@@ -2893,61 +3075,66 @@ export const BFA: Team[] = [
                 experiencia: 0,
                 numero: 52,
                 idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                altura: 1.76,
+                peso: 90,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 3,
+                        tackles_for_loss: 0,
+                        sacks_forcado: 1,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
-                        passe_desviado: 0,
-                        safety: 0,
-                        td_defensivo: 0,
+                        passe_desviado: 1,
+                        safety: 1,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 41,
@@ -2957,62 +3144,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 53,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 28,
+                altura: 1.83,
+                peso: 99,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 42,
@@ -3022,62 +3214,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 54,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 32,
+                altura: 1.92,
+                peso: 130,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 43,
@@ -3087,62 +3284,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 55,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 27,
+                altura: 1.87,
+                peso: 145,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 44,
@@ -3152,62 +3354,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 56,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 36,
+                altura: 1.95,
+                peso: 118,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 45,
@@ -3217,62 +3424,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 57,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 23,
+                altura: 1.83,
+                peso: 101,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 46,
@@ -3282,62 +3494,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 58,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.83,
+                peso: 105,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 6,
+                        tackles_for_loss: 3,
+                        sacks_forcado: 2,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 47,
@@ -3347,62 +3564,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 59,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 34,
+                altura: 1.75,
+                peso: 98,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 48,
@@ -3412,62 +3634,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 62,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.94,
+                peso: 137,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 49,
@@ -3477,62 +3704,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 64,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 38,
+                altura: 1.92,
+                peso: 109,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 50,
@@ -3542,62 +3774,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 65,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.94,
+                peso: 150,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 51,
@@ -3607,62 +3844,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 68,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 33,
+                altura: 1.85,
+                peso: 129,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 7,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 52,
@@ -3672,62 +3914,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 71,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 2.03,
+                peso: 155,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 53,
@@ -3737,62 +3984,67 @@ export const BFA: Team[] = [
                 posicao: "OL",
                 setor: "Ataque",
                 numero: 72,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.83,
+                peso: 115,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
-                        jardas_retornadas: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
+                        jardas_retornadas: 3,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 54,
@@ -3802,62 +4054,67 @@ export const BFA: Team[] = [
                 posicao: "OL",
                 setor: "Ataque",
                 numero: 73,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.74,
+                peso: 122,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 55,
@@ -3867,62 +4124,67 @@ export const BFA: Team[] = [
                 posicao: "OL",
                 setor: "Ataque",
                 numero: 75,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 25,
+                altura: 1.98,
+                peso: 125,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 56,
@@ -3932,62 +4194,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 78,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.87,
+                peso: 155,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 57,
@@ -3997,62 +4264,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 79,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.93,
+                peso: 129,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 58,
@@ -4062,62 +4334,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 83,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 27,
+                altura: 1.80,
+                peso: 80,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
-                        alvo: 0,
+                        alvo: 3,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 59,
@@ -4127,62 +4404,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 86,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 38,
+                altura: 1.90,
+                peso: 108,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 1,
+                        alvo: 2,
+                        jardas_recebidas: 10,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 60,
@@ -4192,62 +4474,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 87,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 34,
+                altura: 1.87,
+                peso: 102,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
-                        recepcoes: 0,
-                        alvo: 0,
-                        jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
+                        recepcoes: 1,
+                        alvo: 2,
+                        jardas_recebidas: 7,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 61,
@@ -4257,62 +4544,67 @@ export const BFA: Team[] = [
                 setor: "Ataque",
                 experiencia: 0,
                 numero: 88,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 26,
+                altura: 1.82,
+                peso: 86,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 62,
@@ -4322,62 +4614,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 88,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 34,
+                altura: 1.85,
+                peso: 109,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 2,
+                        tackles_for_loss: 1,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 63,
@@ -4387,62 +4684,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 91,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 32,
+                altura: 1.75,
+                peso: 120,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 64,
@@ -4452,62 +4754,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 92,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 37,
+                altura: 1.80,
+                peso: 90,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 65,
@@ -4517,62 +4824,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 93,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 26,
+                altura: 1.85,
+                peso: 130,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 5,
+                        tackles_for_loss: 1,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 1
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 66,
@@ -4582,62 +4894,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 94,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.83,
+                peso: 110,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 1,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 67,
@@ -4647,62 +4964,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 96,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 30,
+                altura: 1.86,
+                peso: 118,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
+                        tackles_for_loss: 0,
                         sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 68,
@@ -4712,62 +5034,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 97,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 30,
+                altura: 1.83,
+                peso: 112,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
-                        tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
+                        tackles_totais: 5,
+                        tackles_for_loss: 4,
+                        sacks_forcado: 1,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
                         passe_desviado: 0,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 0
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
             {
                 id: 69,
@@ -4777,62 +5104,67 @@ export const BFA: Team[] = [
                 setor: "Defesa",
                 experiencia: 0,
                 numero: 99,
-                idade: 31,
-                altura: "1,73",
-                peso: 67,
-                cidade: "Recife",
+                idade: 24,
+                altura: 1.90,
+                peso: 120,
+                cidade: "Recife/PE",
                 nacionalidade: "brasil.png",
                 camisa: "camisa-recife-mariners.png",
-                estatisticas: [
-                    {
+                estatisticas: {
+                    passe: {
                         passes_completos: 0,
                         passes_tentados: 0,
-                        passes: "0%",
                         jardas_de_passe: 0,
-                        avg_jardas_de_passe: 0,
                         td_passados: 0,
                         interceptacoes_sofridas: 0,
                         sacks_sofridos: 0,
-                        flumble_de_passador: 0,
+                        fumble_de_passador: 0
+                    },
+                    corrida: {
                         corridas: 0,
                         jardas_corridas: 0,
-                        avg_jardas_de_corrida: 0,
                         tds_corridos: 0,
-                        flumble_de_corredor: 0,
+                        fumble_de_corredor: 0
+                    },
+                    recepcao: {
                         recepcoes: 0,
                         alvo: 0,
                         jardas_recebidas: 0,
-                        avg_jardas_de_recepcao: 0,
                         tds_recebidos: 0,
-                        flumble_de_recebedor: 0,
+                        fumble_de_recebedor: 0
+                    },
+                    retorno: {
                         jardas_retornadas: 0,
                         td_retornados: 0,
-                        flumble_retornador: 0,
+                        fumble_retornador: 0
+                    },
+                    defesa: {
                         tackles_totais: 0,
-                        tackels_for_loss: 0,
-                        sacks_forcado: 0,
-                        flumble_forcado: 0,
+                        tackles_for_loss: 1,
+                        sacks_forcado: 1,
+                        fumble_forcado: 0,
                         interceptacao_forcada: 0,
-                        passe_desviado: 0,
+                        passe_desviado: 2,
                         safety: 0,
-                        td_defensivo: 0,
+                        td_defensivo: 1
+                    },
+                    kicker: {
                         xp_bons: 0,
                         tentativas_de_xp: 0,
-                        extra_point: "0%",
                         fg_bons: 0,
                         tentativas_de_fg: 0,
-                        field_goal: "0%",
                         fg_mais_longo: 0,
-                        fg_0_10: "0",
-                        fg_11_20: "0",
-                        fg_21_30: "0",
-                        fg_31_40: "0",
-                        fg_41_50: "0",
-                        punts: "0",
-                        jardas_de_punt: "0",
-                        avg_jds_punt: "0",
+                        fg_0_10: '',
+                        fg_11_20: '',
+                        fg_21_30: '',
+                        fg_31_40: '',
+                        fg_41_50: ''
+                    },
+                    punter: {
+                        punts: 0,
+                        jardas_de_punt: 0,
                     }
-                ]
+                }
             },
         ]
     },
@@ -4840,9 +5172,8 @@ export const BFA: Team[] = [
         id: 14,
         nome: "Remo Lions",
         sigla: 'LIO',
-        abreviacao: '',
         cor: '#00112B',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "remo-lions.png",
         capacete: 'capacete-remo-lions.png',
@@ -4867,9 +5198,8 @@ export const BFA: Team[] = [
         id: 15,
         nome: "Rondonópolis Hawks",
         sigla: 'HAW',
-        abreviacao: '',
         cor: '#011D44',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "rondonopolis-hawks.png",
         capacete: 'capacete-rondonopolis-hawks.png',
@@ -4894,9 +5224,8 @@ export const BFA: Team[] = [
         id: 16,
         nome: "Santa Maria Soldiers",
         sigla: 'SOL',
-        abreviacao: '',
         cor: '#4B5238',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "santa-maria-soldiers.png",
         capacete: 'capacete-santa-maria-soldiers.png',
@@ -4921,9 +5250,8 @@ export const BFA: Team[] = [
         id: 17,
         nome: "Sergipe Redentores",
         sigla: 'RED',
-        abreviacao: '',
         cor: '#00C8B3',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "sergipe-redentores.png",
         capacete: 'capacete-sergipe-redentores.png',
@@ -4948,9 +5276,8 @@ export const BFA: Team[] = [
         id: 18,
         nome: "Sinop Coyotes",
         sigla: 'COY',
-        abreviacao: '',
         cor: '#C1090B',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "sinop-coyotes.png",
         capacete: 'capacete-sinop-coyotes.png',
@@ -4975,9 +5302,8 @@ export const BFA: Team[] = [
         id: 19,
         nome: "Timbó Rex",
         sigla: 'REX',
-        abreviacao: '',
         cor: '#FF0000',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "timbo-rex.png",
         capacete: 'capacete-timbo-rex.png',
@@ -5002,9 +5328,8 @@ export const BFA: Team[] = [
         id: 20,
         nome: "Tubarões do Cerrado",
         sigla: 'TUB',
-        abreviacao: '',
         cor: '#1F4586',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "tubaroes-do-cerrado.png",
         capacete: 'capacete-tubaroes-do-cerrado.png',
@@ -5029,9 +5354,8 @@ export const BFA: Team[] = [
         id: 21,
         nome: "Vasco Almirantes",
         sigla: 'VAS',
-        abreviacao: '',
         cor: '#000',
-        cidade: "Recife",
+        cidade: "Recife/PE",
         fundacao: "01/01/2000",
         logo: "vasco-almirantes.png",
         capacete: 'capacete-vasco-almirantes.png',
