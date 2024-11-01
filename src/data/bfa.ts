@@ -1318,7 +1318,7 @@ export const BFA: Team[] = [
             },
             {
                 id: 15,
-                nome: "Paulo Henrique Mota",
+                nome: "Paulo Mota",
                 time: "Recife Mariners",
                 posicao: "K",
                 setor: 'Special',

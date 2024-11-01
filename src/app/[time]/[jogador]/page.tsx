@@ -45,7 +45,7 @@ export default function JogadorPage() {
 
     return (
         <div>
-            <div className='px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px]' style={{ backgroundColor: currentTeam?.cor }}>
+            <div className='fixed px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px]' style={{ backgroundColor: currentTeam?.cor }}>
                 <button
                     onClick={() => router.back()} 
                     className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
@@ -54,11 +54,11 @@ export default function JogadorPage() {
                 <div className='text-white font-bold text-xs mb-4 md:pt-4'>{currentTeam?.nome}</div>
                 <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
                     <div className='flex flex-col items-start'>
-                        <div className='text-[32px] text-white px-2 font-extrabold italic leading-[45px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
-                            {currentPlayer.nome}
+                        <div className='text-[32px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
+                            {currentPlayer.nome.toLocaleUpperCase()}
                         </div>
                         <div className='flex items-center gap-2'>
-                            <div className='text-[34px] text-white text-center px-2 font-extrabold italic tracking-[-3px] md:text-4xl'>
+                            <div className='text-[34px] text-[#D9D9D9] text-center px-2 font-extrabold italic tracking-[-3px] md:text-4xl'>
                                 {currentPlayer.posicao}
                             </div>
                             <div>
@@ -80,7 +80,7 @@ export default function JogadorPage() {
                     </div>
                 </div>
             </div>
-            <div className='p-4 flex flex-col gap-8'>
+            <div className='p-4 flex flex-col gap-8 pt-[400px] md:pt-[430px]'>
                 <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                     <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                         style={{ backgroundColor: currentTeam?.cor }}>BIO</div>
@@ -136,45 +136,45 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg lg:p-6">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">PASSES(COMP/TENT)</div>
+                                        <div className="text-xs xl:text-lg">PASSES(COMP/TENT)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.passe.passes_completos}/{currentPlayer.estatisticas.passe.passes_tentados}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">PASSES(%)</div>
+                                        <div className="text-xs xl:text-lg">PASSES(%)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {(
                                                 (currentPlayer.estatisticas.passe.passes_completos / currentPlayer.estatisticas.passe.passes_tentados) * 100
-                                            ).toFixed(0).replace('.', ',')}%
+                                            ).toFixed(1).replace('.', ',')}%
                                         </div>
                                     </div>
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">JARDAS (TOTAIS)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.passe.jardas_de_passe}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">JARDAS (AVG)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {(currentPlayer.estatisticas.passe.jardas_de_passe / currentPlayer.estatisticas.passe.passes_tentados)
-                                                .toFixed(2)
+                                                .toFixed(1)
                                                 .replace('.', ',')}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">TOUCHDOWNS</div>
+                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.td_passados}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">INTERCEPTAÇÕES</div>
+                                        <div className="text-xs xl:text-lg">INTERCEPTAÇÕES</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.interceptacoes_sofridas}
                                         </div>
@@ -182,21 +182,19 @@ export default function JogadorPage() {
                                 </div>
                                 <div className='flex justify-start gap-28'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">SACKS</div>
+                                        <div className="text-xs xl:text-lg">SACKS</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.sacks_sofridos}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs md:text-lg">FUMBLES</div>
+                                        <div className="text-xs xl:text-lg">FUMBLES</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.passe.fumble_de_passador}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     )}
 
@@ -217,13 +215,13 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">CORRIDAS</div>
+                                        <div className="text-xs xl:text-lg">CORRIDAS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.corrida.corridas}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.corrida.jardas_corridas}
                                         </div>
@@ -231,15 +229,15 @@ export default function JogadorPage() {
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {(currentPlayer.estatisticas.corrida.jardas_corridas / currentPlayer.estatisticas.corrida.corridas)
-                                                .toFixed(2)
+                                                .toFixed(1)
                                                 .replace('.', ',')}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.corrida.tds_corridos}
                                         </div>
@@ -247,7 +245,7 @@ export default function JogadorPage() {
                                 </div>
                                 <div className='flex justify-start gap-16'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-xs xl:text-lg">FUMBLES</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.corrida.fumble_de_corredor}
                                         </div>
@@ -272,29 +270,29 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.recepcao.jardas_recebidas}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {(currentPlayer.estatisticas.recepcao.jardas_recebidas / currentPlayer.estatisticas.recepcao.alvo)
-                                                .toFixed(2)
+                                                .toFixed(1)
                                                 .replace('.', ',')}
                                         </div>
                                     </div>
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-sm">RECEPÇÕES</div>
+                                        <div className="text-xs xl:text-lg">RECEPÇÕES</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.recepcao.recepcoes}/{currentPlayer.estatisticas.recepcao.alvo}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.recepcao.tds_recebidos}
                                         </div>
@@ -302,7 +300,7 @@ export default function JogadorPage() {
                                 </div>
                                 <div className='flex justify-start gap-20'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-xs xl:text-lg">FUMBLES</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.recepcao.fumble_de_recebedor}
                                         </div>
@@ -325,17 +323,17 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.jardas_retornadas}</div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TOUCHDOWNS</div>
+                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.td_retornados}</div>
                                     </div>
                                 </div>
                                 <div className="flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FUMBLES</div>
+                                        <div className="text-xs xl:text-lg">FUMBLES</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.fumble_retornador}</div>
                                     </div>
                                 </div>
@@ -361,41 +359,41 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TACKELS (TOTAIS)</div>
+                                        <div className="text-xs xl:text-lg">TACKELS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.tackles_totais}</div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TACKLES (FOR LOSS)</div>
+                                        <div className="text-xs xl:text-lg">TACKLES (FOR LOSS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.tackles_for_loss}</div>
                                     </div>
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">SACKS</div>
+                                        <div className="text-xs xl:text-lg">SACKS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.sacks_forcado}</div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FUMBLES FORÇADOS</div>
+                                        <div className="text-xs xl:text-lg">FUMBLES FORÇADOS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.fumble_forcado}</div>
                                     </div>
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">INTERCEPTAÇÕES</div>
+                                        <div className="text-xs xl:text-lg">INTERCEPTAÇÕES</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.interceptacao_forcada}</div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">PASSES DESVIADOS</div>
+                                        <div className="text-xs xl:text-lg">PASSES DESVIADOS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.passe_desviado}</div>
                                     </div>
                                 </div>
                                 <div className='flex justify-start gap-28'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">SAFETY</div>
+                                        <div className="text-xs xl:text-lg">SAFETY</div>
                                         <div className="text-[34px] font-extrabold italic">{currentPlayer.estatisticas.defesa.safety}</div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">TOUCHDOWN</div>
+                                        <div className="text-xs xl:text-lg">TOUCHDOWN</div>
                                         <div className="text-[34px] font-extrabold italic">{currentPlayer.estatisticas.defesa.td_defensivo}</div>
                                     </div>
                                 </div>
@@ -423,17 +421,17 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">EXTRA-POINTS</div>
+                                        <div className="text-xs xl:text-lg">EXTRA-POINTS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.kicker.xp_bons}/{currentPlayer.estatisticas.kicker.tentativas_de_xp}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">EXTRA-POINTS (%)</div>
+                                        <div className="text-xs xl:text-lg">EXTRA-POINTS (%)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.kicker.tentativas_de_xp > 0
                                                 ? ((currentPlayer.estatisticas.kicker.xp_bons / currentPlayer.estatisticas.kicker.tentativas_de_xp) * 100)
-                                                    .toFixed(2)
+                                                    .toFixed(1)
                                                     .replace('.', ',') + '%'
                                                 : '0%'}
                                         </div>
@@ -441,17 +439,17 @@ export default function JogadorPage() {
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FIELD GOALS</div>
+                                        <div className="text-xs xl:text-lg">FIELD GOALS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.kicker.fg_bons}/{currentPlayer.estatisticas.kicker.tentativas_de_fg}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FIELD GOALS (%)</div>
+                                        <div className="text-xs xl:text-lg">FIELD GOALS (%)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.kicker.tentativas_de_fg > 0
                                                 ? ((currentPlayer.estatisticas.kicker.fg_bons / currentPlayer.estatisticas.kicker.tentativas_de_fg) * 100)
-                                                    .toFixed(2)
+                                                    .toFixed(1)
                                                     .replace('.', ',') + '%'
                                                 : '0%'}
                                         </div>
@@ -459,27 +457,27 @@ export default function JogadorPage() {
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">MAIS LONGO</div>
+                                        <div className="text-xs xl:text-lg">MAIS LONGO</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.kicker.fg_mais_longo}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FG (0-10 JDS)</div>
+                                        <div className="text-xs xl:text-lg">FG (0-10 JDS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.kicker.fg_0_10}
                                         </div>
                                     </div>
                                 </div>
-                                <div className='flex justify-start gap-28'>
+                                <div className='border-b border-black/40 flex justify-start gap-28'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FG (11-20 JDS)</div>
+                                        <div className="text-xs xl:text-lg">FG (11-20 JDS)</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.kicker.fg_11_20}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FG (21-30 JDS)</div>
+                                        <div className="text-xs xl:text-lg">FG (21-30 JDS)</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.kicker.fg_21_30}
                                         </div>
@@ -487,13 +485,13 @@ export default function JogadorPage() {
                                 </div>
                                 <div className='flex justify-start gap-28'>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FG (31-40 JDS)</div>
+                                        <div className="text-xs xl:text-lg">FG (31-40 JDS)</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.kicker.fg_31_40}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">FG (41-50 JDS)</div>
+                                        <div className="text-xs xl:text-lg">FG (41-50 JDS)</div>
                                         <div className="text-[34px] font-extrabold italic">
                                             {currentPlayer.estatisticas.kicker.fg_41_50}
                                         </div>
@@ -516,13 +514,13 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">PUNTS</div>
+                                        <div className="text-xs xl:text-lg">PUNTS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.punter.punts}
                                         </div>
                                     </div>
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (TOTAIS)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.punter.jardas_de_punt}
                                         </div>
@@ -530,10 +528,10 @@ export default function JogadorPage() {
                                 </div>
                                 <div className="border-b border-black/40 flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
-                                        <div className="text-xs">JARDAS (AVG)</div>
+                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">
                                             {currentPlayer.estatisticas.punter.punts > 0
-                                                ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(2)
+                                                ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(1)
                                                 : '0'}%
                                         </div>
                                     </div>

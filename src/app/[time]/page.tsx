@@ -78,7 +78,7 @@ export default function Page() {
 
             {selectedButton === "jogadores" && (
                 <div className="pt-[400px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
-                    <div className="fixed">
+                    <div className="fixed ">
                         <section className="flex py-5 px-3 bg-white justify-between items-center">
                             <ButtonSetor
                                 label="ATAQUE"
