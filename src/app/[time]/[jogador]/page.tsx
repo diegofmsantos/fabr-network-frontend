@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from 'next/navigation'
-import { BFA } from '../../../data/bfa'
+import { Times } from '../../../data/times'
 import { Brasileirao } from '../../../data/brasileirao'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,35 +13,33 @@ import { Team } from '../../../types/team'
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
     for (let time of times) {
         if (time && Array.isArray(time.jogadores)) {
-            const jogador = time.jogadores.find((j: Player) => j.id === jogadorId)
+            const jogador = time.jogadores.find((j: Player) => j.id === jogadorId);
             if (jogador) {
-                return { jogador, time }
+                return { jogador, time };
             }
         }
     }
-    return null
+    return null;
 }
 
 export default function JogadorPage() {
-    const params = useParams()
-    const router = useRouter()
-    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
+    const params = useParams();
+    const router = useRouter();
+    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10);
 
-    // Busca o jogador no BFA e no Brasileirao
-    const jogadorBFA = findJogador(BFA, jogadorId)
-    const jogadorBrasileirao = findJogador(Brasileirao, jogadorId)
+    // Busca o jogador na fonte de dados única 'Times'
+    const jogadorData = findJogador(Times, jogadorId);
 
-    // Se encontrou o jogador no BFA ou Brasileirao, usa os dados
-    const currentPlayer = jogadorBFA?.jogador || jogadorBrasileirao?.jogador
-    const currentTeam = jogadorBFA?.time || jogadorBrasileirao?.time
-
-    // Se não encontrar, exibe mensagem de erro
-    if (!currentPlayer) {
-        return <div>Jogador não encontrado</div>
+    // Se não encontrar o jogador, exibe mensagem de erro
+    if (!jogadorData) {
+        return <div>Jogador não encontrado</div>;
     }
 
-    const logopath = currentTeam?.brasileirao ? `/assets/brasileirao/logos-brasileirao/${currentTeam.logo}` : `/assets/bfa/logos-bfa/${currentTeam?.logo}`
-    const camisasPath = currentTeam?.brasileirao ? `/assets/brasileirao/camisas-brasileirao/${currentPlayer.camisa}` : `/assets/bfa/camisas-bfa/${currentPlayer.camisa}`
+    const { jogador: currentPlayer, time: currentTeam } = jogadorData;
+
+    // Caminho para o logo do time e para a camisa do jogador com a nova estrutura de pastas
+    const logopath = `/assets/times/logos/${currentTeam.logo}`;
+    const camisasPath = `/assets/times/camisas/${currentPlayer.camisa}`;
 
     return (
         <div>

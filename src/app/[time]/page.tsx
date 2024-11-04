@@ -1,8 +1,7 @@
 "use client";
 
 import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { BFA } from '../../data/bfa';
-import { Brasileirao } from '../../data/brasileirao';
+import { Times } from '../../data/times';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
@@ -18,17 +17,13 @@ export default function Page() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const time = Array.isArray(params.time) ? params.time[0] : params.time;
-    const timeBFA = BFA.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
-    const timeDataBrasileirao = Brasileirao.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
-    const currentTeam = timeBFA || timeDataBrasileirao;
+    const currentTeam = Times.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
 
     if (!currentTeam) {
         return <div>Time não encontrado</div>;
     }
 
-    const capacetePath = currentTeam.brasileirao
-        ? `/assets/brasileirao/capacetes-brasileirao/${currentTeam.capacete}`
-        : `/assets/bfa/capacetes-bfa/${currentTeam.capacete}`;
+    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`;
 
     const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
     const [selectedSetor, setSelectedSetor] = useState("ATAQUE");
