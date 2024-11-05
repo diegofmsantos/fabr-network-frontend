@@ -39,7 +39,7 @@ export default function JogadorPage() {
 
     // Caminho para o logo do time e para a camisa do jogador com a nova estrutura de pastas
     const logopath = `/assets/times/logos/${currentTeam.logo}`;
-    const camisasPath = `/assets/times/camisas/${currentPlayer.camisa}`;
+    const camisasPath = `/assets/times/camisas/${currentTeam.nome}/${currentPlayer.camisa}`;
 
     return (
         <div>
@@ -96,22 +96,22 @@ export default function JogadorPage() {
                         <div className="border-b border-black/40 flex justify-start gap-24">
                             <div className='flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">IDADE</div>
-                                <div className="text-sm font-extrabold italic mb-1 md:text-lg">{currentPlayer.idade}</div>
+                                <div className="text-base font-extrabold italic mb-1 md:text-lg">{currentPlayer.idade}</div>
                             </div>
                             <div className='flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">CIDADE</div>
-                                <div className="text-sm font-extrabold italic mb-1 md:text-lg">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
+                                <div className="text-base font-extrabold italic mb-1 md:text-lg">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
                             </div>
                         </div>
                         <div className='flex justify-start gap-24'>
                             <div className='flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
-                                <div className="text-sm font-extrabold italic md:text-lg">-</div>
+                                <div className="text-base font-extrabold italic md:text-lg">-</div>
                             </div>
-                            <div className='flex-1 justify-start'>
+                            <div className='flex-2 justify-start'>
                                 <div className="text-sm md:text-lg">TIME FORMADOR</div>
                                 <div className='flex gap-2 items-center'>
-                                    <div className="text-sm font-extrabold italic md:text-lg">{currentTeam?.nome.toLocaleUpperCase()}</div>
+                                    <div className="text-base font-extrabold italic md:text-lg">{currentTeam?.nome.toLocaleUpperCase()}</div>
                                 </div>
                             </div>
                         </div>
