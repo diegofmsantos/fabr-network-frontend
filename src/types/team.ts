@@ -15,6 +15,7 @@ export type Team = {
     fundacao: string;
     logo: string;
     capacete: string;
+    instagram?: string
     estadio: string;
     presidente: string;
     head_coach: string;
