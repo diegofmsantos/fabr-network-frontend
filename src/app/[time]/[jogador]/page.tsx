@@ -2,7 +2,6 @@
 
 import { useParams, useRouter } from 'next/navigation'
 import { Times } from '../../../data/times'
-import { Brasileirao } from '../../../data/brasileirao'
 import Image from 'next/image'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
