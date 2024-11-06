@@ -12,6 +12,8 @@ import { ButtonSetor } from '@/components/ui/buttonSetor';
 import { Jogador } from '@/components/Jogador';
 import { Time } from '@/components/Time';
 
+type Setor = "ATAQUE" | "DEFESA" | "SPECIAL";
+
 export default function Page() {
     const params = useParams();
     const router = useRouter();
@@ -26,10 +28,11 @@ export default function Page() {
     const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`;
 
     const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
-    const [selectedSetor, setSelectedSetor] = useState("ATAQUE");
+    const [selectedSetor, setSelectedSetor] = useState<Setor>(searchParams.get("setor") as Setor || "ATAQUE");
 
     useEffect(() => {
         setSelectedButton(searchParams.get("show") || "time");
+        setSelectedSetor((searchParams.get("setor") as Setor) || "ATAQUE");
     }, [searchParams]);
 
     const handleShowTime = () => {
@@ -38,14 +41,19 @@ export default function Page() {
     };
 
     const handleShowJogadores = () => {
-        router.replace(`?show=jogadores`);
+        router.replace(`?show=jogadores&setor=${selectedSetor}`);
         setSelectedButton("jogadores");
+    };
+
+    const handleSetorChange = (setor: Setor) => {
+        setSelectedSetor(setor);
+        router.replace(`?show=jogadores&setor=${setor}`);
     };
 
     return (
         <div>
             <div className='w-full fixed'>
-                <div className='p-4 w-full h-[400px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
+                <div className='p-4 w-full h-[450px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
                     <Link
                         href={'/'}
                         className='absolute top-10 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20'>
@@ -72,26 +80,26 @@ export default function Page() {
             </div>
 
             {selectedButton === "jogadores" && (
-                <div className="pt-[400px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
+                <div className="pt-[450px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
                     <div className="fixed ">
                         <section className="flex py-5 px-3 bg-white justify-between items-center">
                             <ButtonSetor
                                 label="ATAQUE"
                                 borderColor={currentTeam.cor}
                                 isSelected={selectedSetor === "ATAQUE"}
-                                onClick={() => setSelectedSetor("ATAQUE")}
+                                onClick={() => handleSetorChange("ATAQUE")}
                             />
                             <ButtonSetor
                                 label="DEFESA"
                                 borderColor={currentTeam.cor}
                                 isSelected={selectedSetor === "DEFESA"}
-                                onClick={() => setSelectedSetor("DEFESA")}
+                                onClick={() => handleSetorChange("DEFESA")}
                             />
                             <ButtonSetor
                                 label="SPECIAL"
                                 borderColor={currentTeam.cor}
                                 isSelected={selectedSetor === "SPECIAL"}
-                                onClick={() => setSelectedSetor("SPECIAL")}
+                                onClick={() => handleSetorChange("SPECIAL")}
                             />
                         </section>
 
@@ -116,7 +124,7 @@ export default function Page() {
             )}
 
             {selectedButton === "time" && (
-                <div className='pt-[405px]'>
+                <div className='pt-[455px]'>
                     <Time currentTeam={currentTeam} />
                 </div>
             )}

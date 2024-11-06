@@ -1,6 +1,7 @@
 import { Team } from "@/types/team"
 import { differenceInYears, format } from "date-fns"
 import { ptBR } from "date-fns/locale"
+import Link from "next/link"
 
 type Props = {
     currentTeam: Team
@@ -13,7 +14,7 @@ export const Time = ({ currentTeam }: Props) => {
         currentTeam.fundacao.split('/').reverse().join('-')
     );
     const idade = differenceInYears(new Date(), fundacaoDate);
-    const fundacaoFormatada = format(fundacaoDate, "dd/MM/yyyy", { locale: ptBR });
+    const fundacaoFormatada = format(fundacaoDate, "yyyy", { locale: ptBR });
 
 
     return (
@@ -30,9 +31,15 @@ export const Time = ({ currentTeam }: Props) => {
                         <div className="text-sm">CIDADE</div>
                         <div className="text-lg font-extrabold italic mb-1">{currentTeam.cidade.toLocaleUpperCase()}</div>
                     </div>
-                    <div>
+                    <div className="border-b border-black/40">
                         <div className="text-sm">ESTÁDIO</div>
-                        <div className="text-xl font-extrabold italic">{currentTeam.estadio.toLocaleUpperCase()}</div>
+                        <div className="text-lg font-extrabold italic">{currentTeam.estadio.toLocaleUpperCase()}</div>
+                    </div>
+                    <div>
+                        <div className="text-sm">INSTAGRAM</div>
+                        <div className="text-lg font-extrabold italic">
+                            <Link href={`${currentTeam.instagram}`} target="blank">{currentTeam.instagram2.toLocaleUpperCase()}</Link>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,19 +49,19 @@ export const Time = ({ currentTeam }: Props) => {
                 <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                     <div className="border-b border-black/40">
                         <div className="text-sm">PRESIDENTE</div>
-                        <div className="text-xl font-extrabold italic mb-1">{currentTeam.presidente}</div>
+                        <div className="text-xl font-extrabold italic mb-1">{currentTeam.presidente.toLocaleUpperCase()}</div>
                     </div>
                     <div className="border-b border-black/40">
                         <div className="text-sm">HEAD COACH</div>
-                        <div className="text-xl font-extrabold italic mb-1">{currentTeam.head_coach}</div>
+                        <div className="text-xl font-extrabold italic mb-1">{currentTeam.head_coach.toLocaleUpperCase()}</div>
                     </div>
                     <div className="border-b border-black/40">
                         <div className="text-sm">COORDENADOR OFENSIVO</div>
-                        <div className="text-xl font-extrabold italic mb-1">{currentTeam.coord_ofen}</div>
+                        <div className="text-xl font-extrabold italic mb-1">{currentTeam.coord_ofen.toLocaleUpperCase()}</div>
                     </div>
                     <div>
                         <div className="text-sm">COORDENADOR DEFENSIVO</div>
-                        <div className="text-xl font-extrabold italic">{currentTeam.coord_defen}</div>
+                        <div className="text-xl font-extrabold italic">{currentTeam.coord_defen.toLocaleUpperCase()}</div>
                     </div>
                 </div>
             </div>
