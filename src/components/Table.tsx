@@ -21,7 +21,7 @@ export const Table = () => {
                         ESCOLHA SEU TIME
                     </h1>
                     <div className="grid grid-cols-4 gap-4 p-3 bg-[#ECECEC]">
-                        {Times.map(item => (
+                        {Times.sort((a, b) => a.sigla.localeCompare(b.sigla)).map(item => (
                             <Link
                                 href={`/${item.nome}`}
                                 className="relative border border-gray-300 rounded-lg overflow-hidden group"
@@ -33,7 +33,6 @@ export const Table = () => {
                                     style={{ backgroundColor: item.cor }}
                                 ></div>
 
-                                {/* Conteúdo principal */}
                                 <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[22px] min-[400px]:text-[31px] md:text-[45px]">
                                     <div>{item.sigla}</div>
                                     <div className="flex flex-col -mt-6 justify-center items-center gap-2 min-h-28 p-2">

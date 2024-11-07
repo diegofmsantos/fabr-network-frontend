@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { Player } from '../../../types/player'
 import { Team } from '../../../types/team'
+import Link from 'next/link';
 
 // Função para buscar o jogador por ID
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
@@ -44,7 +45,7 @@ export default function JogadorPage() {
         <div>
             <div className='fixed px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px]' style={{ backgroundColor: currentTeam?.cor }}>
                 <button
-                    onClick={() => router.back()} 
+                    onClick={() => router.back()}
                     className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
@@ -81,39 +82,49 @@ export default function JogadorPage() {
                 <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                     <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                         style={{ backgroundColor: currentTeam?.cor }}>BIO</div>
-                    <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40 flex justify-start">
-                            <div className='flex-1 justify-start'>
+                    <div className="bg-[#D9D9D9]/50 flex flex-col justify-center gap-4 p-4 rounded-lg">
+                        <div className="border-b border-black/40 flex justify-between">
+                            <div className='flex flex-col justify-center items-center'>
+                                <div className="text-sm md:text-lg">IDADE</div>
+                                <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.idade}</div>
+                            </div>
+                            <div className='flex flex-col justify-center items-center'>
                                 <div className="text-sm md:text-lg">PESO</div>
                                 <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.peso}</div>
                             </div>
-                            <div className='flex-1 justify-start'>
+                            <div className='flex flex-col justify-center items-center'>
                                 <div className="text-sm md:text-lg">ALTURA</div>
                                 <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.altura.toFixed(2).replace('.', ',')}</div>
                             </div>
                         </div>
                         <div className="border-b border-black/40 flex justify-start">
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm md:text-lg">IDADE</div>
-                                <div className="text-base font-extrabold italic mb-1 md:text-lg">{currentPlayer.idade}</div>
+                                <div className="text-sm md:text-lg">CIDADE NATAL</div>
+                                <div className="text-xl font-extrabold italic mb-1">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
                             </div>
+                        </div>
+                        <div className='border-b border-black/40 flex-1 justify-start'>
+                            <div className="text-sm md:text-lg">TIME FORMADOR</div>
+                            <div className='flex gap-2 items-center'>
+                                <div className="text-xl font-extrabold italic">{currentTeam?.nome.toLocaleUpperCase()}</div>
+                                <Image src={logopath} width={30} height={30} alt='logo' quality={100} />
+                            </div>
+                        </div>
+                        <div className='border-b border-black/40 flex justify-start'>
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm md:text-lg">CIDADE</div>
-                                <div className="text-base font-extrabold italic mb-1 md:text-lg">{currentPlayer?.cidade.toLocaleUpperCase()}</div>
+                                <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
+                                <div className="text-xl font-extrabold italic md:text-lg">{currentPlayer.experiencia} ANO{currentPlayer.experiencia > 1 ? 'S' : ''}</div>
                             </div>
                         </div>
                         <div className='flex justify-start'>
                             <div className='flex-1 justify-start'>
-                                <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
-                                <div className="text-base font-extrabold italic md:text-lg">-</div>
-                            </div>
-                            <div className='flex-1 justify-start'>
-                                <div className="text-sm md:text-lg">TIME FORMADOR</div>
-                                <div className='flex gap-2 items-center'>
-                                    <div className="text-base font-extrabold italic md:text-lg">{currentTeam?.nome.toLocaleUpperCase()}</div>
+                                <div className="text-sm md:text-lg">INSTAGRAM</div>
+                                <div className="text-base font-extrabold italic md:text-lg">
+                                    <Link href={`${currentPlayer.instagram}`} target='blank'>{currentPlayer.instagram2}</Link>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
                 {currentPlayer.estatisticas?.passe &&
@@ -310,6 +321,7 @@ export default function JogadorPage() {
 
                 {currentPlayer.estatisticas?.retorno &&
                     (
+                        currentPlayer.estatisticas.retorno.retornos > 0 ||
                         currentPlayer.estatisticas.retorno.jardas_retornadas > 0 ||
                         currentPlayer.estatisticas.retorno.td_retornados > 0 ||
                         currentPlayer.estatisticas.retorno.fumble_retornador > 0
@@ -320,15 +332,19 @@ export default function JogadorPage() {
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                 <div className="border-b border-black/40 flex justify-start gap-24">
                                     <div className='flex-1 justify-start'>
+                                        <div className="text-xs xl:text-lg">RETORNOS</div>
+                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.retornos}</div>
+                                    </div>
+                                    <div className='flex-1 justify-start'>
                                         <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.jardas_retornadas}</div>
                                     </div>
+                                </div>
+                                <div className="flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
                                         <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.td_retornados}</div>
                                     </div>
-                                </div>
-                                <div className="flex justify-start gap-28">
                                     <div className='flex-1 justify-start'>
                                         <div className="text-xs xl:text-lg">FUMBLES</div>
                                         <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.fumble_retornador}</div>

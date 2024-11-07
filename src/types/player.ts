@@ -22,6 +22,7 @@ export type Estatisticas = {
         fumble_de_recebedor: number;
     };
     retorno: {
+        retornos: number
         jardas_retornadas: number;
         td_retornados: number;
         fumble_retornador: number;
@@ -65,6 +66,8 @@ export type Player = {
     idade: number;
     altura: number;
     peso: number;
+    instagram: string,
+    instagram2: string
     cidade: string;
     nacionalidade: string;
     camisa: string;
