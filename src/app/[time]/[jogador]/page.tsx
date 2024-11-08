@@ -126,7 +126,7 @@ export default function JogadorPage() {
                         <div className='flex justify-start'>
                             <div className='flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">INSTAGRAM</div>
-                                <div className="text-lg font-extrabold italic">
+                                <div className="text-lg font-extrabold italic underline text-blue-800">
                                     <Link href={`${currentPlayer.instagram}`} target='blank'>{currentPlayer.instagram2.toLocaleUpperCase()}</Link>
                                 </div>
                             </div>

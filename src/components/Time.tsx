@@ -39,7 +39,7 @@ export const Time = ({ currentTeam }: Props) => {
                     </div>
                     <div>
                         <div className="text-sm">INSTAGRAM</div>
-                        <div className="text-lg font-extrabold italic">
+                        <div className="text-lg font-extrabold italic underline text-blue-800">
                             <Link href={`${currentTeam.instagram}`} target="_blank">
                                 {currentTeam.instagram2.toLocaleUpperCase()}
                             </Link>
