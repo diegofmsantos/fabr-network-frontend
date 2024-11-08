@@ -41,6 +41,13 @@ export default function JogadorPage() {
     const logopath = `/assets/times/logos/${currentTeam.logo}`;
     const camisasPath = `/assets/times/camisas/${currentTeam.nome}/${currentPlayer.camisa}`;
 
+    const calcularExperiencia = (anoInicio: number) => {
+        const anoAtual = new Date().getFullYear();
+        return anoAtual - anoInicio;
+    }
+
+    const experienciaAnos = calcularExperiencia(currentPlayer.experiencia);
+
     return (
         <div>
             <div className='fixed px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px]' style={{ backgroundColor: currentTeam?.cor }}>
@@ -113,14 +120,14 @@ export default function JogadorPage() {
                         <div className='border-b border-black/40 flex justify-start'>
                             <div className='flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
-                                <div className="text-xl font-extrabold italic md:text-lg">{currentPlayer.experiencia} ANO{currentPlayer.experiencia > 1 ? 'S' : ''}</div>
+                                <div className="text-xl font-extrabold italic md:text-lg">{experienciaAnos} ANOS</div>
                             </div>
                         </div>
                         <div className='flex justify-start'>
                             <div className='flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">INSTAGRAM</div>
-                                <div className="text-base font-extrabold italic md:text-lg">
-                                    <Link href={`${currentPlayer.instagram}`} target='blank'>{currentPlayer.instagram2}</Link>
+                                <div className="text-lg font-extrabold italic">
+                                    <Link href={`${currentPlayer.instagram}`} target='blank'>{currentPlayer.instagram2.toLocaleUpperCase()}</Link>
                                 </div>
                             </div>
                         </div>
