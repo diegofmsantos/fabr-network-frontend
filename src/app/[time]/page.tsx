@@ -1,54 +1,54 @@
-"use client";
+"use client"
 
-import { useParams, useRouter, useSearchParams } from 'next/navigation';
-import { Times } from '../../data/times';
-import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
-import { ButtonTime } from '@/components/ui/buttonTime';
-import { useEffect, useState } from 'react';
-import { ButtonSetor } from '@/components/ui/buttonSetor';
-import { Jogador } from '@/components/Jogador';
-import { Time } from '@/components/Time';
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
+import { Times } from '../../data/times'
+import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleDown } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
+import { ButtonTime } from '@/components/ui/buttonTime'
+import { useEffect, useState } from 'react'
+import { ButtonSetor } from '@/components/ui/buttonSetor'
+import { Jogador } from '@/components/Jogador'
+import { Time } from '@/components/Time'
 
-type Setor = "ATAQUE" | "DEFESA" | "SPECIAL";
+type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
 export default function Page() {
-    const params = useParams();
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const time = Array.isArray(params.time) ? params.time[0] : params.time;
-    const currentTeam = Times.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase());
+    const params = useParams()
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const time = Array.isArray(params.time) ? params.time[0] : params.time
+    const currentTeam = Times.find(t => t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase())
 
     if (!currentTeam) {
-        return <div>Time não encontrado</div>;
+        return <div>Time não encontrado</div>
     }
 
-    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`;
+    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`
 
-    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
-    const [selectedSetor, setSelectedSetor] = useState<Setor>(searchParams.get("setor") as Setor || "ATAQUE");
+    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time")
+    const [selectedSetor, setSelectedSetor] = useState<Setor>(searchParams.get("setor") as Setor || "ATAQUE")
 
     useEffect(() => {
-        setSelectedButton(searchParams.get("show") || "time");
-        setSelectedSetor((searchParams.get("setor") as Setor) || "ATAQUE");
+        setSelectedButton(searchParams.get("show") || "time")
+        setSelectedSetor((searchParams.get("setor") as Setor) || "ATAQUE")
     }, [searchParams]);
 
     const handleShowTime = () => {
-        router.replace(`?show=time`);
-        setSelectedButton("time");
-    };
+        router.replace(`?show=time`)
+        setSelectedButton("time")
+    }
 
     const handleShowJogadores = () => {
-        router.replace(`?show=jogadores&setor=${selectedSetor}`);
-        setSelectedButton("jogadores");
-    };
+        router.replace(`?show=jogadores&setor=${selectedSetor}`)
+        setSelectedButton("jogadores")
+    }
 
     const handleSetorChange = (setor: Setor) => {
-        setSelectedSetor(setor);
-        router.replace(`?show=jogadores&setor=${setor}`);
-    };
+        setSelectedSetor(setor)
+        router.replace(`?show=jogadores&setor=${setor}`)
+    }
 
     return (
         <div>
@@ -82,7 +82,7 @@ export default function Page() {
             {selectedButton === "jogadores" && (
                 <div className="pt-[450px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
                     <div className="fixed ">
-                        <section className="flex py-5 px-3 bg-white justify-between items-center">
+                        <section className="flex py-5 px-4 bg-white justify-between items-center">
                             <ButtonSetor
                                 label="ATAQUE"
                                 borderColor={currentTeam.cor}
@@ -103,7 +103,7 @@ export default function Page() {
                             />
                         </section>
 
-                        <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                        <div className='xl:max-w-[100px] xl:min-w-[1100px] xl:m-auto'>
                             <div
                                 className="w-screen py-1 px-4 flex justify-between items-center text-xs text-white md:text-[14px] md:h-7 xl:h-10 xl:text-lg xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto"
                                 style={{ backgroundColor: currentTeam.cor }}
@@ -117,7 +117,7 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-[104px] xl:mt-[123px] xl:border">
+                    <div className="mt-[98px] xl:mt-[123px] xl:border">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
                     </div>
                 </div>
@@ -129,5 +129,5 @@ export default function Page() {
                 </div>
             )}
         </div>
-    );
+    )
 }

@@ -1,28 +1,28 @@
-import { Player } from "./player";
+import { Player } from "./player"
 
 type Titulos = {
-    nacionais: string;
-    regionais: string;
-    estaduais: string;
-};
+    nacionais: string
+    regionais: string
+    estaduais: string
+}
 
 export type Team = {
-    id: number;
-    nome: string;
-    sigla: string;
-    cor: string;
-    cidade: string;
-    fundacao: string;
-    logo: string;
-    capacete: string;
-    instagram: string;
+    id: number
+    nome: string
+    sigla: string
+    cor: string
+    cidade: string
+    fundacao: string
+    logo: string
+    capacete: string
+    instagram: string
     instagram2: string
-    estadio: string;
-    presidente: string;
-    head_coach: string;
-    coord_ofen: string;
-    coord_defen: string;
-    titulos: Titulos[]; 
-    brasileirao: boolean;
-    jogadores?: Player[]; 
-};
+    estadio: string
+    presidente: string
+    head_coach: string
+    coord_ofen: string
+    coord_defen: string
+    titulos: Titulos[]
+    brasileirao: boolean
+    jogadores?: Player[]
+}

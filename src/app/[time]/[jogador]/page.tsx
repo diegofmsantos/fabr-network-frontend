@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { useParams, useRouter } from 'next/navigation'
 import { Times } from '../../../data/times'
@@ -7,46 +7,46 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { Player } from '../../../types/player'
 import { Team } from '../../../types/team'
-import Link from 'next/link';
+import Link from 'next/link'
 
 // Função para buscar o jogador por ID
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
     for (let time of times) {
         if (time && Array.isArray(time.jogadores)) {
-            const jogador = time.jogadores.find((j: Player) => j.id === jogadorId);
+            const jogador = time.jogadores.find((j: Player) => j.id === jogadorId)
             if (jogador) {
-                return { jogador, time };
+                return { jogador, time }
             }
         }
     }
-    return null;
+    return null
 }
 
 export default function JogadorPage() {
-    const params = useParams();
-    const router = useRouter();
-    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10);
+    const params = useParams()
+    const router = useRouter()
+    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
 
     // Busca o jogador na fonte de dados única 'Times'
-    const jogadorData = findJogador(Times, jogadorId);
+    const jogadorData = findJogador(Times, jogadorId)
 
     // Se não encontrar o jogador, exibe mensagem de erro
     if (!jogadorData) {
-        return <div>Jogador não encontrado</div>;
+        return <div>Jogador não encontrado</div>
     }
 
-    const { jogador: currentPlayer, time: currentTeam } = jogadorData;
+    const { jogador: currentPlayer, time: currentTeam } = jogadorData
 
-    // Caminho para o logo do time e para a camisa do jogador com a nova estrutura de pastas
-    const logopath = `/assets/times/logos/${currentTeam.logo}`;
-    const camisasPath = `/assets/times/camisas/${currentTeam.nome}/${currentPlayer.camisa}`;
+    // Caminho para o logo do time e para a camisa do jogador 
+    const logopath = `/assets/times/logos/${currentTeam.logo}`
+    const camisasPath = `/assets/times/camisas/${currentTeam.nome}/${currentPlayer.camisa}`
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear();
-        return anoAtual - anoInicio;
+        const anoAtual = new Date().getFullYear()
+        return anoAtual - anoInicio
     }
 
-    const experienciaAnos = calcularExperiencia(currentPlayer.experiencia);
+    const experienciaAnos = calcularExperiencia(currentPlayer.experiencia)
 
     return (
         <div>
@@ -562,5 +562,5 @@ export default function JogadorPage() {
                     )}
             </div>
         </div>
-    );
+    )
 }

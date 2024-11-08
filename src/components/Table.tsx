@@ -1,9 +1,6 @@
-"use client"
-
 import { Times } from "@/data/times"
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
 
 export const Table = () => {
 

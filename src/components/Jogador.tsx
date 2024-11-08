@@ -1,9 +1,9 @@
-import { Team } from "@/types/team";
-import Link from "next/link";
+import { Team } from "@/types/team"
+import Link from "next/link"
 
 type Props = {
-    currentTeam: Team;
-    selectedSetor: string;
+    currentTeam: Team
+    selectedSetor: string
 };
 
 export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
@@ -28,5 +28,5 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 </Link>
             ))}
         </div>
-    );
-};
+    )
+}
