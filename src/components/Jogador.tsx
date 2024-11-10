@@ -56,8 +56,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                             </div>
                         </div>
                     </Link>
-                );
+                )
             })}
         </div>
-    );
-};
+    )
+}

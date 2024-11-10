@@ -82,7 +82,7 @@ export default function Page() {
             {selectedButton === "jogadores" && (
                 <div className="pt-[410px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
                     <div className="fixed ">
-                        <section className="flex py-5 px-4 bg-white justify-between items-center">
+                        <section className="flex justify-between gap-5 py-5 px-4 bg-white">
                             <ButtonSetor
                                 label="ATAQUE"
                                 borderColor={currentTeam.cor}
@@ -102,22 +102,8 @@ export default function Page() {
                                 onClick={() => handleSetorChange("SPECIAL")}
                             />
                         </section>
-
-                        <div className='xl:max-w-[100px] xl:min-w-[1100px] xl:m-auto'>
-                            <div
-                                className="w-screen py-1 px-4 flex justify-between items-center text-xs text-white md:text-[14px] md:h-7 xl:h-10 xl:text-lg xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto"
-                                style={{ backgroundColor: currentTeam.cor }}
-                            >
-                                <div className="w-5">#</div>
-                                <div className="w-[175px]">Nome</div>
-                                <div className="w-12 flex justify-center items-center">Posição</div>
-                                <div className="w-12 flex justify-center items-center">Idade</div>
-                                <div className="w-12 flex justify-center items-center">Altura</div>
-                                <div className="w-12 flex justify-center items-center">Peso</div>
-                            </div>
-                        </div>
                     </div>
-                    <div className="mt-[98px] xl:mt-[123px] xl:border">
+                    <div className="mt-[60px] xl:mt-[123px] xl:border">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
                     </div>
                 </div>
