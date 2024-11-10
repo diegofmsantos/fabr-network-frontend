@@ -53,14 +53,14 @@ export default function Page() {
     return (
         <div>
             <div className='w-full fixed'>
-                <div className='p-4 w-full h-[450px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
+                <div className='p-4 w-full h-[410px] flex flex-col justify-center items-center rounded-b-xl' style={{ backgroundColor: currentTeam.cor }}>
                     <Link
                         href={'/'}
                         className='absolute top-10 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20'>
                         {currentTeam.sigla}
                         <FontAwesomeIcon icon={faAngleDown} className='ml-1' />
                     </Link>
-                    <div className='flex flex-col justify-center items-center mt-20'>
+                    <div className='flex flex-col justify-center items-center mt-10'>
                         <div className='text-[48px] text-white text-center px-2 font-extrabold italic leading-[35px] tracking-[-3px]'>{currentTeam.nome.toLocaleUpperCase()}</div>
                         <div className='w-48 h-48 rotate-[15deg]'>
                             <Image
@@ -72,7 +72,7 @@ export default function Page() {
                             />
                         </div>
                     </div>
-                    <div className='flex justify-between gap-8'>
+                    <div className='flex justify-between gap-8 -mt-3'>
                         <ButtonTime label='TIME' onClick={handleShowTime} isSelected={selectedButton === "time"} />
                         <ButtonTime label='JOGADORES' onClick={handleShowJogadores} isSelected={selectedButton === "jogadores"} />
                     </div>
@@ -80,7 +80,7 @@ export default function Page() {
             </div>
 
             {selectedButton === "jogadores" && (
-                <div className="pt-[450px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
+                <div className="pt-[410px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
                     <div className="fixed ">
                         <section className="flex py-5 px-4 bg-white justify-between items-center">
                             <ButtonSetor
@@ -124,7 +124,7 @@ export default function Page() {
             )}
 
             {selectedButton === "time" && (
-                <div className='pt-[455px]'>
+                <div className='pt-[410px]'>
                     <Time currentTeam={currentTeam} />
                 </div>
             )}
