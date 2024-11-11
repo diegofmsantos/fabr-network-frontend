@@ -81,54 +81,55 @@ export const Time = ({ currentTeam }: Props) => {
                     TÍTULOS
                 </div>
                 {currentTeam.titulos.length > 0 && (
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40">
-                            <div className="text-sm">NACIONAIS</div>
-                            <div className="text-xl font-extrabold italic mb-1">
-                                {currentTeam.titulos[0].nacionais.includes('(')
-                                    ? (
-                                        <>
-                                            {currentTeam.titulos[0].nacionais.split(" (")[0]}
-                                            <span className="text-sm">
-                                                ({currentTeam.titulos[0].nacionais.split(" (")[1].replace(')', '')})
-                                            </span>
-                                        </>
-                                    ) : currentTeam.titulos[0].nacionais
-                                }
-                            </div>
-                        </div>
-                        <div className="border-b border-black/40">
-                            <div className="text-sm">REGIONAIS</div>
-                            <div className="text-xl font-extrabold italic mb-1">
-                                {currentTeam.titulos[0].regionais.includes('(')
-                                    ? (
-                                        <>
-                                            {currentTeam.titulos[0].regionais.split(" (")[0]}
-                                            <span className="text-sm">
-                                                ({currentTeam.titulos[0].regionais.split(" (")[1].replace(')', '')})
-                                            </span>
-                                        </>
-                                    ) : currentTeam.titulos[0].regionais
-                                }
-                            </div>
-                        </div>
-                        <div>
-                            <div className="text-sm">ESTADUAIS</div>
-                            <div className="text-xl font-extrabold italic">
-                                {currentTeam.titulos[0].estaduais.includes('(')
-                                    ? (
-                                        <>
-                                            {currentTeam.titulos[0].estaduais.split(" (")[0]}
-                                            <span className="text-sm">
-                                                ({currentTeam.titulos[0].estaduais.split(" (")[1].replace(')', '')})
-                                            </span>
-                                        </>
-                                    ) : currentTeam.titulos[0].estaduais
-                                }
-                            </div>
-                        </div>
-                    </div>
-                )}
+    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+        <div className="border-b border-black/40">
+            <div className="text-sm">NACIONAIS</div>
+            <div className="text-xl font-extrabold italic mb-1">
+                {currentTeam.titulos[0].nacionais.includes('(')
+                    ? (
+                        <>
+                            {currentTeam.titulos[0].nacionais.split(" (")[0]}{' '}
+                            <span className="text-sm">
+                                ({currentTeam.titulos[0].nacionais.split(" (")[1].replace(')', '')})
+                            </span>
+                        </>
+                    ) : currentTeam.titulos[0].nacionais
+                }
+            </div>
+        </div>
+        <div className="border-b border-black/40">
+            <div className="text-sm">REGIONAIS</div>
+            <div className="text-xl font-extrabold italic mb-1">
+                {currentTeam.titulos[0].regionais.includes('(')
+                    ? (
+                        <>
+                            {currentTeam.titulos[0].regionais.split(" (")[0]}{' '}
+                            <span className="text-sm">
+                                ({currentTeam.titulos[0].regionais.split(" (")[1].replace(')', '')})
+                            </span>
+                        </>
+                    ) : currentTeam.titulos[0].regionais
+                }
+            </div>
+        </div>
+        <div>
+            <div className="text-sm">ESTADUAIS</div>
+            <div className="text-xl font-extrabold italic">
+                {currentTeam.titulos[0].estaduais.includes('(')
+                    ? (
+                        <>
+                            {currentTeam.titulos[0].estaduais.split(" (")[0]}{' '}
+                            <span className="text-sm">
+                                ({currentTeam.titulos[0].estaduais.split(" (")[1].replace(')', '')})
+                            </span>
+                        </>
+                    ) : currentTeam.titulos[0].estaduais
+                }
+            </div>
+        </div>
+    </div>
+)}
+
             </div>
         </div>
     )

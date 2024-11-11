@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react'
 import { ButtonSetor } from '@/components/ui/buttonSetor'
 import { Jogador } from '@/components/Jogador'
 import { Time } from '@/components/Time'
+import { motion } from "framer-motion"
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
@@ -80,7 +81,13 @@ export default function Page() {
             </div>
 
             {selectedButton === "jogadores" && (
-                <div className="w-full pt-[410px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
+                <motion.div
+                    className="w-full pt-[410px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <div className="fixed w-full  xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
                         <section className="w-full flex items-center justify-between gap-5 py-5 px-4 bg-white md:px-6">
                             <ButtonSetor
@@ -106,13 +113,19 @@ export default function Page() {
                     <div className="mt-[60px] xl:mt-[123px] xl:border">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
                     </div>
-                </div>
+                </motion.div>
             )}
 
             {selectedButton === "time" && (
-                <div className='pt-[410px]'>
+                <motion.div
+                    className='pt-[410px]'
+                    initial={{ opacity: 0, x: 50 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -50 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <Time currentTeam={currentTeam} />
-                </div>
+                </motion.div>
             )}
         </div>
     )

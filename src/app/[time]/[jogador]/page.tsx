@@ -9,6 +9,7 @@ import { Player } from '../../../types/player'
 import { Team } from '../../../types/team'
 import Link from 'next/link'
 import { Stats } from '@/components/Stats'
+import { motion } from "framer-motion"
 
 // Função para buscar o jogador por ID
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
@@ -86,7 +87,14 @@ export default function JogadorPage() {
                     </div>
                 </div>
             </div>
-            <div className='p-4 flex flex-col gap-8 pt-[400px] md:pt-[430px]'>
+
+            <motion.div
+                className='p-4 flex flex-col gap-8 pt-[400px] md:pt-[430px]'
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.5 }}
+            >
                 <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                     <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                         style={{ backgroundColor: currentTeam?.cor }}>BIO</div>
@@ -113,9 +121,8 @@ export default function JogadorPage() {
                         </div>
                         <div className='border-b border-black/40 flex-1 justify-start'>
                             <div className="text-sm md:text-lg">TIME FORMADOR</div>
-                            <div className='flex gap-2 items-center'>
+                            <div className='flex items-center'>
                                 <div className="text-xl font-extrabold italic">{currentTeam?.nome.toLocaleUpperCase()}</div>
-                                <Image src={logopath} width={30} height={30} alt='logo' quality={100} />
                             </div>
                         </div>
                         <div className='border-b border-black/40 flex justify-start'>
@@ -155,7 +162,7 @@ export default function JogadorPage() {
                                     label3='PASSES(%)'
                                     label4={(
                                         (currentPlayer.estatisticas.passe.passes_completos / currentPlayer.estatisticas.passe.passes_tentados) * 100
-                                    ).toFixed(1).replace('.', ',') +'%'}
+                                    ).toFixed(0).replace('.', ',') + '%'}
                                 />
                                 <Stats
                                     label1='JARDAS (TOTAIS)'
@@ -364,7 +371,7 @@ export default function JogadorPage() {
                                     label3='EXTRA-POINTS (%)'
                                     label4={currentPlayer.estatisticas.kicker.tentativas_de_xp > 0
                                         ? ((currentPlayer.estatisticas.kicker.xp_bons / currentPlayer.estatisticas.kicker.tentativas_de_xp) * 100)
-                                            .toFixed(1)
+                                            .toFixed(0)
                                             .replace('.', ',') + '%'
                                         : '0%'}
                                 />
@@ -374,7 +381,7 @@ export default function JogadorPage() {
                                     label3='FIELD GOALS (%)'
                                     label4={currentPlayer.estatisticas.kicker.tentativas_de_fg > 0
                                         ? ((currentPlayer.estatisticas.kicker.fg_bons / currentPlayer.estatisticas.kicker.tentativas_de_fg) * 100)
-                                            .toFixed(1)
+                                            .toFixed(0)
                                             .replace('.', ',') + '%'
                                         : '0%'}
                                 />
@@ -413,20 +420,20 @@ export default function JogadorPage() {
                                 <Stats
                                     label1='PUNTS'
                                     label2={currentPlayer.estatisticas.punter.punts}
-                                    label3='JARDAS TOTAIS (%)'
+                                    label3='JARDAS (TOTAIS)'
                                     label4={currentPlayer.estatisticas.punter.jardas_de_punt}
                                 />
                                 <Stats
                                     label1='JARDAS (AVG)'
                                     label2={currentPlayer.estatisticas.punter.punts > 0
-                                        ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(1)
+                                        ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(1).replace('.', ',')
                                         : '0'}
                                     noBorder
                                 />
                             </div>
                         </div>
                     )}
-            </div>
+            </motion.div>
         </div>
     )
 }
