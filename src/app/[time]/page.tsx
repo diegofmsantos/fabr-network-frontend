@@ -80,9 +80,9 @@ export default function Page() {
             </div>
 
             {selectedButton === "jogadores" && (
-                <div className="pt-[410px] xl:max-w-[1100px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
-                    <div className="fixed ">
-                        <section className="flex justify-between gap-5 py-5 px-4 bg-white">
+                <div className="w-full pt-[410px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8">
+                    <div className="fixed w-full  xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
+                        <section className="w-full flex items-center justify-between gap-5 py-5 px-4 bg-white md:px-6">
                             <ButtonSetor
                                 label="ATAQUE"
                                 borderColor={currentTeam.cor}

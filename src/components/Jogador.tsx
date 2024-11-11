@@ -14,10 +14,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         (jogador) => jogador.setor.toUpperCase() === selectedSetor
     );
 
-    const logoPath = `/assets/times/logos/${currentTeam.logo}`;
-
     return (
-        <div className="flex flex-col gap-3 p-4 z-50">
+        <div className="w-full flex flex-col gap-3 p-4 z-50">
             {jogadoresFiltrados?.map((jogador) => {
                 const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`;
 
@@ -25,8 +23,17 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                     <Link
                         href={`/${currentTeam.nome}/${jogador.id}`}
                         key={jogador.id}
-                        className="w-full flex h-24 justify-between items-center p-4 rounded-md border text-sm 
-                        md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto"
+                        className="flex h-24 justify-between items-center p-4 rounded-md border text-sm 
+                            md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
+                        style={{
+                            transition: "background-color 0.3s",
+                        }}
+                        onMouseEnter={(e) =>
+                            (e.currentTarget.style.backgroundColor = `${currentTeam.cor}50`)
+                        }
+                        onMouseLeave={(e) =>
+                            (e.currentTarget.style.backgroundColor = '#FFF')
+                        }
                     >
                         <div className="flex-1">
                             <Image src={camisaPath} width={60} height={60} alt="Camisa" quality={100} />
@@ -43,7 +50,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                 </div>
                                 <div className="flex flex-col items-center">
                                     <div className="text-xs">ALTURA</div>
-                                    <div className="text-base font-bold">{jogador.altura}</div>
+                                    <div className="text-base font-bold">{jogador.altura.toFixed(2)}</div>
                                 </div>
                                 <div className="flex flex-col items-center">
                                     <div className="text-xs">PESO</div>
@@ -56,8 +63,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                             </div>
                         </div>
                     </Link>
-                )
+                );
             })}
         </div>
-    )
-}
+    );
+};

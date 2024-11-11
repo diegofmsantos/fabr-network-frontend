@@ -8,6 +8,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { Player } from '../../../types/player'
 import { Team } from '../../../types/team'
 import Link from 'next/link'
+import { Stats } from '@/components/Stats'
 
 // Função para buscar o jogador por ID
 const findJogador = (times: Team[], jogadorId: number): { jogador: Player, time: Team } | null => {
@@ -142,76 +143,46 @@ export default function JogadorPage() {
                         currentPlayer.estatisticas.passe.interceptacoes_sofridas > 0 ||
                         currentPlayer.estatisticas.passe.sacks_sofridos > 0 ||
                         currentPlayer.estatisticas.passe.fumble_de_passador > 0
-                    ) &&
-                    (
+                    ) && (
                         <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS (PASSE)
                             </div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg lg:p-6">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">PASSES(COMP/TENT)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.passe.passes_completos}/{currentPlayer.estatisticas.passe.passes_tentados}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">PASSES(%)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {(
-                                                (currentPlayer.estatisticas.passe.passes_completos / currentPlayer.estatisticas.passe.passes_tentados) * 100
-                                            ).toFixed(1).replace('.', ',')}%
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.passe.jardas_de_passe.toLocaleString('pt-BR')}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {(currentPlayer.estatisticas.passe.jardas_de_passe / currentPlayer.estatisticas.passe.passes_tentados)
-                                                .toFixed(1)
-                                                .replace('.', ',')}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.passe.td_passados}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">INTERCEPTAÇÕES</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.passe.interceptacoes_sofridas}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex justify-start gap-28'>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">SACKS</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.passe.sacks_sofridos}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FUMBLES</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.passe.fumble_de_passador}
-                                        </div>
-                                    </div>
-                                </div>
+                                <Stats
+                                    label1='PASSES(COMP/TENT)'
+                                    label2={`${currentPlayer.estatisticas.passe.passes_completos}/${currentPlayer.estatisticas.passe.passes_tentados}`}
+                                    label3='PASSES(%)'
+                                    label4={(
+                                        (currentPlayer.estatisticas.passe.passes_completos / currentPlayer.estatisticas.passe.passes_tentados) * 100
+                                    ).toFixed(1).replace('.', ',') +'%'}
+                                />
+                                <Stats
+                                    label1='JARDAS (TOTAIS)'
+                                    label2={currentPlayer.estatisticas.passe.jardas_de_passe.toLocaleString('pt-BR')}
+                                    label3='JARDAS (AVG)'
+                                    label4={(currentPlayer.estatisticas.passe.jardas_de_passe / currentPlayer.estatisticas.passe.passes_tentados)
+                                        .toFixed(1)
+                                        .replace('.', ',')}
+                                />
+                                <Stats
+                                    label1='TOUCHDOWNS'
+                                    label2={currentPlayer.estatisticas.passe.td_passados}
+                                    label3='INTERCEPTAÇÕES'
+                                    label4={currentPlayer.estatisticas.passe.interceptacoes_sofridas}
+                                />
+                                <Stats
+                                    label1='SACKS'
+                                    label2={currentPlayer.estatisticas.passe.sacks_sofridos}
+                                    label3='FUMBLES'
+                                    label4={currentPlayer.estatisticas.passe.fumble_de_passador}
+                                    noBorder
+                                />
                             </div>
                         </div>
-                    )}
+                    )
+                }
+
 
                 {currentPlayer.estatisticas?.corrida &&
                     (
@@ -228,46 +199,26 @@ export default function JogadorPage() {
                                 STATS (CORRIDA)
                             </div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">CORRIDAS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.corrida.corridas}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.corrida.jardas_corridas}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {(currentPlayer.estatisticas.corrida.jardas_corridas / currentPlayer.estatisticas.corrida.corridas)
-                                                .toFixed(1)
-                                                .replace('.', ',')}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.corrida.tds_corridos}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex justify-start gap-16'>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FUMBLES</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.corrida.fumble_de_corredor}
-                                        </div>
-                                    </div>
-                                </div>
+                                <Stats
+                                    label1='CORRIDAS'
+                                    label2={`${currentPlayer.estatisticas.corrida.corridas}`}
+                                    label3='JARDAS (TOTAIS)'
+                                    label4={`${currentPlayer.estatisticas.corrida.jardas_corridas}`}
+                                />
+                                <Stats
+                                    label1='JARDAS (AVG)'
+                                    label2={(currentPlayer.estatisticas.corrida.jardas_corridas / currentPlayer.estatisticas.corrida.corridas)
+                                        .toFixed(1)
+                                        .replace('.', ',')}
+                                    label3='TOUCHDOWNS'
+                                    label4={currentPlayer.estatisticas.corrida.tds_corridos}
+                                />
+                                <Stats
+                                    label1='FUMBLES'
+                                    label2={currentPlayer.estatisticas.corrida.fumble_de_corredor}
+                                    noBorder
+                                />
                             </div>
-
                         </div>
                     )
                 }
@@ -281,48 +232,29 @@ export default function JogadorPage() {
                     ) && (
                         <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
-                                style={{ backgroundColor: currentTeam?.cor }}>STATS (RECEPÇÃO)</div>
-                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.recepcao.jardas_recebidas}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {(currentPlayer.estatisticas.recepcao.jardas_recebidas / currentPlayer.estatisticas.recepcao.alvo)
-                                                .toFixed(1)
-                                                .replace('.', ',')}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">RECEPÇÕES</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.recepcao.recepcoes}/{currentPlayer.estatisticas.recepcao.alvo}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.recepcao.tds_recebidos}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex justify-start gap-20'>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FUMBLES</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.recepcao.fumble_de_recebedor}
-                                        </div>
-                                    </div>
-                                </div>
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS (RECEPÇÃO)
                             </div>
-
+                            <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <Stats
+                                    label1='RECEPÇÕES'
+                                    label2={`${currentPlayer.estatisticas.recepcao.recepcoes}/${currentPlayer.estatisticas.recepcao.alvo}`}
+                                    label3='JARDAS (TOTAIS)'
+                                    label4={`${currentPlayer.estatisticas.recepcao.jardas_recebidas}`}
+                                />
+                                <Stats
+                                    label1='JARDAS (AVG)'
+                                    label2={(currentPlayer.estatisticas.recepcao.jardas_recebidas / currentPlayer.estatisticas.recepcao.alvo)
+                                        .toFixed(1)
+                                        .replace('.', ',')}
+                                    label3='TOUCHDOWNS'
+                                    label4={currentPlayer.estatisticas.recepcao.tds_recebidos}
+                                />
+                                <Stats
+                                    label1='FUMBLES'
+                                    label2={currentPlayer.estatisticas.recepcao.fumble_de_recebedor}
+                                    noBorder
+                                />
+                            </div>
                         </div>
                     )}
 
@@ -335,28 +267,30 @@ export default function JogadorPage() {
                     ) && (
                         <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
-                                style={{ backgroundColor: currentTeam?.cor }}>STATS (RETORNO)</div>
+                                style={{ backgroundColor: currentTeam?.cor }}>STATS (RETORNO)
+                            </div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">RETORNOS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.retornos}</div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.jardas_retornadas}</div>
-                                    </div>
-                                </div>
-                                <div className="flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.td_retornados}</div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FUMBLES</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.retorno.fumble_retornador}</div>
-                                    </div>
-                                </div>
+                                <Stats
+                                    label1='RETORNOS'
+                                    label2={currentPlayer.estatisticas.retorno.retornos}
+                                    label3='JARDAS (TOTAIS)'
+                                    label4={currentPlayer.estatisticas.retorno.jardas_retornadas}
+                                />
+                                <Stats
+                                    label1='JARDAS (AVG)'
+                                    label2={currentPlayer.estatisticas.retorno.retornos > 0
+                                        ? (currentPlayer.estatisticas.retorno.jardas_retornadas / currentPlayer.estatisticas.retorno.retornos)
+                                            .toFixed(1)
+                                            .replace('.', ',')
+                                        : '0'}
+                                    label3='TOUCHDOWNS'
+                                    label4={currentPlayer.estatisticas.retorno.td_retornados}
+                                />
+                                <Stats
+                                    label1='FUMBLES'
+                                    label2={currentPlayer.estatisticas.retorno.fumble_retornador}
+                                    noBorder
+                                />
                             </div>
                         </div>
                     )}
@@ -377,46 +311,31 @@ export default function JogadorPage() {
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS (DEFESA)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TACKELS (TOTAIS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.tackles_totais}</div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TACKLES (FOR LOSS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.tackles_for_loss}</div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">SACKS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.sacks_forcado}</div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FUMBLES FORÇADOS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.fumble_forcado}</div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">INTERCEPTAÇÕES</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.interceptacao_forcada}</div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">PASSES DESVIADOS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">{currentPlayer.estatisticas.defesa.passe_desviado}</div>
-                                    </div>
-                                </div>
-                                <div className='flex justify-start gap-28'>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">SAFETY</div>
-                                        <div className="text-[34px] font-extrabold italic">{currentPlayer.estatisticas.defesa.safety}</div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">TOUCHDOWNS</div>
-                                        <div className="text-[34px] font-extrabold italic">{currentPlayer.estatisticas.defesa.td_defensivo}</div>
-                                    </div>
-                                </div>
+                                <Stats
+                                    label1='TACKELS (TOTAIS)'
+                                    label2={currentPlayer.estatisticas.defesa.tackles_totais}
+                                    label3='TACKLES (FOR LOSS)'
+                                    label4={currentPlayer.estatisticas.defesa.tackles_for_loss}
+                                />
+                                <Stats
+                                    label1='SACKS'
+                                    label2={currentPlayer.estatisticas.defesa.sacks_forcado}
+                                    label3='FUMBLES FORÇADOS'
+                                    label4={currentPlayer.estatisticas.defesa.fumble_forcado}
+                                />
+                                <Stats
+                                    label1='INTERCEPTAÇÕES'
+                                    label2={currentPlayer.estatisticas.defesa.interceptacao_forcada}
+                                    label3='PASSES DESVIADOS'
+                                    label4={currentPlayer.estatisticas.defesa.passe_desviado}
+                                />
+                                <Stats
+                                    label1='SAFETY'
+                                    label2={currentPlayer.estatisticas.defesa.safety}
+                                    label3='TOUCHDOWNS'
+                                    label4={currentPlayer.estatisticas.defesa.td_defensivo}
+                                    noBorder
+                                />
                             </div>
                         </div>
                     )}
@@ -439,87 +358,46 @@ export default function JogadorPage() {
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS (KICKER)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">EXTRA-POINTS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.kicker.xp_bons}/{currentPlayer.estatisticas.kicker.tentativas_de_xp}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">EXTRA-POINTS (%)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.kicker.tentativas_de_xp > 0
-                                                ? ((currentPlayer.estatisticas.kicker.xp_bons / currentPlayer.estatisticas.kicker.tentativas_de_xp) * 100)
-                                                    .toFixed(1)
-                                                    .replace('.', ',') + '%'
-                                                : '0%'}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FIELD GOALS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.kicker.fg_bons}/{currentPlayer.estatisticas.kicker.tentativas_de_fg}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FIELD GOALS (%)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.kicker.tentativas_de_fg > 0
-                                                ? ((currentPlayer.estatisticas.kicker.fg_bons / currentPlayer.estatisticas.kicker.tentativas_de_fg) * 100)
-                                                    .toFixed(1)
-                                                    .replace('.', ',') + '%'
-                                                : '0%'}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">MAIS LONGO</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.kicker.fg_mais_longo}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FG (0-10 JDS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.kicker.fg_0_10}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='border-b border-black/40 flex justify-start gap-28'>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FG (11-20 JDS)</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.kicker.fg_11_20}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FG (21-30 JDS)</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.kicker.fg_21_30}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex justify-start gap-28'>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FG (31-40 JDS)</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.kicker.fg_31_40}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">FG (41-50 JDS)</div>
-                                        <div className="text-[34px] font-extrabold italic">
-                                            {currentPlayer.estatisticas.kicker.fg_41_50}
-                                        </div>
-                                    </div>
-                                </div>
+                                <Stats
+                                    label1='EXTRA-POINTS'
+                                    label2={`${currentPlayer.estatisticas.kicker.xp_bons}/${currentPlayer.estatisticas.kicker.tentativas_de_xp}`}
+                                    label3='EXTRA-POINTS (%)'
+                                    label4={currentPlayer.estatisticas.kicker.tentativas_de_xp > 0
+                                        ? ((currentPlayer.estatisticas.kicker.xp_bons / currentPlayer.estatisticas.kicker.tentativas_de_xp) * 100)
+                                            .toFixed(1)
+                                            .replace('.', ',') + '%'
+                                        : '0%'}
+                                />
+                                <Stats
+                                    label1='FIELD GOALS'
+                                    label2={`${currentPlayer.estatisticas.kicker.fg_bons}/${currentPlayer.estatisticas.kicker.tentativas_de_fg}`}
+                                    label3='FIELD GOALS (%)'
+                                    label4={currentPlayer.estatisticas.kicker.tentativas_de_fg > 0
+                                        ? ((currentPlayer.estatisticas.kicker.fg_bons / currentPlayer.estatisticas.kicker.tentativas_de_fg) * 100)
+                                            .toFixed(1)
+                                            .replace('.', ',') + '%'
+                                        : '0%'}
+                                />
+                                <Stats
+                                    label1='MAIS LONGO'
+                                    label2={currentPlayer.estatisticas.kicker.fg_mais_longo}
+                                    label3='FG (0-10 JDS)'
+                                    label4={currentPlayer.estatisticas.kicker.fg_0_10}
+                                />
+                                <Stats
+                                    label1='FG (11-20 JDS)'
+                                    label2={currentPlayer.estatisticas.kicker.fg_11_20}
+                                    label3='FG (21-30 JDS)'
+                                    label4={currentPlayer.estatisticas.kicker.fg_21_30}
+                                />
+                                <Stats
+                                    label1='FG (31-40 JDS)'
+                                    label2={currentPlayer.estatisticas.kicker.fg_31_40}
+                                    label3='FG (41-50 JDS)'
+                                    label4={currentPlayer.estatisticas.kicker.fg_41_50}
+                                    noBorder
+                                />
                             </div>
-
-
                         </div>
                     )}
 
@@ -532,32 +410,20 @@ export default function JogadorPage() {
                             <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                 style={{ backgroundColor: currentTeam?.cor }}>STATS (PUNTER)</div>
                             <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                                <div className="border-b border-black/40 flex justify-start gap-24">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">PUNTS</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.punter.punts}
-                                        </div>
-                                    </div>
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (TOTAIS)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.punter.jardas_de_punt}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="border-b border-black/40 flex justify-start gap-28">
-                                    <div className='flex-1 justify-start'>
-                                        <div className="text-xs xl:text-lg">JARDAS (AVG)</div>
-                                        <div className="text-[34px] font-extrabold italic mb-1">
-                                            {currentPlayer.estatisticas.punter.punts > 0
-                                                ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(1)
-                                                : '0'}
-                                        </div>
-                                    </div>
-                                </div>
+                                <Stats
+                                    label1='PUNTS'
+                                    label2={currentPlayer.estatisticas.punter.punts}
+                                    label3='JARDAS TOTAIS (%)'
+                                    label4={currentPlayer.estatisticas.punter.jardas_de_punt}
+                                />
+                                <Stats
+                                    label1='JARDAS (AVG)'
+                                    label2={currentPlayer.estatisticas.punter.punts > 0
+                                        ? (currentPlayer.estatisticas.punter.jardas_de_punt / currentPlayer.estatisticas.punter.punts).toFixed(1)
+                                        : '0'}
+                                    noBorder
+                                />
                             </div>
-
                         </div>
                     )}
             </div>

@@ -27,7 +27,7 @@ export const Time = ({ currentTeam }: Props) => {
                 <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                     <div className="border-b border-black/40">
                         <div className="text-sm">FUNDAÇÃO</div>
-                        <div className="text-lg font-extrabold italic mb-1">{`${fundacaoFormatada} (${idade} anos)`}</div>
+                        <div className="text-lg font-extrabold italic mb-1 flex item-center gap-1">{`${fundacaoFormatada}`} <div className="text-sm mt-1">({idade} anos)</div></div>
                     </div>
                     <div className="border-b border-black/40">
                         <div className="text-sm">CIDADE</div>
