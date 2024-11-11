@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className={poppins.className}>
       <head>
-        <link rel="shortcut icon" href="/assets/logo-fabr-color.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon" />
       </head>
       <body>
         {children}
