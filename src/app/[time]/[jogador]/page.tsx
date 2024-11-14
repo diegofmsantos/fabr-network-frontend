@@ -39,7 +39,7 @@ export default function Page() {
 
     // Se não encontrar o jogador, exibe mensagem de erro
     if (!jogadorData) {
-        return <div>Jogador não encontrado</div>
+        return <div>Carregando...</div>
     }
 
     const { jogador: currentJogador, time: currentTime } = jogadorData
@@ -82,7 +82,7 @@ export default function Page() {
                                     {currentJogador.posicao}
                                 </div>
                                 <div>
-                                    <Image src={'/assets/brasil.png'} alt='logo-bandeira' width={40} height={40} quality={100} />
+                                    <Image src={`/assets/${currentJogador.nacionalidade}`} alt='logo-bandeira' width={40} height={40} quality={100} />
                                 </div>
                             </div>
                             <div className='-mt-5'>
@@ -144,7 +144,7 @@ export default function Page() {
                             <div className='border-b border-black/40 flex justify-start'>
                                 <div className='flex-1 justify-start'>
                                     <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
-                                    <div className="text-xl font-extrabold italic md:text-lg">{experienciaAnos} ANOS</div>
+                                    <div className="text-xl font-extrabold italic md:text-lg">{experienciaAnos} ANO{experienciaAnos > 1 ? 'S' : ''}</div>
                                 </div>
                             </div>
                             <div className='flex justify-start'>
