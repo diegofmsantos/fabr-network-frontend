@@ -1,11 +1,11 @@
 "use client";
 
-import { Team } from "@/types/team";
+import { Time } from "@/types/time";
 import Image from "next/image";
 import Link from "next/link";
 
 type Props = {
-    currentTeam: Team;
+    currentTeam: Time;
     selectedSetor: string;
 };
 
