@@ -72,7 +72,7 @@ export default function Page() {
                         <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
                     </Link>
                     <div className="flex flex-col justify-center items-center mt-10">
-                        <div className="text-[48px] text-white text-center px-2 font-extrabold italic leading-[35px] tracking-[-3px]">
+                        <div className="text-[48px] text-white text-center px-4 font-extrabold italic leading-[35px] tracking-[-3px]">
                             {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
                         </div>
                         {currentTeam.capacete && (
