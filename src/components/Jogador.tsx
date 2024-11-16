@@ -14,10 +14,16 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         (jogador) => jogador.setor.toUpperCase() === selectedSetor
     );
 
+    const calcularExperiencia = (anoInicio: number) => {
+        const anoAtual = new Date().getFullYear();
+        return anoAtual - anoInicio;
+    };
+
     return (
         <div className="w-full flex flex-col gap-3 p-4 z-50">
             {jogadoresFiltrados?.map((jogador) => {
                 const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`;
+                const experienciaAnos = calcularExperiencia(jogador.experiencia);
 
                 return (
                     <Link
@@ -32,7 +38,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                             (e.currentTarget.style.backgroundColor = `${currentTeam.cor}50`)
                         }
                         onMouseLeave={(e) =>
-                            (e.currentTarget.style.backgroundColor = '#FFF')
+                            (e.currentTarget.style.backgroundColor = "#FFF")
                         }
                     >
                         <div className="flex-1">
@@ -58,7 +64,9 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                 </div>
                                 <div className="flex flex-col items-center">
                                     <div className="text-xs">EXPERIÊNCIA</div>
-                                    <div className="text-base font-bold">{jogador.experiencia}</div>
+                                    <div className="text-base font-bold">
+                                        {experienciaAnos} ANO{experienciaAnos > 1 ? "S" : ""}
+                                    </div>
                                 </div>
                             </div>
                         </div>
