@@ -1,28 +1,28 @@
-"use client";
+"use client"
 
-import { Time } from "@/types/time";
-import Image from "next/image";
-import Link from "next/link";
+import { Time } from "@/types/time"
+import Image from "next/image"
+import Link from "next/link"
 
 type Props = {
-    currentTeam: Time;
-    selectedSetor: string;
+    currentTeam: Time
+    selectedSetor: string
 };
 
 export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     const jogadoresFiltrados = currentTeam?.jogadores?.filter(
         (jogador) => jogador.setor.toUpperCase() === selectedSetor
-    );
+    )
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear();
-        return anoAtual - anoInicio;
-    };
+        const anoAtual = new Date().getFullYear()
+        return anoAtual - anoInicio
+    }
 
     return (
         <div className="w-full flex flex-col gap-3 p-4 z-50">
             {jogadoresFiltrados?.map((jogador) => {
-                const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`;
+                const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`
                 const experienciaAnos = calcularExperiencia(jogador.experiencia);
 
                 return (

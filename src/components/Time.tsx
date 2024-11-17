@@ -1,20 +1,20 @@
-import { Time } from "@/types/time";
-import { differenceInYears, format } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import Link from "next/link";
+import { Time } from "@/types/time"
+import { differenceInYears, format } from "date-fns"
+import { ptBR } from "date-fns/locale"
+import Link from "next/link"
 
 type Props = {
-    currentTeam: Time;
-};
+    currentTeam: Time
+}
 
 export const CurrentTime = ({ currentTeam }: Props) => {
-    const [day, month, year] = (currentTeam.fundacao ?? '').split('/').map(Number);
-    const fundacaoDate = new Date(year ?? 0, (month ?? 1) - 1, day ?? 1);
+    const [day, month, year] = (currentTeam.fundacao ?? '').split('/').map(Number)
+    const fundacaoDate = new Date(year ?? 0, (month ?? 1) - 1, day ?? 1)
 
-    const idade = currentTeam.fundacao ? differenceInYears(new Date(), fundacaoDate) : null;
+    const idade = currentTeam.fundacao ? differenceInYears(new Date(), fundacaoDate) : null
     const fundacaoFormatada = currentTeam.fundacao
         ? format(fundacaoDate, "dd/MM/yyyy", { locale: ptBR })
-        : "Data não disponível";
+        : "Data não disponível"
 
     return (
         <div className="p-4 flex flex-col gap-8 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">

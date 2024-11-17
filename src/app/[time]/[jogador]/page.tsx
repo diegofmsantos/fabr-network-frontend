@@ -136,7 +136,7 @@ export default function Page() {
                                 <div className="text-sm md:text-lg">TIME FORMADOR</div>
                                 <div className='flex items-center'>
                                     <div className="text-xl font-extrabold italic">
-                                        {currentTime.nome ? currentTime.nome.toLocaleUpperCase() : 'Nome do time não disponível'}
+                                        {currentJogador.time ? currentJogador.time.toLocaleUpperCase() : 'Nome do time não disponível'}
                                     </div>
                                 </div>
                             </div>
