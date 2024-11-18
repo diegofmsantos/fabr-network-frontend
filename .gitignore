@@ -13,9 +13,6 @@
 /.next/
 /out/
 
-# Ignore the data folder
-src/data/
-
 # production
 /build
 
