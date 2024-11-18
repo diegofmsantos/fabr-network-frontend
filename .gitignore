@@ -7,11 +7,14 @@
 .yarn/install-state.gz
 
 # testing
-/coverage
+/coverage   
 
 # next.js
 /.next/
 /out/
+
+# Ignore the data folder
+src/data/
 
 # production
 /build
