@@ -1,78 +1,79 @@
-"use client";
+"use client"
 
-import { useParams, useRouter } from 'next/navigation';
-import { Jogador } from '../../../types/jogador';
-import { Time } from '../../../types/time';
-import Image from 'next/image';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
-import { Stats } from '@/components/Stats';
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from 'react';
-import { getJogadores, getTimes } from '@/api/api';
+import { useParams, useRouter } from 'next/navigation'
+import { Jogador } from '../../../types/jogador'
+import { Time } from '../../../types/time'
+import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
+import { Stats } from '@/components/Stats'
+import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from 'react'
+import { getJogadores, getTimes } from '@/api/api'
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
-    return jogadores.find((jogador) => jogador.id === jogadorId) || null;
-};
+    return jogadores.find((jogador) => jogador.id === jogadorId) || null
+}
 
 export default function Page() {
-    const params = useParams();
-    const router = useRouter();
-    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10);
+    const params = useParams()
+    const router = useRouter()
+    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
 
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchJogador = async () => {
             try {
-                const jogadores = await getJogadores();
-                const jogadorEncontrado = jogadores.find((jogador: Jogador) => jogador.id === jogadorId);
+                const jogadores = await getJogadores()
+                const jogadorEncontrado = jogadores.find((jogador: Jogador) => jogador.id === jogadorId)
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
                     // Buscar o time completo associado ao jogador
-                    const times = await getTimes();
-                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
+                    const times = await getTimes()
+                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
 
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
-                        });
+                        })
                     }
                 }
-                setLoading(false);
+                setLoading(false)
             } catch (error) {
-                console.error("Erro ao buscar os jogadores:", error);
-                setLoading(false);
+                console.error("Erro ao buscar os jogadores:", error)
+                setLoading(false)
             }
-        };
+        }
 
-        fetchJogador();
-    }, [jogadorId]);
+        fetchJogador()
+    }, [jogadorId])
 
     if (loading) {
-        return <div>Carregando...</div>;
+        return <div>Carregando...</div>
     }
 
     if (!jogadorData) {
-        return <div>Jogador não encontrado</div>;
+        return <div>Jogador não encontrado</div>
     }
 
-    const { jogador: currentJogador, time: currentTime } = jogadorData;
+    const { jogador: currentJogador, time: currentTime } = jogadorData
 
     // Caminho para o logo do time e para a camisa do jogador 
-    const logopath = `/assets/times/logos/${currentTime.logo}`;
-    const camisasPath = `/assets/times/camisas/${currentTime.nome}/${currentJogador.camisa}`;
+    const logopath = `/assets/times/logos/${currentTime.logo}`
+    const camisasPath = `/assets/times/camisas/${currentTime.nome}/${currentJogador.camisa}`
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear();
-        return anoAtual - anoInicio;
-    };
+        const anoAtual = new Date().getFullYear()
+        return anoAtual - anoInicio
+    }
 
-    const experienciaAnos = calcularExperiencia(currentJogador.experiencia);
+    const experienciaAnos = calcularExperiencia(currentJogador.experiencia)
+
     return (
         <AnimatePresence>
             <motion.div
@@ -114,6 +115,8 @@ export default function Page() {
                                 width={250}
                                 height={250}
                                 quality={100}
+                                priority
+                                className='w-auto h-auto'
                             />
                         </div>
                     </div>

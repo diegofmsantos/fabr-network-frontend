@@ -12,39 +12,38 @@ export const Table = () => {
     const itemVariants = {
         hidden: { opacity: 0, x: 50 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-    };
+    }
 
-    const [times, setTimes] = useState<Time[]>([]);
-    const [loading, setLoading] = useState(true);
+    const [times, setTimes] = useState<Time[]>([])
+    const [loading, setLoading] = useState(true)
 
     // Fetch dos times quando o componente é montado
     useEffect(() => {
         const fetchTimes = async () => {
             try {
-                const data = await getTimes();
-                setTimes(data);
+                const data = await getTimes()
+                setTimes(data)
             } catch (error) {
-                console.error("Erro ao buscar os times:", error);
+                console.error("Erro ao buscar os times:", error)
             } finally {
                 setLoading(false);
             }
-        };
+        }
 
-        fetchTimes();
-    }, []);
+        fetchTimes()
+    }, [])
 
 
     return (
         <div>
-            <header className="w-full h-32 rounded-b-xl bg-black flex justify-center items-center px-2 fixed z-50">
-                <Image src={`/assets/logo-fabr-color.png`} width={150} height={150} alt="logo-fabr" />
+            <header className="w-full h-28 rounded-b-xl bg-black flex justify-center items-center px-2 fixed z-50">
+                <Image src={`/assets/logo-fabr-color.png`} width={130} height={130} alt="logo-fabr" quality={100} className="w-auto h-auto" />
             </header>
 
             <div>
-                <h1 className="text-[53px] bg-[#ECECEC] text-black px-2 font-extrabold italic leading-[55px] pt-36 tracking-[-5px]">
+                <h1 className="text-[53px] bg-[#ECECEC] text-black px-2 font-extrabold italic leading-[55px] pt-32 tracking-[-5px]">
                     ESCOLHA SEU TIME
                 </h1>
-
 
                 <motion.div
                     className="grid grid-cols-4 gap-4 p-3 bg-[#ECECEC] relative"

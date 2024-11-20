@@ -9,21 +9,21 @@ const api = axios.create({
 // Função para buscar todos os times
 export const getTimes = async (): Promise<Time[]> => {
     try {
-        const response: AxiosResponse<Time[]> = await api.get('/times');
-        return response.data || [];
+        const response: AxiosResponse<Time[]> = await api.get('/times')
+        return response.data || []
     } catch (error) {
-        console.error('Erro ao buscar times:', error);
-        throw new Error('Falha ao buscar times');
+        console.error('Erro ao buscar times:', error)
+        throw new Error('Falha ao buscar times')
     }
-};
+}
 
 // Função para buscar todos os jogadores
 export const getJogadores = async (): Promise<Jogador[]> => {
     try {
-        const response: AxiosResponse<Jogador[]> = await api.get('/jogadores');
-        return response.data || [];
+        const response: AxiosResponse<Jogador[]> = await api.get('/jogadores')
+        return response.data || []
     } catch (error) {
-        console.error('Erro ao buscar jogadores:', error);
-        throw new Error('Falha ao buscar jogadores');
+        console.error('Erro ao buscar jogadores:', error)
+        throw new Error('Falha ao buscar jogadores')
     }
-};
+}
