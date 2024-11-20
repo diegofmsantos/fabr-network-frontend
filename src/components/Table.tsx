@@ -68,8 +68,8 @@ export const Table = () => {
                                 <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[22px] min-[400px]:text-[31px] md:text-[45px]">
                                     <div>{item.sigla ?? 'N/A'}</div>
                                     <div className="flex flex-col -mt-6 justify-center items-center gap-2 min-h-28 p-2">
-                                        <Image src={`/assets/times/capacetes/${item.capacete}`} alt="Logo" width={90} height={90} quality={100} />
-                                        <Image src={`/assets/times/logos/${item.logo}`} alt="Logo" width={35} height={35} quality={100} />
+                                        <Image src={`/assets/times/capacetes/${item.capacete}`} alt="Logo" width={90} height={90} quality={100} className="w-auto h-auto" />
+                                        <Image src={`/assets/times/logos/${item.logo}`} alt="Logo" width={35} height={35} quality={100} className="w-auto h-auto" />
                                     </div>
                                 </div>
                             </Link>
