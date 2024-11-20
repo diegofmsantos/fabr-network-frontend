@@ -1,61 +1,82 @@
-"use client"
+"use client";
 
-import { useParams, useRouter, useSearchParams } from "next/navigation"
-import { Times } from "../../data/times"
-import Image from "next/image"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
-import Link from "next/link"
-import { ButtonTime } from "@/components/ui/buttonTime"
-import { useEffect, useState } from "react"
-import { ButtonSetor } from "@/components/ui/buttonSetor"
-import { Jogador } from "@/components/Jogador"
-import { CurrentTime } from "@/components/Time"
-import { motion } from "framer-motion"
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { ButtonTime } from "@/components/ui/buttonTime";
+import { ButtonSetor } from "@/components/ui/buttonSetor";
+import { Jogador } from "@/components/Jogador";
+import { CurrentTime } from "@/components/Time";
+import { motion } from "framer-motion";
+import { getTimes } from "../../api/api";
+import { Time } from "@/types/time";
 
-type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
+type Setor = "ATAQUE" | "DEFESA" | "SPECIAL";
 
 export default function Page() {
-    const params = useParams()
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const time = Array.isArray(params.time) ? params.time[0] : params.time
-    const currentTeam = Times.find(
-        (t) => t.nome && t.nome.toLowerCase() === decodeURIComponent(time).toLowerCase()
-    )
+    const params = useParams();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const timeName = Array.isArray(params.time) ? params.time[0] : params.time;
+
+    const [currentTeam, setCurrentTeam] = useState<Time | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
+    const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE");
+
+    useEffect(() => {
+        // Buscar os times do backend e encontrar o time atual
+        async function fetchCurrentTeam() {
+            try {
+                const teams = await getTimes();
+                const team = teams?.find(
+                    (t) => t.nome && t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
+                );
+                setCurrentTeam(team || null);
+            } catch (error) {
+                console.error("Erro ao buscar os times:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchCurrentTeam();
+    }, [timeName]);
+
+    useEffect(() => {
+        setSelectedButton(searchParams.get("show") || "time");
+        setSelectedSetor((searchParams.get("setor") as Setor) || "ATAQUE");
+    }, [searchParams]);
+
+    const handleShowTime = () => {
+        router.replace(`?show=time`);
+        setSelectedButton("time");
+    };
+
+    const handleShowJogadores = () => {
+        router.replace(`?show=jogadores&setor=${encodeURIComponent(selectedSetor)}`);
+        setSelectedButton("jogadores");
+    };
+
+    const handleSetorChange = (setor: Setor) => {
+        setSelectedSetor(setor);
+        router.replace(`?show=jogadores&setor=${encodeURIComponent(setor)}`);
+    };
+
+    if (loading) {
+        return <div>Carregando dados do time...</div>;
+    }
 
     if (!currentTeam) {
-        return <div>Time não encontrado</div>
+        return <div>Time não encontrado</div>;
     }
 
     const capacetePath = currentTeam.capacete
         ? `/assets/times/capacetes/${currentTeam.capacete}`
-        : ""
-
-    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time")
-    const [selectedSetor, setSelectedSetor] = useState<Setor>(
-        (searchParams.get("setor") as Setor) || "ATAQUE"
-    );
-
-    useEffect(() => {
-        setSelectedButton(searchParams.get("show") || "time")
-        setSelectedSetor((searchParams.get("setor") as Setor) || "ATAQUE")
-    }, [searchParams])
-
-    const handleShowTime = () => {
-        router.replace(`?show=time`)
-        setSelectedButton("time")
-    };
-
-    const handleShowJogadores = () => {
-        router.replace(`?show=jogadores&setor=${selectedSetor}`)
-        setSelectedButton("jogadores")
-    };
-
-    const handleSetorChange = (setor: Setor) => {
-        setSelectedSetor(setor)
-        router.replace(`?show=jogadores&setor=${setor}`)
-    }
+        : "/assets/default-image.png";
 
     return (
         <div>
@@ -83,6 +104,7 @@ export default function Page() {
                                     width={180}
                                     height={180}
                                     quality={100}
+                                    onError={(e) => (e.currentTarget.src = "/assets/default-image.png")}
                                 />
                             </div>
                         )}
@@ -150,5 +172,5 @@ export default function Page() {
                 </motion.div>
             )}
         </div>
-    )
+    );
 }

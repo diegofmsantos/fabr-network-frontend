@@ -3,7 +3,9 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { Times } from "@/data/times"
+import { useEffect, useState } from "react"
+import { Time } from "@/types/time"
+import { getTimes } from "@/api/api"
 
 export const Table = () => {
 
@@ -11,6 +13,26 @@ export const Table = () => {
         hidden: { opacity: 0, x: 50 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
     };
+
+    const [times, setTimes] = useState<Time[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    // Fetch dos times quando o componente é montado
+    useEffect(() => {
+        const fetchTimes = async () => {
+            try {
+                const data = await getTimes();
+                setTimes(data);
+            } catch (error) {
+                console.error("Erro ao buscar os times:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTimes();
+    }, []);
+
 
     return (
         <div>
@@ -32,7 +54,7 @@ export const Table = () => {
                         visible: { transition: { staggerChildren: 0.1 } },
                     }}
                 >
-                    {Times.sort((a, b) => (a.sigla ?? '').localeCompare(b.sigla ?? '')).map(item => (
+                    {times.sort((a, b) => (a.sigla ?? '').localeCompare(b.sigla ?? '')).map(item => (
                         <motion.div
                             key={item.nome}
                             variants={itemVariants}

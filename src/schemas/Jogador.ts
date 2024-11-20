@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 export const TitulosSchema = z.object({
     nacionais: z.string().optional(),
-    regionais: z.string().optional(),
+    conferencias: z.string().optional(),
     estaduais: z.string().optional(),
 })
 
@@ -66,7 +66,7 @@ export const EstatisticasSchema = z.object({
 export const JogadorSchema = z.object({
     id: z.number().optional(),
     nome: z.string().optional(),
-    time: z.string().optional(),
+    timeFormador: z.string().optional(),
     timeId: z.number().optional(),
     posicao: z.string().optional(),
     setor: z.enum(["Ataque", "Defesa", "Special"]).optional(),

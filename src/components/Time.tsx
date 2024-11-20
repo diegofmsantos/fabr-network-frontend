@@ -120,17 +120,17 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                             </div>
                         </div>
                         <div className="border-b border-black/40">
-                            <div className="text-sm">REGIONAIS</div>
+                            <div className="text-sm">CONFERÊNCIAS</div>
                             <div className="text-xl font-extrabold italic mb-1">
-                                {currentTeam.titulos[0].regionais && currentTeam.titulos[0].regionais.includes('(')
+                                {currentTeam.titulos[0].conferencias && currentTeam.titulos[0].conferencias.includes('(')
                                     ? (
                                         <>
-                                            {currentTeam.titulos[0].regionais.split(" (")[0]}{' '}
+                                            {currentTeam.titulos[0].conferencias.split(" (")[0]}{' '}
                                             <span className="text-sm">
-                                                ({currentTeam.titulos[0].regionais.split(" (")[1]?.replace(')', '')})
+                                                ({currentTeam.titulos[0].conferencias.split(" (")[1]?.replace(')', '')})
                                             </span>
                                         </>
-                                    ) : currentTeam.titulos[0].regionais ?? 'N/A'
+                                    ) : currentTeam.titulos[0].conferencias ?? 'N/A'
                                 }
                             </div>
                         </div>

@@ -1,60 +1,78 @@
-"use client"
+"use client";
 
-import { useParams, useRouter } from 'next/navigation'
-import { Times } from '../../../data/times'
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { Jogador } from '../../../types/jogador'
-import { Time } from '../../../types/time'
-import Link from 'next/link'
-import { Stats } from '@/components/Stats'
-import { motion, AnimatePresence } from "framer-motion"
-import { useEffect, useState } from 'react'
+import { useParams, useRouter } from 'next/navigation';
+import { Jogador } from '../../../types/jogador';
+import { Time } from '../../../types/time';
+import Image from 'next/image';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
+import { Stats } from '@/components/Stats';
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from 'react';
+import { getJogadores, getTimes } from '@/api/api';
 
 // Função para buscar o jogador por ID
-const findJogador = (times: Time[], jogadorId: number): { jogador: Jogador, time: Time } | null => {
-    for (let time of times) {
-        if (time && Array.isArray(time.jogadores)) {
-            const jogador = time.jogadores.find((j: Jogador) => j.id === jogadorId)
-            if (jogador) {
-                return { jogador, time }
-            }
-        }
-    }
-    return null
-}
+const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
+    return jogadores.find((jogador) => jogador.id === jogadorId) || null;
+};
 
 export default function Page() {
-    const params = useParams()
-    const router = useRouter()
-    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
+    const params = useParams();
+    const router = useRouter();
+    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10);
 
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador, time: Time } | null>(null)
+    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const data = findJogador(Times, jogadorId)
-        setJogadorData(data)
-    }, [jogadorId])
+        const fetchJogador = async () => {
+            try {
+                const jogadores = await getJogadores();
+                const jogadorEncontrado = jogadores.find((jogador: Jogador) => jogador.id === jogadorId);
 
-    // Se não encontrar o jogador, exibe mensagem de erro
-    if (!jogadorData) {
-        return <div>Carregando...</div>
+                if (jogadorEncontrado && jogadorEncontrado.timeId) {
+                    // Buscar o time completo associado ao jogador
+                    const times = await getTimes();
+                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
+
+                    if (timeEncontrado) {
+                        setJogadorData({
+                            jogador: jogadorEncontrado,
+                            time: timeEncontrado,
+                        });
+                    }
+                }
+                setLoading(false);
+            } catch (error) {
+                console.error("Erro ao buscar os jogadores:", error);
+                setLoading(false);
+            }
+        };
+
+        fetchJogador();
+    }, [jogadorId]);
+
+    if (loading) {
+        return <div>Carregando...</div>;
     }
 
-    const { jogador: currentJogador, time: currentTime } = jogadorData
+    if (!jogadorData) {
+        return <div>Jogador não encontrado</div>;
+    }
+
+    const { jogador: currentJogador, time: currentTime } = jogadorData;
 
     // Caminho para o logo do time e para a camisa do jogador 
-    const logopath = `/assets/times/logos/${currentTime.logo}`
-    const camisasPath = `/assets/times/camisas/${currentTime.nome}/${currentJogador.camisa}`
+    const logopath = `/assets/times/logos/${currentTime.logo}`;
+    const camisasPath = `/assets/times/camisas/${currentTime.nome}/${currentJogador.camisa}`;
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear()
-        return anoAtual - anoInicio
-    }
+        const anoAtual = new Date().getFullYear();
+        return anoAtual - anoInicio;
+    };
 
-    const experienciaAnos = calcularExperiencia(currentJogador.experiencia)
-
+    const experienciaAnos = calcularExperiencia(currentJogador.experiencia);
     return (
         <AnimatePresence>
             <motion.div
@@ -136,11 +154,10 @@ export default function Page() {
                                 <div className="text-sm md:text-lg">TIME FORMADOR</div>
                                 <div className='flex items-center'>
                                     <div className="text-xl font-extrabold italic">
-                                        {currentJogador.time ? currentJogador.time.toLocaleUpperCase() : 'Nome do time não disponível'}
+                                        {currentJogador.timeFormador.toLocaleUpperCase()}
                                     </div>
                                 </div>
                             </div>
-
                             <div className='border-b border-black/40 flex justify-start'>
                                 <div className='flex-1 justify-start'>
                                     <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
@@ -205,7 +222,6 @@ export default function Page() {
                             </div>
                         )
                     }
-
 
                     {currentJogador.estatisticas?.corrida &&
                         (
@@ -365,21 +381,21 @@ export default function Page() {
 
                     {currentJogador.estatisticas?.kicker &&
                         (
-                            currentJogador.estatisticas.kicker.xp_bons > 0 ||
-                            currentJogador.estatisticas.kicker.tentativas_de_xp > 0 ||
-                            currentJogador.estatisticas.kicker.fg_bons > 0 ||
-                            currentJogador.estatisticas.kicker.tentativas_de_fg > 0 ||
-                            currentJogador.estatisticas.kicker.fg_mais_longo > 0 ||
-                            currentJogador.estatisticas.kicker.fg_0_10 !== "" ||
-                            currentJogador.estatisticas.kicker.fg_11_20 !== "" ||
-                            currentJogador.estatisticas.kicker.fg_21_30 !== "" ||
-                            currentJogador.estatisticas.kicker.fg_31_40 !== "" ||
-                            currentJogador.estatisticas.kicker.fg_41_50 !== ""
-                        ) &&
-                        (
+                            (currentJogador.estatisticas.kicker.xp_bons > 0 ||
+                                currentJogador.estatisticas.kicker.tentativas_de_xp > 0 ||
+                                currentJogador.estatisticas.kicker.fg_bons > 0 ||
+                                currentJogador.estatisticas.kicker.tentativas_de_fg > 0 ||
+                                currentJogador.estatisticas.kicker.fg_mais_longo > 0 ||
+                                (currentJogador.estatisticas.kicker.fg_0_10 && currentJogador.estatisticas.kicker.fg_0_10 !== "") ||
+                                (currentJogador.estatisticas.kicker.fg_11_20 && currentJogador.estatisticas.kicker.fg_11_20 !== "") ||
+                                (currentJogador.estatisticas.kicker.fg_21_30 && currentJogador.estatisticas.kicker.fg_21_30 !== "") ||
+                                (currentJogador.estatisticas.kicker.fg_31_40 && currentJogador.estatisticas.kicker.fg_31_40 !== "") ||
+                                (currentJogador.estatisticas.kicker.fg_41_50 && currentJogador.estatisticas.kicker.fg_41_50 !== ""))
+                        ) && (
                             <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
-                                    style={{ backgroundColor: currentTime?.cor }}>STATS (KICKER)</div>
+                                    style={{ backgroundColor: currentTime?.cor }}>STATS (KICKER)
+                                </div>
                                 <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='EXTRA-POINTS'
@@ -403,26 +419,27 @@ export default function Page() {
                                     />
                                     <Stats
                                         label1='MAIS LONGO'
-                                        label2={currentJogador.estatisticas.kicker.fg_mais_longo}
+                                        label2={currentJogador.estatisticas.kicker.fg_mais_longo || "-"}
                                         label3='FG (0-10 JDS)'
-                                        label4={currentJogador.estatisticas.kicker.fg_0_10}
+                                        label4={currentJogador.estatisticas.kicker.fg_0_10 || "-"}
                                     />
                                     <Stats
                                         label1='FG (11-20 JDS)'
-                                        label2={currentJogador.estatisticas.kicker.fg_11_20}
+                                        label2={currentJogador.estatisticas.kicker.fg_11_20 || "-"}
                                         label3='FG (21-30 JDS)'
-                                        label4={currentJogador.estatisticas.kicker.fg_21_30}
+                                        label4={currentJogador.estatisticas.kicker.fg_21_30 || "-"}
                                     />
                                     <Stats
                                         label1='FG (31-40 JDS)'
-                                        label2={currentJogador.estatisticas.kicker.fg_31_40}
+                                        label2={currentJogador.estatisticas.kicker.fg_31_40 || "-"}
                                         label3='FG (41-50 JDS)'
-                                        label4={currentJogador.estatisticas.kicker.fg_41_50}
+                                        label4={currentJogador.estatisticas.kicker.fg_41_50 || "-"}
                                         noBorder
                                     />
                                 </div>
                             </div>
                         )}
+
 
                     {currentJogador.estatisticas?.punter &&
                         (

@@ -1,28 +1,78 @@
-"use client"
+"use client";
 
-import { Time } from "@/types/time"
-import Image from "next/image"
-import Link from "next/link"
+import { Time } from "@/types/time";
+import { Jogador as JogadorType } from "@/types/jogador";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getJogadores } from "@/api/api";
 
 type Props = {
-    currentTeam: Time
-    selectedSetor: string
+    currentTeam: Time;
+    selectedSetor: string;
 };
 
 export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
-    const jogadoresFiltrados = currentTeam?.jogadores?.filter(
-        (jogador) => jogador.setor.toUpperCase() === selectedSetor
-    )
+    const [jogadoresFiltrados, setJogadoresFiltrados] = useState<JogadorType[]>([]);
+
+    useEffect(() => {
+        const fetchJogadores = async () => {
+            try {
+                // Certifique-se de que o time e o setor estão definidos
+                if (!currentTeam || !selectedSetor) {
+                    console.warn("Time ou setor não definidos corretamente.");
+                    return;
+                }
+
+                // Busca todos os jogadores da API
+                const jogadores: JogadorType[] = await getJogadores();
+
+                console.log("Jogadores retornados da API:", jogadores);
+                console.log("Time atual recebido como prop:", currentTeam);
+                console.log("Setor selecionado:", selectedSetor);
+
+                // Filtra apenas os jogadores do time atual e do setor selecionado
+                const jogadoresDoTime = jogadores.filter((jogador: JogadorType) => {
+                    console.log(
+                        `Comparando timeId do jogador (${jogador.nome}): ${jogador.timeId} com currentTeamId: ${currentTeam.id}`
+                    );
+                    return (
+                        jogador.timeId === currentTeam.id &&
+                        jogador.setor?.toUpperCase() === selectedSetor.toUpperCase()
+                    );
+                });
+
+                console.log("Jogadores filtrados:", jogadoresDoTime);
+
+                setJogadoresFiltrados(jogadoresDoTime);
+            } catch (error) {
+                console.error("Erro ao buscar jogadores:", error);
+            }
+        };
+
+        // Só busca se houver time e setor selecionados
+        if (currentTeam && selectedSetor) {
+            fetchJogadores();
+        }
+    }, [currentTeam, selectedSetor]);
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear()
-        return anoAtual - anoInicio
+        const anoAtual = new Date().getFullYear();
+        return anoAtual - anoInicio;
+    };
+
+    if (jogadoresFiltrados.length === 0) {
+        return (
+            <div className="w-full flex flex-col gap-3 p-4 z-50">
+                <p>Nenhum jogador encontrado para o time e setor selecionados.</p>
+            </div>
+        );
     }
 
     return (
         <div className="w-full flex flex-col gap-3 p-4 z-50">
-            {jogadoresFiltrados?.map((jogador) => {
-                const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`
+            {jogadoresFiltrados.map((jogador: JogadorType) => {
+                const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`;
                 const experienciaAnos = calcularExperiencia(jogador.experiencia);
 
                 return (
