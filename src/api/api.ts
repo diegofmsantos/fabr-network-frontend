@@ -3,7 +3,7 @@ import { Jogador } from '@/types/jogador'
 import axios, { AxiosResponse } from 'axios'
 
 const api = axios.create({
-    baseURL: 'https://fabr-back.vercel.app/api',
+    baseURL: 'https://fabr-back.onrender.com',
 })
 
 // Função para buscar todos os times
