@@ -17,22 +17,21 @@ export const Table = () => {
     const [times, setTimes] = useState<Time[]>([])
     const [loading, setLoading] = useState(true)
 
-    // Fetch dos times quando o componente é montado
-    useEffect(() => {
-        const fetchTimes = async () => {
-            try {
-                const data = await getTimes()
-                setTimes(data)
-            } catch (error) {
-                console.error("Erro ao buscar os times:", error)
-            } finally {
-                setLoading(false);
-            }
+// Fetch dos times quando o componente é montado
+useEffect(() => {
+    const fetchTimes = async () => {
+        try {
+            const data = await getTimes()
+            setTimes(data)
+        } catch (error) {
+            console.error("Erro ao buscar os times:", error)
+        } finally {
+            setLoading(false);
         }
+    }
 
-        fetchTimes()
-    }, [])
-
+    fetchTimes()
+}, [])
 
     return (
         <div>
