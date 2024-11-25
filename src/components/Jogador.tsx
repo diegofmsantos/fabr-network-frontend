@@ -6,7 +6,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
-import { div } from "framer-motion/client"
 
 type Props = {
     currentTeam: Time
@@ -80,8 +79,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                     <Link
                         href={`/${currentTeam.nome}/${jogador.id}`}
                         key={jogador.id}
-                        className="flex h-24 justify-between items-center p-4 rounded-md border text-sm 
-                            md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
+                        className="flex h-24 justify-between items-center p-4 rounded-md border text-sm bg-white
+                           md:justify-around md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
                         style={{
                             transition: "background-color 0.3s",
                         }}
