@@ -8,7 +8,7 @@ import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import { ButtonTime } from "@/components/ui/buttonTime"
 import { ButtonSetor } from "@/components/ui/buttonSetor"
-import { Jogador } from "@/components/Jogador"
+import { Jogador, JogadorSkeleton } from "@/components/Jogador"
 import { CurrentTime } from "@/components/Time"
 import { motion } from "framer-motion"
 import { getTimes } from "../../api/api"
@@ -155,6 +155,9 @@ export default function Page() {
                     </div>
                     <div className="mt-[60px] xl:mt-[123px] xl:border">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
+                        <JogadorSkeleton />
+                        <JogadorSkeleton />
+                        <JogadorSkeleton />
                     </div>
                 </motion.div>
             )}
