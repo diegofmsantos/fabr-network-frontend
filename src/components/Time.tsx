@@ -56,7 +56,6 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                                     quality={100} // Aumenta a qualidade da imagem
                                     className="w-auto h-auto"
                                 />
-
                             </div>
                         </div>
                     </div>
@@ -96,8 +95,14 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                     </div>
                     <div className="border-b border-black/40">
                         <div className="text-sm">HEAD COACH</div>
-                        <div className="text-xl font-extrabold italic mb-1">
-                            {currentTeam.head_coach?.toUpperCase() ?? 'Não disponível'}
+                        <div className="text-lg font-extrabold italic underline text-blue-800">
+                            {currentTeam.instagram_coach ? (
+                                <Link href={currentTeam.instagram_coach} target="_blank">
+                                    {currentTeam.head_coach?.toUpperCase() ?? 'Não disponível'}
+                                </Link>
+                            ) : (
+                                'Instagram não disponível'
+                            )}
                         </div>
                     </div>
                     <div className="border-b border-black/40">
