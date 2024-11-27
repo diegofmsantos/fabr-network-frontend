@@ -62,15 +62,14 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
 
     if (jogadoresFiltrados.length === 0) {
         return (
-            <div className="w-full flex flex-col gap-3 p-4 z-50">
-                <p>Nenhum jogador encontrado para o time e setor selecionados.</p>
+            <div>
+                <JogadorSkeleton />
+                <JogadorSkeleton />
+                <JogadorSkeleton />
             </div>
         )
     }
 
-    if (loading) {
-        return <div><JogadorSkeleton /></div>
-    }
 
     return (
         <div className="w-full flex flex-col gap-3 p-4 z-50">

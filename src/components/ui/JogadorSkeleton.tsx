@@ -1,6 +1,6 @@
 export const JogadorSkeleton = () => {
     return (
-        <div className="w-full flex flex-col p-4 z-50">
+        <div className="w-full flex flex-col p-4 z-50 bg-white">
             <div
                 className="flex h-24 justify-between items-center p-5 rounded-md border text-sm gap-6
                                 md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300">
