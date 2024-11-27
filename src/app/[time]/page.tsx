@@ -1,80 +1,91 @@
 "use client"
 
-import { useParams, useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
-import Link from "next/link"
-import { ButtonTime } from "@/components/ui/buttonTime"
-import { ButtonSetor } from "@/components/ui/buttonSetor"
-import { Jogador, JogadorSkeleton } from "@/components/Jogador"
-import { CurrentTime } from "@/components/Time"
-import { motion } from "framer-motion"
-import { getTimes } from "../../api/api"
-import { Time } from "@/types/time"
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { ButtonTime } from "@/components/ui/buttonTime";
+import { ButtonSetor } from "@/components/ui/buttonSetor";
+import { Jogador } from "@/components/Jogador";
+import { CurrentTime } from "@/components/Time";
+import { motion } from "framer-motion";
+import { getTimes } from "../../api/api";
+import { Time } from "@/types/time";
+import { Loading } from "@/components/Loading";
 
-type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
+type Setor = "ATAQUE" | "DEFESA" | "SPECIAL";
 
 export default function Page() {
-    const params = useParams()
-    const router = useRouter()
-    const searchParams = useSearchParams()
-    const timeName = Array.isArray(params.time) ? params.time[0] : params.time
+    const params = useParams();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const timeName = Array.isArray(params.time) ? params.time[0] : params.time;
 
-    const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time")
-    const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE")
+    const [currentTeam, setCurrentTeam] = useState<Time | null>(null);
+    const [loadingTeam, setLoadingTeam] = useState(true);
+    const [loadingJogadores, setLoadingJogadores] = useState(false);
+    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
+    const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE");
 
     useEffect(() => {
-        // Buscar os times do backend e encontrar o time atual
         async function fetchCurrentTeam() {
+            setLoadingTeam(true);
             try {
-                const teams = await getTimes()
-                const team = teams?.find(
-                    (t) => t.nome && t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
-                );
-                setCurrentTeam(team || null)
+                const teams = await getTimes();
+                const team =
+                    teams?.find(
+                        (t) =>
+                            t.nome &&
+                            t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
+                    ) || null;
+                setCurrentTeam(team);
+
+                // Define o título da página
+                if (team && team.nome) {
+                    document.title = `${team.nome}`;
+                } else {
+                    document.title = "Time não encontrado";
+                }
             } catch (error) {
-                console.error("Erro ao buscar os times:", error)
+                console.error("Erro ao buscar os times:", error);
+                document.title = "Erro ao carregar time";
             } finally {
-                setLoading(false)
+                setLoadingTeam(false);
             }
         }
 
-        fetchCurrentTeam()
-    }, [timeName])
-
-    useEffect(() => {
-        setSelectedButton(searchParams.get("show") || "time")
-        setSelectedSetor((searchParams.get("setor") as Setor) || "ATAQUE")
-    }, [searchParams])
-
+        fetchCurrentTeam();
+    }, [timeName]);
     const handleShowTime = () => {
-        router.replace(`?show=time`)
-        setSelectedButton("time")
-    }
+        router.replace(`?show=time`);
+        setSelectedButton("time");
+    };
 
-    const handleShowJogadores = () => {
-        router.replace(`?show=jogadores&setor=${encodeURIComponent(selectedSetor)}`)
-        setSelectedButton("jogadores")
-    }
+    const handleShowJogadores = async () => {
+        setSelectedButton("jogadores");
+        setLoadingJogadores(true);
+        router.replace(`?show=jogadores&setor=${encodeURIComponent(selectedSetor)}`);
+        setLoadingJogadores(false)
+    };
 
     const handleSetorChange = (setor: Setor) => {
-        setSelectedSetor(setor)
-        router.replace(`?show=jogadores&setor=${encodeURIComponent(setor)}`)
-    }
+        setSelectedSetor(setor);
+        router.replace(`?show=jogadores&setor=${encodeURIComponent(setor)}`);
+    };
 
-    if (loading) {
-        return <div>Carregando dados do time...</div>
+    if (loadingTeam) {
+        return (
+            <Loading />
+        );
     }
 
     if (!currentTeam) {
-        return <div>Time não encontrado</div>
+        return <div>Time não encontrado</div>;
     }
 
-    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`
+    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`;
 
     return (
         <div>
@@ -153,11 +164,8 @@ export default function Page() {
                             />
                         </section>
                     </div>
-                    <div className="mt-[70px] xl:mt-[125px] xl:border bg-[#D9D9D9]/50">
+                    <div className="mt-[70px] xl:mt-[125px] xl:border bg-[#D9D9D9]/50 min-h-screen">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
-                        <JogadorSkeleton />
-                        <JogadorSkeleton />
-                        <JogadorSkeleton />
                     </div>
                 </motion.div>
             )}
@@ -174,5 +182,5 @@ export default function Page() {
                 </motion.div>
             )}
         </div>
-    )
+    );
 }

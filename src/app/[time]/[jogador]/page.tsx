@@ -11,6 +11,8 @@ import { Stats } from '@/components/Stats'
 import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from 'react'
 import { getJogadores, getTimes } from '@/api/api'
+import { JogadorSkeleton } from '@/components/ui/JogadorSkeleton'
+import { Loading } from '@/components/Loading'
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
@@ -30,17 +32,20 @@ export default function Page() {
             try {
                 const jogadores = await getJogadores()
                 const jogadorEncontrado = jogadores.find((jogador: Jogador) => jogador.id === jogadorId)
-
+    
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
                     // Buscar o time completo associado ao jogador
                     const times = await getTimes()
                     const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
-
+    
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
                         })
+    
+                        // Atualizar o título da página com o nome do time e do jogador
+                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
                     }
                 }
                 setLoading(false)
@@ -49,16 +54,20 @@ export default function Page() {
                 setLoading(false)
             }
         }
-
+    
         fetchJogador()
     }, [jogadorId])
+    
+    
 
     if (loading) {
-        return <div>Carregando...</div>
+        return (
+            <Loading />
+        );
     }
 
     if (!jogadorData) {
-        return <div>Jogador não encontrado</div>
+        return <div><JogadorSkeleton /></div>
     }
 
     const { jogador: currentJogador, time: currentTime } = jogadorData

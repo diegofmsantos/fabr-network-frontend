@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
+import { JogadorSkeleton } from "./ui/JogadorSkeleton"
 
 type Props = {
     currentTeam: Time
@@ -14,6 +15,7 @@ type Props = {
 
 export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     const [jogadoresFiltrados, setJogadoresFiltrados] = useState<JogadorType[]>([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchJogadores = async () => {
@@ -27,9 +29,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 // Busca todos os jogadores da API
                 const jogadores: JogadorType[] = await getJogadores()
 
-                console.log("Jogadores retornados da API:", jogadores)
-                console.log("Time atual recebido como prop:", currentTeam)
-                console.log("Setor selecionado:", selectedSetor)
 
                 // Filtra apenas os jogadores do time atual e do setor selecionado
                 const jogadoresDoTime = jogadores.filter((jogador: JogadorType) => {
@@ -42,11 +41,11 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                     )
                 })
 
-                console.log("Jogadores filtrados:", jogadoresDoTime)
-
                 setJogadoresFiltrados(jogadoresDoTime)
             } catch (error) {
                 console.error("Erro ao buscar jogadores:", error)
+            } finally {
+                setLoading(false)
             }
         }
 
@@ -67,6 +66,10 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 <p>Nenhum jogador encontrado para o time e setor selecionados.</p>
             </div>
         )
+    }
+
+    if (loading) {
+        return <div><JogadorSkeleton /></div>
     }
 
     return (
@@ -124,45 +127,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 );
             })}
             <div>
-
-            </div>
-        </div>
-    )
-}
-
-export const JogadorSkeleton = () => {
-    return (
-        <div className="w-full flex flex-col p-4 z-50">
-            <div
-                className="flex h-24 justify-between items-center p-5 rounded-md border text-sm gap-6
-                                md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300">
-                <div className="flex-1 bg-gray-300 w-36 h-20 rounded-md">
-                    <div className="w-auto h-auto"></div>
-                </div>
-                <div className="flex flex-col gap-5">
-                    <div className="flex justify-start items-center gap-2">
-                        <div className="bg-gray-300 rounded-md h-6 min-w-48 animate-pulse"></div>
-                        <div className="bg-gray-300 rounded-md h-6 w-16 animate-pulse"></div>
-                    </div>
-                    <div className="flex justify-between gap-6">
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="bg-gray-300 rounded-md h-3 w-10 animate-pulse"></div>
-                            <div className="bg-gray-300 rounded-md h-3 w-6 animate-pulse"></div>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="bg-gray-300 rounded-md h-3 w-12 animate-pulse"></div>
-                            <div className="bg-gray-300 rounded-md h-3 w-6 animate-pulse"></div>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="bg-gray-300 rounded-md h-3 w-10 animate-pulse"></div>
-                            <div className="bg-gray-300 rounded-md h-3 w-6 animate-pulse"></div>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <div className="bg-gray-300 rounded-md h-3 w-16 animate-pulse"></div>
-                            <div className="bg-gray-300 rounded-md h-3 w-12 animate-pulse"></div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     )

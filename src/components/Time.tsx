@@ -53,7 +53,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                                     alt="bandeira do estado"
                                     width={40}
                                     height={20}
-                                    quality={100} // Aumenta a qualidade da imagem
+                                    quality={100} 
                                     className="w-auto h-auto"
                                 />
                             </div>
