@@ -13,7 +13,7 @@ import { CurrentTime } from "@/components/Time";
 import { motion } from "framer-motion";
 import { getTimes } from "../../api/api";
 import { Time } from "@/types/time";
-import { Loading } from "@/components/Loading";
+import { Loading } from "@/components/ui/Loading";
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL";
 
@@ -38,6 +38,7 @@ export default function Page() {
                     teams?.find(
                         (t) =>
                             t.nome &&
+                        //@ts-ignore
                             t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
                     ) || null;
                 setCurrentTeam(team);

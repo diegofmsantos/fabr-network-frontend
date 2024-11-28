@@ -12,7 +12,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import { useEffect, useState } from 'react'
 import { getJogadores, getTimes } from '@/api/api'
 import { JogadorSkeleton } from '@/components/ui/JogadorSkeleton'
-import { Loading } from '@/components/Loading'
+import { Loading } from '@/components/ui/Loading'
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
@@ -22,6 +22,7 @@ const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null =>
 export default function Page() {
     const params = useParams()
     const router = useRouter()
+    // @ts-ignore
     const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
 
     const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)

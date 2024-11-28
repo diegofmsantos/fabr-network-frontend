@@ -72,5 +72,5 @@ export type Jogador = {
     cidade: string
     nacionalidade: string
     camisa: string
-    estatisticas?: Estatisticas
+    estatisticas: Estatisticas
 }
