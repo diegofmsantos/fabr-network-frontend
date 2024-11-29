@@ -5,12 +5,3 @@
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";
 
-
-.custom-slider .slick-slide {
-    margin-right: 40px; /* Ajusta o espaçamento entre os slides */
-  }
-  
-  .slick-list {
-    overflow: visible; /* Permite que parte do próximo slide seja visível */
-  }
-  

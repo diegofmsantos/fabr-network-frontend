@@ -33,13 +33,16 @@ export default function Page() {
         async function fetchCurrentTeam() {
             setLoadingTeam(true);
             try {
+                if (!timeName) {
+                    throw new Error("Nome do time não encontrado.");
+                }
+
                 const teams = await getTimes();
-                const team =
-                    teams?.find(
-                        (t) =>
-                            t.nome && //@ts-ignore
-                            t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
-                    ) || null;
+                const team = teams?.find(
+                    (t) =>
+                        t.nome &&
+                        t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
+                ) || null;
                 setCurrentTeam(team);
 
                 // Define o título da página
@@ -51,6 +54,7 @@ export default function Page() {
             } catch (error) {
                 console.error("Erro ao buscar os times:", error);
                 document.title = "Erro ao carregar time";
+                setCurrentTeam(null);
             } finally {
                 setLoadingTeam(false);
             }
@@ -58,6 +62,7 @@ export default function Page() {
 
         fetchCurrentTeam();
     }, [timeName]);
+
     const handleShowTime = () => {
         router.replace(`?show=time`);
         setSelectedButton("time");
@@ -67,7 +72,7 @@ export default function Page() {
         setSelectedButton("jogadores");
         setLoadingJogadores(true);
         router.replace(`?show=jogadores&setor=${encodeURIComponent(selectedSetor)}`);
-        setLoadingJogadores(false)
+        setLoadingJogadores(false);
     };
 
     const handleSetorChange = (setor: Setor) => {
@@ -76,16 +81,15 @@ export default function Page() {
     };
 
     if (loadingTeam) {
-        return (
-            <Loading />
-        );
+        return <Loading />;
     }
 
     if (!currentTeam) {
         return <div>Time não encontrado</div>;
     }
 
-    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`;
+    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`;
+
 
     return (
         <div className="pt-20">

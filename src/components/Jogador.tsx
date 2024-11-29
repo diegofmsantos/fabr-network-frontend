@@ -32,9 +32,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
 
                 // Filtra apenas os jogadores do time atual e do setor selecionado
                 const jogadoresDoTime = jogadores.filter((jogador: JogadorType) => {
-                    console.log(
-                        `Comparando timeId do jogador (${jogador.nome}): ${jogador.timeId} com currentTeamId: ${currentTeam.id}`
-                    )
                     return (
                         jogador.timeId === currentTeam.id &&
                         jogador.setor?.toUpperCase() === selectedSetor.toUpperCase()
@@ -70,11 +67,11 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         )
     }
 
-
     return (
         <div className="w-full flex flex-col gap-3 p-4 z-50">
             {jogadoresFiltrados.map((jogador: JogadorType) => {
-                const camisaPath = `/assets/times/camisas/${currentTeam.nome}/${jogador.camisa}`
+                const camisaPath = `/assets/times/camisas/${currentTeam.nome?.toLowerCase().replace(/\s/g, '-')}/${jogador.camisa}`;
+
                 const experienciaAnos = calcularExperiencia(jogador.experiencia)
 
                 return (

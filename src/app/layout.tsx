@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css"
 import { Poppins } from "next/font/google"
 import Image from "next/image";
+import { Tab } from "@/components/Tab";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -45,6 +46,7 @@ export default function RootLayout({
           </div>
         </header>
         {children}
+        <Tab />
       </body>
     </html>
   )

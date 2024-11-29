@@ -1,87 +1,101 @@
-"use client"
+"use client";
 
-import { useParams, useRouter } from 'next/navigation'
-import { Jogador } from '../../../types/jogador'
-import { Time } from '../../../types/time'
-import Image from 'next/image'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
-import { Stats } from '@/components/Stats'
-import { motion, AnimatePresence } from "framer-motion"
-import { useEffect, useState } from 'react'
-import { getJogadores, getTimes } from '@/api/api'
-import { JogadorSkeleton } from '@/components/ui/JogadorSkeleton'
-import { Loading } from '@/components/ui/Loading'
+import { useParams, useRouter } from "next/navigation";
+import { Jogador } from "../../../types/jogador";
+import { Time } from "../../../types/time";
+import Image from "next/image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
+import { Stats } from "@/components/Stats";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState } from "react";
+import { getJogadores, getTimes } from "@/api/api";
+import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton";
+import { Loading } from "@/components/ui/Loading";
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
-    return jogadores.find((jogador) => jogador.id === jogadorId) || null
-}
+    return jogadores.find((jogador) => jogador.id === jogadorId) || null;
+};
 
 export default function Page() {
-    const params = useParams()
-    const router = useRouter() //@ts-ignore
-    const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
+    const params = useParams();
+    const router = useRouter();
+    const jogadorId = params.jogador
+        ? Array.isArray(params.jogador)
+            ? parseInt(params.jogador[0], 10)
+            : parseInt(params.jogador, 10)
+        : null;
 
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
-    const [loading, setLoading] = useState(true)
+    if (jogadorId === null || isNaN(jogadorId)) {
+        throw new Error("ID do jogador é inválido ou não foi fornecido.");
+    }
+
+    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchJogador = async () => {
             try {
-                const jogadores = await getJogadores()
-                const jogadorEncontrado = jogadores.find((jogador: Jogador) => jogador.id === jogadorId)
+                if (!jogadorId) {
+                    throw new Error("ID do jogador não encontrado.");
+                }
+
+                const jogadores = await getJogadores();
+                const jogadorEncontrado = findJogador(jogadores, jogadorId);
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
                     // Buscar o time completo associado ao jogador
-                    const times = await getTimes()
-                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
+                    const times = await getTimes();
+                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
 
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
-                        })
+                        });
 
                         // Atualizar o título da página com o nome do time e do jogador
-                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
+                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`;
                     }
                 }
-                setLoading(false)
             } catch (error) {
-                console.error("Erro ao buscar os jogadores:", error)
-                setLoading(false)
+                console.error("Erro ao buscar os jogadores:", error);
+                setJogadorData(null);
+            } finally {
+                setLoading(false);
             }
-        }
+        };
 
-        fetchJogador()
-    }, [jogadorId])
-
-
+        fetchJogador();
+    }, [jogadorId]);
 
     if (loading) {
-        return (
-            <Loading />
-        );
+        return <Loading />;
     }
 
     if (!jogadorData) {
-        return <div><JogadorSkeleton /></div>
+        return (
+            <div>
+                <JogadorSkeleton />
+                <p>Jogador não encontrado ou ocorreu um erro.</p>
+            </div>
+        );
     }
 
-    const { jogador: currentJogador, time: currentTime } = jogadorData
+    const { jogador: currentJogador, time: currentTime } = jogadorData;
 
-    // Caminho para o logo do time e para a camisa do jogador 
-    const logopath = `/assets/times/logos/${currentTime.logo}`
-    const camisasPath = `/assets/times/camisas/${currentTime.nome}/${currentJogador.camisa}`
+    // Caminho para o logo do time e para a camisa do jogador
+    const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`;
+    const camisasPath = `/assets/times/camisas/${currentTime.nome?.toLowerCase().replace(/\s/g, "-") || "default-team"}/${currentJogador.camisa || "default-shirt.png"}`;
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear()
-        return anoAtual - anoInicio
-    }
+        const anoAtual = new Date().getFullYear();
+        return anoAtual - anoInicio;
+    };
 
-    const experienciaAnos = calcularExperiencia(currentJogador.experiencia)
+    const experienciaAnos = calcularExperiencia(currentJogador.experiencia);
 
     return (
         <AnimatePresence>
@@ -109,8 +123,15 @@ export default function Page() {
                                 <div className='text-[34px] text-[#D9D9D9] text-center px-2 font-extrabold italic tracking-[-3px] md:text-4xl'>
                                     {currentJogador.posicao}
                                 </div>
-                                <div>
-                                    <Image src={`/assets/bandeiras/${currentJogador.nacionalidade}`} alt='logo-bandeira' width={40} height={40} quality={100} />
+                                <div className="w-8">
+                                    <Image 
+                                    src={`/assets/bandeiras/${currentJogador.nacionalidade}`} 
+                                    alt='logo-bandeira' 
+                                    width={40} 
+                                    height={40} 
+                                    quality={100} 
+                                    className="w-auto h-auto"
+                                    />
                                 </div>
                             </div>
                             <div className='-mt-5'>
@@ -132,7 +153,7 @@ export default function Page() {
                 </div>
 
                 <motion.div
-                    className='p-4 flex flex-col gap-8 pt-[470px] md:pt-[430px] z-10 relative'
+                    className='p-4 flex flex-col gap-8 pt-[470px] md:pt-[500px] z-10 relative'
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
