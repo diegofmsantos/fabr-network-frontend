@@ -21,8 +21,7 @@ const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null =>
 
 export default function Page() {
     const params = useParams()
-    const router = useRouter()
-    // @ts-ignore
+    const router = useRouter() //@ts-ignore
     const jogadorId = Array.isArray(params.jogador) ? parseInt(params.jogador[0], 10) : parseInt(params.jogador, 10)
 
     const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
@@ -33,18 +32,18 @@ export default function Page() {
             try {
                 const jogadores = await getJogadores()
                 const jogadorEncontrado = jogadores.find((jogador: Jogador) => jogador.id === jogadorId)
-    
+
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
                     // Buscar o time completo associado ao jogador
                     const times = await getTimes()
                     const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
-    
+
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
                         })
-    
+
                         // Atualizar o título da página com o nome do time e do jogador
                         document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
                     }
@@ -55,11 +54,11 @@ export default function Page() {
                 setLoading(false)
             }
         }
-    
+
         fetchJogador()
     }, [jogadorId])
-    
-    
+
+
 
     if (loading) {
         return (
@@ -94,7 +93,7 @@ export default function Page() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className='fixed top-0 px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px] z-20' style={{ backgroundColor: currentTime?.cor }}>
+                <div className='mt-20 fixed top-0 px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px] z-20' style={{ backgroundColor: currentTime?.cor }}>
                     <button
                         onClick={() => router.back()}
                         className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
@@ -133,7 +132,7 @@ export default function Page() {
                 </div>
 
                 <motion.div
-                    className='p-4 flex flex-col gap-8 pt-[400px] md:pt-[430px] z-10 relative'
+                    className='p-4 flex flex-col gap-8 pt-[470px] md:pt-[430px] z-10 relative'
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}

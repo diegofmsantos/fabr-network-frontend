@@ -37,8 +37,7 @@ export default function Page() {
                 const team =
                     teams?.find(
                         (t) =>
-                            t.nome &&
-                        //@ts-ignore
+                            t.nome && //@ts-ignore
                             t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
                     ) || null;
                 setCurrentTeam(team);
@@ -89,7 +88,7 @@ export default function Page() {
     const capacetePath = `/assets/times/capacetes/${currentTeam.capacete}`;
 
     return (
-        <div>
+        <div className="pt-20">
             <div className="w-full fixed z-50">
                 <div
                     className="p-4 w-full h-[410px] flex flex-col justify-center items-center rounded-b-xl"
