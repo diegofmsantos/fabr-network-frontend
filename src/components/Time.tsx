@@ -119,7 +119,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                     </div>
                 </div>
             </div>
-            <div>
+            <div className="xl:mb-16">
                 <div
                     className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                     style={{ backgroundColor: currentTeam.cor ?? '#000' }}

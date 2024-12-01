@@ -88,7 +88,7 @@ export default function Page() {
 
     // Caminho para o logo do time e para a camisa do jogador
     const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`;
-    const camisasPath = `/assets/times/camisas/${currentTime.nome?.toLowerCase().replace(/\s/g, "-") || "default-team"}/${currentJogador.camisa || "default-shirt.png"}`;
+    const camisasPath = `/assets/times/camisas/${currentTime.nome?.toLowerCase().replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogadorData.jogador.camisa}`;
 
     const calcularExperiencia = (anoInicio: number) => {
         const anoAtual = new Date().getFullYear();
@@ -124,13 +124,13 @@ export default function Page() {
                                     {currentJogador.posicao}
                                 </div>
                                 <div className="w-8">
-                                    <Image 
-                                    src={`/assets/bandeiras/${currentJogador.nacionalidade}`} 
-                                    alt='logo-bandeira' 
-                                    width={40} 
-                                    height={40} 
-                                    quality={100} 
-                                    className="w-auto h-auto"
+                                    <Image
+                                        src={`/assets/bandeiras/${currentJogador.nacionalidade}`}
+                                        alt='logo-bandeira'
+                                        width={40}
+                                        height={40}
+                                        quality={100}
+                                        className="w-auto h-auto"
                                     />
                                 </div>
                             </div>
@@ -159,7 +159,7 @@ export default function Page() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                    <div className='mb-16 xl:mb-20 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
                         <div className="bg-[#D9D9D9]/50 flex flex-col justify-center gap-4 p-4 rounded-lg">
