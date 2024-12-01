@@ -1,18 +1,18 @@
 import Image from "next/image";
-import { Vortex } from "react-loader-spinner";
+import { Oval, Vortex } from "react-loader-spinner";
 
 export const Loading = () => {
     return (
         <div className="w-screen h-screen flex justify-center items-center relative bg-[#D9D9D9]">
             {/* Spinner */}
-            <Vortex
+            <Oval
                 visible={true}
-                height="300"
-                width="300"
+                height="130"
+                width="130"
                 ariaLabel="vortex-loading"
                 wrapperStyle={{}}
                 wrapperClass="vortex-wrapper"
-                colors={["#63e300", "#63e300", "#63e300", "#63e300", "#63e300", "#63e300"]} 
+                color="#63e300" 
             />
 
             {/* Imagem no centro do spinner */}

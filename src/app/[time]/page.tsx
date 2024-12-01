@@ -91,30 +91,30 @@ export default function Page() {
     const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`;
 
     return (
-        <div className="pt-20">
+        <div className="pt-20 pb-14">
             <div className="w-full fixed z-50">
                 <div
-                    className="p-4 w-full h-[410px] flex flex-col justify-center items-center rounded-b-xl"
+                    className="p-4 w-full h-[350px] flex flex-col justify-center items-center rounded-b-xl"
                     style={{ backgroundColor: currentTeam.cor || "#000" }}
                 >
                     <Link
                         href={"/"}
-                        className="absolute top-10 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20"
+                        className="absolute top-4 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20"
                     >
                         {currentTeam.sigla || "N/A"}
                         <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
                     </Link>
                     <div className="flex flex-col justify-center items-center mt-10">
-                        <div className="text-[48px] text-white text-center px-4 font-extrabold italic leading-[35px] tracking-[-3px]">
+                        <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px]">
                             {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
                         </div>
                         {currentTeam.capacete && (
-                            <div className="w-48 h-48 rotate-[15deg]">
+                            <div className="w-40 h-40 rotate-[15deg]">
                                 <Image
                                     src={capacetePath}
                                     alt={`${currentTeam.nome || "Time"} capacete`}
-                                    width={180}
-                                    height={180}
+                                    width={160}
+                                    height={160}
                                     quality={100}
                                     priority
                                     className="w-auto h-auto"
@@ -139,7 +139,7 @@ export default function Page() {
 
             {selectedButton === "jogadores" && (
                 <motion.div
-                    className="w-full pt-[410px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
+                    className="w-full pt-[350px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
@@ -175,7 +175,7 @@ export default function Page() {
 
             {selectedButton === "time" && (
                 <motion.div
-                    className="pt-[410px]"
+                    className="pt-[350px]"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}

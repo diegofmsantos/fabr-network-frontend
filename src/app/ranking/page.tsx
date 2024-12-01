@@ -73,10 +73,10 @@ export default function Page() {
     const statsKicker: { title: string; key: StatKey }[] = [
         { title: "XP Bons", key: "xp_bons" },
         { title: "Tentativas XP", key: "tentativas_de_xp" },
-        { title: "Extra-Points", key: "extra_points" },
+        { title: "Extra-Points(%)", key: "extra_points" },
         { title: "FG Bons", key: "fg_bons" },
         { title: "Tentativas FG", key: "tentativas_de_fg" },
-        { title: "Field Goals (%)", key: "field_goals" },
+        { title: "Field Goals(%)", key: "field_goals" },
         { title: "Mais Longo", key: "fg_mais_longo" },
         { title: "FG (0-10 JDS)", key: "fg_0_10" },
         { title: "FG (11-20 JDS)", key: "fg_11_20" },
@@ -96,7 +96,7 @@ export default function Page() {
     }
 
     return (
-        <div className="pl-4 pt-12">
+        <div className="pl-4 py-12">
             <RankingGroup title="Passe" stats={statsPasse} players={players} />
             <RankingGroup title="Corrida" stats={statsCorrida} players={players} />
             <RankingGroup title="Recepção" stats={statsRecepcao} players={players} />

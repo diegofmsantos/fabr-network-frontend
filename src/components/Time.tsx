@@ -89,7 +89,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                 <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                     <div className="border-b border-black/40">
                         <div className="text-sm">PRESIDENTE</div>
-                        <div className="text-xl font-extrabold italic mb-1">
+                        <div className="text-lg font-extrabold italic mb-1">
                             {currentTeam.presidente?.toUpperCase() ?? 'Não disponível'}
                         </div>
                     </div>
@@ -107,13 +107,13 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                     </div>
                     <div className="border-b border-black/40">
                         <div className="text-sm">COORDENADOR OFENSIVO</div>
-                        <div className="text-xl font-extrabold italic mb-1">
+                        <div className="text-lg font-extrabold italic mb-1">
                             {currentTeam.coord_ofen?.toUpperCase() ?? 'Não disponível'}
                         </div>
                     </div>
                     <div>
                         <div className="text-sm">COORDENADOR DEFENSIVO</div>
-                        <div className="text-xl font-extrabold italic">
+                        <div className="text-lg font-extrabold italic">
                             {currentTeam.coord_defen?.toUpperCase() ?? 'Não disponível'}
                         </div>
                     </div>
@@ -130,7 +130,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                     <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
                         <div className="border-b border-black/40">
                             <div className="text-sm">NACIONAIS</div>
-                            <div className="text-xl font-extrabold italic mb-1">
+                            <div className="text-lg font-extrabold italic mb-1">
                                 {currentTeam.titulos[0].nacionais && currentTeam.titulos[0].nacionais.includes('(')
                                     ? (
                                         <>
@@ -145,7 +145,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                         </div>
                         <div className="border-b border-black/40">
                             <div className="text-sm">CONFERÊNCIAS</div>
-                            <div className="text-xl font-extrabold italic mb-1">
+                            <div className="text-lg font-extrabold italic mb-1">
                                 {currentTeam.titulos[0].conferencias && currentTeam.titulos[0].conferencias.includes('(')
                                     ? (
                                         <>
@@ -160,7 +160,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                         </div>
                         <div>
                             <div className="text-sm">ESTADUAIS</div>
-                            <div className="text-xl font-extrabold italic">
+                            <div className="text-lg font-extrabold italic">
                                 {currentTeam.titulos[0].estaduais && currentTeam.titulos[0].estaduais.includes('(')
                                     ? (
                                         <>

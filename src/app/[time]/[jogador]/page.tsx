@@ -101,13 +101,13 @@ export default function Page() {
         <AnimatePresence>
             <motion.div
                 key={jogadorId}
-                className="relative min-h-screen"
+                className="relative min-h-screen pb-16"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className='mt-20 fixed top-0 px-6 w-full h-[375px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px] z-20' style={{ backgroundColor: currentTime?.cor }}>
+                <div className='mt-20 fixed top-0 px-6 w-full h-[340px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px] z-20' style={{ backgroundColor: currentTime?.cor }}>
                     <button
                         onClick={() => router.back()}
                         className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
@@ -153,13 +153,13 @@ export default function Page() {
                 </div>
 
                 <motion.div
-                    className='p-4 flex flex-col gap-8 pt-[470px] md:pt-[500px] z-10 relative'
+                    className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[500px] z-10 relative'
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className='mb-16 xl:mb-20 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                    <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
                         <div className="bg-[#D9D9D9]/50 flex flex-col justify-center gap-4 p-4 rounded-lg">
