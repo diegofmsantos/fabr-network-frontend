@@ -36,7 +36,7 @@ export const ListaTimes = ({ times }: Props) => {
 
     return (
         <motion.div
-            className="grid grid-cols-4 gap-4 p-3 bg-[#ECECEC] relative"
+            className="grid grid-cols-4 gap-4 p-3 pb-20 bg-[#ECECEC] relative"
             initial="hidden"
             animate="visible"
             variants={{
