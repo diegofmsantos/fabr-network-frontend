@@ -49,7 +49,6 @@ export const RankingCard = ({
             </h3>
             <ul className="bg-[#D9D9D9]/50 text-white h-full shadow-md rounded-lg">
                 {players.map((player, index) => {
-                    const shirtPath = getShirtPath(player.team, player.camisa);
                     const teamLogoPath = player.teamLogo || "/assets/times/logos/default-logo.png";
 
                     return (

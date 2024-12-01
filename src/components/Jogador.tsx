@@ -70,8 +70,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     return (
         <div className="w-full flex flex-col gap-3 p-4 z-50">
             {jogadoresFiltrados.map((jogador: JogadorType) => {
-                const camisaPath = `/assets/times/camisas/${currentTeam.nome?.toLowerCase().replace(/\s/g, '-')}/${jogador.camisa}`;
-console.log(camisaPath)
+                const camisaPath = `/assets/times/camisas/${currentTeam.nome?.toLowerCase().replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogador.camisa}`;
+
                 const experienciaAnos = calcularExperiencia(jogador.experiencia)
 
                 return (

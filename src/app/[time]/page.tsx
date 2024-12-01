@@ -90,7 +90,6 @@ export default function Page() {
 
     const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`;
 
-
     return (
         <div className="pt-20">
             <div className="w-full fixed z-50">
@@ -146,7 +145,7 @@ export default function Page() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="fixed w-full xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
+                    <div className="fixed w-full xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto z-50">
                         <section className="w-full flex items-center justify-between gap-5 py-5 px-4 bg-white md:px-6">
                             <ButtonSetor
                                 label="ATAQUE"
