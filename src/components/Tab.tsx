@@ -54,7 +54,7 @@ export const Tab = () => {
               d="M3 10h4v10H3V10zm7-6h4v16h-4V4zm7 8h4v8h-4v-8z"
             />
           </svg>
-          <span className="text-sm">Estatísticas</span>
+          <span className="text-sm">Ranking</span>
         </div>
       </Link>
     </div>
