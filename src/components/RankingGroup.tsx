@@ -105,7 +105,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "fumble_de_passador":
       case "jardas_media": // Associado a passe para cálculo de jardas médias
         return "passe";
-  
+
       // Estatísticas de corrida
       case "corridas":
       case "jardas_corridas":
@@ -113,7 +113,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "fumble_de_corredor":
       case "jardas_corridas_media": // Associado a corrida para cálculo de jardas médias
         return "corrida";
-  
+
       // Estatísticas de recepção
       case "recepcoes":
       case "alvo":
@@ -122,7 +122,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "fumble_de_recebedor":
       case "jardas_recebidas_media": // Associado a recepção para cálculo de jardas médias
         return "recepcao";
-  
+
       // Estatísticas de retorno
       case "retornos":
       case "jardas_retornadas":
@@ -130,7 +130,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "fumble_retornador":
       case "jardas_retornadas_media": // Associado a retorno para cálculo de jardas médias
         return "retorno";
-  
+
       // Estatísticas de defesa
       case "tackles_totais":
       case "tackles_for_loss":
@@ -141,7 +141,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "safety":
       case "td_defensivo":
         return "defesa";
-  
+
       // Estatísticas de kicker
       case "extra_points":
       case "field_goals":
@@ -156,22 +156,16 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "fg_31_40":
       case "fg_41_50":
         return "kicker";
-  
+
       // Estatísticas de punter
       case "jardas_punt_media":
       case "punts":
       case "jardas_de_punt":
         return "punter";
-  
+
       default:
         throw new Error(`Chave de estatística desconhecida: ${key}`);
     }
-  };
-  
-
-  const parseRatio = (value: string): number => {
-    const [made, attempted] = value.split("/").map(Number);
-    return attempted > 0 ? made / attempted : 0;
   };
 
   const getStatValue = (
@@ -183,43 +177,43 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
     if (!stats) return "0";
 
     switch (key) {
-      case "passes_percentual":
-        return stats.passes_tentados > 0
+      case "passes_percentual": // @ts-ignore
+        return stats.passes_tentados > 0 // @ts-ignore
           ? ((stats.passes_completos / stats.passes_tentados) * 100).toFixed(1)
           : "0";
-      case "jardas_media":
-        return stats.passes_tentados > 0
+      case "jardas_media": // @ts-ignore
+        return stats.passes_tentados > 0 // @ts-ignore
           ? (stats.jardas_de_passe / stats.passes_tentados).toFixed(1)
           : "0.0";
       case "jardas_corridas_media":
       case "jardas_recebidas_media":
       case "jardas_retornadas_media":
       case "jardas_punt_media":
-        const attempts =
-          key === "jardas_corridas_media"
-            ? stats.corridas
-            : key === "jardas_recebidas_media"
-            ? stats.alvo
-            : key === "jardas_retornadas_media"
-            ? stats.retornos
-            : stats.punts;
+        const attempts = 
+          key === "jardas_corridas_media" // @ts-ignore
+            ? stats.corridas 
+            : key === "jardas_recebidas_media" // @ts-ignore
+              ? stats.alvo 
+              : key === "jardas_retornadas_media" // @ts-ignore
+                ? stats.retornos // @ts-ignore
+                : stats.punts;
 
-        const yards =
-          key === "jardas_corridas_media"
-            ? stats.jardas_corridas
-            : key === "jardas_recebidas_media"
-            ? stats.jardas_recebidas
-            : key === "jardas_retornadas_media"
-            ? stats.jardas_retornadas
-            : stats.jardas_de_punt;
+        const yards = 
+          key === "jardas_corridas_media" // @ts-ignore
+            ? stats.jardas_corridas 
+            : key === "jardas_recebidas_media" // @ts-ignore
+              ? stats.jardas_recebidas 
+              : key === "jardas_retornadas_media" // @ts-ignore
+                ? stats.jardas_retornadas // @ts-ignore
+                : stats.jardas_de_punt;
 
         return attempts > 0 ? (yards / attempts).toFixed(1) : "0.0";
-      case "extra_points":
-        return stats.tentativas_de_xp > 0
+      case "extra_points": // @ts-ignore
+        return stats.tentativas_de_xp > 0 // @ts-ignore
           ? ((stats.xp_bons / stats.tentativas_de_xp) * 100).toFixed(1)
           : "0";
-      case "field_goals":
-        return stats.tentativas_de_fg > 0
+      case "field_goals": // @ts-ignore
+        return stats.tentativas_de_fg > 0 // @ts-ignore
           ? ((stats.fg_bons / stats.tentativas_de_fg) * 100).toFixed(1)
           : "0";
       default:
@@ -229,10 +223,23 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
 
   const compareValues = (a: string | number, b: string | number): number => {
     if (typeof a === "string" && typeof b === "string") {
+      // Para estatísticas no formato "x/y"
       if (a.includes("/") && b.includes("/")) {
-        return parseRatio(b) - parseRatio(a);
+        const [madeA, attemptedA] = a.split("/").map(Number);
+        const [madeB, attemptedB] = b.split("/").map(Number);
+
+        // Calcula as porcentagens
+        const percentA = attemptedA > 0 ? madeA / attemptedA : 0;
+        const percentB = attemptedB > 0 ? madeB / attemptedB : 0;
+
+        if (percentA === percentB) {
+          // Se as porcentagens são iguais, prioriza quem tentou mais
+          return attemptedB - attemptedA;
+        }
+        return percentB - percentA;
       }
-      // Handle percentage strings
+
+      // Para outros valores numéricos em string
       const numA = parseFloat(a);
       const numB = parseFloat(b);
       return numB - numA;
@@ -249,12 +256,13 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
           const topPlayers = players
             .filter((player) => {
               const stats = player.estatisticas[category];
-              // More permissive filter that allows any non-zero value and ensures stats exist for "defesa"
-              return (
-                stats &&
-                Object.keys(stats).length > 0 &&
-                Object.values(stats).some((value) => Number(value) > 0) // Verifica se algum valor é maior que 0 para garantir que há estatísticas significativas
-              );
+              // Verifica se a estatística não é "0" ou "0/0"
+              const statValue = getStatValue(player, stat.key, category);
+              if (typeof statValue === 'string' && statValue.includes('/')) {
+                const [made, attempted] = statValue.split('/').map(Number);
+                return made > 0 || attempted > 0;
+              }
+              return stats && Number(statValue) > 0;
             })
             .sort((a, b) => {
               const aValue = getStatValue(a, stat.key, category);
@@ -266,6 +274,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
           if (topPlayers.length === 0) {
             return (
               <div key={index}>
+                <div className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">{stat.title}</div>
                 <NoStats />
               </div>
             );
@@ -280,9 +289,9 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
                   const value = getStatValue(player, stat.key, category);
                   const displayValue =
                     typeof value === "string" && !value.includes("%") &&
-                    (stat.title.includes("(%)") ||
-                      stat.title.includes("Points") ||
-                      stat.title.includes("Goals"))
+                      (stat.title.includes("(%)") ||
+                        stat.title.includes("Points") ||
+                        stat.title.includes("Goals"))
                       ? `${value}%`
                       : value;
 

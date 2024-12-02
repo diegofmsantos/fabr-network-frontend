@@ -102,7 +102,6 @@ export default function Page() {
                     { key: "tentativas_de_fg", title: "Tentativas FG" },
                     { key: "field_goals", title: "Field-Goals(%)" },
                     { key: "fg_mais_longo", title: "Mais Longo" },
-                    { key: "fg_0_10", title: "FG (0-10 JDS)" },
                     { key: "fg_11_20", title: "FG (11-20 JDS)" },
                     { key: "fg_21_30", title: "FG (21-30 JDS)" },
                     { key: "fg_31_40", title: "FG (31-40 JDS)" },
