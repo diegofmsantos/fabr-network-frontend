@@ -4,7 +4,7 @@ const NoStats = () => {
         <p className="text-gray-500 text-lg font-medium">Sem estatísticas disponíveis</p>
         <p className="text-gray-400 text-sm">Nenhum dado encontrado para esta categoria</p>
       </div>
-    );
-  };
+    )
+  }
   
-  export default NoStats;
+  export default NoStats

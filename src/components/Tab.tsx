@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -8,37 +9,31 @@ export const Tab = () => {
 
   return (
     <div className="fixed bottom-0 w-full bg-[#0F1116] shadow-md border-t flex justify-around py-2 z-50">
-        {/* Botão de Times */}
+      {/* Botão de Times */}
       <Link href="/">
         <div
-          className={`flex flex-col items-center ${
-            pathname != "/ranking" ? "text-green-500" : "text-gray-500"
-          }`}
+          className={`flex flex-col items-center ${pathname != "/ranking" ? "text-[#63e300]" : "text-gray-400"
+            }`}
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M12 2l8.485 7.485a2 2 0 01.515 2.574L12 22l-9-9 2.485-3.06 7.485-7.94z"
-            />
-          </svg>
+          <Image
+            src={
+              pathname != "/ranking"
+                ? "/assets/logo-capacete-verde.png"
+                : "/assets/logo-capacete-branco.png"
+            }
+            alt="capacete"
+            width={25}
+            height={25}
+          />
           <span className="text-sm">Times</span>
         </div>
       </Link>
-      
+
       {/* Botão de Estatísticas */}
       <Link href="/ranking">
         <div
-          className={`flex flex-col items-center ${
-            pathname === "/ranking" ? "text-green-500" : "text-gray-500"
-          }`}
+          className={`flex flex-col items-center ${pathname === "/ranking" ? "text-[#63e300]" : "text-gray-400"
+            }`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

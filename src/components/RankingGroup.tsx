@@ -1,14 +1,14 @@
-"use client";
+"use client"
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
-import { Jogador } from "@/types/jogador";
-import { useEffect, useState } from "react";
-import { getTimes } from "@/api/api";
-import { Time } from "../types/time";
-import { RankingCard } from "./RankingCard";
-import NoStats from "./ui/NoStats";
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+import Slider from "react-slick"
+import { Jogador } from "@/types/jogador"
+import { useEffect, useState } from "react"
+import { getTimes } from "@/api/api"
+import { Time } from "../types/time"
+import { RankingCard } from "./RankingCard"
+import NoStats from "./ui/NoStats"
 
 export type StatisticKey =
   | keyof Jogador["estatisticas"]["passe"]
@@ -27,14 +27,14 @@ export type CalculatedStatKey =
   | "jardas_retornadas_media"
   | "extra_points"
   | "field_goals"
-  | "jardas_punt_media";
+  | "jardas_punt_media"
 
-export type StatKey = StatisticKey | CalculatedStatKey;
+export type StatKey = StatisticKey | CalculatedStatKey
 
 interface RankingGroupProps {
-  title: string;
-  stats: { key: StatKey; title: string }[];
-  players: Jogador[];
+  title: string
+  stats: { key: StatKey; title: string }[]
+  players: Jogador[]
 }
 
 const SLIDER_SETTINGS = {
@@ -67,30 +67,30 @@ const normalizeForFilePath = (input: string): string =>
     .replace(/\s+/g, "-")
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9-]/g, "");
+    .replace(/[^a-z0-9-]/g, "")
 
 const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
-  const [times, setTimes] = useState<Time[]>([]);
+  const [times, setTimes] = useState<Time[]>([])
 
   useEffect(() => {
     const fetchTimes = async () => {
       try {
-        const timesData = await getTimes();
-        setTimes(timesData);
+        const timesData = await getTimes()
+        setTimes(timesData)
       } catch (error) {
-        console.error("Error fetching times:", error);
+        console.error("Error fetching times:", error)
       }
-    };
-    fetchTimes();
-  }, []);
+    }
+    fetchTimes()
+  }, [])
 
   const getTeamInfo = (timeId: number) => {
-    const team = times.find((t) => t.id === timeId);
+    const team = times.find((t) => t.id === timeId)
     return {
       nome: team?.nome || "time-desconhecido",
       cor: team?.cor || "#CCCCCC",
-    };
-  };
+    }
+  }
 
   const getStatCategory = (key: StatKey): keyof Jogador["estatisticas"] => {
     switch (key) {
@@ -103,16 +103,16 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "interceptacoes_sofridas":
       case "sacks_sofridos":
       case "fumble_de_passador":
-      case "jardas_media": // Associado a passe para cálculo de jardas médias
-        return "passe";
+      case "jardas_media":
+        return "passe"
 
       // Estatísticas de corrida
       case "corridas":
       case "jardas_corridas":
       case "tds_corridos":
       case "fumble_de_corredor":
-      case "jardas_corridas_media": // Associado a corrida para cálculo de jardas médias
-        return "corrida";
+      case "jardas_corridas_media":
+        return "corrida"
 
       // Estatísticas de recepção
       case "recepcoes":
@@ -120,16 +120,16 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "jardas_recebidas":
       case "tds_recebidos":
       case "fumble_de_recebedor":
-      case "jardas_recebidas_media": // Associado a recepção para cálculo de jardas médias
-        return "recepcao";
+      case "jardas_recebidas_media":
+        return "recepcao"
 
       // Estatísticas de retorno
       case "retornos":
       case "jardas_retornadas":
       case "td_retornados":
       case "fumble_retornador":
-      case "jardas_retornadas_media": // Associado a retorno para cálculo de jardas médias
-        return "retorno";
+      case "jardas_retornadas_media":
+        return "retorno"
 
       // Estatísticas de defesa
       case "tackles_totais":
@@ -140,7 +140,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "passe_desviado":
       case "safety":
       case "td_defensivo":
-        return "defesa";
+        return "defesa"
 
       // Estatísticas de kicker
       case "extra_points":
@@ -155,7 +155,7 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       case "fg_21_30":
       case "fg_31_40":
       case "fg_41_50":
-        return "kicker";
+        return "kicker"
 
       // Estatísticas de punter
       case "jardas_punt_media":
@@ -164,9 +164,9 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
         return "punter";
 
       default:
-        throw new Error(`Chave de estatística desconhecida: ${key}`);
+        throw new Error(`Chave de estatística desconhecida: ${key}`)
     }
-  };
+  }
 
   const getStatValue = (
     player: Jogador,
@@ -174,63 +174,63 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
     category: keyof Jogador["estatisticas"]
   ): number | string => {
     const stats = player.estatisticas[category];
-    if (!stats) return "0";
+    if (!stats) return "0"
 
     switch (key) {
       case "passes_percentual": // @ts-ignore
         return stats.passes_tentados > 0 // @ts-ignore
-          ? ((stats.passes_completos / stats.passes_tentados) * 100).toFixed(1)
-          : "0";
+          ? ((stats.passes_completos / stats.passes_tentados) * 100).toFixed(0)
+          : "0"
       case "jardas_media": // @ts-ignore
         return stats.passes_tentados > 0 // @ts-ignore
           ? (stats.jardas_de_passe / stats.passes_tentados).toFixed(1)
-          : "0.0";
+          : "0.0"
       case "jardas_corridas_media":
       case "jardas_recebidas_media":
       case "jardas_retornadas_media":
       case "jardas_punt_media":
-        const attempts = 
+        const attempts =
           key === "jardas_corridas_media" // @ts-ignore
-            ? stats.corridas 
+            ? stats.corridas
             : key === "jardas_recebidas_media" // @ts-ignore
-              ? stats.alvo 
+              ? stats.alvo
               : key === "jardas_retornadas_media" // @ts-ignore
                 ? stats.retornos // @ts-ignore
-                : stats.punts;
+                : stats.punts
 
-        const yards = 
+        const yards =
           key === "jardas_corridas_media" // @ts-ignore
-            ? stats.jardas_corridas 
+            ? stats.jardas_corridas
             : key === "jardas_recebidas_media" // @ts-ignore
-              ? stats.jardas_recebidas 
+              ? stats.jardas_recebidas
               : key === "jardas_retornadas_media" // @ts-ignore
                 ? stats.jardas_retornadas // @ts-ignore
-                : stats.jardas_de_punt;
+                : stats.jardas_de_punt
 
-        return attempts > 0 ? (yards / attempts).toFixed(1) : "0.0";
+        return attempts > 0 ? (yards / attempts).toFixed(1) : "0.0"
       case "extra_points": // @ts-ignore
         return stats.tentativas_de_xp > 0 // @ts-ignore
-          ? ((stats.xp_bons / stats.tentativas_de_xp) * 100).toFixed(1)
-          : "0";
+          ? ((stats.xp_bons / stats.tentativas_de_xp) * 100).toFixed(0)
+          : "0"
       case "field_goals": // @ts-ignore
         return stats.tentativas_de_fg > 0 // @ts-ignore
-          ? ((stats.fg_bons / stats.tentativas_de_fg) * 100).toFixed(1)
-          : "0";
+          ? ((stats.fg_bons / stats.tentativas_de_fg) * 100).toFixed(0)
+          : "0"
       default:
-        return String((stats as any)[key] || "0");
+        return String((stats as any)[key] || "0")
     }
-  };
+  }
 
   const compareValues = (a: string | number, b: string | number): number => {
     if (typeof a === "string" && typeof b === "string") {
       // Para estatísticas no formato "x/y"
       if (a.includes("/") && b.includes("/")) {
-        const [madeA, attemptedA] = a.split("/").map(Number);
-        const [madeB, attemptedB] = b.split("/").map(Number);
+        const [madeA, attemptedA] = a.split("/").map(Number)
+        const [madeB, attemptedB] = b.split("/").map(Number)
 
         // Calcula as porcentagens
-        const percentA = attemptedA > 0 ? madeA / attemptedA : 0;
-        const percentB = attemptedB > 0 ? madeB / attemptedB : 0;
+        const percentA = attemptedA > 0 ? madeA / attemptedA : 0
+        const percentB = attemptedB > 0 ? madeB / attemptedB : 0
 
         if (percentA === percentB) {
           // Se as porcentagens são iguais, prioriza quem tentou mais
@@ -252,24 +252,24 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
       <h2 className="text-4xl font-extrabold mb-4 italic">{title}</h2>
       <Slider {...SLIDER_SETTINGS}>
         {stats.map((stat, index) => {
-          const category = getStatCategory(stat.key);
+          const category = getStatCategory(stat.key)
           const topPlayers = players
             .filter((player) => {
-              const stats = player.estatisticas[category];
+              const stats = player.estatisticas[category]
               // Verifica se a estatística não é "0" ou "0/0"
-              const statValue = getStatValue(player, stat.key, category);
+              const statValue = getStatValue(player, stat.key, category)
               if (typeof statValue === 'string' && statValue.includes('/')) {
-                const [made, attempted] = statValue.split('/').map(Number);
-                return made > 0 || attempted > 0;
+                const [made, attempted] = statValue.split('/').map(Number)
+                return made > 0 || attempted > 0
               }
-              return stats && Number(statValue) > 0;
+              return stats && Number(statValue) > 0
             })
             .sort((a, b) => {
-              const aValue = getStatValue(a, stat.key, category);
-              const bValue = getStatValue(b, stat.key, category);
-              return compareValues(aValue, bValue);
+              const aValue = getStatValue(a, stat.key, category)
+              const bValue = getStatValue(b, stat.key, category)
+              return compareValues(aValue, bValue)
             })
-            .slice(0, 5);
+            .slice(0, 5)
 
           if (topPlayers.length === 0) {
             return (
@@ -285,15 +285,15 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
               <RankingCard
                 title={stat.title}
                 players={topPlayers.map((player, playerIndex) => {
-                  const teamInfo = getTeamInfo(player.timeId);
-                  const value = getStatValue(player, stat.key, category);
+                  const teamInfo = getTeamInfo(player.timeId)
+                  const value = getStatValue(player, stat.key, category)
                   const displayValue =
                     typeof value === "string" && !value.includes("%") &&
                       (stat.title.includes("(%)") ||
                         stat.title.includes("Points") ||
                         stat.title.includes("Goals"))
                       ? `${value}%`
-                      : value;
+                      : value
 
                   return {
                     name: player.nome,
@@ -305,15 +305,15 @@ const RankingGroup = ({ title, stats, players }: RankingGroupProps) => {
                       teamInfo.nome
                     )}.png`,
                     isFirst: playerIndex === 0,
-                  };
+                  }
                 })}
               />
             </div>
-          );
+          )
         })}
       </Slider>
     </div>
-  );
-};
+  )
+}
 
-export default RankingGroup;
+export default RankingGroup

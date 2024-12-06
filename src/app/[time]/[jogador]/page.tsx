@@ -1,79 +1,76 @@
-"use client";
+"use client"
 
-import { useParams, useRouter } from "next/navigation";
-import { Jogador } from "../../../types/jogador";
-import { Time } from "../../../types/time";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { Stats } from "@/components/Stats";
-import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import { getJogadores, getTimes } from "@/api/api";
-import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton";
-import { Loading } from "@/components/ui/Loading";
+import { useParams, useRouter } from "next/navigation"
+import { Jogador } from "../../../types/jogador"
+import { Time } from "../../../types/time"
+import Image from "next/image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
+import Link from "next/link"
+import { Stats } from "@/components/Stats"
+import { motion, AnimatePresence } from "framer-motion"
+import { useEffect, useState } from "react"
+import { getJogadores, getTimes } from "@/api/api"
+import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton"
+import { Loading } from "@/components/ui/Loading"
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
-    return jogadores.find((jogador) => jogador.id === jogadorId) || null;
+    return jogadores.find((jogador) => jogador.id === jogadorId) || null
 };
 
 export default function Page() {
-    const params = useParams();
-    const router = useRouter();
+    const params = useParams()
+    const router = useRouter()
     const jogadorId = params.jogador
         ? Array.isArray(params.jogador)
             ? parseInt(params.jogador[0], 10)
             : parseInt(params.jogador, 10)
-        : null;
+        : null
 
     if (jogadorId === null || isNaN(jogadorId)) {
-        throw new Error("ID do jogador é inválido ou não foi fornecido.");
+        throw new Error("ID do jogador é inválido ou não foi fornecido.")
     }
 
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchJogador = async () => {
             try {
                 if (!jogadorId) {
-                    throw new Error("ID do jogador não encontrado.");
+                    throw new Error("ID do jogador não encontrado.")
                 }
 
-                const jogadores = await getJogadores();
-                const jogadorEncontrado = findJogador(jogadores, jogadorId);
+                const jogadores = await getJogadores()
+                const jogadorEncontrado = findJogador(jogadores, jogadorId)
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
                     // Buscar o time completo associado ao jogador
-                    const times = await getTimes();
-                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
+                    const times = await getTimes()
+                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
 
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
-                        });
-
+                        })
                         // Atualizar o título da página com o nome do time e do jogador
-                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`;
+                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
                     }
                 }
             } catch (error) {
-                console.error("Erro ao buscar os jogadores:", error);
-                setJogadorData(null);
+                console.error("Erro ao buscar os jogadores:", error)
+                setJogadorData(null)
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        fetchJogador();
-    }, [jogadorId]);
+        fetchJogador()
+    }, [jogadorId])
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) { return <Loading /> }
 
     if (!jogadorData) {
         return (
@@ -81,27 +78,28 @@ export default function Page() {
                 <JogadorSkeleton />
                 <p>Jogador não encontrado ou ocorreu um erro.</p>
             </div>
-        );
+        )
     }
 
-    const { jogador: currentJogador, time: currentTime } = jogadorData;
+    const { jogador: currentJogador, time: currentTime } = jogadorData
 
     // Caminho para o logo do time e para a camisa do jogador
-    const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`;
-    const camisasPath = `/assets/times/camisas/${currentTime.nome?.toLowerCase().replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogadorData.jogador.camisa}`;
+    const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`
+    const camisasPath = `/assets/times/camisas/${currentTime.nome?.toLowerCase()
+        .replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogadorData.jogador.camisa}`
 
     const calcularExperiencia = (anoInicio: number) => {
-        const anoAtual = new Date().getFullYear();
-        return anoAtual - anoInicio;
-    };
+        const anoAtual = new Date().getFullYear()
+        return anoAtual - anoInicio
+    }
 
-    const experienciaAnos = calcularExperiencia(currentJogador.experiencia);
+    const experienciaAnos = calcularExperiencia(currentJogador.experiencia)
 
     return (
         <AnimatePresence>
             <motion.div
                 key={jogadorId}
-                className="relative min-h-screen pb-16"
+                className="relative min-h-screen pb-16 bg-[#ECECEC]"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -135,18 +133,12 @@ export default function Page() {
                                 </div>
                             </div>
                             <div className='-mt-5'>
-                                <Image src={logopath} alt='logo' width={100} height={100} quality={70} />
+                                <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
                             </div>
                         </div>
                         <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-64 md:min-h-64 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
                             <Image
-                                src={camisasPath}
-                                alt={`${currentTime?.nome} camisa`}
-                                width={250}
-                                height={250}
-                                quality={100}
-                                priority
-                                className=''
+                                src={camisasPath} alt={`${currentTime?.nome} camisa`} width={250} height={250} quality={100} priority
                             />
                         </div>
                     </div>
@@ -162,8 +154,8 @@ export default function Page() {
                     <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
-                        <div className="bg-[#D9D9D9]/50 flex flex-col justify-center gap-4 p-4 rounded-lg">
-                            <div className="border-b border-black/40 flex justify-between">
+                        <div className="bg-white flex flex-col justify-center gap-4 p-4 rounded-lg">
+                            <div className="border-b border-bg-[#D9D9D9] flex justify-between">
                                 <div className='flex flex-col justify-center items-center'>
                                     <div className="text-sm md:text-lg">IDADE</div>
                                     <div className="text-[34px] font-extrabold italic mb-1">{currentJogador.idade}</div>
@@ -177,13 +169,13 @@ export default function Page() {
                                     <div className="text-[34px] font-extrabold italic mb-1">{currentJogador.altura.toFixed(2).replace('.', ',')}</div>
                                 </div>
                             </div>
-                            <div className="border-b border-black/40 flex justify-start">
+                            <div className="border-b border-bg-[#D9D9D9] flex justify-start">
                                 <div className='flex-1 justify-start'>
                                     <div className="text-sm md:text-lg">CIDADE NATAL</div>
                                     <div className="text-xl font-extrabold italic mb-1">{currentJogador?.cidade.toLocaleUpperCase()}</div>
                                 </div>
                             </div>
-                            <div className='border-b border-black/40 flex-1 justify-start'>
+                            <div className='border-b border-bg-[#D9D9D9] flex-1 justify-start'>
                                 <div className="text-sm md:text-lg">TIME FORMADOR</div>
                                 <div className='flex items-center'>
                                     <div className="text-xl font-extrabold italic">
@@ -191,7 +183,7 @@ export default function Page() {
                                     </div>
                                 </div>
                             </div>
-                            <div className='border-b border-black/40 flex justify-start'>
+                            <div className='border-b border-bg-[#D9D9D9] flex justify-start'>
                                 <div className='flex-1 justify-start'>
                                     <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
                                     <div className="text-xl font-extrabold italic md:text-lg">{experienciaAnos} ANO{experienciaAnos > 1 ? 'S' : ''}</div>
@@ -221,7 +213,7 @@ export default function Page() {
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (PASSE)
                                 </div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col justify-start gap-4 p-4 rounded-lg lg:p-6">
+                                <div className="bg-white flex flex-col justify-start gap-4 p-4 rounded-lg lg:p-6">
                                     <Stats
                                         label1='PASSES(COMP/TENT)'
                                         label2={`${currentJogador.estatisticas.passe.passes_completos}/${currentJogador.estatisticas.passe.passes_tentados}`}
@@ -270,7 +262,7 @@ export default function Page() {
                                 >
                                     STATS (CORRIDA)
                                 </div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='CORRIDAS'
                                         label2={`${currentJogador.estatisticas.corrida.corridas}`}
@@ -306,7 +298,7 @@ export default function Page() {
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (RECEPÇÃO)
                                 </div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='RECEPÇÕES'
                                         label2={`${currentJogador.estatisticas.recepcao.recepcoes}/${currentJogador.estatisticas.recepcao.alvo}`}
@@ -341,7 +333,7 @@ export default function Page() {
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (RETORNO)
                                 </div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='RETORNOS'
                                         label2={currentJogador.estatisticas.retorno.retornos}
@@ -382,7 +374,7 @@ export default function Page() {
                             <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (DEFESA)</div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='TACKELS (TOTAIS)'
                                         label2={currentJogador.estatisticas.defesa.tackles_totais}
@@ -429,7 +421,7 @@ export default function Page() {
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (KICKER)
                                 </div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='EXTRA-POINTS'
                                         label2={`${currentJogador.estatisticas.kicker.xp_bons}/${currentJogador.estatisticas.kicker.tentativas_de_xp}`}
@@ -482,7 +474,7 @@ export default function Page() {
                             <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (PUNTER)</div>
-                                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
+                                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='PUNTS'
                                         label2={currentJogador.estatisticas.punter.punts}

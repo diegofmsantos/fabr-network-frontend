@@ -23,7 +23,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
 
 
     return (
-        <div className="p-4 mb-16 flex flex-col gap-8 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
+        <div className="p-4 mb-6 flex flex-col gap-8 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
             <div>
                 <div
                     className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
@@ -31,8 +31,8 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                 >
                     BIO
                 </div>
-                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                    <div className="border-b border-black/40">
+                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
+                    <div className="border-b border-[#D9D9D9]">
                         <div className="text-sm">FUNDAÇÃO</div>
                         <div className="text-lg font-extrabold italic mb-1 flex items-center gap-1">
                             {fundacaoFormatada}
@@ -41,7 +41,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                             )}
                         </div>
                     </div>
-                    <div className="border-b border-black/40">
+                    <div className="border-b border-[#D9D9D9]">
                         <div className="text-sm">CIDADE</div>
                         <div className="flex items-center gap-3">
                             <div className="text-lg font-extrabold italic">
@@ -59,7 +59,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="border-b border-black/40">
+                    <div className="border-b border-[#D9D9D9]">
                         <div className="text-sm">ESTÁDIO</div>
                         <div className="text-lg font-extrabold italic">
                             {currentTeam.estadio?.toUpperCase() ?? 'Estádio não disponível'}
@@ -86,14 +86,14 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                 >
                     STAFF
                 </div>
-                <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                    <div className="border-b border-black/40">
+                <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
+                    <div className="border-b border-[#D9D9D9]">
                         <div className="text-sm">PRESIDENTE</div>
                         <div className="text-lg font-extrabold italic mb-1">
                             {currentTeam.presidente?.toUpperCase() ?? 'Não disponível'}
                         </div>
                     </div>
-                    <div className="border-b border-black/40">
+                    <div className="border-b border-[#D9D9D9]">
                         <div className="text-sm">HEAD COACH</div>
                         <div className="text-lg font-extrabold italic underline text-blue-800">
                             {currentTeam.instagram_coach ? (
@@ -105,7 +105,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                             )}
                         </div>
                     </div>
-                    <div className="border-b border-black/40">
+                    <div className="border-b border-[#D9D9D9]">
                         <div className="text-sm">COORDENADOR OFENSIVO</div>
                         <div className="text-lg font-extrabold italic mb-1">
                             {currentTeam.coord_ofen?.toUpperCase() ?? 'Não disponível'}
@@ -127,8 +127,8 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                     TÍTULOS
                 </div>
                 {currentTeam.titulos && currentTeam.titulos.length > 0 ? (
-                    <div className="bg-[#D9D9D9]/50 flex flex-col gap-4 p-4 rounded-lg">
-                        <div className="border-b border-black/40">
+                    <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
+                        <div className="border-b border-[#D9D9D9]">
                             <div className="text-sm">NACIONAIS</div>
                             <div className="text-lg font-extrabold italic mb-1">
                                 {currentTeam.titulos[0].nacionais && currentTeam.titulos[0].nacionais.includes('(')
@@ -143,7 +143,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                                 }
                             </div>
                         </div>
-                        <div className="border-b border-black/40">
+                        <div className="border-b border-[#D9D9D9]">
                             <div className="text-sm">CONFERÊNCIAS</div>
                             <div className="text-lg font-extrabold italic mb-1">
                                 {currentTeam.titulos[0].conferencias && currentTeam.titulos[0].conferencias.includes('(')

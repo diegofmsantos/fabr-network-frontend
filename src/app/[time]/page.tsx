@@ -1,97 +1,93 @@
 "use client"
 
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { ButtonTime } from "@/components/ui/buttonTime";
-import { ButtonSetor } from "@/components/ui/buttonSetor";
-import { Jogador } from "@/components/Jogador";
-import { CurrentTime } from "@/components/Time";
-import { motion } from "framer-motion";
-import { getTimes } from "../../api/api";
-import { Time } from "@/types/time";
-import { Loading } from "@/components/ui/Loading";
+import { useParams, useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
+import Link from "next/link"
+import { ButtonTime } from "@/components/ui/buttonTime"
+import { ButtonSetor } from "@/components/ui/buttonSetor"
+import { Jogador } from "@/components/Jogador"
+import { CurrentTime } from "@/components/Time"
+import { motion } from "framer-motion"
+import { getTimes } from "../../api/api"
+import { Time } from "@/types/time"
+import { Loading } from "@/components/ui/Loading"
 
-type Setor = "ATAQUE" | "DEFESA" | "SPECIAL";
+type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
 export default function Page() {
-    const params = useParams();
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const timeName = Array.isArray(params.time) ? params.time[0] : params.time;
+    const params = useParams()
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const timeName = Array.isArray(params.time) ? params.time[0] : params.time
 
-    const [currentTeam, setCurrentTeam] = useState<Time | null>(null);
-    const [loadingTeam, setLoadingTeam] = useState(true);
-    const [loadingJogadores, setLoadingJogadores] = useState(false);
-    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time");
-    const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE");
+    const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
+    const [loadingTeam, setLoadingTeam] = useState(true)
+    const [loadingJogadores, setLoadingJogadores] = useState(false)
+    const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time")
+    const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE")
 
     useEffect(() => {
         async function fetchCurrentTeam() {
-            setLoadingTeam(true);
+            setLoadingTeam(true)
             try {
                 if (!timeName) {
-                    throw new Error("Nome do time não encontrado.");
+                    throw new Error("Nome do time não encontrado.")
                 }
 
-                const teams = await getTimes();
+                const teams = await getTimes()
                 const team = teams?.find(
                     (t) =>
                         t.nome &&
                         t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
-                ) || null;
-                setCurrentTeam(team);
+                ) || null
+                setCurrentTeam(team)
 
                 // Define o título da página
                 if (team && team.nome) {
-                    document.title = `${team.nome}`;
+                    document.title = `${team.nome}`
                 } else {
-                    document.title = "Time não encontrado";
+                    document.title = "Time não encontrado"
                 }
             } catch (error) {
-                console.error("Erro ao buscar os times:", error);
-                document.title = "Erro ao carregar time";
-                setCurrentTeam(null);
+                console.error("Erro ao buscar os times:", error)
+                document.title = "Erro ao carregar time"
+                setCurrentTeam(null)
             } finally {
-                setLoadingTeam(false);
+                setLoadingTeam(false)
             }
         }
 
-        fetchCurrentTeam();
+        fetchCurrentTeam()
     }, [timeName]);
 
     const handleShowTime = () => {
-        router.replace(`?show=time`);
-        setSelectedButton("time");
-    };
+        router.replace(`?show=time`)
+        setSelectedButton("time")
+    }
 
     const handleShowJogadores = async () => {
-        setSelectedButton("jogadores");
-        setLoadingJogadores(true);
-        router.replace(`?show=jogadores&setor=${encodeURIComponent(selectedSetor)}`);
-        setLoadingJogadores(false);
-    };
+        setSelectedButton("jogadores")
+        setLoadingJogadores(true)
+        router.replace(`?show=jogadores&setor=${encodeURIComponent(selectedSetor)}`)
+        setLoadingJogadores(false)
+    }
 
     const handleSetorChange = (setor: Setor) => {
-        setSelectedSetor(setor);
-        router.replace(`?show=jogadores&setor=${encodeURIComponent(setor)}`);
-    };
-
-    if (loadingTeam) {
-        return <Loading />;
+        setSelectedSetor(setor)
+        router.replace(`?show=jogadores&setor=${encodeURIComponent(setor)}`)
     }
 
-    if (!currentTeam) {
-        return <div>Time não encontrado</div>;
-    }
+    if (loadingTeam) { return <Loading /> }
 
-    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`;
+    if (!currentTeam) { return <div>Time não encontrado</div> }
+
+    const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`
 
     return (
-        <div className="pt-20 pb-14">
+        <div className="pt-20 pb-14 bg-[#ECECEC]">
             <div className="w-full fixed z-50">
                 <div
                     className="p-4 w-full h-[350px] flex flex-col justify-center items-center rounded-b-xl"
@@ -121,6 +117,7 @@ export default function Page() {
                                 />
                             </div>
                         )}
+
                     </div>
                     <div className="flex justify-between gap-8 -mt-3">
                         <ButtonTime
@@ -185,5 +182,5 @@ export default function Page() {
                 </motion.div>
             )}
         </div>
-    );
+    )
 }

@@ -21,5 +21,5 @@ export const PageSkeleton = () => {
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}

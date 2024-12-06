@@ -29,7 +29,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 // Busca todos os jogadores da API
                 const jogadores: JogadorType[] = await getJogadores()
 
-
                 // Filtra apenas os jogadores do time atual e do setor selecionado
                 const jogadoresDoTime = jogadores.filter((jogador: JogadorType) => {
                     return (
@@ -71,7 +70,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         <div className="w-full flex flex-col gap-3 p-4 z-50">
             {jogadoresFiltrados.map((jogador: JogadorType) => {
                 const camisaPath = `/assets/times/camisas/${currentTeam.nome?.toLowerCase().replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogador.camisa}`;
-
                 const experienciaAnos = calcularExperiencia(jogador.experiencia)
 
                 return (

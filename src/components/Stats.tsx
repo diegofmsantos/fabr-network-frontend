@@ -10,7 +10,7 @@ type Props = {
 
 export const Stats = ({ label1, label2, label3, label4, noBorder = false }: Props) => {
     return (
-        <div className={`flex justify-start gap-24 ${!noBorder ? 'border-b border-black/40' : ''}`}>
+        <div className={`flex justify-start gap-24 ${!noBorder ? 'border-b border-[#D9D9D9]' : ''}`}>
             <div className='flex-1 justify-start'>
                 <div className="text-xs xl:text-lg">{label1}</div>
                 <div className="text-[34px] font-extrabold italic mb-1">{label2}</div>

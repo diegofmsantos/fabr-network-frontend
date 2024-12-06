@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { Oval, Vortex } from "react-loader-spinner";
+import Image from "next/image"
+import { Oval } from "react-loader-spinner"
 
 export const Loading = () => {
     return (
@@ -27,5 +27,5 @@ export const Loading = () => {
                 />
             </div>
         </div>
-    );
-};
+    )
+}

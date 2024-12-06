@@ -1,6 +1,5 @@
 import { Lista } from "@/components/Lista"
 import { Metadata } from "next"
-import Image from "next/image"
 
 export const metadata: Metadata = {
   title: 'Times'
