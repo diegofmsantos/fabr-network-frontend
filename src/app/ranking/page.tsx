@@ -1,10 +1,10 @@
 "use client"
 
 import { getJogadores } from "@/api/api";
-import RankingGroup from "@/components/RankingGroup";
 import { useEffect, useState } from "react";
 import { Jogador } from "@/types/jogador";
 import { Loading } from "@/components/ui/Loading";
+import { RankingGroup } from "@/components/RankingGroup";
 
 export default function Page() {
     const [players, setPlayers] = useState<Jogador[]>([]);
@@ -60,7 +60,7 @@ export default function Page() {
                     { key: "jardas_recebidas", title: "JARDAS" },
                     { key: "recepcoes", title: "RECEPÇÕES" },
                     { key: "tds_recebidos", title: "TOUCHDOWNS" },
-                    { key: "jardas_recebidas_media", title: "JARDAS(AVG))" },
+                    { key: "jardas_recebidas_media", title: "JARDAS(AVG)" },
                     { key: "alvo", title: "ALVOS" },
                     { key: "fumble_de_recebedor", title: "FUMBLES" }
                 ]}

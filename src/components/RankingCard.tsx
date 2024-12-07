@@ -1,23 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 
-type PlayerCardProps = {
+interface PlayerCardProps {
   name: string;
   team: string;
-  value: string | number;
+  value: string;  // Alterado para aceitar apenas string já que todos os valores são normalizados no RankingGroup
   camisa: string;
   teamColor?: string;
   teamLogo?: string;
   isFirst?: boolean;
-};
+}
 
-export const RankingCard = ({
-  title,
-  players,
-}: {
+interface RankingCardProps {
   title: string;
   players: PlayerCardProps[];
-}) => {
+}
+
+export const RankingCard: React.FC<RankingCardProps> = ({ title, players }) => {
   const normalizeForFilePath = (input: string): string => {
     return input
       .toLowerCase()
@@ -29,20 +28,14 @@ export const RankingCard = ({
 
   const getShirtPath = (team: string, camisa: string): string => {
     const normalizedTeam = normalizeForFilePath(team);
-
-    if (team && team !== "time-desconhecido" && camisa) {
-      return `/assets/times/camisas/${normalizedTeam}/${camisa}`;
-    }
-
-    return "/assets/times/camisas/camisa-default.png";
+    return team && team !== "time-desconhecido" && camisa
+      ? `/assets/times/camisas/${normalizedTeam}/${camisa}`
+      : "/assets/times/camisas/camisa-default.png";
   };
-  
 
   return (
     <div className="ranking-card-container px-3">
-      <h3 className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">
-        {title}
-      </h3>
+      <h3 className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">{title}</h3>
       <ul className="flex flex-col text-white h-full">
         {players.map((player, index) => {
           const teamLogoPath = player.teamLogo || "/assets/times/logos/default-logo.png";
@@ -50,8 +43,9 @@ export const RankingCard = ({
           return (
             <li
               key={index}
-              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${player.isFirst ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
-                }`}
+              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${
+                player.isFirst ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
+              }`}
               style={{
                 backgroundColor: player.isFirst ? player.teamColor : undefined,
               }}
@@ -118,8 +112,6 @@ export const RankingCard = ({
           Ver Mais
         </Link>
       )}
-
-
     </div>
   );
 };
