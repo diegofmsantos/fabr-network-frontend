@@ -9,7 +9,8 @@ import { StatSelect } from '@/components/StatSelect';
 import StatsTier from '@/components/StatsTier';
 import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
-import { usePlayerProcessing, ProcessedPlayer } from '@/hooks/usePlayerProcessing';
+import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
+import { ProcessedPlayer } from '@/types/processedPlayer';
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();
