@@ -1,14 +1,20 @@
 import { Jogador } from '@/types/jogador';
+import { CategoryKey, CATEGORY_THRESHOLDS, getTierForValue } from './categoryThresholds';
 
 // Interfaces e Tipos
 export interface StatConfig {
-  key: string;
-  title: string;
-  category: string;
-  isCalculated?: boolean;
+    key: string;
+    title: string;
+    category: CategoryKey;
+    isCalculated?: boolean;
 }
 
-// Definição dos tipos para cada categoria de estatística
+export interface StatResult {
+    value: number | null;
+    tier: number;
+}
+
+// Tipos específicos para cada categoria de estatística
 type PasseStats = Jogador['estatisticas']['passe'];
 type CorridaStats = Jogador['estatisticas']['corrida'];
 type RecepcaoStats = Jogador['estatisticas']['recepcao'];
@@ -17,151 +23,188 @@ type DefesaStats = Jogador['estatisticas']['defesa'];
 type KickerStats = Jogador['estatisticas']['kicker'];
 type PunterStats = Jogador['estatisticas']['punter'];
 
-// Interface para o calculador de estatísticas
-interface StatCalculator {
-  check: (stats: any) => boolean;
-  calculate: (stats: any) => number;
-}
+// Função para calcular o total de estatísticas defensivas
+const calculateDefenseTotal = (stats: DefesaStats): number => {
+    return stats.tackles_totais +
+        stats.tackles_for_loss +
+        stats.sacks_forcado +
+        stats.fumble_forcado +
+        stats.interceptacao_forcada +
+        stats.passe_desviado +
+        stats.safety +
+        stats.td_defensivo;
+};
 
 // Função para verificar requisitos mínimos por categoria
-const checkCategoryMinimum = (category: string, stats: any): boolean => {
-  switch (category) {
-    case 'passe':
-      return (stats as PasseStats).passes_tentados >= 30.6;
-    case 'corrida':
-      return (stats as CorridaStats).corridas >= 7.6;
-    case 'recepcao':
-      return (stats as RecepcaoStats).alvo >= 5.6;
-    case 'retorno':
-      return (stats as RetornoStats).retornos >= 2.1;
-    case 'defesa': {
-      const defStats = stats as DefesaStats;
-      const total = 
-        defStats.tackles_totais +
-        defStats.tackles_for_loss +
-        defStats.sacks_forcado +
-        defStats.fumble_forcado +
-        defStats.interceptacao_forcada +
-        defStats.passe_desviado +
-        defStats.safety +
-        defStats.td_defensivo;
-      return total >= 3.6;
-    }
-    case 'kicker':
-      return (stats as KickerStats).tentativas_de_fg >= 1.3;
-    case 'punter':
-      return (stats as PunterStats).punts >= 3.75;
-    default:
-      return true;
-  }
-};
+const checkCategoryMinimum = (category: CategoryKey, stats: any): boolean => {
+    const thresholds = CATEGORY_THRESHOLDS[category];
+    if (!thresholds) return false;
 
-
-const calculators: Record<string, StatCalculator> = {
-    passes_percentual: {
-        check: (stats: PasseStats) => stats.passes_tentados >= 30.6,
-        calculate: (stats: PasseStats) => (stats.passes_completos / stats.passes_tentados) * 100
-    },
-    jardas_media: {
-        check: (stats: PasseStats) => {
-          // Primeiro verificamos se tem passes tentados suficientes
-          return stats.passes_tentados >= 30.6;
-        },
-        calculate: (stats: PasseStats) => {
-          // Retorna apenas a média de jardas por passe
-          const media = stats.jardas_de_passe / stats.passes_tentados;
-          return media;
-        }
-      },
-    jardas_corridas_media: {
-        check: (stats: CorridaStats) => stats.corridas >= 7.6,
-        calculate: (stats: CorridaStats) => stats.jardas_corridas / stats.corridas
-    },
-    jardas_recebidas_media: {
-        check: (stats: RecepcaoStats) => stats.alvo >= 5.6,
-        calculate: (stats: RecepcaoStats) => stats.jardas_recebidas / stats.alvo
-    },
-    jardas_retornadas_media: {
-        check: (stats: RetornoStats) => stats.retornos >= 2.1,
-        calculate: (stats: RetornoStats) => stats.jardas_retornadas / stats.retornos
-    },
-    extra_points: {
-        check: (stats: KickerStats) => stats.tentativas_de_xp >= 1.3,
-        calculate: (stats: KickerStats) => (stats.xp_bons / stats.tentativas_de_xp) * 100
-    },
-    field_goals: {
-        check: (stats: KickerStats) => stats.tentativas_de_fg >= 1.3,
-        calculate: (stats: KickerStats) => (stats.fg_bons / stats.tentativas_de_fg) * 100
-    },
-    jardas_punt_media: {
-        check: (stats: PunterStats) => stats.punts >= 3.75,
-        calculate: (stats: PunterStats) => stats.jardas_de_punt / stats.punts
-    },
-    defesa_total: {
-        check: (stats: DefesaStats) => true,
-        calculate: (stats: DefesaStats) => {
-            return stats.tackles_totais +
-                stats.tackles_for_loss +
-                stats.sacks_forcado +
-                stats.fumble_forcado +
-                stats.interceptacao_forcada +
-                stats.passe_desviado +
-                stats.safety +
-                stats.td_defensivo;
-        }
+    switch (category) {
+        case 'passe':
+            return (stats as PasseStats).passes_tentados >= thresholds.tier3;
+        case 'corrida':
+            return (stats as CorridaStats).corridas >= thresholds.tier3;
+        case 'recepcao':
+            return (stats as RecepcaoStats).alvo >= thresholds.tier3;
+        case 'retorno':
+            return (stats as RetornoStats).retornos >= thresholds.tier3;
+        case 'defesa':
+            return calculateDefenseTotal(stats as DefesaStats) >= thresholds.tier3;
+        case 'kicker':
+            return (stats as KickerStats).tentativas_de_fg >= thresholds.tier3;
+        case 'punter':
+            return (stats as PunterStats).punts >= thresholds.tier3;
     }
 };
 
-export const calculateStatValue = (player: Jogador, mapping: StatConfig): number | null => {
+// Função para calcular estatísticas derivadas
+const calculateDerivedStat = (stats: any, key: string): number | null => {
+    switch (key) {
+        case 'passes_percentual':
+            return stats.passes_tentados > 0 
+                ? (stats.passes_completos / stats.passes_tentados) * 100 
+                : null;
+        case 'jardas_media':
+            return stats.passes_tentados > 0 
+                ? stats.jardas_de_passe / stats.passes_tentados 
+                : null;
+        case 'jardas_corridas_media':
+            return stats.corridas > 0 
+                ? stats.jardas_corridas / stats.corridas 
+                : null;
+        case 'jardas_recebidas_media':
+            return stats.alvo > 0 
+                ? stats.jardas_recebidas / stats.alvo 
+                : null;
+        case 'jardas_retornadas_media':
+            return stats.retornos > 0 
+                ? stats.jardas_retornadas / stats.retornos 
+                : null;
+        case 'extra_points':
+            return stats.tentativas_de_xp > 0 
+                ? (stats.xp_bons / stats.tentativas_de_xp) * 100 
+                : null;
+        case 'field_goals':
+            return stats.tentativas_de_fg > 0 
+                ? (stats.fg_bons / stats.tentativas_de_fg) * 100 
+                : null;
+        case 'jardas_punt_media':
+            return stats.punts > 0 
+                ? stats.jardas_de_punt / stats.punts 
+                : null;
+        default:
+            return null;
+    }
+};
+
+// Função principal de cálculo
+export const calculateStatValue = (player: Jogador, mapping: StatConfig): StatResult => {
     try {
-      const category = mapping.category as keyof typeof player.estatisticas;
-      const stats = player.estatisticas[category];
-  
-      if (!stats || !checkCategoryMinimum(category, stats)) {
-        return null;
-      }
-  
-      if (mapping.isCalculated) {
-        const calculator = calculators[mapping.key];
-        if (!calculator || !calculator.check(stats)) {
-          return null;
+        const category = mapping.category;
+        const stats = player.estatisticas[category];
+
+        if (!stats || !checkCategoryMinimum(category, stats)) {
+            return { value: null, tier: 3 };
         }
-        return calculator.calculate(stats);
-      }
-  
-      const value = stats[mapping.key as keyof typeof stats];
-      return typeof value === 'number' ? value : null;
-  
+
+        let value: number | null;
+        
+        if (mapping.isCalculated) {
+            value = calculateDerivedStat(stats, mapping.key);
+        } else {
+            value = stats[mapping.key as keyof typeof stats] as number;
+        }
+
+        if (value === null || value === undefined) {
+            return { value: null, tier: 3 };
+        }
+
+        const tier = getTierForValue(value, category);
+
+        return { value, tier };
     } catch (error) {
-      console.error('Error calculating stat value:', error);
-      return null;
+        console.error('Error calculating stat value:', error);
+        return { value: null, tier: 3 };
     }
-  };
+};
 
-  export const formatStatValue = (value: number | null, stat: StatConfig): string => {
-    if (value === null) return 'N/A';
-  
+// Função para formatar valores de estatística
+export const formatStatValue = (statResult: StatResult, stat: StatConfig): string => {
+    if (statResult.value === null) return 'N/A';
+
     if (stat.isCalculated) {
-      if (
-        stat.key.includes('percentual') || 
-        stat.key === 'extra_points' || 
-        stat.key === 'field_goals'
-      ) {
-        return `${Math.round(value)}%`;
-      }
-      return value.toFixed(1);
+        if (
+            stat.key.includes('percentual') ||
+            stat.key === 'extra_points' ||
+            stat.key === 'field_goals'
+        ) {
+            return `${Math.round(statResult.value)}%`;
+        }
+        return statResult.value.toFixed(1);
     }
-  
-    return Math.round(value).toString();
-  };
-  
-  export const compareStatValues = (a: number | null, b: number | null): number => {
-    if (a === null && b === null) return 0;
-    if (a === null) return 1;
-    if (b === null) return -1;
-    return b - a;
-  };
 
+    return Math.round(statResult.value).toString();
+};
+
+// Função para comparar valores de estatística
+export const compareStatValues = (a: StatResult, b: StatResult): number => {
+    if (a.value === null && b.value === null) return 0;
+    if (a.value === null) return 1;
+    if (b.value === null) return -1;
+    return b.value - a.value;
+};
+
+// Exportamos uma função para obter o mapeamento de estatísticas
+export const getStatMapping = (statParam: string | null): StatConfig => {
+    if (!statParam) {
+        return {
+            key: 'not_found',
+            title: 'Estatística não encontrada',
+            category: 'passe'
+        };
+    }
+
+    const urlParam = statParam.toLowerCase();
+    
+    // Buscar no mapeamento de estatísticas (você manteria seu objeto statMappings aqui)
+    const mapping = statMappings[urlParam];
+    if (mapping) return mapping;
+
+    return {
+        key: 'not_found',
+        title: 'Estatística não encontrada',
+        category: 'passe'
+    };
+};
+
+
+export const meetsMinimumRequirements = (player: Jogador, category: string): boolean => {
+    switch (category) {
+        case 'passe':
+            return player.estatisticas.passe.passes_tentados >= 30.6; // valor do Tier 3
+        case 'corrida':
+            return player.estatisticas.corrida.corridas >= 7.6; // valor do Tier 3
+        case 'recepcao':
+            return player.estatisticas.recepcao.alvo >= 5.6; // valor do Tier 3
+        case 'retorno':
+            return player.estatisticas.retorno.retornos >= 2.1; // valor do Tier 3
+        case 'defesa': {
+            const defStats = player.estatisticas.defesa;
+            const total = defStats.tackles_totais + defStats.tackles_for_loss +
+                defStats.sacks_forcado + defStats.fumble_forcado +
+                defStats.interceptacao_forcada + defStats.passe_desviado +
+                defStats.safety + defStats.td_defensivo;
+            return total >= 3.6; // valor do Tier 3
+        }
+        case 'kicker':
+            return player.estatisticas.kicker.tentativas_de_fg >= 1.3; // valor do Tier 3
+        case 'punter':
+            return player.estatisticas.punter.punts >= 3.75; // valor do Tier 3
+        default:
+            return true;
+    }
+};
 
 // Exportamos os mapeamentos
 export const statMappings: { [key: string]: StatConfig } = {
@@ -425,71 +468,5 @@ export const statMappings: { [key: string]: StatConfig } = {
         key: 'jardas_de_punt',
         title: 'Jardas',
         category: 'punter'
-    }
-};
-
-// Função para obter o mapeamento
-export const getStatMapping = (statParam: string | null): StatConfig => {
-    if (!statParam) {
-        return {
-            key: 'not_found',
-            title: 'Estatística não encontrada',
-            category: 'none'
-        };
-    }
-
-    const urlParam = statParam.toLowerCase();
-    console.log('Buscando estatística:', urlParam); // Debug
-
-    // Tentar encontrar o mapeamento direto
-    const directMapping = statMappings[urlParam];
-    if (directMapping) {
-        return directMapping;
-    }
-
-    // Se não encontrar, procurar por correspondência parcial
-    const allMappings = Object.entries(statMappings);
-    const foundMapping = allMappings.find(([key, config]) => {
-        const normalizedKey = key.toLowerCase();
-        const normalizedParam = urlParam.toLowerCase();
-        return normalizedKey === normalizedParam ||
-            normalizedKey.replace('-', '') === normalizedParam.replace('-', '');
-    });
-
-    if (foundMapping) {
-        return foundMapping[1];
-    }
-
-    return {
-        key: 'not_found',
-        title: 'Estatística não encontrada',
-        category: 'none'
-    };
-};
-
-export const meetsMinimumRequirements = (player: Jogador, category: string): boolean => {
-    switch (category) {
-        case 'passe':
-            return player.estatisticas.passe.passes_tentados >= 30.6; // valor do Tier 3
-        case 'corrida':
-            return player.estatisticas.corrida.corridas >= 7.6; // valor do Tier 3
-        case 'recepcao':
-            return player.estatisticas.recepcao.alvo >= 5.6; // valor do Tier 3
-        case 'retorno':
-            return player.estatisticas.retorno.retornos >= 2.1; // valor do Tier 3
-        case 'defesa': {
-            const defStats = player.estatisticas.defesa;
-            const total = defStats.tackles_totais + defStats.tackles_for_loss +
-                defStats.sacks_forcado + defStats.fumble_forcado +
-                defStats.interceptacao_forcada + defStats.passe_desviado +
-                defStats.safety + defStats.td_defensivo;
-            return total >= 3.6; // valor do Tier 3
-        }
-        case 'kicker':
-            return player.estatisticas.kicker.tentativas_de_fg >= 1.3; // valor do Tier 3
-        case 'punter':
-            return player.estatisticas.punter.punts >= 3.75; // valor do Tier 3
-        default:
-            return true;
     }
 };

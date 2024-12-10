@@ -24,10 +24,19 @@ const StatsPage: React.FC = () => {
   const groupPlayersByTier = (processedPlayers: ProcessedPlayer[]) => {
     return processedPlayers.reduce<Record<string, ProcessedPlayer[]>>(
       (acc, player) => {
-        const tier = getTierForValue(player.average, statMapping.category as CategoryKey);
+        // Determina o tier usando o valor base
+        const tier = getTierForValue(
+          player.baseStat,
+          statMapping.category as CategoryKey
+        );
+
+        // Agrupa o jogador no tier apropriado
         const tierKey = `tier${tier}`;
-        acc[tierKey] = acc[tierKey] || [];
+        if (!acc[tierKey]) {
+          acc[tierKey] = [];
+        }
         acc[tierKey].push(player);
+
         return acc;
       },
       { tier1: [], tier2: [], tier3: [] }
