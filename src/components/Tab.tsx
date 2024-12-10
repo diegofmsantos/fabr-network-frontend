@@ -6,21 +6,14 @@ import { usePathname } from "next/navigation";
 
 export const Tab = () => {
   const pathname = usePathname();
+  const isRankingRoute = pathname.startsWith('/ranking');
 
   return (
     <div className="fixed bottom-0 w-full bg-[#0F1116] shadow-md border-t flex justify-around py-2 z-50">
-      {/* Botão de Times */}
       <Link href="/">
-        <div
-          className={`flex flex-col items-center ${pathname != "/ranking" ? "text-[#63e300]" : "text-gray-400"
-            }`}
-        >
+        <div className={`flex flex-col items-center ${!isRankingRoute ? "text-[#63e300]" : "text-gray-400"}`}>
           <Image
-            src={
-              pathname != "/ranking"
-                ? "/assets/logo-capacete-verde.png"
-                : "/assets/logo-capacete-branco.png"
-            }
+            src={!isRankingRoute ? "/assets/logo-capacete-verde.png" : "/assets/logo-capacete-branco.png"}
             alt="capacete"
             width={25}
             height={25}
@@ -29,12 +22,8 @@ export const Tab = () => {
         </div>
       </Link>
 
-      {/* Botão de Estatísticas */}
       <Link href="/ranking">
-        <div
-          className={`flex flex-col items-center ${pathname === "/ranking" ? "text-[#63e300]" : "text-gray-400"
-            }`}
-        >
+        <div className={`flex flex-col items-center ${isRankingRoute ? "text-[#63e300]" : "text-gray-400"}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

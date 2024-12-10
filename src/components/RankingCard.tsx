@@ -1,3 +1,4 @@
+import { getUrlIdentifier } from "@/utils/statMappings";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,10 +14,11 @@ interface PlayerCardProps {
 
 interface RankingCardProps {
   title: string;
+  category: string
   players: PlayerCardProps[];
 }
 
-export const RankingCard: React.FC<RankingCardProps> = ({ title, players }) => {
+export const RankingCard: React.FC<RankingCardProps> = ({ title, category, players }) => {
   const normalizeForFilePath = (input: string): string => {
     return input
       .toLowerCase()
@@ -43,9 +45,8 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, players }) => {
           return (
             <li
               key={index}
-              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${
-                player.isFirst ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
-              }`}
+              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${player.isFirst ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
+                }`}
               style={{
                 backgroundColor: player.isFirst ? player.teamColor : undefined,
               }}
@@ -106,7 +107,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, players }) => {
       </ul>
       {players.length > 0 && (
         <Link
-          href={`/ranking/stats?stat=${normalizeForFilePath(title)}`}
+          href={`/ranking/stats?stat=${normalizeForFilePath(category)}-${normalizeForFilePath(title)}`}
           className="block text-center border border-gray-400 bg-[#D9D9D9] text-black font-bold py-2 px-4 mt-4 rounded-md hover:bg-[#C1C2C3]"
         >
           Ver Mais

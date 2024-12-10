@@ -1,168 +1,83 @@
-// app/ranking/stats/page.tsx
-'use client';
+"use client"
 
+import React from 'react';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { Jogador } from '@/types/jogador';
-import { Time } from '@/types/time';
-import { getJogadores, getTimes } from '@/api/api';
 import { Loading } from '@/components/ui/Loading';
-import {
-  getStatMapping,
-  calculateStatValue,
-  formatStatValue,
-  compareStatValues
-} from '@/utils/statMappings';
+import { CategoryKey, getTierTitle, getTierForValue } from '@/utils/categoryThresholds';
+import { getStatMapping } from '@/utils/statMappings';
+import { StatSelect } from '@/components/StatSelect';
+import StatsTier from '@/components/StatsTier';
+import { useStats } from '@/hooks/useStats';
+import { useTeamInfo } from '@/hooks/useTeamInfo';
+import { usePlayerProcessing, ProcessedPlayer } from '@/hooks/usePlayerProcessing';
 
-export default function StatsPage() {
+const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();
-  const statParam = searchParams.get('stat');
-  console.log(statParam)
-  
-  const [players, setPlayers] = useState<Jogador[]>([]);
-  const [times, setTimes] = useState<Time[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [playersData, timesData] = await Promise.all([
-          getJogadores(),
-          getTimes()
-        ]);
-        setPlayers(playersData);
-        setTimes(timesData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    fetchData();
-  }, []);
-
-  const normalizeForFilePath = (input: string): string => {
-    return input
-      .toLowerCase()
-      .replace(/\s+/g, '-')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9-]/g, '');
-  };
-
-  const getTeamInfo = (timeId: number) => {
-    const team = times.find((t) => t.id === timeId);
-    return {
-      nome: team?.nome || 'time-desconhecido',
-      cor: team?.cor || '#CCCCCC',
-    };
-  };
-
-  const getShirtPath = (team: string, camisa: string): string => {
-    const normalizedTeam = normalizeForFilePath(team);
-    return team && team !== "time-desconhecido" && camisa
-      ? `/assets/times/camisas/${normalizedTeam}/${camisa}`
-      : "/assets/times/camisas/camisa-default.png";
-  };
-
-  if (loading) {
-    return <Loading />;
-  }
-
+  const statParam = searchParams.get('stat') || '';
+  const { players, times, loading } = useStats();
+  const getTeamInfo = useTeamInfo(times);
   const statMapping = getStatMapping(statParam);
-  
-  const filteredAndSortedPlayers = players
-    .filter(player => {
-      const value = calculateStatValue(player, statMapping);
-      return value !== null && value > 0;
-    })
-    .sort((a, b) => {
-      const aValue = calculateStatValue(a, statMapping);
-      const bValue = calculateStatValue(b, statMapping);
-      return compareStatValues(aValue, bValue);
-    });
+  const { processPlayers } = usePlayerProcessing(statMapping, getTeamInfo);
+
+  if (loading) return <Loading />;
+
+  const groupPlayersByTier = (processedPlayers: ProcessedPlayer[]) => {
+    return processedPlayers.reduce<Record<string, ProcessedPlayer[]>>(
+      (acc, player) => {
+        const tier = getTierForValue(player.average, statMapping.category as CategoryKey);
+        const tierKey = `tier${tier}`;
+        acc[tierKey] = acc[tierKey] || [];
+        acc[tierKey].push(player);
+        return acc;
+      },
+      { tier1: [], tier2: [], tier3: [] }
+    );
+  };
+
+  const mapPlayersToProps = (
+    players: ProcessedPlayer[],
+    startIndex: number
+  ) => {
+    return players.map((item, index) => ({
+      player: item.player,
+      teamInfo: item.teamInfo,
+      value: item.value,
+      index: index + startIndex
+    }));
+  };
+
+  const renderTierSection = (
+    tier: number,
+    players: ProcessedPlayer[],
+    startIndex: number,
+    backgroundColor?: string
+  ) => (
+    <StatsTier
+      title={getTierTitle(statMapping.category as CategoryKey, tier)}
+      players={mapPlayersToProps(players, startIndex)}
+      backgroundColor={backgroundColor}
+    />
+  );
+
+  const processedPlayers = processPlayers(players);
+  const tierPlayers = groupPlayersByTier(processedPlayers);
 
   return (
     <div className="bg-[#ECECEC] min-h-screen py-24 px-8">
       <div className="max-w-4xl mx-auto">
-        <div className="ranking-card-container px-3">
-          <h3 className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">
-            {statMapping.title}
-          </h3>
-          <ul className="flex flex-col text-white h-full">
-            {filteredAndSortedPlayers.map((player, index) => {
-              const teamInfo = getTeamInfo(player.timeId);
-              const teamLogoPath = `/assets/times/logos/${normalizeForFilePath(teamInfo.nome)}.png`;
-              const value = formatStatValue(calculateStatValue(player, statMapping), statMapping);
+        <StatSelect currentStat={statParam} />
 
-              return (
-                <li
-                  key={player.id}
-                  className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${
-                    index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
-                  }`}
-                  style={{
-                    backgroundColor: index === 0 ? teamInfo.cor : undefined,
-                  }}
-                >
-                  {index === 0 ? (
-                    <div className="flex justify-between items-center w-full text-white">
-                      <div className="flex flex-col justify-center">
-                        <p className="text-[15px] font-bold">{index + 1}</p>
-                        <h4 className="font-bold flex flex-col leading-tight">
-                          <span className="text-[12px]">{player.nome.split(" ")[0]}</span>
-                          <span className="text-2xl">{player.nome.split(" ").slice(1).join(" ")}</span>
-                        </h4>
-                        <div className="flex items-center gap-1 min-w-32">
-                          <Image
-                            src={teamLogoPath}
-                            width={40}
-                            height={40}
-                            alt={`Logo do time ${teamInfo.nome}`}
-                            className="w-auto h-auto"
-                          />
-                          <p className="text-[10px]">{teamInfo.nome}</p>
-                        </div>
-                        <span className="font-bold text-[40px]">{value}</span>
-                      </div>
-                      <Image
-                        src={getShirtPath(teamInfo.nome, player.camisa)}
-                        width={100}
-                        height={100}
-                        alt={`Camisa`}
-                        className="w-auto h-auto"
-                        priority
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-full h-auto flex justify-between items-center gap-2">
-                      <div className="flex items-center">
-                        <span className="font-bold flex items-center gap-2">
-                          <div>{index + 1}</div>
-                          <Image
-                            src={teamLogoPath}
-                            width={40}
-                            height={40}
-                            alt={`Logo do time ${teamInfo.nome}`}
-                            className="w-auto h-auto"
-                          />
-                        </span>
-                        <div className="flex flex-col">
-                          <div className="font-bold text-[14px]">{player.nome}</div>
-                          <div className="font-light text-[14px]">{teamInfo.nome}</div>
-                        </div>
-                      </div>
-                      <span className="font-bold text-lg">{value}</span>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+        {renderTierSection(1, tierPlayers.tier1, 0)}
+        {renderTierSection(2, tierPlayers.tier2, tierPlayers.tier1.length, 'bg-gray-700')}
+        {renderTierSection(
+          3,
+          tierPlayers.tier3,
+          tierPlayers.tier1.length + tierPlayers.tier2.length,
+          'bg-gray-500'
+        )}
       </div>
     </div>
   );
-}
+};
+
+export default StatsPage;

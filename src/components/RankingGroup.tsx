@@ -342,6 +342,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
             <div key={index}>
               <RankingCard
                 title={stat.title}
+                category={title}
                 players={filteredPlayers.map((player, playerIndex) => {
                   const teamInfo = getTeamInfo(player.timeId);
                   const value = calculateStat(player, stat.key);
