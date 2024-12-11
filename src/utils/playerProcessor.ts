@@ -22,6 +22,7 @@ export function createProcessedPlayer(
 
   return {
     player,
+    // @ts-ignore
     average: statValue,
     baseStat,
     teamInfo: getTeamInfo(player.timeId),
