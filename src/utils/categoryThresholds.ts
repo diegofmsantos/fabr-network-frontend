@@ -57,13 +57,13 @@ export const getTierTitle = (category: CategoryKey, tier: number): string => {
 
     switch (tier) {
         case 1:
-            return `Tier 1 (>= ${thresholds.tier1})`;
+            return `Tier 1`;
         case 2:
-            return `Tier 2 (>= ${thresholds.tier2.min} e < ${thresholds.tier2.max})`;
+            return `Tier 2`;
         case 3:
-            return `Tier 3 (< ${thresholds.tier3})`;
+            return `Tier 3`;
         default:
-            return 'Unknown Tier';
+            return 'Tier';
     }
 };
 
