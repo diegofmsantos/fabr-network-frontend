@@ -143,7 +143,6 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
-
                 <motion.div
                     className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[500px] z-10 relative'
                     initial={{ opacity: 0, x: 50 }}
@@ -151,7 +150,16 @@ export default function Page() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                    <div className="w-full bg-[#ECECEC] flex flex-col justify-center items-center">
+                        <div className="bg-white px-3 py-1 rounded-2xl min-w-36 flex flex-col justify-center items-start">
+                            <div className="text-xs">Temporada</div>
+                            <select className="text-sm font-bold min-w-32">
+                                <option value="2024" className="">2024</option>
+                                <option value="2025">2025</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className='xl:max-w-[1200px] -mt-4 xl:min-w-[1100px] xl:m-auto'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
                         <div className="bg-white flex flex-col justify-center gap-4 p-4 rounded-lg">

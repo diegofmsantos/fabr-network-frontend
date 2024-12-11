@@ -348,6 +348,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
                   const value = calculateStat(player, stat.key);
 
                   return {
+                    id: player.id,
                     name: player.nome,
                     team: teamInfo.nome,
                     value: normalizeValue(value, stat.key),

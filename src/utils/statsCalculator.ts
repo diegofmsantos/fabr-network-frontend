@@ -18,6 +18,19 @@ export class StatsCalculator {
     return { made, attempted };
   }
 
+  private static getFieldGoalRatio(value: string): number {
+    if (!value || value === 'N/A') return 0;
+    const ratio = this.parseStringRatio(value);
+    if (!ratio || ratio.attempted === 0) return 0;
+    return ratio.made / ratio.attempted;
+  }
+
+  static compareFieldGoals(a: string, b: string): number {
+    const ratioA = this.getFieldGoalRatio(a);
+    const ratioB = this.getFieldGoalRatio(b);
+    return ratioB - ratioA;
+  }
+
   static calculate(stats: any, key: string): number | string | null {
     if (!stats) return null;
 
@@ -29,8 +42,8 @@ export class StatsCalculator {
       case 'jardas_corridas_media':
         return this.calculateAverage(stats.jardas_corridas, stats.corridas);
         
-        case 'jardas_recebidas_media':
-          return this.calculateAverage(stats.jardas_recebidas, stats.alvo);
+      case 'jardas_recebidas_media':
+        return this.calculateAverage(stats.jardas_recebidas, stats.alvo);
         
       case 'jardas_retornadas_media':
         return this.calculateAverage(stats.jardas_retornadas, stats.retornos);
@@ -44,8 +57,8 @@ export class StatsCalculator {
       case 'passes_percentual':
         return this.calculatePercentage(stats.passes_completos, stats.passes_tentados);
         
-        case 'field_goals':
-          return this.calculatePercentage(stats.fg_bons, stats.tentativas_de_fg);
+      case 'field_goals':
+        return this.calculatePercentage(stats.fg_bons, stats.tentativas_de_fg);
         
       case 'extra_points':
         return this.calculatePercentage(stats.xp_bons, stats.tentativas_de_xp);

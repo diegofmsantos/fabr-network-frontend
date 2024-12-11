@@ -14,6 +14,7 @@ import { motion } from "framer-motion"
 import { getTimes } from "../../api/api"
 import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
+import { SelectTemporada } from "@/components/SelectTemporada"
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
@@ -90,7 +91,7 @@ export default function Page() {
         <div className="pt-20 pb-14 bg-[#ECECEC]">
             <div className="w-full fixed z-50">
                 <div
-                    className="p-4 w-full h-[350px] flex flex-col justify-center items-center rounded-b-xl"
+                    className="p-4 w-full h-[330px] flex flex-col justify-center items-center rounded-b-xl"
                     style={{ backgroundColor: currentTeam.cor || "#000" }}
                 >
                     <Link
@@ -100,7 +101,7 @@ export default function Page() {
                         {currentTeam.sigla || "N/A"}
                         <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
                     </Link>
-                    <div className="flex flex-col justify-center items-center mt-10">
+                    <div className="flex flex-col justify-center items-center">
                         <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px]">
                             {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
                         </div>
@@ -136,14 +137,16 @@ export default function Page() {
 
             {selectedButton === "jogadores" && (
                 <motion.div
-                    className="w-full pt-[350px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
+                    className="w-full pt-[330px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
+
                     <div className="fixed w-full xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto z-50">
-                        <section className="w-full flex items-center justify-between gap-5 py-5 px-4 bg-white md:px-6">
+                        <SelectTemporada />
+                        <section className="w-full bg-[#ECECEC] flex items-center justify-between gap-5 py-5 px-4 md:px-6">
                             <ButtonSetor
                                 label="ATAQUE"
                                 borderColor={currentTeam.cor || "#000"}
@@ -164,7 +167,7 @@ export default function Page() {
                             />
                         </section>
                     </div>
-                    <div className="mt-[70px] xl:mt-[125px] xl:border bg-[#D9D9D9]/50 min-h-screen">
+                    <div className="mt-[125px] xl:mt-[125px] xl:border  min-h-screen">
                         <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
                     </div>
                 </motion.div>
@@ -172,7 +175,7 @@ export default function Page() {
 
             {selectedButton === "time" && (
                 <motion.div
-                    className="pt-[350px]"
+                    className="pt-[330px]"
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}

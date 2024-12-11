@@ -24,6 +24,7 @@ export default function Page() {
     if (!players.length) {
         return <Loading />;
     }
+
     return (
         <div className="pl-4 py-12 bg-[#ECECEC]">
             <RankingGroup

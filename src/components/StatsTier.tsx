@@ -1,5 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { Router } from 'next/router';
+import { useRouter } from 'next/navigation';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 interface PlayerStats {
   player: any;
@@ -18,7 +23,8 @@ interface StatsTierProps {
 }
 
 const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor = 'bg-black' }) => {
-  const normalizeForFilePath = (input: string): string => 
+  const router = useRouter()
+  const normalizeForFilePath = (input: string): string =>
     input.toLowerCase()
       .replace(/\s+/g, '-')
       .normalize('NFD')
@@ -47,6 +53,11 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
 
   return (
     <div className="mb-8">
+      <button
+        onClick={() => router.back()}
+        className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50'>
+        <FontAwesomeIcon icon={faAngleLeft} />
+      </button>
       <div className={`inline-block text-sm font-bold mb-2 ${backgroundColor} text-white p-2 rounded-xl`}>
         {title}
       </div>
@@ -58,63 +69,67 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
           return (
             <li
               key={player.id}
-              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${
-                index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
-              }`}
+              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
+                }`}
               style={{
                 backgroundColor: index === 0 ? teamInfo.cor : undefined,
               }}
             >
-              {index === 0 ? (
-                <div className="flex justify-between items-center w-full text-white">
-                  <div className="flex flex-col justify-center">
-                    <p className="text-[15px] font-bold">{globalIndex}</p>
-                    <h4 className="font-bold flex flex-col leading-tight">
-                      <span className="text-[12px]">{player.nome.split(" ")[0]}</span>
-                      <span className="text-2xl">{player.nome.split(" ").slice(1).join(" ")}</span>
-                    </h4>
-                    <div className="flex items-center gap-1 min-w-32">
-                      <Image
-                        src={teamLogoPath}
-                        width={40}
-                        height={40}
-                        alt={`Logo do time ${teamInfo.nome}`}
-                        className="w-auto h-auto"
-                      />
-                      <p className="text-[10px]">{teamInfo.nome}</p>
+              <Link
+                href={`/${normalizeForFilePath(teamInfo.nome)}/${player.id}`}
+                className="w-full"
+              >
+                {index === 0 ? (
+                  <div className="flex justify-between items-center w-full text-white">
+                    <div className="flex flex-col justify-center">
+                      <p className="text-[15px] font-bold">{globalIndex}</p>
+                      <h4 className="font-bold flex flex-col leading-tight">
+                        <span className="text-[12px]">{player.nome.split(" ")[0]}</span>
+                        <span className="text-2xl">{player.nome.split(" ").slice(1).join(" ")}</span>
+                      </h4>
+                      <div className="flex items-center gap-1 min-w-32">
+                        <Image
+                          src={teamLogoPath}
+                          width={40}
+                          height={40}
+                          alt={`Logo do time ${teamInfo.nome}`}
+                          className="w-auto h-auto"
+                        />
+                        <p className="text-[10px]">{teamInfo.nome}</p>
+                      </div>
+                      <span className="font-bold text-[40px]">{value}</span>
                     </div>
-                    <span className="font-bold text-[40px]">{value}</span>
+                    <Image
+                      src={getShirtPath(teamInfo.nome, player.camisa)}
+                      width={100}
+                      height={100}
+                      alt={`Camisa`}
+                      className="w-auto h-auto"
+                      priority
+                    />
                   </div>
-                  <Image
-                    src={getShirtPath(teamInfo.nome, player.camisa)}
-                    width={100}
-                    height={100}
-                    alt={`Camisa`}
-                    className="w-auto h-auto"
-                    priority
-                  />
-                </div>
-              ) : (
-                <div className="w-full h-auto flex justify-between items-center gap-2">
-                  <div className="flex items-center">
-                    <span className="font-bold flex items-center gap-2">
-                      <div>{globalIndex}</div>
-                      <Image
-                        src={teamLogoPath}
-                        width={40}
-                        height={40}
-                        alt={`Logo do time ${teamInfo.nome}`}
-                        className="w-auto h-auto"
-                      />
-                    </span>
-                    <div className="flex flex-col">
-                      <div className="font-bold text-[14px]">{player.nome}</div>
-                      <div className="font-light text-[14px]">{teamInfo.nome}</div>
+                ) : (
+                  <div className="w-full h-auto flex justify-between items-center gap-2">
+                    <div className="flex items-center">
+                      <span className="font-bold flex items-center gap-2">
+                        <div>{globalIndex}</div>
+                        <Image
+                          src={teamLogoPath}
+                          width={40}
+                          height={40}
+                          alt={`Logo do time ${teamInfo.nome}`}
+                          className="w-auto h-auto"
+                        />
+                      </span>
+                      <div className="flex flex-col">
+                        <div className="font-bold text-[14px]">{player.nome}</div>
+                        <div className="font-light text-[14px]">{teamInfo.nome}</div>
+                      </div>
                     </div>
+                    <span className="font-bold text-lg">{value}</span>
                   </div>
-                  <span className="font-bold text-lg">{value}</span>
-                </div>
-              )}
+                )}
+              </Link>
             </li>
           );
         })}

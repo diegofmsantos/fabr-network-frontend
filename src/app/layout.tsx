@@ -3,6 +3,7 @@ import "./globals.css"
 import { Poppins } from "next/font/google"
 import Image from "next/image";
 import { Tab } from "@/components/Tab"
+import Link from "next/link";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -33,7 +34,7 @@ export default function RootLayout({
       </head>
       <body>
         <header className="w-full h-20 bg-black flex justify-center items-end px-2 fixed z-50">
-          <div className="w-28 h-16 flex justify-center items-end p-2">
+          <Link href="/" className="w-28 h-16 flex justify-center items-end p-2">
             <Image
               src="/assets/logo-fabr-color.png"
               width={100}
@@ -43,7 +44,7 @@ export default function RootLayout({
               priority
               className="w-auto h-auto"
             />
-          </div>
+          </Link>
         </header>
         {children}
         <Tab />
