@@ -105,7 +105,7 @@ export default function Page() {
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
           </Link>
 
-          <motion.div className="flex flex-col justify-center items-center" style={{ opacity }}>
+          <motion.div className="flex flex-col justify-center items-center" style={{ opacity, pointerEvents: 'none' }}>
             <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px]">
               {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
             </div>

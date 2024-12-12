@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleLeft } from "@fortawesome/free-solid-svg-icons"
 import Link from "next/link"
 import { Stats } from "@/components/Stats"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useState } from "react"
 import { getJogadores, getTimes } from "@/api/api"
 import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton"
@@ -34,6 +34,10 @@ export default function Page() {
 
     const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
     const [loading, setLoading] = useState(true)
+
+    const { scrollY } = useScroll()
+    const opacity = useTransform(scrollY, [0, 200], [1, 0])
+    const height = useTransform(scrollY, [0, 200], [340, 50])
 
     useEffect(() => {
         const fetchJogador = async () => {
@@ -98,51 +102,59 @@ export default function Page() {
     return (
         <AnimatePresence>
             <motion.div
-                key={jogadorId}
                 className="relative min-h-screen pb-16 bg-[#ECECEC]"
+                key={jogadorId}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className='mt-20 fixed top-0 px-6 w-full h-[340px] flex flex-col justify-center items-center rounded-b-xl md:h-[400px] z-20' style={{ backgroundColor: currentTime?.cor }}>
-                    <button
-                        onClick={() => router.back()}
-                        className='absolute top-10 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20'>
-                        <FontAwesomeIcon icon={faAngleLeft} />
-                    </button>
-                    <div className='text-white font-bold text-xs mb-4 md:pt-4'>{currentTime?.nome}</div>
-                    <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
-                        <div className='flex flex-col items-start'>
-                            <div className='text-[32px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
-                                {currentJogador.nome.toLocaleUpperCase()}
-                            </div>
-                            <div className='flex items-center gap-2'>
-                                <div className='text-[34px] text-[#D9D9D9] text-center px-2 font-extrabold italic tracking-[-3px] md:text-4xl'>
-                                    {currentJogador.posicao}
+                {/* Botão de voltar movido para fora da div com animação de opacity */}
+                <button
+                    onClick={() => router.back()}
+                    className="fixed top-[90px] left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20 z-[100]"
+                >
+                    <FontAwesomeIcon icon={faAngleLeft} />
+                </button>
+                <motion.div className='fixed top-0 w-full z-20' style={{ height }} >
+                    <motion.div className='mt-20 px-6 w-full h-full flex flex-col justify-center items-center rounded-b-xl md:h-full'
+                        style={{ backgroundColor: currentTime?.cor }} >
+                        <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
+                            <div className='text-white text-center font-bold text-xs mb-4 md:pt-4'>{currentTime?.nome}</div>
+                            <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
+                                <div className='flex flex-col items-start'>
+                                    <div className='text-[32px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
+                                        {currentJogador.nome.toLocaleUpperCase()}
+                                    </div>
+                                    <div className='flex items-center gap-2'>
+                                        <div className='text-[34px] text-[#D9D9D9] text-center px-2 font-extrabold italic tracking-[-3px] md:text-4xl'>
+                                            {currentJogador.posicao}
+                                        </div>
+                                        <div className="w-8">
+                                            <Image
+                                                src={`/assets/bandeiras/${currentJogador.nacionalidade}`}
+                                                alt='logo-bandeira'
+                                                width={40}
+                                                height={40}
+                                                quality={100}
+                                                className="w-auto h-auto"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className='-mt-5'>
+                                        <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
+                                    </div>
                                 </div>
-                                <div className="w-8">
+                                <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-64 md:min-h-64 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
                                     <Image
-                                        src={`/assets/bandeiras/${currentJogador.nacionalidade}`}
-                                        alt='logo-bandeira'
-                                        width={40}
-                                        height={40}
-                                        quality={100}
-                                        className="w-auto h-auto"
+                                        src={camisasPath} alt={`${currentTime?.nome} camisa`} width={250} height={250} quality={100} priority
                                     />
                                 </div>
                             </div>
-                            <div className='-mt-5'>
-                                <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
-                            </div>
-                        </div>
-                        <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-64 md:min-h-64 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
-                            <Image
-                                src={camisasPath} alt={`${currentTime?.nome} camisa`} width={250} height={250} quality={100} priority
-                            />
-                        </div>
-                    </div>
-                </div>
+                        </motion.div>
+                    </motion.div>
+                </motion.div>
+
                 <motion.div
                     className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[500px] z-10 relative'
                     initial={{ opacity: 0, x: 50 }}
