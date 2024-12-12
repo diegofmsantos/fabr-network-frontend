@@ -1,36 +1,23 @@
-"use client"
+"use client";
 
-import { Time } from "@/types/time"
-import Image from "next/image"
-import Link from "next/link"
-import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
-import { TimeSkeleton } from "./ui/TimeSkeleton"
-import { getTimes } from "@/api/api"
+import { Time } from "@/types/time";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
 
-export const Lista = () => {
+interface ListaProps {
+    times: Time[];
+}
+
+export const Lista = ({ times }: ListaProps) => {
     const itemVariants = {
         hidden: { opacity: 0, x: 50 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
+    };
+
+    if (!times || times.length === 0) {
+        return <div className="text-center text-gray-500">Nenhum time encontrado.</div>;
     }
-
-    const [times, setTimes] = useState<Time[]>([])
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchTimes = async () => {
-            try {
-                const timesData = await getTimes()
-                setTimes(timesData)
-            } catch (error) {
-                console.error("Error fetching times:", error)
-            }
-        };
-        fetchTimes();
-        setLoading(false)
-    }, [])
-
-    if (loading) { return (<TimeSkeleton />) }
 
     return (
         <motion.div
@@ -79,5 +66,5 @@ export const Lista = () => {
                     </motion.div>
                 ))}
         </motion.div>
-    )
-}
+    );
+};

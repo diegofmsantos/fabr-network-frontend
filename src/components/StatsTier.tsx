@@ -1,10 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Router } from 'next/router';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { StatsExplicacao } from './StatsExplicacao';
 
 interface PlayerStats {
   player: any;
@@ -20,9 +20,11 @@ interface StatsTierProps {
   title: string;
   players: PlayerStats[];
   backgroundColor?: string;
+  statsType: 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT';
+  isLastTier?: boolean; 
 }
 
-const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor = 'bg-black' }) => {
+const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor = 'bg-black', statsType, isLastTier = false }) => {
   const router = useRouter()
   const normalizeForFilePath = (input: string): string =>
     input.toLowerCase()
@@ -36,6 +38,14 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
     return team && team !== "time-desconhecido" && camisa
       ? `/assets/times/camisas/${normalizedTeam}/${camisa}`
       : "/assets/times/camisas/camisa-default.png";
+  };
+
+  const formatNumber = (value: string | number): string => {
+    if (typeof value === 'number') {
+      return value.toLocaleString('pt-BR');
+    }
+    const num = parseInt(value);
+    return isNaN(num) ? value : num.toLocaleString('pt-BR');
   };
 
   if (players.length === 0) {
@@ -53,11 +63,11 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
 
   return (
     <div className="mb-8">
-      <button
-        onClick={() => router.back()}
+      <Link
+        href={"/ranking"}
         className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50'>
         <FontAwesomeIcon icon={faAngleLeft} />
-      </button>
+      </Link>
       <div className={`inline-block text-sm font-bold mb-2 ${backgroundColor} text-white p-2 rounded-xl`}>
         {title}
       </div>
@@ -80,36 +90,40 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                 className="w-full"
               >
                 {index === 0 ? (
-                  <div className="flex justify-between items-center w-full text-white">
-                    <div className="flex flex-col justify-center">
-                      <p className="text-[15px] font-bold">{globalIndex}</p>
+                  <div className="flex justify-around items-center pl-6 w-full text-white">
+                    <div className="flex flex-col gap-2 justify-center">
+                      <p className="text-[20px] font-bold">{globalIndex}</p>
                       <h4 className="font-bold flex flex-col leading-tight">
-                        <span className="text-[12px]">{player.nome.split(" ")[0]}</span>
-                        <span className="text-2xl">{player.nome.split(" ").slice(1).join(" ")}</span>
+                        <span className="text-[12px] font-extrabold italic">{player.nome.split(" ")[0]}</span>
+                        <span className="text-[27px] font-extrabold italic">{player.nome.split(" ").slice(1).join(" ")}</span>
                       </h4>
-                      <div className="flex items-center gap-1 min-w-32">
+                      <div className="flex items-center gap-1 min-w-28">
                         <Image
                           src={teamLogoPath}
-                          width={40}
-                          height={40}
+                          width={30}
+                          height={30}
                           alt={`Logo do time ${teamInfo.nome}`}
                           className="w-auto h-auto"
                         />
-                        <p className="text-[10px]">{teamInfo.nome}</p>
+                        <p className="text-[10px] italic">{teamInfo.nome}</p>
                       </div>
-                      <span className="font-bold text-[40px]">{value}</span>
+                      <span className="font-extrabold italic text-5xl">{formatNumber(value)}</span>
                     </div>
-                    <Image
-                      src={getShirtPath(teamInfo.nome, player.camisa)}
-                      width={100}
-                      height={100}
-                      alt={`Camisa`}
-                      className="w-auto h-auto"
-                      priority
-                    />
+                    <div className="relative w-[200px] h-[200px]">
+                      <Image
+                        src={getShirtPath(teamInfo.nome, player.camisa)}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        alt={`Camisa do ${player.nome}`}
+                        className="object-contain"
+                        priority
+                        quality={100}
+                        loading="eager"
+                      />
+                    </div>
                   </div>
                 ) : (
-                  <div className="w-full h-auto flex justify-between items-center gap-2">
+                  <div className="w-full h-auto flex justify-between items-center gap-2 px-7">
                     <div className="flex items-center">
                       <span className="font-bold flex items-center gap-2">
                         <div>{globalIndex}</div>
@@ -134,6 +148,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
           );
         })}
       </ul>
+      {isLastTier && statsType && <StatsExplicacao type={statsType} />}
     </div>
   );
 };

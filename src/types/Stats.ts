@@ -98,3 +98,5 @@ export interface CalculatedStats {
   fg_31_40: string | null;
   fg_41_50: string | null;
 }
+
+export type StatType = 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT';

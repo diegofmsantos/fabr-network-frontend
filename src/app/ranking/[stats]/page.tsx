@@ -11,6 +11,7 @@ import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
 import { ProcessedPlayer } from '@/types/processedPlayer';
+import { StatType } from '@/types/Stats';
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -61,19 +62,46 @@ const StatsPage: React.FC = () => {
     players: ProcessedPlayer[],
     startIndex: number,
     backgroundColor?: string
-  ) => (
-    <StatsTier
-      title={getTierTitle(statMapping.category as CategoryKey, tier)}
-      players={mapPlayersToProps(players, startIndex)}
-      backgroundColor={backgroundColor}
-    />
-  );
+ ) => {
+    const getStatsType = (category: CategoryKey): StatType => {
+        // Mapeia as categorias em minúsculo para o formato correto
+        const categoryMapping: Record<string, StatType> = {
+            'passe': 'PASSE',
+            'corrida': 'CORRIDA',
+            'recepcao': 'RECEPÇÃO',
+            'retorno': 'RETORNO',
+            'defesa': 'DEFESA',
+            'kicker': 'CHUTE',
+            'punter': 'PUNT'
+        };
+ 
+        // Verifica primeiro pelo statParam para casos especiais
+        if (statParam) {
+            const statBase = statParam.split('-')[0]; // Pega a parte antes do hífen
+            const mappedType = categoryMapping[statBase as CategoryKey];
+            if (mappedType) return mappedType;
+        }
+ 
+        // Se não encontrou pelo statParam, usa a categoria direta
+        return categoryMapping[category] || 'PASSE';
+    };
+ 
+    return (
+        <StatsTier
+            title={getTierTitle(statMapping.category as CategoryKey, tier)}
+            players={mapPlayersToProps(players, startIndex)}
+            backgroundColor={backgroundColor}
+            statsType={getStatsType(statMapping.category)}
+            isLastTier={tier === 3}
+        />
+    );
+ };
 
   const processedPlayers = processPlayers(players);
   const tierPlayers = groupPlayersByTier(processedPlayers);
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen py-24 px-8">
+    <div className="bg-[#ECECEC] min-h-screen py-24 px-2">
       <div className="max-w-4xl mx-auto">
         <StatSelect currentStat={statParam} />
 
