@@ -26,7 +26,7 @@ export default function Page() {
     }
 
     return (
-        <div className="pl-4 py-12 bg-[#ECECEC]">
+        <div className="py-12 bg-[#ECECEC]">
             <RankingGroup
                 title="PASSE"
                 stats={[

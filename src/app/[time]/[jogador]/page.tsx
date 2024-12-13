@@ -109,10 +109,9 @@ export default function Page() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                {/* Botão de voltar movido para fora da div com animação de opacity */}
                 <button
                     onClick={() => router.back()}
-                    className="fixed top-[90px] left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20 z-[100]"
+                    className="fixed top-[85px] left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20 z-[100]"
                 >
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>

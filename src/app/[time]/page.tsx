@@ -14,7 +14,7 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import { getTimes } from "../../api/api"
 import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
-import { SelectTemporada } from "@/components/SelectTemporada"
+import { SelectFilter } from "@/components/SelectFilter"
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
@@ -27,8 +27,9 @@ export default function Page() {
   const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
   const [loadingTeam, setLoadingTeam] = useState(true)
   const [loadingJogadores, setLoadingJogadores] = useState(false)
-  const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "time")
+  const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "bio")
   const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE")
+  const [season, setSeason] = useState('2024');
 
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 200], [1, 0])
@@ -67,9 +68,9 @@ export default function Page() {
     fetchCurrentTeam()
   }, [timeName]);
 
-  const handleShowTime = () => {
-    router.replace(`?show=time`)
-    setSelectedButton("time")
+  const handleShowBio = () => {
+    router.replace(`?show=bio`)
+    setSelectedButton("bio")
   }
 
   const handleShowJogadores = async () => {
@@ -99,7 +100,7 @@ export default function Page() {
         >
           <Link
             href={"/"}
-            className="absolute top-4 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20"
+            className="absolute top-2 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20"
           >
             {currentTeam.sigla || "N/A"}
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
@@ -127,9 +128,9 @@ export default function Page() {
 
           <motion.div className="flex justify-between gap-8 -mt-3" style={{ opacity }}>
             <ButtonTime
-              label="TIME"
-              onClick={handleShowTime}
-              isSelected={selectedButton === "time"}
+              label="BIO"
+              onClick={handleShowBio}
+              isSelected={selectedButton === "bio"}
             />
             <ButtonTime
               label="JOGADORES"
@@ -149,7 +150,17 @@ export default function Page() {
           transition={{ duration: 0.5 }}
         >
           <div className="sticky top-[55px] w-full xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto z-40 bg-[#ECECEC]">
-            <SelectTemporada />
+            <div className="w-full mt-4 flex justify-center">
+              <SelectFilter
+                label="TEMPORADA"
+                value={season}
+                onChange={setSeason}
+                options={[
+                  { label: '2024', value: '2024' },
+                  { label: '2025', value: '2025' }
+                ]}
+              />
+            </div>
             <section className="w-full flex items-center justify-between gap-5 py-5 px-4 md:px-6">
               <ButtonSetor
                 label="ATAQUE"
@@ -177,7 +188,7 @@ export default function Page() {
         </motion.div>
       )}
 
-      {selectedButton === "time" && (
+      {selectedButton === "bio" && (
         <motion.div
           className="pt-[330px]"
           initial={{ opacity: 0, x: 50 }}

@@ -7,6 +7,7 @@ import { RankingCard } from './RankingCard';
 import NoStats from './ui/NoStats';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { SelectFilter } from './SelectFilter';
 
 type StatisticKey =
   | keyof Jogador['estatisticas']['passe']
@@ -61,6 +62,8 @@ const SLIDER_SETTINGS = {
 
 export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players }) => {
   const [times, setTimes] = useState<Time[]>([]);
+  const [filterType, setFilterType] = useState('jogadores');
+  const [season, setSeason] = useState('2024');
 
   useEffect(() => {
     const fetchTimes = async () => {
@@ -314,7 +317,27 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
       .replace(/[^a-z0-9-]/g, '');
 
   return (
-    <div className="mt-10 mb-8 pt-4 overflow-x-hidden overflow-y-hidden">
+    <div className="mt-10 mb-8 pt-4 pl-4 overflow-x-hidden overflow-y-hidden mx-auto">
+      <div className="flex justify-center items-center gap-4 mb-4 -ml-4">
+        <SelectFilter
+          label="FILTRO"
+          value={filterType}
+          onChange={setFilterType}
+          options={[
+            { label: 'JOGADORES', value: 'jogadores' },
+            { label: 'TIMES', value: 'times' }
+          ]}
+        />
+        <SelectFilter
+          label="TEMPORADA"
+          value={season}
+          onChange={setSeason}
+          options={[
+            { label: '2024', value: '2024' },
+            { label: '2025', value: '2025' }
+          ]}
+        />
+      </div>
       <h2 className="text-4xl font-extrabold mb-4 italic">{title}</h2>
       <Slider {...SLIDER_SETTINGS}>
         {stats.map((stat, index) => {

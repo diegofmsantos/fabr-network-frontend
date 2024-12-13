@@ -6,14 +6,9 @@ export const metadata: Metadata = {
   title: "Times",
 };
 
-// Função para buscar dados no servidor com caching ISR
-async function fetchTimes() {
-  const times = await getTimes();
-  return times;
-}
 
 export default async function Page() {
-  const times = await fetchTimes();
+  const times = await getTimes();
 
   return (
     <div className="text-[#1414E] z-20">
