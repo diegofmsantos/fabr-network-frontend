@@ -152,7 +152,8 @@ export default function TeamRankingPage() {
                 const teamCategoryStats = teamStats![category as keyof TeamStats] as any;
 
                 Object.keys(categoryStats).forEach(stat => {
-                    if (typeof categoryStats[stat] === 'number') {
+                    // @ts-ignore
+                    if (typeof categoryStats[stat] === 'number') { // @ts-ignore
                         teamCategoryStats[stat] += categoryStats[stat];
                     }
                 });
