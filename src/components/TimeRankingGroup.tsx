@@ -56,21 +56,49 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
     const calculateTeamStat = (teamStat: any, key: string): number | null => {
         try {
             const category = getCategoryFromKey(key);
+
+            // Para debug
+            console.log('Calculating stat:', {
+                key,
+                category,
+                value: teamStat[category]?.[key]
+            });
+
             switch (key) {
                 case 'passes_percentual':
-                    return teamStat[category].passes_tentados > 0
-                        ? (teamStat[category].passes_completos / teamStat[category].passes_tentados) * 100
+                    return teamStat.passe.passes_tentados > 0
+                        ? (teamStat.passe.passes_completos / teamStat.passe.passes_tentados) * 100
                         : null;
                 case 'jardas_media':
-                    return teamStat[category].passes_tentados > 0
-                        ? teamStat[category].jardas_de_passe / teamStat[category].passes_tentados
+                    return teamStat.passe.passes_tentados > 0
+                        ? teamStat.passe.jardas_de_passe / teamStat.passe.passes_tentados
                         : null;
                 case 'jardas_corridas_media':
-                    return teamStat[category].corridas > 0
-                        ? teamStat[category].jardas_corridas / teamStat[category].corridas
+                    return teamStat.corrida.corridas > 0
+                        ? teamStat.corrida.jardas_corridas / teamStat.corrida.corridas
+                        : null;
+                case 'jardas_recebidas_media':
+                    return teamStat.recepcao.alvo > 0
+                        ? teamStat.recepcao.jardas_recebidas / teamStat.recepcao.alvo
+                        : null;
+                case 'jardas_retornadas_media':
+                    return teamStat.retorno.retornos > 0
+                        ? teamStat.retorno.jardas_retornadas / teamStat.retorno.retornos
+                        : null;
+                case 'jardas_punt_media':
+                    return teamStat.punter.punts > 0
+                        ? teamStat.punter.jardas_de_punt / teamStat.punter.punts
+                        : null;
+                case 'extra_points':
+                    return teamStat.kicker.tentativas_de_xp > 0
+                        ? (teamStat.kicker.xp_bons / teamStat.kicker.tentativas_de_xp) * 100
+                        : null;
+                case 'field_goals':
+                    return teamStat.kicker.tentativas_de_fg > 0
+                        ? (teamStat.kicker.fg_bons / teamStat.kicker.tentativas_de_fg) * 100
                         : null;
                 default:
-                    return teamStat[category][key] || null;
+                    return teamStat[category][key] ?? null;
             }
         } catch (error) {
             console.error(`Error calculating stat ${key}:`, error);
@@ -92,20 +120,50 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
     };
 
     const getCategoryFromKey = (key: string): string => {
-        // Mapeia a chave da estatística para a categoria correta
-        if (key.includes('passe') || key.includes('passes')) return 'passe';
-        if (key.includes('corrida')) return 'corrida';
-        if (key.includes('recepcao')) return 'recepcao';
-        if (key.includes('retorno')) return 'retorno';
-        if (key.includes('defesa')) return 'defesa';
-        if (key.includes('kicker')) return 'kicker';
-        if (key.includes('punt')) return 'punter';
-        return 'passe'; // default
+        // Estatísticas de passe
+        if (key.includes('passe') || key.includes('passes') ||
+            key.includes('interceptacoes_sofridas') || key.includes('sacks_sofridos') ||
+            key.includes('fumble_de_passador'))
+            return 'passe';
+
+        // Estatísticas de corrida
+        if (key.includes('corrida') || key.includes('tds_corridos') ||
+            key.includes('fumble_de_corredor'))
+            return 'corrida';
+
+        // Estatísticas de recepção
+        if (key.includes('recepcao') || key.includes('jardas_recebidas') ||
+            key.includes('tds_recebidos') || key.includes('fumble_de_recebedor') ||
+            key.includes('alvo'))
+            return 'recepcao';
+
+        // Estatísticas de retorno
+        if (key.includes('retorno') || key.includes('td_retornados') ||
+            key.includes('fumble_retornador') || key.includes('jardas_retornadas'))
+            return 'retorno';
+
+        // Estatísticas de defesa
+        if (key.includes('defesa') || key.includes('tackles') ||
+            key.includes('sacks_forcado') || key.includes('fumble_forcado') ||
+            key.includes('interceptacao_forcada') || key.includes('safety') ||
+            key.includes('passe_desviado') || key.includes('td_defensivo'))
+            return 'defesa';
+
+        // Estatísticas de chute
+        if (key.includes('fg') || key.includes('xp') || key.includes('field_goals') ||
+            key.includes('extra_points'))
+            return 'kicker';
+
+        // Estatísticas de punt
+        if (key.includes('punt'))
+            return 'punter';
+
+        return 'passe';
     };
 
     return (
         <div className="mb-8 pl-4 overflow-x-hidden overflow-y-hidden mx-auto">
-            
+
             <h2 className="text-4xl font-extrabold mb-4 italic">{title}</h2>
             <Slider {...SLIDER_SETTINGS}>
                 {stats.map((stat, index) => {

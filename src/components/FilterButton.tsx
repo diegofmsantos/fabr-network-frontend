@@ -61,7 +61,7 @@ export const RankingFilters: React.FC<RankingFiltersProps> = ({
                 <option value="2025">2025</option>
             </select>
 
-            <div className="flex">
+            <div className="flex w-full">
                 <Link href="/ranking">
                     <FilterButton
                         isSelected={currentFilter === 'jogadores'}

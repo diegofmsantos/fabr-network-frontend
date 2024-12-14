@@ -166,6 +166,7 @@ export default function TeamRankingPage() {
     if (!players.length || !teamStats.length) {
         return <Loading />;
     }
+    console.log(teamStats)
 
     return (
         <RankingLayout initialFilter="times">

@@ -29,8 +29,8 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     };
 
     return (
-        <div className="min-h-screen bg-[#ECECEC]">
-            <div className="container mx-auto pt-1">
+        <div className="min-h-screen w-full bg-[#ECECEC]">
+            <div className="w-full container mx-auto pt-1">
                 <RankingFilters
                     currentFilter={initialFilter}
                     onFilterChange={handleFilterChange}
