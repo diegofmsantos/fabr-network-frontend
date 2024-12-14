@@ -317,27 +317,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
       .replace(/[^a-z0-9-]/g, '');
 
   return (
-    <div className="mt-10 mb-8 pt-4 pl-4 overflow-x-hidden overflow-y-hidden mx-auto">
-      <div className="flex justify-center items-center gap-4 mb-4 -ml-4">
-        <SelectFilter
-          label="FILTRO"
-          value={filterType}
-          onChange={setFilterType}
-          options={[
-            { label: 'JOGADORES', value: 'jogadores' },
-            { label: 'TIMES', value: 'times' }
-          ]}
-        />
-        <SelectFilter
-          label="TEMPORADA"
-          value={season}
-          onChange={setSeason}
-          options={[
-            { label: '2024', value: '2024' },
-            { label: '2025', value: '2025' }
-          ]}
-        />
-      </div>
+    <div className="mb-4 pl-4 overflow-x-hidden overflow-y-hidden mx-auto">
       <h2 className="text-4xl font-extrabold mb-4 italic">{title}</h2>
       <Slider {...SLIDER_SETTINGS}>
         {stats.map((stat, index) => {

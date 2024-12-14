@@ -119,7 +119,7 @@ export default function Page() {
                     <motion.div className='mt-20 px-6 w-full h-full flex flex-col justify-center items-center rounded-b-xl md:h-full'
                         style={{ backgroundColor: currentTime?.cor }} >
                         <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
-                            <div className='text-white text-center font-bold text-xs mb-4 md:pt-4'>{currentTime?.nome}</div>
+                            <div className='text-white text-center font-bold text-xs mb-4 '>{currentTime?.nome}</div>
                             <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
                                 <div className='flex flex-col items-start'>
                                     <div className='text-[32px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
@@ -144,9 +144,9 @@ export default function Page() {
                                         <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
                                     </div>
                                 </div>
-                                <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-64 md:min-h-64 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
+                                <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-40 md:min-h-40 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
                                     <Image
-                                        src={camisasPath} alt={`${currentTime?.nome} camisa`} width={250} height={250} quality={100} priority
+                                        src={camisasPath} alt={`${currentTime?.nome} camisa`} width={200} height={200} quality={100} priority
                                     />
                                 </div>
                             </div>
@@ -155,7 +155,7 @@ export default function Page() {
                 </motion.div>
 
                 <motion.div
-                    className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[500px] z-10 relative'
+                    className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[450px] z-10 relative'
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}

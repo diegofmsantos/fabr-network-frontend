@@ -74,7 +74,9 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         />
                         <p className="text-[10px]">{player.team}</p>
                       </div>
-                      <span className="font-bold text-[40px]">{player.value}</span>
+                      <span className="font-bold text-[40px]">{!isNaN(Number(player.value))
+                        ? Number(player.value).toLocaleString('pt-BR')
+                        : player.value}</span>
                     </div>
                     <Image
                       src={getShirtPath(player.team, player.camisa)}
@@ -103,7 +105,9 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         <div className="font-light text-[14px]">{player.team}</div>
                       </div>
                     </div>
-                    <span className="font-bold text-lg">{player.value}</span>
+                    <span className="font-bold text-lg">{!isNaN(Number(player.value))
+                      ? Number(player.value).toLocaleString('pt-BR')
+                      : player.value}</span>
                   </div>
                 )}
               </Link>
