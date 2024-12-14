@@ -37,6 +37,63 @@ const SLIDER_SETTINGS = {
     ],
 };
 
+export const getCategoryFromKey = (key: string): string => {
+    const exactKeyMap: Record<string, string> = {
+        // Passe
+        'jardas_de_passe': 'passe',
+        'passes_completos': 'passe',
+        'passes_tentados': 'passe',
+        'td_passados': 'passe',
+        'interceptacoes_sofridas': 'passe',
+        'sacks_sofridos': 'passe',
+        'fumble_de_passador': 'passe',
+
+        // Corrida
+        'jardas_corridas': 'corrida',
+        'corridas': 'corrida',
+        'tds_corridos': 'corrida',
+        'fumble_de_corredor': 'corrida',
+
+        // Recepção
+        'recepcoes': 'recepcao',
+        'jardas_recebidas': 'recepcao',
+        'tds_recebidos': 'recepcao',
+        'fumble_de_recebedor': 'recepcao',
+        'alvo': 'recepcao',
+
+        // Retorno
+        'jardas_retornadas': 'retorno',
+        'retornos': 'retorno',
+        'td_retornados': 'retorno',
+        'fumble_retornador': 'retorno',
+
+        // Defesa
+        'passe_desviado': 'defesa',
+        'tackles_totais': 'defesa',
+        'tackles_for_loss': 'defesa',
+        'sacks_forcado': 'defesa',
+        'fumble_forcado': 'defesa',
+        'interceptacao_forcada': 'defesa',
+        'safety': 'defesa',
+        'td_defensivo': 'defesa',
+
+        // Chute
+        'fg_bons': 'kicker',
+        'tentativas_de_fg': 'kicker',
+        'fg_mais_longo': 'kicker',
+        'xp_bons': 'kicker',
+        'tentativas_de_xp': 'kicker',
+        'field_goals': 'kicker',
+        'extra_points': 'kicker',
+
+        // Punt
+        'punts': 'punter',
+        'jardas_de_punt': 'punter'
+    };
+
+    return exactKeyMap[key] || 'passe';
+};
+
 export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats, teamStats }) => {
     const [times, setTimes] = useState<Time[]>([]);
     const [season, setSeason] = useState('2024');
@@ -56,13 +113,6 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
     const calculateTeamStat = (teamStat: any, key: string): number | null => {
         try {
             const category = getCategoryFromKey(key);
-
-            // Para debug
-            console.log('Calculating stat:', {
-                key,
-                category,
-                value: teamStat[category]?.[key]
-            });
 
             switch (key) {
                 case 'passes_percentual':
@@ -119,52 +169,11 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
         };
     };
 
-    const getCategoryFromKey = (key: string): string => {
-        // Estatísticas de passe
-        if (key.includes('passe') || key.includes('passes') ||
-            key.includes('interceptacoes_sofridas') || key.includes('sacks_sofridos') ||
-            key.includes('fumble_de_passador'))
-            return 'passe';
 
-        // Estatísticas de corrida
-        if (key.includes('corrida') || key.includes('tds_corridos') ||
-            key.includes('fumble_de_corredor'))
-            return 'corrida';
-
-        // Estatísticas de recepção
-        if (key.includes('recepcao') || key.includes('jardas_recebidas') ||
-            key.includes('tds_recebidos') || key.includes('fumble_de_recebedor') ||
-            key.includes('alvo'))
-            return 'recepcao';
-
-        // Estatísticas de retorno
-        if (key.includes('retorno') || key.includes('td_retornados') ||
-            key.includes('fumble_retornador') || key.includes('jardas_retornadas'))
-            return 'retorno';
-
-        // Estatísticas de defesa
-        if (key.includes('defesa') || key.includes('tackles') ||
-            key.includes('sacks_forcado') || key.includes('fumble_forcado') ||
-            key.includes('interceptacao_forcada') || key.includes('safety') ||
-            key.includes('passe_desviado') || key.includes('td_defensivo'))
-            return 'defesa';
-
-        // Estatísticas de chute
-        if (key.includes('fg') || key.includes('xp') || key.includes('field_goals') ||
-            key.includes('extra_points'))
-            return 'kicker';
-
-        // Estatísticas de punt
-        if (key.includes('punt'))
-            return 'punter';
-
-        return 'passe';
-    };
 
     return (
-        <div className="mb-8 pl-4 overflow-x-hidden overflow-y-hidden mx-auto">
-
-            <h2 className="text-4xl font-extrabold mb-4 italic">{title}</h2>
+        <div className="mb-8 pl-4 pt-8 overflow-x-hidden overflow-y-hidden mx-auto">
+            <h2 className="text-4xl font-extrabold mb-4 pl-2 italic">{title}</h2>
             <Slider {...SLIDER_SETTINGS}>
                 {stats.map((stat, index) => {
                     const rankedTeams = teamStats

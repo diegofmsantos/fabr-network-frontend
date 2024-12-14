@@ -89,7 +89,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         }
                     >
                         <div className="flex-1 md:w-60">
-                            <Image src={camisaPath} width={60} height={60} alt="Camisa" quality={100} className="w-auto h-auto" />
+                            <Image src={camisaPath} width={60} height={60} alt="Camisa" quality={100} className="" />
                         </div>
                         <div className="flex flex-col gap-3">
                             <div className="flex items-center gap-2">

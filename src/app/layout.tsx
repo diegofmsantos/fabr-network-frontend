@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google"
 import Image from "next/image";
 import { Tab } from "@/components/Tab"
 import Link from "next/link";
+import { Analytics } from '@vercel/analytics/react';
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -13,10 +14,20 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  keywords: ['FABR', 'FABR-Network', 'BFA', 'Futebol Americano Brasil', 'Futebol Americano'],
+  keywords: ['FABR', 'FABR-Network', 'BFA', 'Futebol Americano Brasil', 'Futebol Americano', 'NFL', 'NFL Brasil', 'ESPN',
+    'Futebol Americano Brasileiro', 'Flag', 'Flag Football', 'Brasileirão de Futebol Americano', 'Brasileirão', 'CBFA', 'Liga BFA', 'Salão Oval',
+    'Mapa do FABR', 'Brasil Bowl', 'Super Bowl', 'Times de Futebol Americano Brasil', 'Campeonato Brasileiro de Futebol Americano', 'Football Brasil',
+    'Touchdown Brasil', 'Playoffs BFA', 'Ranking Nacional FA', 'Estatísticas Futebol Americano', 'Jogadores Brasileiros FA', 'Copa Brasil FA', 'Conferências BFA',
+    'Divisões BFA', 'Draft Brasil FA', 'Quarterback Brasil', 'Temporada Regular BFA', 'Combine Brasil', 'Scouting Brasil FA', 'Bowl Games Brasil',
+    'Torneios Regionais FA', 'Desenvolvimento FA Brasil', 'Seleção Brasileira FA', 'Wide Receiver Brasil', 'Running Back Brasil', 'Defensive End Brasil',
+    'Safety Brasil', 'Linebacker Brasil', 'Special Teams Brasil', 'Placekicker Brasil', 'Punter Brasil', 'Cornerback Brasil', 'Tight End Brasil',
+    'Final Nacional FA', 'Semifinal BFA', 'Norte Bowl', 'Sul Bowl', 'Nordeste Bowl', 'Centro-Oeste Bowl', 'Sudeste Bowl', 'Tryouts Brasil FA', 'Preseason BFA',
+    'All-Star Game Brasil FA', 'Field Goal Brasil', 'Extra Point Brasil', 'Two Point Conversion', 'Fair Catch Brasil', 'Snap Brasil', 'Huddle Brasil', 'Blitz Brasil FA',
+    'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças'
+  ],
   openGraph: {
     title: 'FABR-Network',
-    description: 'Seu site sobre futebol americano brasileiro.',
+    description: 'O banco de dados do futebol americano do Brasil.',
     siteName: 'FABR-Network',
     images: '/assets/logo-fabr-color.png'
   }
@@ -48,6 +59,7 @@ export default function RootLayout({
         </header>
         {children}
         <Tab />
+        <Analytics />
       </body>
     </html>
   )

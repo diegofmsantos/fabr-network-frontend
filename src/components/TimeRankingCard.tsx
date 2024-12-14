@@ -37,7 +37,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                     return (
                         <li
                             key={index}
-                            className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md 
+                            className={`flex items-center justify-center p-2  px-4 border-b border-b-[#D9D9D9] rounded-md 
                                 ${team.isFirst ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"}`}
                             style={{
                                 backgroundColor: team.isFirst ? team.teamColor : undefined,
@@ -58,16 +58,15 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                                     : team.value}</span>
                                             </div>
                                         </div>
-                                        <div className="relative w-[200px] h-[200px]">
+                                        <div className="w-[200px] h-[200px] flex justify-center items-center">
                                             <Image
                                                 src={capacetePath}
-                                                fill
-                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 alt={`Capacete do ${team.name}`}
-                                                className="object-contain"
+                                                width={200}
+                                                height={200}
+                                                className="w-auto h-auto"
                                                 priority
                                                 quality={100}
-                                                loading="eager"
                                             />
                                         </div>
                                     </div>
@@ -82,7 +81,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                                 alt={`Logo do time ${team.name}`}
                                                 className="w-auto h-auto"
                                             />
-                                            <div className="font-bold text-xs">{team.name}</div>
+                                            <div className="text-xs">{team.name}</div>
                                         </div>
                                         <span className="font-bold text-lg">{!isNaN(Number(team.value))
                                             ? Number(team.value).toLocaleString('pt-BR')
@@ -95,7 +94,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                 })}
             </ul>
             <Link
-                href={`/ranking/stats?stat=${normalizeForFilePath(category)}-${normalizeForFilePath(title)}`}
+                href={`/ranking/times/stats?stat=${normalizeForFilePath(category)}-${normalizeForFilePath(title)}`}
                 className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-4 rounded-md hover:bg-[#C1C2C3]"
             >
                 Ver Mais

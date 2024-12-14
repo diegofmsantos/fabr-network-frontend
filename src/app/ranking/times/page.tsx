@@ -4,7 +4,6 @@ import React from 'react';
 import { getJogadores } from "@/api/api";
 import { useEffect, useState } from "react";
 import { Jogador } from "@/types/jogador";
-import { Time } from "@/types/time";
 import { Loading } from "@/components/ui/Loading";
 import { TeamRankingGroup } from '@/components/TimeRankingGroup';
 import { RankingLayout } from '@/components/RankingLayout';
@@ -166,7 +165,6 @@ export default function TeamRankingPage() {
     if (!players.length || !teamStats.length) {
         return <Loading />;
     }
-    console.log(teamStats)
 
     return (
         <RankingLayout initialFilter="times">
