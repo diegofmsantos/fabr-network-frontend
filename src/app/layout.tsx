@@ -29,10 +29,10 @@ export const metadata: Metadata = {
     'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças'
   ],
   openGraph: {
-      title: 'FABR-Network',
-      description: 'O banco de dados do futebol americano do Brasil.',
-      siteName: 'FABR-Network',
-      images: '/assets/logo-fabr-color.png'
+    title: 'FABR-Network',
+    description: 'O banco de dados do futebol americano do Brasil.',
+    siteName: 'FABR-Network',
+    images: '/assets/logo-fabr-color.png'
   }
 };
 
