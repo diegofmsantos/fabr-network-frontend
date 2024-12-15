@@ -21,7 +21,7 @@ export const Lista = ({ times }: ListaProps) => {
 
     return (
         <motion.div
-            className="grid grid-cols-4 gap-4 px-3 pt-56 pb-20 bg-[#ECECEC] relative"
+            className="grid grid-cols-4 gap-4 px-3 pt-56 pb-20 md:pt-48 bg-[#ECECEC] relative md:grid-cols-5 md:gap-5"
             initial="hidden"
             animate="visible"
             variants={{
@@ -42,7 +42,7 @@ export const Lista = ({ times }: ListaProps) => {
                                 style={{ backgroundColor: item.cor ?? "#000" }}
                             ></div>
                             <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[22px] min-[400px]:text-[31px] md:text-[45px]">
-                                <div>{item.sigla ?? "N/A"}</div>
+                                <div className="tracking-[-5px]">{item.sigla ?? "N/A"}</div>
                                 <div className="flex flex-col -mt-5 justify-center items-center gap-2 min-h-28 p-2">
                                     <Image
                                         src={`/assets/times/capacetes/${item.capacete}`}
@@ -50,7 +50,7 @@ export const Lista = ({ times }: ListaProps) => {
                                         width={90}
                                         height={90}
                                         quality={100}
-                                        className="w-auto h-auto rotate-12"
+                                        className=" rotate-12"
                                     />
                                     <Image
                                         src={`/assets/times/logos/${item.logo}`}
@@ -58,7 +58,7 @@ export const Lista = ({ times }: ListaProps) => {
                                         width={35}
                                         height={35}
                                         quality={100}
-                                        className="w-auto h-auto"
+                                        className="md:w-14"
                                     />
                                 </div>
                             </div>

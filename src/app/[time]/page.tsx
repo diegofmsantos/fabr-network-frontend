@@ -106,7 +106,7 @@ export default function Page() {
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
           </Link>
 
-          <motion.div className="flex flex-col justify-center items-center" style={{ opacity, pointerEvents: 'none' }}>
+          <motion.div className="flex flex-col justify-center items-center md:mb-4" style={{ opacity, pointerEvents: 'none' }}>
             <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px]">
               {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
             </div>
@@ -126,7 +126,7 @@ export default function Page() {
             )}
           </motion.div>
 
-          <motion.div className="flex justify-between gap-8 -mt-3" style={{ opacity }}>
+          <motion.div className="flex justify-between gap-8 -mt-3 md:mt-8" style={{ opacity }}>
             <ButtonTime
               label="BIO"
               onClick={handleShowBio}
@@ -143,7 +143,7 @@ export default function Page() {
 
       {selectedButton === "jogadores" && (
         <motion.div
-          className="w-full pt-[330px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
+          className="w-full pt-[350px] xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto xl:mb-8"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
@@ -190,7 +190,7 @@ export default function Page() {
 
       {selectedButton === "bio" && (
         <motion.div
-          className="pt-[330px]"
+          className="pt-[350px]"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
