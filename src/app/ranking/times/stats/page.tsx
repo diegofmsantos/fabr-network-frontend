@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 "use client"
 
 import { useSearchParams } from 'next/navigation';
@@ -7,8 +9,6 @@ import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { getStatMapping } from '@/utils/statMappings';
 import { TeamStatsList } from '@/components/TeamStatsList';
-
-export const dynamic = 'force-dynamic';
 
 export default function TeamStatsPage() {
     // Pega o parâmetro da URL
