@@ -14,6 +14,9 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://fabrnetwork.com.br/'),
+  title: 'FABR-Network',
+  description: "O banco de dados do futebol americano do Brasil.",
   keywords: ['FABR', 'FABR-Network', 'BFA', 'Futebol Americano Brasil', 'Futebol Americano', 'NFL', 'NFL Brasil', 'ESPN',
     'Futebol Americano Brasileiro', 'Flag', 'Flag Football', 'Brasileirão de Futebol Americano', 'Brasileirão', 'CBFA', 'Liga BFA', 'Salão Oval',
     'Mapa do FABR', 'Brasil Bowl', 'Super Bowl', 'Times de Futebol Americano Brasil', 'Campeonato Brasileiro de Futebol Americano', 'Football Brasil',
@@ -26,12 +29,12 @@ export const metadata: Metadata = {
     'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças'
   ],
   openGraph: {
-    title: 'FABR-Network',
-    description: 'O banco de dados do futebol americano do Brasil.',
-    siteName: 'FABR-Network',
-    images: '/assets/logo-fabr-color.png'
+      title: 'FABR-Network',
+      description: 'O banco de dados do futebol americano do Brasil.',
+      siteName: 'FABR-Network',
+      images: '/assets/logo-fabr-color.png'
   }
-}
+};
 
 export default function RootLayout({
   children,
