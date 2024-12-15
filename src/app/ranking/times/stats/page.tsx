@@ -1,6 +1,7 @@
+"use client"
+
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-"use client"
 
 import { useSearchParams } from 'next/navigation';
 import { Loading } from '@/components/ui/Loading';
@@ -34,7 +35,7 @@ export default function TeamStatsPage() {
                 </div>
 
                 {/* Lista de times com suas estatísticas */}
-                <TeamStatsList 
+                <TeamStatsList
                     players={players}
                     times={times}
                     statMapping={statMapping}
