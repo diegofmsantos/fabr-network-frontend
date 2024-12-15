@@ -58,8 +58,8 @@ export default function RootLayout({
           </Link>
         </header>
         {children}
-        <Tab />
         <Analytics />
+        <Tab />
       </body>
     </html>
   )
