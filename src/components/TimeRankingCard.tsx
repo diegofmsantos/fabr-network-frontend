@@ -64,7 +64,6 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                                 alt={`Capacete do ${team.name}`}
                                                 width={200}
                                                 height={200}
-                                                className="w-auto h-auto"
                                                 priority
                                                 quality={100}
                                             />
@@ -79,7 +78,6 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                                 width={40}
                                                 height={40}
                                                 alt={`Logo do time ${team.name}`}
-                                                className="w-auto h-auto"
                                             />
                                             <div className="text-xs">{team.name}</div>
                                         </div>

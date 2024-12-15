@@ -27,7 +27,6 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
                 height={100}
                 quality={100}
                 priority
-                className="w-auto h-auto"
             />
             <span className="text-2xl font-bold uppercase">{label}</span>
         </button>

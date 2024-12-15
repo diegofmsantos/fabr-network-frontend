@@ -70,7 +70,6 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                           width={40}
                           height={40}
                           alt={`Logo do time ${player.team}`}
-                          className="w-auto h-auto"
                         />
                         <p className="text-[10px]">{player.team}</p>
                       </div>
@@ -83,7 +82,6 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                       width={100}
                       height={100}
                       alt={`Camisa`}
-                      className="w-auto h-auto"
                       priority
                     />
                   </div>
@@ -97,7 +95,6 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                           width={40}
                           height={40}
                           alt={`Logo do time ${player.team}`}
-                          className="w-auto h-auto"
                         />
                       </span>
                       <div className="flex flex-col">
