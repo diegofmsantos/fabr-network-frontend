@@ -9,7 +9,6 @@ import { getStatMapping } from '@/utils/statMappings';
 import { TeamStatsList } from '@/components/TeamStatsList';
 import { statGroups } from '@/utils/statGroups';
 
-// Componente Select específico para estatísticas de times
 // Função para obter o grupo da estatística atual
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
@@ -17,7 +16,7 @@ const getStatGroup = (statParam: string): string => {
             return group.title;
         }
     }
-    return 'Passando';
+    return 'Passando'; // Valor padrão
 };
 
 // Componente Select atualizado
@@ -31,7 +30,7 @@ const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
 
     return (
         <div className="mb-6">
-            <h1 className="text-4xl font-bold mb-4 text-center">{currentGroup}</h1>
+            <h1 className="text-6xl font-extrabold mb-4 text-center italic tracking-[-3px]">{currentGroup}</h1>
             <select
                 value={currentStat}
                 onChange={(e) => handleStatChange(e.target.value)}
@@ -65,7 +64,7 @@ function TeamStatsContent() {
     return (
         <div className="max-w-4xl mx-auto">
             <TeamStatSelect currentStat={statParam} />
-            <TeamStatsList
+            <TeamStatsList 
                 players={players}
                 times={times}
                 statMapping={statMapping}

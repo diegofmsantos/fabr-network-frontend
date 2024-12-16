@@ -53,17 +53,17 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                             <p className="text-[25px] font-bold">{index + 1}</p>
                                             <div className='flex flex-col gap-2'>
                                                 <h4 className="font-extrabold italic text-xl">{team.name}</h4>
-                                                <span className="font-extrabold italic text-5xl">{!isNaN(Number(team.value))
+                                                <span className="font-extrabold italic text-4xl">{!isNaN(Number(team.value))
                                                     ? Number(team.value).toLocaleString('pt-BR')
                                                     : team.value}</span>
                                             </div>
                                         </div>
-                                        <div className="w-[200px] h-[200px] flex justify-center items-center">
+                                        <div className="w-[150px] h-[150px] flex justify-center items-center">
                                             <Image
                                                 src={capacetePath}
                                                 alt={`Capacete do ${team.name}`}
-                                                width={200}
-                                                height={200}
+                                                width={150}
+                                                height={150}
                                                 priority
                                                 quality={100}
                                             />

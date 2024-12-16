@@ -107,26 +107,26 @@ export default function Page() {
           </Link>
 
           <motion.div className="flex flex-col justify-center items-center md:mb-4" style={{ opacity, pointerEvents: 'none' }}>
-            <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px]">
+            <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl md:mt-4">
               {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
             </div>
 
             {currentTeam.capacete && (
-              <div className="w-40 h-40 rotate-[15deg]">
+              <div className="w-40 h-40 rotate-[15deg] -mt-6">
                 <Image
                   src={capacetePath}
-                  alt={`${currentTeam.nome || "Time"} capacete`}
+                  alt="capacete do time"
                   width={160}
                   height={160}
                   quality={100}
+                  style={{ width: '160px', height: '160px', objectFit: 'contain' }}
                   priority
-                  className="w-auto h-auto"
                 />
               </div>
             )}
           </motion.div>
 
-          <motion.div className="flex justify-between gap-8 -mt-3 md:mt-8" style={{ opacity }}>
+          <motion.div className="flex justify-between gap-8 mt-4 md:mt-8" style={{ opacity }}>
             <ButtonTime
               label="BIO"
               onClick={handleShowBio}

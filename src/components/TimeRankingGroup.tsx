@@ -173,7 +173,7 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
 
     return (
         <div className="mb-8 pl-4 pt-8 overflow-x-hidden overflow-y-hidden mx-auto">
-            <h2 className="text-4xl font-extrabold mb-4 pl-2 italic">{title}</h2>
+            <h2 className="text-4xl font-extrabold mb-4 pl-2 italic tracking-[-3px]">{title}</h2>
             <Slider {...SLIDER_SETTINGS}>
                 {stats.map((stat, index) => {
                     const rankedTeams = teamStats

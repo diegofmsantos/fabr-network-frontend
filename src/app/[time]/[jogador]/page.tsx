@@ -141,12 +141,12 @@ export default function Page() {
                                         </div>
                                     </div>
                                     <div className='-mt-5'>
-                                        <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
+                                        <Image src={logopath} alt='logo' width={100} height={100} quality={100}  priority />
                                     </div>
                                 </div>
-                                <div className='flex justify-center items-center min-w-48 min-h-48 md:min-w-40 md:min-h-40 lg:min-w-84 lg:min-h-84 xl:min-w-96 xl:min-h-84'>
+                                <div className='flex justify-center items-center'>
                                     <Image
-                                        src={camisasPath} alt={`${currentTime?.nome} camisa`} width={200} height={200} quality={100} priority
+                                        src={camisasPath} alt={`${currentTime?.nome} camisa`} width={200} height={250} quality={100} className="w-48 h-60" priority
                                     />
                                 </div>
                             </div>

@@ -21,7 +21,7 @@ interface StatsTierProps {
   players: PlayerStats[];
   backgroundColor?: string;
   statsType: 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT';
-  isLastTier?: boolean; 
+  isLastTier?: boolean;
 }
 
 const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor = 'bg-black', statsType, isLastTier = false }) => {
@@ -103,7 +103,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                           width={30}
                           height={30}
                           alt={`Logo do time ${teamInfo.nome}`}
-                          className="w-auto h-auto"
+                          className=""
                         />
                         <p className="text-[10px] italic">{teamInfo.nome}</p>
                       </div>
@@ -132,7 +132,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                           width={40}
                           height={40}
                           alt={`Logo do time ${teamInfo.nome}`}
-                          className="w-auto h-auto"
+                          className=""
                         />
                       </span>
                       <div className="flex flex-col">

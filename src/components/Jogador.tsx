@@ -77,7 +77,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         href={`/${currentTeam.nome}/${jogador.id}`}
                         key={jogador.id}
                         className="flex h-24 justify-between items-center p-2 rounded-md border text-sm bg-white min-[425px]:p-4
-                            md:text-base xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
+                            md:text-base md:h-28 xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
                         style={{
                             transition: "background-color 0.3s",
                         }}
@@ -88,15 +88,22 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                             (e.currentTarget.style.backgroundColor = "#FFF")
                         }
                     >
-                        <div className="flex-1 md:w-60">
-                            <Image src={camisaPath} width={60} height={60} alt="Camisa" quality={100} className="" />
+                        <div className="flex-1 md:flex md:justify-center">
+                            <Image
+                                src={camisaPath}
+                                width={100}
+                                height={100}
+                                alt="Camisa"
+                                quality={100}
+                                className="w-16 h-20 md:w-20 md:h-24"
+                            />
                         </div>
-                        <div className="flex flex-col gap-3">
+                        <div className="flex flex-col gap-3 md:flex-1 ">
                             <div className="flex items-center gap-2">
                                 <div className="text-xl font-extrabold italic">{jogador.nome}</div>
                                 <div className="text-xl font-extrabold">({jogador.posicao})</div>
                             </div>
-                            <div className="flex justify-between gap-6">
+                            <div className="flex justify-between gap-6 md:justify-start">
                                 <div className="flex flex-col items-center">
                                     <div className="text-xs">IDADE</div>
                                     <div className="text-base font-bold">{jogador.idade}</div>

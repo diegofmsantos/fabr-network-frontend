@@ -48,15 +48,15 @@ export default function RootLayout({
       </head>
       <body>
         <header className="w-full h-20 bg-black flex justify-center items-end px-2 fixed z-50">
-          <Link href="/" className="w-28 h-16 flex justify-center items-end p-2">
+          <Link href="/" className="w-24 h-12 flex justify-center items-end p-2">
             <Image
               src="/assets/logo-fabr-color.png"
-              width={100}
-              height={100}
+              width={96}
+              height={48}
               alt="logo-fabr"
               quality={100}
               priority
-              className="w-auto h-auto"
+              style={{ width: '96px', height: '48px', objectFit: 'contain' }}
             />
           </Link>
         </header>

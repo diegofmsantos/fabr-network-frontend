@@ -5,13 +5,13 @@ import { useSearchParams } from 'next/navigation';
 import { Loading } from '@/components/ui/Loading';
 import { CategoryKey, getTierTitle, getTierForValue } from '@/utils/categoryThresholds';
 import { getStatMapping } from '@/utils/statMappings';
-import { StatSelect } from '@/components/StatSelect';
 import StatsTier from '@/components/StatsTier';
 import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
 import { ProcessedPlayer } from '@/types/processedPlayer';
 import { StatType } from '@/types/Stats';
+import { TeamStatSelect } from '@/components/StatSelect';
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -62,40 +62,40 @@ const StatsPage: React.FC = () => {
     players: ProcessedPlayer[],
     startIndex: number,
     backgroundColor?: string
- ) => {
+  ) => {
     const getStatsType = (category: CategoryKey): StatType => {
-        // Mapeia as categorias em minúsculo para o formato correto
-        const categoryMapping: Record<string, StatType> = {
-            'passe': 'PASSE',
-            'corrida': 'CORRIDA',
-            'recepcao': 'RECEPÇÃO',
-            'retorno': 'RETORNO',
-            'defesa': 'DEFESA',
-            'kicker': 'CHUTE',
-            'punter': 'PUNT'
-        };
- 
-        // Verifica primeiro pelo statParam para casos especiais
-        if (statParam) {
-            const statBase = statParam.split('-')[0]; // Pega a parte antes do hífen
-            const mappedType = categoryMapping[statBase as CategoryKey];
-            if (mappedType) return mappedType;
-        }
- 
-        // Se não encontrou pelo statParam, usa a categoria direta
-        return categoryMapping[category] || 'PASSE';
+      // Mapeia as categorias em minúsculo para o formato correto
+      const categoryMapping: Record<string, StatType> = {
+        'passe': 'PASSE',
+        'corrida': 'CORRIDA',
+        'recepcao': 'RECEPÇÃO',
+        'retorno': 'RETORNO',
+        'defesa': 'DEFESA',
+        'kicker': 'CHUTE',
+        'punter': 'PUNT'
+      };
+
+      // Verifica primeiro pelo statParam para casos especiais
+      if (statParam) {
+        const statBase = statParam.split('-')[0]; // Pega a parte antes do hífen
+        const mappedType = categoryMapping[statBase as CategoryKey];
+        if (mappedType) return mappedType;
+      }
+
+      // Se não encontrou pelo statParam, usa a categoria direta
+      return categoryMapping[category] || 'PASSE';
     };
- 
+
     return (
-        <StatsTier
-            title={getTierTitle(statMapping.category as CategoryKey, tier)}
-            players={mapPlayersToProps(players, startIndex)}
-            backgroundColor={backgroundColor}
-            statsType={getStatsType(statMapping.category)}
-            isLastTier={tier === 3}
-        />
+      <StatsTier
+        title={getTierTitle(statMapping.category as CategoryKey, tier)}
+        players={mapPlayersToProps(players, startIndex)}
+        backgroundColor={backgroundColor}
+        statsType={getStatsType(statMapping.category)}
+        isLastTier={tier === 3}
+      />
     );
- };
+  };
 
   const processedPlayers = processPlayers(players);
   const tierPlayers = groupPlayersByTier(processedPlayers);
@@ -103,7 +103,7 @@ const StatsPage: React.FC = () => {
   return (
     <div className="bg-[#ECECEC] min-h-screen py-24 px-2">
       <div className="max-w-4xl mx-auto">
-        <StatSelect currentStat={statParam} />
+        <TeamStatSelect currentStat={statParam} />
 
         {renderTierSection(1, tierPlayers.tier1, 0)}
         {renderTierSection(2, tierPlayers.tier2, tierPlayers.tier1.length, 'bg-gray-700')}

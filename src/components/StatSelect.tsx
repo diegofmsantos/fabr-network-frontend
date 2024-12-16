@@ -1,59 +1,64 @@
+"use client";
+
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { statGroups } from '@/utils/statGroups';
 
-interface StatSelectProps {
-  currentStat: string;
+// Interface para as propriedades do select
+interface TeamStatSelectProps {
+    currentStat: string;
 }
 
-export const StatSelect: React.FC<StatSelectProps> = ({ currentStat }) => {
-  const router = useRouter();
-
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newStat = event.target.value;
-    router.push(`/ranking/stats?stat=${newStat}`);
-  };
-
-  // Encontra o grupo e a estatística atual
-  const getCurrentGroupAndStat = () => {
+// Função para obter o grupo da estatística atual
+const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
-      const stat = group.stats.find(s => s.urlParam === currentStat);
-      if (stat) {
-        return {
-          groupLabel: group.groupLabel,
-          statTitle: stat.title
-        };
-      }
+        const stat = group.stats.find(s => s.urlParam === statParam);
+        if (stat) {
+            return group.title;
+        }
     }
-    return {
-      groupLabel: '',
-      statTitle: ''
+    return 'Passando';
+};
+
+// Função para obter o título da estatística atual
+const getStatTitle = (statParam: string): string => {
+    for (const group of statGroups) {
+        const stat = group.stats.find(s => s.urlParam === statParam);
+        if (stat) {
+            return stat.title;
+        }
+    }
+    return '';
+};
+
+export const TeamStatSelect: React.FC<TeamStatSelectProps> = ({ currentStat }) => {
+    const router = useRouter();
+    const currentGroup = getStatGroup(currentStat);
+    const [selectedStat, setSelectedStat] = useState(currentStat);
+
+    const handleStatChange = (newStat: string) => {
+        setSelectedStat(newStat);
+        router.push(`/ranking/times/stats?stat=${newStat}`);
     };
-  };
 
-  const { groupLabel } = getCurrentGroupAndStat();
-
-  return (
-    <div className="mb-6">
-      <h2 className="text-4xl font-extrabold italic leading-[25px] tracking-[-2px] text-center mb-4">
-        {groupLabel}
-      </h2>
-      <div className="relative">
-        <select
-          value={currentStat}
-          onChange={handleChange}
-          className="w-full p-3 bg-white border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-        >
-          {statGroups.map(group => (
-            <optgroup key={group.title} label={group.title}>
-              {group.stats.map(stat => (
-                <option key={stat.urlParam} value={stat.urlParam}>
-                  {stat.title}
-                </option>
-              ))}
-            </optgroup>
-          ))}
-        </select>
-      </div>
-    </div>
-  );
+    return (
+        <div className="mb-6">
+            <h1 className="text-4xl font-extrabold italic mb-4 text-center tracking-[-2px]">{currentGroup}</h1>
+            <select
+                value={selectedStat}
+                onChange={(e) => handleStatChange(e.target.value)}
+                className="w-full p-2 rounded-md border border-gray-300 bg-white"
+            >
+                {statGroups.map((group) => (
+                    <optgroup key={group.groupLabel} label={group.title}>
+                        {group.stats.map((stat) => (
+                            <option key={stat.urlParam} value={stat.urlParam}>
+                                {stat.title}
+                            </option>
+                        ))}
+                    </optgroup>
+                ))}
+            </select>
+        </div>
+    );
 };

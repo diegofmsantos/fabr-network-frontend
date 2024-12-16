@@ -46,7 +46,8 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
           return (
             <li
               key={index}
-              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${player.isFirst ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
+              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${player.isFirst ?
+                "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
                 }`}
               style={{
                 backgroundColor: player.isFirst ? player.teamColor : undefined,
@@ -73,7 +74,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         />
                         <p className="text-[10px]">{player.team}</p>
                       </div>
-                      <span className="font-bold text-[40px]">{!isNaN(Number(player.value))
+                      <span className="font-extrabold italic text-[40px]">{!isNaN(Number(player.value))
                         ? Number(player.value).toLocaleString('pt-BR')
                         : player.value}</span>
                     </div>
@@ -82,6 +83,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                       width={100}
                       height={100}
                       alt={`Camisa`}
+                      className="w-28 h-36"
                       priority
                     />
                   </div>

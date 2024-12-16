@@ -18,16 +18,19 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
     return (
         <button
             onClick={onClick}
-            className={`relative w-full h-60 flex flex-col items-center justify-between p-4 rounded-2xl  transition-colors ${isSelected ? 'bg-[#72FF30]' : 'bg-[#A2A3A1]'}`}
+            className={`relative w-full h-60 flex flex-col items-center p-4 rounded-2xl  transition-colors ${isSelected ? 'bg-[#72FF30]' : 'bg-[#A2A3A1]'}`}
         >
-            <Image
-                src={`/assets/${icon}`}
-                alt={label}
-                width={100}
-                height={100}
-                quality={100}
-                priority
-            />
+            <div className='w-28 h-40'>
+                <Image
+                    src={`/assets/${icon}`}
+                    alt={label}
+                    width={40}
+                    height={60}
+                    quality={100}
+                    className='w-auto h-auto'
+                    priority
+                />
+            </div>
             <span className="text-2xl font-bold uppercase">{label}</span>
         </button>
     );

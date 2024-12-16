@@ -50,7 +50,7 @@ export const Lista = ({ times }: ListaProps) => {
                                         width={90}
                                         height={90}
                                         quality={100}
-                                        className=" rotate-12"
+                                        className="w-24 h-14 rotate-12 md:h-16 md:-mt-2"
                                     />
                                     <Image
                                         src={`/assets/times/logos/${item.logo}`}
