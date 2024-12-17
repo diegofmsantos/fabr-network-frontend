@@ -29,13 +29,13 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     };
 
     return (
-        <div className="min-h-screen w-full">
+        <div className="min-h-screen w-full bg-[#ECECEC]">
             <div className="w-full pt-20">
                 <RankingFilters
                     currentFilter={initialFilter}
                     onFilterChange={handleFilterChange}
                 />
-                <div className="flex justify-center items-center gap-4 my-8 -ml-4">
+                <div className="w-full mt-8 flex justify-center">
                     <SelectFilter
                         label="TEMPORADA"
                         value={season}

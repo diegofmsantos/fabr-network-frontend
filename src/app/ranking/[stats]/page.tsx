@@ -12,6 +12,7 @@ import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
 import { ProcessedPlayer } from '@/types/processedPlayer';
 import { StatType } from '@/types/Stats';
 import { TeamStatSelect } from '@/components/StatSelect';
+import { PlayerStatSelect } from '@/components/PlayerStatSelect';
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -103,7 +104,7 @@ const StatsPage: React.FC = () => {
   return (
     <div className="bg-[#ECECEC] min-h-screen py-24 px-2">
       <div className="max-w-4xl mx-auto">
-        <TeamStatSelect currentStat={statParam} />
+        <PlayerStatSelect currentStat={statParam} />
 
         {renderTierSection(1, tierPlayers.tier1, 0)}
         {renderTierSection(2, tierPlayers.tier2, tierPlayers.tier1.length, 'bg-gray-700')}

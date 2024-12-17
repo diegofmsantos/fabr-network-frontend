@@ -179,32 +179,6 @@ export const getStatMapping = (statParam: string | null): StatConfig => {
 };
 
 
-export const meetsMinimumRequirements = (player: Jogador, category: string): boolean => {
-    switch (category) {
-        case 'passe':
-            return player.estatisticas.passe.passes_tentados >= 30.6; // valor do Tier 3
-        case 'corrida':
-            return player.estatisticas.corrida.corridas >= 7.6; // valor do Tier 3
-        case 'recepcao':
-            return player.estatisticas.recepcao.alvo >= 5.6; // valor do Tier 3
-        case 'retorno':
-            return player.estatisticas.retorno.retornos >= 2.1; // valor do Tier 3
-        case 'defesa': {
-            const defStats = player.estatisticas.defesa;
-            const total = defStats.tackles_totais + defStats.tackles_for_loss +
-                defStats.sacks_forcado + defStats.fumble_forcado +
-                defStats.interceptacao_forcada + defStats.passe_desviado +
-                defStats.safety + defStats.td_defensivo;
-            return total >= 3.6; // valor do Tier 3
-        }
-        case 'kicker':
-            return player.estatisticas.kicker.tentativas_de_fg >= 1.3; // valor do Tier 3
-        case 'punter':
-            return player.estatisticas.punter.punts >= 3.75; // valor do Tier 3
-        default:
-            return true;
-    }
-};
 
 // Exportamos os mapeamentos
 export const statMappings: { [key: string]: StatConfig } = {
@@ -251,7 +225,7 @@ export const statMappings: { [key: string]: StatConfig } = {
         title: 'Sacks',
         category: 'passe'
     },
-    'passe-fumbles-': {
+    'passe-fumbles': {
         key: 'fumble_de_passador',
         title: 'Fumbles',
         category: 'passe'

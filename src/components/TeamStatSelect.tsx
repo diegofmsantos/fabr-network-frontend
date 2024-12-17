@@ -7,11 +7,11 @@ import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { getStatMapping } from '@/utils/statMappings';
 import { TeamStatsList } from '@/components/TeamStatsList';
-import { statGroups } from '@/utils/statGroups';
+import { teamStatGroups } from '@/utils/statGroups';
 
 // Função para obter o grupo da estatística atual
 const getStatGroup = (statParam: string): string => {
-    for (const group of statGroups) {
+    for (const group of teamStatGroups) {
         if (group.stats.some(stat => stat.urlParam === statParam)) {
             return group.title;
         }
@@ -36,7 +36,7 @@ const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
                 onChange={(e) => handleStatChange(e.target.value)}
                 className="w-full p-2 rounded-md border border-gray-300 bg-white"
             >
-                {statGroups.map((group) => (
+                {teamStatGroups.map((group) => (
                     <optgroup key={group.groupLabel} label={group.title}>
                         {group.stats.map((stat) => (
                             <option key={stat.urlParam} value={stat.urlParam}>

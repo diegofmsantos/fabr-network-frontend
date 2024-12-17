@@ -107,7 +107,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                         />
                         <p className="text-[10px] italic">{teamInfo.nome}</p>
                       </div>
-                      <span className="font-extrabold italic text-5xl">{formatNumber(value)}</span>
+                      <span className="font-extrabold italic text-5xl">{value}</span>
                     </div>
                     <div className="relative w-[200px] h-[200px]">
                       <Image

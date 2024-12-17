@@ -117,7 +117,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       {players.length > 0 && (
         <Link
           href={`/ranking/stats?stat=${normalizeForFilePath(category)}-${normalizeForFilePath(title)}`}
-          className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-4 rounded-md hover:bg-[#C1C2C3]"
+          className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3]"
         >
           Ver Mais
         </Link>

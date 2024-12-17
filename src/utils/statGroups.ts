@@ -2,7 +2,7 @@ import { StatGroup } from '@/types/Stats';
 
 export const statGroups: StatGroup[] = [
     {
-        title: 'Passe',
+        title: 'PASSE',
         groupLabel: 'PASSE',
         stats: [
             { title: 'Jardas', urlParam: 'passe-jardas' },
@@ -28,7 +28,7 @@ export const statGroups: StatGroup[] = [
         ]
     },
     {
-        title: 'Recebendo',
+        title: 'RECEPÇÃO',
         groupLabel: 'RECEPÇÃO',
         stats: [
             { title: 'Jardas', urlParam: 'recepcao-jardas' },
@@ -40,7 +40,7 @@ export const statGroups: StatGroup[] = [
         ]
     },
     {
-        title: 'Retornando',
+        title: 'RETORNO',
         groupLabel: 'RETORNO',
         stats: [
             { title: 'Jardas', urlParam: 'retorno-jardas' },
@@ -51,7 +51,7 @@ export const statGroups: StatGroup[] = [
         ]
     },
     {
-        title: 'Defendendo',
+        title: 'DEFESA',
         groupLabel: 'DEFESA',
         stats: [
             { title: 'Sacks', urlParam: 'defesa-sacks' },
@@ -65,7 +65,7 @@ export const statGroups: StatGroup[] = [
         ]
     },
     {
-        title: 'Chutando',
+        title: 'CHUTE',
         groupLabel: 'CHUTE',
         stats: [
             { title: 'FG(%)', urlParam: 'chute-fg' },
@@ -78,7 +78,7 @@ export const statGroups: StatGroup[] = [
         ]
     },
     {
-        title: 'Punt',
+        title: 'PUNT',
         groupLabel: 'PUNT',
         stats: [
             { title: 'Jardas', urlParam: 'punt-jardas' },
@@ -88,10 +88,89 @@ export const statGroups: StatGroup[] = [
     }
 ];
 
-// Função auxiliar para verificar se uma estatística é calculada
-export const isCalculatedStat = (urlParam: string): boolean => {
-    return urlParam.includes('avg') || 
-           urlParam.includes('percentual') || 
-           urlParam === 'chute-fg' || 
-           urlParam === 'chute-xp';
-};
+// Grupos de estatísticas específicos para times
+export const teamStatGroups: StatGroup[] = [
+    {
+        title: 'PASSE',
+        groupLabel: 'PASSE',
+        stats: [
+            { title: 'Jardas', urlParam: 'passe-jardas' },
+            { title: 'Passes Tentados', urlParam: 'passe-passes-tent' },
+            { title: 'Touchdowns', urlParam: 'passe-touchdowns' },
+            { title: 'Jardas(AVG)', urlParam: 'passe-jardasavg' },
+            { title: 'Interceptações', urlParam: 'passe-interceptacoes' },
+            { title: 'Sacks', urlParam: 'passe-sacks' },
+            { title: 'Fumbles', urlParam: 'passe-fumbles' }
+        ]
+    },
+    {
+        title: 'CORRIDA',
+        groupLabel: 'CORRIDA',
+        stats: [
+            { title: 'Jardas', urlParam: 'corrida-jardas' },
+            { title: 'Corridas', urlParam: 'corrida-corridas' },
+            { title: 'Touchdowns', urlParam: 'corrida-touchdowns' },
+            { title: 'Jardas(AVG)', urlParam: 'corrida-jardasavg' },
+            { title: 'Fumbles', urlParam: 'corrida-fumbles' }
+        ]
+    },
+    {
+        title: 'RECEPÇÃO',
+        groupLabel: 'RECEPÇÃO',
+        stats: [
+            { title: 'Jardas', urlParam: 'recepcao-jardas' },
+            { title: 'Recepções', urlParam: 'recepcao-recepcoes' },
+            { title: 'Touchdowns', urlParam: 'recepcao-touchdowns' },
+            { title: 'Jardas(AVG)', urlParam: 'recepcao-jardasavg' },
+            { title: 'Fumbles', urlParam: 'recepcao-fumbles' }
+        ]
+    },
+    {
+        title: 'RETORNO',
+        groupLabel: 'RETORNO',
+        stats: [
+            { title: 'Jardas', urlParam: 'retorno-jardas' },
+            { title: 'Retornos', urlParam: 'retorno-retornos' },
+            { title: 'Touchdowns', urlParam: 'retorno-touchdowns' },
+            { title: 'Jardas(AVG)', urlParam: 'retorno-jardasavg' },
+            { title: 'Fumbles', urlParam: 'retorno-fumbles' }
+        ]
+    },
+    {
+        title: 'DEFESA',
+        groupLabel: 'DEFESA',
+        stats: [
+            { title: 'Sacks', urlParam: 'defesa-sacks' },
+            { title: 'Interceptações', urlParam: 'defesa-interceptacoes' },
+            { title: 'Fumbles Forçados', urlParam: 'defesa-fumbles-forc' },
+            { title: 'Touchdowns', urlParam: 'defesa-touchdowns' },
+            { title: 'Tackles (Loss)', urlParam: 'defesa-tacklesloss' },
+            { title: 'Tackles Totais', urlParam: 'defesa-tackles-totais' },
+            { title: 'Passes Desviados', urlParam: 'defesa-passes-desv' },
+            { title: 'Safeties', urlParam: 'defesa-safeties' }
+        ]
+    },
+    {
+        title: 'CHUTE',
+        groupLabel: 'CHUTE',
+        stats: [
+            { title: 'FG(%)', urlParam: 'chute-fg' },
+            { title: 'XP(%)', urlParam: 'chute-xp' },
+            { title: 'FG Bons', urlParam: 'chute-fg-bom' },
+            { title: 'FG Tentados', urlParam: 'chute-fg-tentados' },
+            { title: 'XP Bons', urlParam: 'chute-xp-bom' },
+            { title: 'XP Tentados', urlParam: 'chute-xp-tentados' },
+            { title: 'Mais Longo', urlParam: 'chute-mais-longo' }
+        ]
+    },
+    {
+        title: 'PUNT',
+        groupLabel: 'PUNT',
+        stats: [
+            { title: 'Jardas', urlParam: 'punt-jardas' },
+            { title: 'Punts', urlParam: 'punt-punts' },
+            { title: 'Jardas(AVG)', urlParam: 'punt-jardasavg' }
+        ]
+    }
+];
+

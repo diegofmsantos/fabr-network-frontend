@@ -77,7 +77,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         href={`/${currentTeam.nome}/${jogador.id}`}
                         key={jogador.id}
                         className="flex h-24 justify-between items-center p-2 rounded-md border text-sm bg-white min-[425px]:p-4
-                            md:text-base md:h-28 xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
+                            md:text-base md:justify-center md:h-28 xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
                         style={{
                             transition: "background-color 0.3s",
                         }}
@@ -88,7 +88,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                             (e.currentTarget.style.backgroundColor = "#FFF")
                         }
                     >
-                        <div className="flex-1 md:flex md:justify-center">
+                        <div className="min-w-20 md:flex-1 md:flex md:justify-center">
                             <Image
                                 src={camisaPath}
                                 width={100}
@@ -100,25 +100,25 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         </div>
                         <div className="flex flex-col gap-3 md:flex-1 ">
                             <div className="flex items-center gap-2">
-                                <div className="text-xl font-extrabold italic">{jogador.nome}</div>
-                                <div className="text-xl font-extrabold">({jogador.posicao})</div>
+                                <div className="text-base min-[375px]:text-xl font-extrabold italic">{jogador.nome}</div>
+                                <div className="text-base min-[375px]:text-xl font-extrabold">({jogador.posicao})</div>
                             </div>
-                            <div className="flex justify-between gap-6 md:justify-start">
+                            <div className="flex justify-between gap-2 min-[400px]:gap-6 md:justify-start">
                                 <div className="flex flex-col items-center">
-                                    <div className="text-xs">IDADE</div>
-                                    <div className="text-base font-bold">{jogador.idade}</div>
+                                    <div className="text-[10px] min-[375px]:text-xs">IDADE</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">{jogador.idade}</div>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <div className="text-xs">ALTURA</div>
-                                    <div className="text-base font-bold">{jogador.altura.toFixed(2)}</div>
+                                    <div className="text-[10px] min-[375px]:text-xs">ALTURA</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">{jogador.altura.toFixed(2)}</div>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <div className="text-xs">PESO</div>
-                                    <div className="text-base font-bold">{jogador.peso}</div>
+                                    <div className="text-[10px] min-[375px]:text-xs">PESO</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">{jogador.peso}</div>
                                 </div>
                                 <div className="flex flex-col items-center">
-                                    <div className="text-xs">EXPERIÊNCIA</div>
-                                    <div className="text-base font-bold">
+                                    <div className="text-[10px] min-[375px]:text-xs">EXPERIÊNCIA</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">
                                         {experienciaAnos} ANO{experienciaAnos > 1 ? "S" : ""}
                                     </div>
                                 </div>

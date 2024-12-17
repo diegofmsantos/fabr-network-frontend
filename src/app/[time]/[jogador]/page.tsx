@@ -13,6 +13,9 @@ import { useEffect, useState } from "react"
 import { getJogadores, getTimes } from "@/api/api"
 import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton"
 import { Loading } from "@/components/ui/Loading"
+import { SelectFilter } from "@/components/SelectFilter"
+import TeamNameHeader from "@/components/TeamHeader"
+import PlayerNameHeader from "@/components/PlayerNameHeader"
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
@@ -34,6 +37,8 @@ export default function Page() {
 
     const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
     const [loading, setLoading] = useState(true)
+    const [season, setSeason] = useState('2024');
+
 
     const { scrollY } = useScroll()
     const opacity = useTransform(scrollY, [0, 200], [1, 0])
@@ -101,6 +106,7 @@ export default function Page() {
 
     return (
         <AnimatePresence>
+
             <motion.div
                 className="relative min-h-screen pb-16 bg-[#ECECEC]"
                 key={jogadorId}
@@ -115,14 +121,15 @@ export default function Page() {
                 >
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
+                <PlayerNameHeader playerName={currentJogador.nome} />
                 <motion.div className='fixed top-0 w-full z-20' style={{ height }} >
                     <motion.div className='mt-20 px-6 w-full h-full flex flex-col justify-center items-center rounded-b-xl md:h-full'
                         style={{ backgroundColor: currentTime?.cor }} >
                         <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
-                            <div className='text-white text-center font-bold text-xs mb-4 '>{currentTime?.nome}</div>
+                            <div className='text-white text-center font-bold text-xs mb-4'>{currentTime?.nome}</div>
                             <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
                                 <div className='flex flex-col items-start'>
-                                    <div className='text-[32px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] md:text-[40px] lg:text-5xl'>
+                                    <div className='text-[28px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] min-[375px]:text-[32px] md:text-[40px] lg:text-5xl'>
                                         {currentJogador.nome.toLocaleUpperCase()}
                                     </div>
                                     <div className='flex items-center gap-2'>
@@ -141,7 +148,7 @@ export default function Page() {
                                         </div>
                                     </div>
                                     <div className='-mt-5'>
-                                        <Image src={logopath} alt='logo' width={100} height={100} quality={100}  priority />
+                                        <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
                                     </div>
                                 </div>
                                 <div className='flex justify-center items-center'>
@@ -162,12 +169,16 @@ export default function Page() {
                     transition={{ duration: 0.5 }}
                 >
                     <div className="w-full bg-[#ECECEC] flex flex-col justify-center items-center">
-                        <div className="bg-white px-3 py-1 rounded-2xl min-w-36 flex flex-col justify-center items-start">
-                            <div className="text-xs">Temporada</div>
-                            <select className="text-sm font-bold min-w-32">
-                                <option value="2024" className="">2024</option>
-                                <option value="2025">2025</option>
-                            </select>
+                        <div className="w-full mt-4 flex justify-center">
+                            <SelectFilter
+                                label="TEMPORADA"
+                                value={season}
+                                onChange={setSeason}
+                                options={[
+                                    { label: '2024', value: '2024' },
+                                    { label: '2025', value: '2025' }
+                                ]}
+                            />
                         </div>
                     </div>
                     <div className='xl:max-w-[1200px] -mt-4 xl:min-w-[1100px] xl:m-auto'>

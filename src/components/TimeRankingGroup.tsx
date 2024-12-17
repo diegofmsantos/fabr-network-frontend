@@ -158,7 +158,7 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
 
     const normalizeValue = (value: number | null): string => {
         if (value === null) return 'N/A';
-        return value.toFixed(0);
+        return value.toFixed(1);
     };
 
     const getTeamInfo = (timeId: number) => {

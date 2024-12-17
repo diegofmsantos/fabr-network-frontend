@@ -5,7 +5,6 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons"
-import Link from "next/link"
 import { ButtonTime } from "@/components/ui/buttonTime"
 import { ButtonSetor } from "@/components/ui/buttonSetor"
 import { Jogador } from "@/components/Jogador"
@@ -15,6 +14,7 @@ import { getTimes } from "../../api/api"
 import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
+import TeamNameHeader from "@/components/TeamHeader"
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
@@ -93,19 +93,20 @@ export default function Page() {
 
   return (
     <div className="pt-20 pb-14 bg-[#ECECEC]">
+      <TeamNameHeader teamName={currentTeam?.nome} />
       <motion.div className="w-full fixed z-50" style={{ height }}>
         <motion.div
           className="p-4 w-full h-full flex flex-col justify-center items-center rounded-b-xl"
           style={{ backgroundColor: currentTeam.cor || "#000" }}
         >
-          <Link
-            href={"/"}
+          <button
+            onClick={() => router.back()}
             className="absolute top-2 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20"
           >
             {currentTeam.sigla || "N/A"}
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
-          </Link>
-
+          </button>
+          <TeamNameHeader teamName={currentTeam?.nome} />
           <motion.div className="flex flex-col justify-center items-center md:mb-4" style={{ opacity, pointerEvents: 'none' }}>
             <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl md:mt-4">
               {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}

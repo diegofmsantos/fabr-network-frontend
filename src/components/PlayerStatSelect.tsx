@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { statGroups } from '@/utils/statGroups';
 
-// Interface para as propriedades do select
-interface TeamStatSelectProps {
+interface PlayerStatSelectProps {
     currentStat: string;
 }
 
@@ -20,25 +19,14 @@ const getStatGroup = (statParam: string): string => {
     return 'Passando';
 };
 
-// Função para obter o título da estatística atual
-const getStatTitle = (statParam: string): string => {
-    for (const group of statGroups) {
-        const stat = group.stats.find(s => s.urlParam === statParam);
-        if (stat) {
-            return stat.title;
-        }
-    }
-    return '';
-};
-
-export const TeamStatSelect: React.FC<TeamStatSelectProps> = ({ currentStat }) => {
+export const PlayerStatSelect: React.FC<PlayerStatSelectProps> = ({ currentStat }) => {
     const router = useRouter();
     const currentGroup = getStatGroup(currentStat);
     const [selectedStat, setSelectedStat] = useState(currentStat);
 
     const handleStatChange = (newStat: string) => {
         setSelectedStat(newStat);
-        router.push(`/ranking/times/stats?stat=${newStat}`);
+        router.push(`/ranking/stats?stat=${newStat}`);
     };
 
     return (

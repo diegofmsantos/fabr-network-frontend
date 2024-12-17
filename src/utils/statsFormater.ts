@@ -11,7 +11,7 @@ export class StatsFormatter {
 
     // Para médias
     if (config.isCalculated && config.key.includes('media')) {
-      return typeof value === 'number' ? value.toFixed(1) : 'N/A';
+      return typeof value === 'number' ? value.toFixed(1).replace('.', ',') : 'N/A';
     }
 
     // Para percentuais
@@ -25,12 +25,5 @@ export class StatsFormatter {
 
     // Para valores inteiros
     return typeof value === 'number' ? Math.round(value).toString() : 'N/A';
-  }
-
-  // Função específica para converter string X/Y em porcentagem se necessário
-  static formatFGString(value: string): string {
-    const [made, attempted] = value.split('/').map(Number);
-    if (isNaN(made) || isNaN(attempted) || attempted === 0) return 'N/A';
-    return `${Math.round((made / attempted) * 100)}%`;
   }
 }

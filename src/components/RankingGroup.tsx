@@ -7,7 +7,6 @@ import { RankingCard } from './RankingCard';
 import NoStats from './ui/NoStats';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { SelectFilter } from './SelectFilter';
 
 type StatisticKey =
   | keyof Jogador['estatisticas']['passe']
@@ -161,19 +160,19 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
             : null;
         case 'jardas_media':
           return player.estatisticas.passe.passes_completos > 0
-            ? Number((player.estatisticas.passe.jardas_de_passe / player.estatisticas.passe.passes_tentados).toFixed(1))
+            ? Number((player.estatisticas.passe.jardas_de_passe / player.estatisticas.passe.passes_tentados))
             : null;
         case 'jardas_corridas_media':
           return player.estatisticas.corrida.corridas > 0
-            ? Number((player.estatisticas.corrida.jardas_corridas / player.estatisticas.corrida.corridas).toFixed(1))
+            ? Number((player.estatisticas.corrida.jardas_corridas / player.estatisticas.corrida.corridas))
             : null;
         case 'jardas_recebidas_media':
           return player.estatisticas.recepcao.recepcoes > 0
-            ? Number((player.estatisticas.recepcao.jardas_recebidas / player.estatisticas.recepcao.alvo).toFixed(1))
+            ? Number((player.estatisticas.recepcao.jardas_recebidas / player.estatisticas.recepcao.alvo))
             : null;
         case 'jardas_retornadas_media':
           return player.estatisticas.retorno.retornos > 0
-            ? Number((player.estatisticas.retorno.jardas_retornadas / player.estatisticas.retorno.retornos).toFixed(1))
+            ? Number((player.estatisticas.retorno.jardas_retornadas / player.estatisticas.retorno.retornos))
             : null;
         case 'extra_points':
           return player.estatisticas.kicker.tentativas_de_xp > 0
@@ -185,7 +184,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
             : null;
         case 'jardas_punt_media':
           return player.estatisticas.punter.punts > 0
-            ? Number((player.estatisticas.punter.jardas_de_punt / player.estatisticas.punter.punts).toFixed(1))
+            ? Number((player.estatisticas.punter.jardas_de_punt / player.estatisticas.punter.punts))
             : null;
         default:
           const category = getStatCategory(key);

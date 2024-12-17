@@ -173,11 +173,10 @@ export default function TeamRankingPage() {
         title="PASSE"
         stats={[
             { key: "jardas_de_passe", title: "JARDAS" },
-            { key: "passes_percentual", title: "PASSES(%)" },
+            { key: "passes_tentados", title: "PASSES TENT." },
             { key: "td_passados", title: "TOUCHDOWNS" },
             { key: "jardas_media", title: "JARDAS(AVG)" },
             { key: "passes_completos", title: "PASSES COMP." },
-            { key: "passes_tentados", title: "PASSES TENT." },
             { key: "interceptacoes_sofridas", title: "INTERCEPTAÇÕES" },
             { key: "sacks_sofridos", title: "SACKS" },
             { key: "fumble_de_passador", title: "FUMBLES" }
@@ -204,7 +203,6 @@ export default function TeamRankingPage() {
             { key: "recepcoes", title: "RECEPÇÕES" },
             { key: "tds_recebidos", title: "TOUCHDOWNS" },
             { key: "jardas_recebidas_media", title: "JARDAS(AVG)" },
-            { key: "alvo", title: "ALVOS" },
             { key: "fumble_de_recebedor", title: "FUMBLES" }
         ]}
         teamStats={teamStats}
@@ -213,10 +211,10 @@ export default function TeamRankingPage() {
     <TeamRankingGroup
         title="RETORNO"
         stats={[
-            { key: "jardas_retornadas_media", title: "JARDAS(AVG)" },
-            { key: "retornos", title: "RETORNOS" },
             { key: "jardas_retornadas", title: "JARDAS" },
+            { key: "retornos", title: "RETORNOS" },
             { key: "td_retornados", title: "TOUCHDOWNS" },
+            { key: "jardas_retornadas_media", title: "JARDAS(AVG)" },
             { key: "fumble_retornador", title: "FUMBLES" }
         ]}
         teamStats={teamStats}
@@ -246,11 +244,7 @@ export default function TeamRankingPage() {
             { key: "tentativas_de_fg", title: "FG TENTADOS" },
             { key: "extra_points", title: "XP(%)" },
             { key: "xp_bons", title: "XP BOM" },
-            { key: "tentativas_de_xp", title: "XP TENTADOS" },
-            { key: "fg_11_20", title: "FG(11-20)" },
-            { key: "fg_21_30", title: "FG(21-30)" },
-            { key: "fg_31_40", title: "FG(31-40)" },
-            { key: "fg_41_50", title: "FG(41-50)" }
+            { key: "tentativas_de_xp", title: "XP TENTADOS" }
         ]}
         teamStats={teamStats}
     />
@@ -258,9 +252,9 @@ export default function TeamRankingPage() {
     <TeamRankingGroup
         title="PUNT"
         stats={[
-            { key: "jardas_punt_media", title: "JARDAS(AVG)" },
+            { key: "jardas_de_punt", title: "JARDAS" },
             { key: "punts", title: "PUNTS" },
-            { key: "jardas_de_punt", title: "JARDAS" }
+            { key: "jardas_punt_media", title: "JARDAS(AVG)" }
         ]}
         teamStats={teamStats}
     />

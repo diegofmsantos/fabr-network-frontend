@@ -1,5 +1,3 @@
-// categoryThresholds.ts
-
 export type CategoryKey = 'passe' | 'corrida' | 'recepcao' | 'retorno' | 'defesa' | 'kicker' | 'punter';
 
 interface TierThreshold {

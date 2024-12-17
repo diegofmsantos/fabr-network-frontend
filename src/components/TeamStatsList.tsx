@@ -8,6 +8,7 @@ import { getCategoryFromKey } from './TimeRankingGroup';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
+import { StatsFormatter } from '@/utils/statsFormater';
 
 interface TeamStatsListProps {
     players: Jogador[];
@@ -21,15 +22,31 @@ interface RankedTeam {
 }
 
 export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, statMapping }) => {
-    // Dentro do seu componente TeamStatsList, apenas atualize a função calculateTeamStat:
 
     const calculateTeamStat = (timeId: number): number | null => {
+        if (!timeId) return null;
         try {
             const teamPlayers = players.filter(player => player.timeId === timeId);
             const category = getCategoryFromKey(statMapping.key);
             let total = 0;
             let divisor = 0;
 
+            // Tratamento especial para fumbles
+            if (statMapping.key === 'fumble_de_passador') {
+                teamPlayers.forEach(player => {
+                    total += player.estatisticas.passe.fumble_de_passador;
+                });
+                return total > 0 ? total : null;
+            }
+
+            // Tratamento especial para média de punts
+            if (statMapping.key === 'jardas_punt_media') {
+                teamPlayers.forEach(player => {
+                    total += player.estatisticas.punter.jardas_de_punt;
+                    divisor += player.estatisticas.punter.punts;
+                });
+                return divisor > 0 ? total / divisor : null;
+            }
             // Para estatísticas calculadas (médias e percentuais)
             if (statMapping.isCalculated) {
                 switch (statMapping.key) {
@@ -85,7 +102,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
             }
 
             // Para estatísticas normais
-            teamPlayers.forEach(player => { //@ts-ignore
+            teamPlayers.forEach(player => { // @ts-ignore
                 const value = player.estatisticas[category]?.[statMapping.key];
                 if (typeof value === 'number') {
                     total += value;
@@ -108,24 +125,35 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
             .replace(/[^a-z0-9-]/g, "");
     };
 
-    const rankedTeams: RankedTeam[] = times
+    const rankedTeams = times
         .map(time => ({
-            time, // @ts-ignore
-            value: calculateTeamStat(time.id)
+            time,
+            value: calculateTeamStat(time.id || 0)
         }))
-        .filter((team): team is RankedTeam => team.value !== null)
+        .filter((team): team is RankedTeam => 
+            team.value !== null && 
+            typeof team.value === 'number' && 
+            !isNaN(team.value) && 
+            team.value > 0  // Adicionamos esta condição
+        )
         .sort((a, b) => {
             if (a.value === null || b.value === null) return 0;
+            if (b.value === a.value) {
+                // @ts-ignore
+                return a.time.nome.localeCompare(b.time.nome);
+            }
             return b.value - a.value;
         });
+
+
 
     const TeamListItem: React.FC<{ team: RankedTeam; index: number }> = ({ team, index }) => {
         const isFirstPlace = index === 0;
 
         return (
             <div
-                className={`flex items-center justify-between p-4 mb-2 rounded-lg ${isFirstPlace ? 'text-white' : 'bg-white'
-                    }`}
+                className={`flex items-center justify-between p-4 mb-2 rounded-lg 
+                ${isFirstPlace ? 'text-white' : 'bg-white'}`}
                 style={{
                     backgroundColor: isFirstPlace ? team.time.cor || undefined : undefined
                 }}
@@ -154,7 +182,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
                     quality={100}
                     priority />
                 <span className="font-bold text-xl">
-                    {team.value !== null ? team.value.toLocaleString('pt-BR') : 'N/A'}
+                    {StatsFormatter.format(team.value, statMapping)}
                 </span>
             </div>
         );

@@ -21,7 +21,7 @@ export const Lista = ({ times }: ListaProps) => {
 
     return (
         <motion.div
-            className="grid grid-cols-4 gap-4 px-3 pt-56 pb-20 md:pt-48 bg-[#ECECEC] relative md:grid-cols-5 md:gap-5"
+            className="grid grid-cols-3 gap-4 px-3 pt-56 pb-20 md:pt-48 bg-[#ECECEC] relative min-[400px]:grid-cols-4 md:grid-cols-5 md:gap-5"
             initial="hidden"
             animate="visible"
             variants={{
@@ -41,9 +41,9 @@ export const Lista = ({ times }: ListaProps) => {
                                 className="absolute inset-0 opacity-0 group-hover:opacity-50 transition-opacity"
                                 style={{ backgroundColor: item.cor ?? "#000" }}
                             ></div>
-                            <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[22px] min-[400px]:text-[31px] md:text-[45px]">
-                                <div className="tracking-[-5px]">{item.sigla ?? "N/A"}</div>
-                                <div className="flex flex-col -mt-5 justify-center items-center gap-2 min-h-28 p-2">
+                            <div className="relative text-center font-extrabold italic z-10 min-[320px]:text-[28px] min-[400px]:text-[31px] md:text-[45px]">
+                                <div className="tracking-[-3px]">{item.sigla ?? "N/A"}</div>
+                                <div className="flex flex-col -mt-4 justify-center items-center gap-2 min-h-28 p-2 min-[400px]:-mt-5">
                                     <Image
                                         src={`/assets/times/capacetes/${item.capacete}`}
                                         alt="Capacete"
