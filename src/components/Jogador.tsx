@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
 import { JogadorSkeleton } from "./ui/JogadorSkeleton"
+import { SemJogador } from "./SemJogador"
 
 type Props = {
     currentTeam: Time
@@ -64,6 +65,14 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 <JogadorSkeleton />
             </div>
         )
+    }
+
+    const todosJogadoresSemNome = jogadoresFiltrados.length > 0 && 
+        jogadoresFiltrados.every(jogador => !jogador.nome || jogador.nome === "");
+
+    // Se todos estão sem nome, mostra o componente SemJogador
+    if (todosJogadoresSemNome) {
+        return <SemJogador />;
     }
 
     return (

@@ -61,8 +61,6 @@ const SLIDER_SETTINGS = {
 
 export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players }) => {
   const [times, setTimes] = useState<Time[]>([]);
-  const [filterType, setFilterType] = useState('jogadores');
-  const [season, setSeason] = useState('2024');
 
   useEffect(() => {
     const fetchTimes = async () => {

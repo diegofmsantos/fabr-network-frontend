@@ -16,6 +16,7 @@ import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
 import TeamNameHeader from "@/components/TeamHeader"
 import PlayerNameHeader from "@/components/PlayerNameHeader"
+import { SemJogador } from "@/components/SemJogador"
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
@@ -80,6 +81,14 @@ export default function Page() {
     }, [jogadorId])
 
     if (loading) { return <Loading /> }
+
+    if (jogadorData?.jogador.nome == '') {
+        return (
+            <div>
+                <SemJogador />
+            </div>
+        )
+    }
 
     if (!jogadorData) {
         return (
