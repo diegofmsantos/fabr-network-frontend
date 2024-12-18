@@ -88,24 +88,23 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                 className="w-full"
               >
                 {index === 0 ? (
-                  <div className="flex justify-around items-center pl-6 w-full text-white">
-                    <div className="flex flex-col gap-2 justify-center">
-                      <p className="text-[20px] font-bold">{globalIndex}</p>
+                  <div className="flex justify-between items-center w-full text-white">
+                    <div className="flex flex-col justify-center">
+                      <p className="text-[25px] font-bold">{globalIndex}</p>
                       <h4 className="font-bold flex flex-col leading-tight">
-                        <span className="text-[12px] font-extrabold italic">{player.nome.split(" ")[0]}</span>
-                        <span className="text-[27px] font-extrabold italic">{player.nome.split(" ").slice(1).join(" ")}</span>
+                        <span className="text-[12px] font-extrabold italic uppercase leading-4">{player.nome.split(" ")[0]}</span>
+                        <span className="text-2xl font-extrabold italic uppercase leading-4">{player.nome.split(" ").slice(1).join(" ")}</span>
                       </h4>
-                      <div className="flex items-center gap-1 min-w-28">
+                      <div className="flex items-center gap-1 min-w-32 max-[374px]:hidden">
                         <Image
                           src={teamLogoPath}
-                          width={30}
-                          height={30}
+                          width={40}
+                          height={40}
                           alt={`Logo do time ${teamInfo.nome}`}
-                          className=""
                         />
-                        <p className="text-[10px] italic">{teamInfo.nome}</p>
+                        <p className="text-[10px]">{teamInfo.nome}</p>
                       </div>
-                      <span className="font-extrabold italic text-5xl">{value}</span>
+                      <span className="font-extrabold italic text-[40px] max-[374px]:mt-4">{value}</span>
                     </div>
                     <div className="relative w-[200px] h-[200px]">
                       <Image

@@ -26,7 +26,8 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       .replace(/\s+/g, "-")
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/[^a-z0-9-]/g, "");
+      .replace(/[^a-z0-9-]/g, "")
+      .replace(/-+$/, '');
   };
 
   const getShirtPath = (team: string, camisa: string): string => {
@@ -62,10 +63,10 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                     <div className="flex flex-col justify-center">
                       <p className="text-[25px] font-bold">{index + 1}</p>
                       <h4 className="font-bold flex flex-col leading-tight">
-                        <span className="text-[12px]">{player.name.split(" ")[0]}</span>
-                        <span className="text-2xl">{player.name.split(" ").slice(1).join(" ")}</span>
+                        <span className="text-[12px] font-extrabold italic leading-4 uppercase">{player.name.split(" ")[0]}</span>
+                        <span className="text-2xl font-extrabold italic leading-4 uppercase">{player.name.split(" ").slice(1).join(" ")}</span>
                       </h4>
-                      <div className="flex items-center gap-1 min-w-32">
+                      <div className="flex items-center gap-1 min-w-32 max-[374px]:hidden">
                         <Image
                           src={teamLogoPath}
                           width={40}
@@ -74,7 +75,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         />
                         <p className="text-[10px]">{player.team}</p>
                       </div>
-                      <span className="font-extrabold italic text-[40px]">{!isNaN(Number(player.value))
+                      <span className="font-extrabold italic text-[40px] max-[374px]:mt-4">{!isNaN(Number(player.value))
                         ? Number(player.value).toLocaleString('pt-BR')
                         : player.value}</span>
                     </div>
@@ -90,18 +91,19 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                 ) : (
                   <div className="w-full h-auto flex justify-between items-center gap-2">
                     <div className="flex items-center">
-                      <span className="font-bold flex items-center gap-2">
+                      <span className="font-bold flex items-center gap-2 max-[374px]:mr-2 max-[374px]:gap-1">
                         <div>{index + 1}</div>
                         <Image
                           src={teamLogoPath}
                           width={40}
                           height={40}
                           alt={`Logo do time ${player.team}`}
+                          className="max-[374px]:hidden"
                         />
                       </span>
                       <div className="flex flex-col">
                         <div className="font-bold text-[14px]">{player.name}</div>
-                        <div className="font-light text-[14px]">{player.team}</div>
+                        <div className="font-light text-[14px] max-[374px]:hidden">{player.team}</div>
                       </div>
                     </div>
                     <span className="font-bold text-lg">{!isNaN(Number(player.value))

@@ -24,6 +24,6 @@ export class StatsFormatter {
     }
 
     // Para valores inteiros
-    return typeof value === 'number' ? Math.round(value).toString() : 'N/A';
+    return typeof value === 'number' ? Math.round(value).toLocaleString('pt-BR') : 'N/A';
   }
 }

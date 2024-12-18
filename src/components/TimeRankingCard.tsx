@@ -108,18 +108,25 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                         <div className="flex flex-col justify-between">
                                             <p className="text-[25px] font-bold">{index + 1}</p>
                                             <div className='flex flex-col gap-2'>
-                                                <h4 className="font-extrabold italic text-xl">{team.name}</h4>
-                                                <span className="font-extrabold italic text-4xl">
+                                                <h4 className="font-extrabold italic leading-4 text-xl uppercase">{team.name}</h4>
+                                                <Image
+                                                    src={teamLogoPath}
+                                                    width={60}
+                                                    height={60}
+                                                    alt={`Logo do time ${team.name}`}
+                                                />
+                                                <span className="font-extrabold italic text-4xl mt-2">
                                                     {formatValue(team.value, title)}
                                                 </span>
                                             </div>
                                         </div>
-                                        <div className="w-[150px] h-[150px] flex justify-center items-center">
+                                        <div className="relative w-[200px] h-[200px]">
                                             <Image
                                                 src={capacetePath}
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                                 alt={`Capacete do ${team.name}`}
-                                                width={150}
-                                                height={150}
+                                                className="object-contain"
                                                 priority
                                                 quality={100}
                                             />
@@ -127,7 +134,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                     </div>
                                 ) : (
                                     <div className="w-full h-auto flex justify-between items-center gap-2 px-2">
-                                        <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-4 max-[374px]:gap-1">
                                             <span className="font-bold text-[14px]">{index + 1}</span>
                                             <Image
                                                 src={teamLogoPath}

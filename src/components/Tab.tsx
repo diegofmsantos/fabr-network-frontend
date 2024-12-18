@@ -9,7 +9,7 @@ export const Tab = () => {
   const isRankingRoute = pathname.startsWith('/ranking');
 
   return (
-    <div className="fixed bottom-0 w-full bg-[#0F1116] shadow-md border-t flex justify-around py-2 z-50">
+    <div className="fixed bottom-0 w-full bg-[#272731] shadow-md border-t flex justify-around py-2 z-50">
       <Link href="/">
         <div className={`flex flex-col items-center ${!isRankingRoute ? "text-[#63e300]" : "text-gray-400"}`}>
           <Image

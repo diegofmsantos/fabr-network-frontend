@@ -47,18 +47,30 @@ export const Lista = ({ times }: ListaProps) => {
                                     <Image
                                         src={`/assets/times/capacetes/${item.capacete}`}
                                         alt="Capacete"
-                                        width={90}
-                                        height={90}
-                                        quality={100}
-                                        className="w-24 h-14 rotate-12 md:h-16 md:-mt-2"
+                                        width={90}  // Aumentando um pouco o tamanho base
+                                        height={90} // Mantendo proporção quadrada
+                                        quality={100} // Máxima qualidade
+                                        priority // Carregamento prioritário
+                                        className="w-24 h-14 rotate-12 md:h-16 md:mt-2" // Ajustando classes
+                                        style={{
+                                            imageRendering: 'crisp-edges', // Melhora a nitidez
+                                            WebkitFontSmoothing: 'antialiased',
+                                            objectFit: 'contain'  // Mantém a proporção
+                                        }}
                                     />
+
                                     <Image
                                         src={`/assets/times/logos/${item.logo}`}
                                         alt="Logo"
                                         width={35}
                                         height={35}
                                         quality={100}
+                                        priority
                                         className="md:w-14"
+                                        style={{
+                                            imageRendering: 'crisp-edges',
+                                            WebkitFontSmoothing: 'antialiased'
+                                        }}
                                     />
                                 </div>
                             </div>
