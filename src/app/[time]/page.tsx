@@ -94,21 +94,21 @@ export default function Page() {
   return (
     <div className="pt-20 pb-14 bg-[#ECECEC]">
       <TeamNameHeader teamName={currentTeam?.nome} />
-      <motion.div className="w-full fixed z-50" style={{ height }}>
+      <motion.div className="fixed z-50 w-full" style={{ height }}>
         <motion.div
-          className="p-4 w-full h-full flex flex-col justify-center items-center rounded-b-xl"
+          className="p-4 w-full h-full flex flex-col justify-center items-center rounded-b-xl max-w-[1200px] mx-auto"
           style={{ backgroundColor: currentTeam.cor || "#000" }}
         >
           <button
             onClick={() => router.back()}
-            className="absolute top-2 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20"
+            className="absolute top-2 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20 xl:left-32 2xl:left-96 3xl:56"
           >
             {currentTeam.sigla || "N/A"}
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
           </button>
           <TeamNameHeader teamName={currentTeam?.nome} />
           <motion.div className="flex flex-col justify-center items-center md:mb-4" style={{ opacity, pointerEvents: 'none' }}>
-            <div className="text-[45px] text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl md:mt-4">
+            <div className="text-[45px] mt-2 text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl md:mt-4">
               {currentTeam.nome?.toLocaleUpperCase() || "Time Indefinido"}
             </div>
 
@@ -183,7 +183,7 @@ export default function Page() {
               />
             </section>
           </div>
-          <div className="xl:mt-[125px] xl:border min-h-screen">
+          <div className="xl:border min-h-screen">
             <Jogador currentTeam={currentTeam} selectedSetor={selectedSetor} />
           </div>
         </motion.div>

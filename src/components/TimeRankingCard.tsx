@@ -35,7 +35,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
     const formatValue = (value: string | number, title: string): string => {
         // Converte para número se for string numérica
         const numValue = typeof value === 'string' ? parseFloat(value) : value;
-        
+
         // Verifica se é média (AVG) ou porcentagem
         if (title.includes('(AVG)')) {
             return numValue.toFixed(1).replace('.', ',');
@@ -43,7 +43,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
         if (title.includes('(%)') || title === 'FG(%)' || title === 'XP(%)') {
             return `${Math.round(numValue)}%`;
         }
-        
+
         // Para valores inteiros, usa toLocaleString para adicionar separador de milhar
         return Math.round(numValue).toLocaleString('pt-BR');
     };
@@ -60,16 +60,16 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
 
         const normalizedCategory = normalizeForFilePath(category);
         const statKey = statMappings[title] || normalizeForFilePath(title);
-        
+
         return `/ranking/times/stats?stat=${normalizedCategory}-${statKey}`;
     };
 
     // Ordenação com critério de desempate
-   const sortedTeams = validTeams
+    const sortedTeams = validTeams
         .sort((a, b) => {
             const valueA = parseFloat(a.value);
             const valueB = parseFloat(b.value);
-            
+
             if (valueB === valueA) {
                 return a.name.localeCompare(b.name);
             }
@@ -100,7 +100,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                             }}
                         >
                             <Link
-                                href={`/${encodeURIComponent(team.name)}`}
+                                href={getViewMoreUrl(category, title)}
                                 className="w-full"
                             >
                                 {team.isFirst ? (
@@ -149,7 +149,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
             </ul>
             <Link
                 href={getViewMoreUrl(category, title)}
-                className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-4 rounded-md hover:bg-[#C1C2C3]"
+                className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3]"
             >
                 Ver Mais
             </Link>

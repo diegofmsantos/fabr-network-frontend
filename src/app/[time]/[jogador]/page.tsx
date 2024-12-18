@@ -115,7 +115,6 @@ export default function Page() {
 
     return (
         <AnimatePresence>
-
             <motion.div
                 className="relative min-h-screen pb-16 bg-[#ECECEC]"
                 key={jogadorId}
@@ -126,13 +125,14 @@ export default function Page() {
             >
                 <button
                     onClick={() => router.back()}
-                    className="fixed top-[85px] left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-black/20 z-[100]"
+                    className="fixed top-[85px] left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center
+                     bg-black/20 z-[100] xl:left-32 2xl:left-96 3xl:56"
                 >
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
                 <PlayerNameHeader playerName={currentJogador.nome} />
                 <motion.div className='fixed top-0 w-full z-20' style={{ height }} >
-                    <motion.div className='mt-20 px-6 w-full h-full flex flex-col justify-center items-center rounded-b-xl md:h-full'
+                    <motion.div className='mt-20 px-6 w-full h-full flex flex-col justify-center items-center rounded-b-xl md:h-full max-w-[1200px] mx-auto'
                         style={{ backgroundColor: currentTime?.cor }} >
                         <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
                             <div className='text-white text-center font-bold text-xs mb-4'>{currentTime?.nome}</div>
@@ -190,7 +190,7 @@ export default function Page() {
                             />
                         </div>
                     </div>
-                    <div className='xl:max-w-[1200px] -mt-4 xl:min-w-[1100px] xl:m-auto'>
+                    <div className='xl:max-w-[1200px] -mt-4 xl:min-w-[1200px] xl:m-auto'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
                         <div className="bg-white flex flex-col justify-center gap-4 p-4 rounded-lg">
@@ -248,7 +248,7 @@ export default function Page() {
                             currentJogador.estatisticas.passe.sacks_sofridos > 0 ||
                             currentJogador.estatisticas.passe.fumble_de_passador > 0
                         ) && (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (PASSE)
                                 </div>
@@ -294,7 +294,7 @@ export default function Page() {
                             currentJogador.estatisticas.corrida.tds_corridos > 0 ||
                             currentJogador.estatisticas.corrida.fumble_de_corredor > 0
                         ) && (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div
                                     className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}
@@ -333,7 +333,7 @@ export default function Page() {
                             currentJogador.estatisticas.recepcao.alvo > 0 ||
                             currentJogador.estatisticas.recepcao.fumble_de_recebedor > 0
                         ) && (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (RECEPÇÃO)
                                 </div>
@@ -368,7 +368,7 @@ export default function Page() {
                             currentJogador.estatisticas.retorno.td_retornados > 0 ||
                             currentJogador.estatisticas.retorno.fumble_retornador > 0
                         ) && (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (RETORNO)
                                 </div>
@@ -410,7 +410,7 @@ export default function Page() {
                             currentJogador.estatisticas.defesa.td_defensivo > 0
                         ) &&
                         (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (DEFESA)</div>
                                 <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
@@ -456,7 +456,7 @@ export default function Page() {
                                 (currentJogador.estatisticas.kicker.fg_31_40 && currentJogador.estatisticas.kicker.fg_31_40 !== "") ||
                                 (currentJogador.estatisticas.kicker.fg_41_50 && currentJogador.estatisticas.kicker.fg_41_50 !== ""))
                         ) && (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (KICKER)
                                 </div>
@@ -510,7 +510,7 @@ export default function Page() {
                             currentJogador.estatisticas.punter.punts > 0 ||
                             currentJogador.estatisticas.punter.jardas_de_punt > 0
                         ) && (
-                            <div className='xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto'>
+                            <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
                                     style={{ backgroundColor: currentTime?.cor }}>STATS (PUNTER)</div>
                                 <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">

@@ -21,7 +21,7 @@ export const Lista = ({ times }: ListaProps) => {
 
     return (
         <motion.div
-            className="grid grid-cols-3 gap-4 px-3 pt-56 pb-20 md:pt-48 bg-[#ECECEC] relative min-[400px]:grid-cols-4 md:grid-cols-5 md:gap-5"
+            className="grid grid-cols-3 gap-4 px-3 pt-56 pb-20 container bg-[#ECECEC] relative min-[400px]:grid-cols-4 md:grid-cols-5 md:pt-48 md:gap-5 lg:px-20 xl:mx-auto lg:grid-cols-6 xl:grid-cols-8"
             initial="hidden"
             animate="visible"
             variants={{

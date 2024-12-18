@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { StatsFormatter } from '@/utils/statsFormater';
+import { useRouter } from 'next/navigation';
 
 interface TeamStatsListProps {
     players: Jogador[];
@@ -22,6 +23,7 @@ interface RankedTeam {
 }
 
 export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, statMapping }) => {
+    const router = useRouter()
 
     const calculateTeamStat = (timeId: number): number | null => {
         if (!timeId) return null;
@@ -130,10 +132,10 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
             time,
             value: calculateTeamStat(time.id || 0)
         }))
-        .filter((team): team is RankedTeam => 
-            team.value !== null && 
-            typeof team.value === 'number' && 
-            !isNaN(team.value) && 
+        .filter((team): team is RankedTeam =>
+            team.value !== null &&
+            typeof team.value === 'number' &&
+            !isNaN(team.value) &&
             team.value > 0  // Adicionamos esta condição
         )
         .sort((a, b) => {
@@ -151,39 +153,46 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         const isFirstPlace = index === 0;
 
         return (
-            <div
-                className={`flex items-center justify-between p-4 mb-2 rounded-lg 
-                ${isFirstPlace ? 'text-white' : 'bg-white'}`}
-                style={{
-                    backgroundColor: isFirstPlace ? team.time.cor || undefined : undefined
-                }}
-            >
-                <Link
-                    href={"/ranking/times"}
-                    className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50'>
+            <div>
+                <button
+                    onClick={() => router.push('/ranking/times')}
+                    className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50 xl:left-32 2xl:left-[500px]'
+                >
                     <FontAwesomeIcon icon={faAngleLeft} />
-                </Link>
-                <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold">{index + 1}</span>
-                    <Image // @ts-ignore
-                        src={`/assets/times/logos/${normalizeForFilePath(team.time.nome)}.png`}
-                        width={40}
-                        height={40}
-                        alt={`Logo do ${team.time.nome}`}
-                        className=""
+                </button>
+
+                {/* Card do time como um Link separado */}
+                <Link
+                    href={`/${encodeURIComponent(team.time.nome || '')}`}
+                    className={`flex items-center justify-between p-4 border-b rounded-lg 
+                    ${isFirstPlace ? 'text-white' : 'bg-white'}`}
+                    style={{
+                        backgroundColor: isFirstPlace ? team.time.cor || undefined : undefined
+                    }}
+                >
+                    <div className="flex items-center gap-2">
+                        <span className="text-lg font-bold">{index + 1}</span>
+                        <Image // @ts-ignore
+                            src={`/assets/times/logos/${normalizeForFilePath(team.time.nome)}.png`}
+                            width={40}
+                            height={40}
+                            alt={`Logo do ${team.time.nome}`}
+                            className=""
+                        />
+                        <span className="font-bold text-xs min-[400px]:text-sm w-28 min-[400px]:w-32 md:w-60">{team.time.nome}</span>
+                    </div>
+                    <Image
+                        src={`/assets/times/capacetes/${team.time.capacete}`}
+                        alt='capacete do time'
+                        width={60}
+                        height={60}
+                        quality={100}
+                        priority
                     />
-                    <span className="font-bold text-sm">{team.time.nome}</span>
-                </div>
-                <Image
-                    src={`/assets/times/capacetes/${team.time.capacete}`}
-                    alt='capacete do time'
-                    width={60}
-                    height={60}
-                    quality={100}
-                    priority />
-                <span className="font-bold text-xl">
-                    {StatsFormatter.format(team.value, statMapping)}
-                </span>
+                    <span className="font-bold text-lg min-[400px]:text-xl ml-2">
+                        {StatsFormatter.format(team.value, statMapping)}
+                    </span>
+                </Link>
             </div>
         );
     };
@@ -201,6 +210,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
 
     return (
         <div className="bg-[#ECECEC] py-8">
+            {/* Lista de times */}
             <div className="max-w-2xl mx-auto px-4">
                 {rankedTeams.map((team, index) => (
                     <TeamListItem
@@ -210,6 +220,9 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
                     />
                 ))}
             </div>
+    
+            {/* Explicação em uma div separada */}
+            
         </div>
     );
 };

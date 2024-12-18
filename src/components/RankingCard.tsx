@@ -54,7 +54,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
               }}
             >
               <Link
-                href={`/${normalizeForFilePath(player.team)}/${player.id}`}
+                href={`/ranking/stats?stat=${normalizeForFilePath(category)}-${normalizeForFilePath(title)}`}
                 className="w-full"
               >
                 {player.isFirst ? (

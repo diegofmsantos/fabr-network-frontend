@@ -29,7 +29,7 @@ const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
     };
 
     return (
-        <div className="mb-6">
+        <div className="mb-6 mx-4">
             <h1 className="text-4xl font-extrabold italic mb-4 text-center uppercase">{currentGroup}</h1>
             <select
                 value={currentStat}

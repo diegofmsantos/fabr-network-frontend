@@ -76,7 +76,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     }
 
     return (
-        <div className="w-full flex flex-col gap-3 p-4 z-50">
+        <div className="w-full flex flex-col gap-3 px-4 pb-4 z-50">
             {jogadoresFiltrados.map((jogador: JogadorType) => {
                 const camisaPath = `/assets/times/camisas/${currentTeam.nome?.toLowerCase().replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogador.camisa}`;
                 const experienciaAnos = calcularExperiencia(jogador.experiencia)
@@ -86,7 +86,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         href={`/${currentTeam.nome}/${jogador.id}`}
                         key={jogador.id}
                         className="flex h-24 justify-between items-center p-2 rounded-md border text-sm bg-white min-[425px]:p-4
-                            md:text-base md:justify-center md:h-28 xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto transition duration-300"
+                            md:text-base md:justify-center md:h-28 xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] o transition duration-300"
                         style={{
                             transition: "background-color 0.3s",
                         }}

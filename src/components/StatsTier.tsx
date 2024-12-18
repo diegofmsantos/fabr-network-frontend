@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { StatsExplicacao } from './StatsExplicacao';
@@ -25,7 +24,6 @@ interface StatsTierProps {
 }
 
 const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor = 'bg-black', statsType, isLastTier = false }) => {
-  const router = useRouter()
   const normalizeForFilePath = (input: string): string =>
     input.toLowerCase()
       .replace(/\s+/g, '-')
@@ -65,7 +63,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
     <div className="mb-8">
       <Link
         href={"/ranking"}
-        className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50'>
+        className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50 xl:left-32 2xl:left-[500px]'>
         <FontAwesomeIcon icon={faAngleLeft} />
       </Link>
       <div className={`inline-block text-sm font-bold mb-2 ${backgroundColor} text-white p-2 rounded-xl`}>
@@ -123,8 +121,8 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                     </div>
                   </div>
                 ) : (
-                  <div className="w-full h-auto flex justify-between items-center gap-2 px-7">
-                    <div className="flex items-center">
+                  <div className="w-full h-auto flex justify-between items-center gap-2 min-[350px]:px-4 min-[425px]:px-7 md:justify-around">
+                    <div className="flex items-center md:w-60">
                       <span className="font-bold flex items-center gap-2">
                         <div>{globalIndex}</div>
                         <Image

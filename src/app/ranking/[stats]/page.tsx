@@ -102,7 +102,7 @@ const StatsPage: React.FC = () => {
   const tierPlayers = groupPlayersByTier(processedPlayers);
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen py-24 px-2">
+    <div className="bg-[#ECECEC] min-h-screen py-24 px-6">
       <div className="max-w-4xl mx-auto">
         <PlayerStatSelect currentStat={statParam} />
 
