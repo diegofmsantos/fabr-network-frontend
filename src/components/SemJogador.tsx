@@ -20,7 +20,7 @@ export const SemJogador = () => {
           <span className="font-bold">Fale conosco</span> para realizarmos a sua <span className="font-bold">coleta de dados</span> e tenha a sua falta declinada.
         </p>
         <Link
-          href="https://wa.me/+5581998725445"
+          href="https://wa.me/+5581998725448"
           target="_blank"
           className="flex items-center gap-2 bg-green-500 text-white px-6 py-2 rounded-full mt-4 hover:bg-green-600 transition-colors"
         >
