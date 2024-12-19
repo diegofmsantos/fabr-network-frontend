@@ -15,7 +15,11 @@ const poppins = Poppins({
 })
 
 export const viewport: Viewport = {
-  themeColor: '#63E300'
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#63E300' },
+    { media: '(prefers-color-scheme: dark)', color: '#63E300' }
+  ],
+  viewportFit: 'cover',
 }
 
 export const metadata: Metadata = {
@@ -50,6 +54,7 @@ export default function RootLayout({
     <html lang="pt-br" className={poppins.className}>
       <head>
         <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon" />
+        <link rel="manifest" href="/manifest.json" />
         {/* Meta tags para cor do navegador móvel */}
         <meta name="theme-color" content="#63E300" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
