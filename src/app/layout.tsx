@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import "./globals.css"
 import { Poppins } from "next/font/google"
 import Image from "next/image";
@@ -12,6 +12,10 @@ const poppins = Poppins({
   display: 'swap',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 })
+
+export const viewport: Viewport = {
+  themeColor: '#63E300'
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fabrnetwork.com.br/'),
@@ -33,9 +37,7 @@ export const metadata: Metadata = {
     description: 'O banco de dados do futebol americano do Brasil.',
     siteName: 'FABR-Network',
     images: '/assets/logo-fabr-color.png'
-  },
-  themeColor: '#63E300',
-  manifest: '/manifest.json'
+  }
 };
 
 export default function RootLayout({
