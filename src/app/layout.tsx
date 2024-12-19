@@ -14,18 +14,6 @@ const poppins = Poppins({
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 })
 
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: 'no',
-  viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#63E300' },
-    { media: '(prefers-color-scheme: dark)', color: '#63E300' }
-  ]
-} as const;
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://fabrnetwork.com.br/'),
   title: 'FABR-Network',
@@ -57,11 +45,20 @@ export default function RootLayout({
   return (
     <html lang="pt-br" className={poppins.className}>
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+        {/* Viewport e configurações básicas */}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        {/* Configurações de tema para Chrome/Android */}
         <meta name="theme-color" content="#63E300" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#63E300" media="(prefers-color-scheme: dark)" />
+
+        {/* Configurações para Safari/iOS */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="FABR-Network" />
+
+        {/* Links */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon" />
       </head>

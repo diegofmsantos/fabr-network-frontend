@@ -50,15 +50,23 @@
   content: "→" !important;
 }
 
-/* Em seu arquivo globals.css */
-body {
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
-  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+:root {
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
 }
 
+body {
+  padding: var(--sat) var(--sar) var(--sab) var(--sal);
+  background-color: #ECECEC;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+
+/* Específico para iOS */
 @supports (-webkit-touch-callout: none) {
-  body {
-    height: -webkit-fill-available;
+  .min-h-screen {
+    min-height: -webkit-fill-available;
   }
 }
