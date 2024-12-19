@@ -11,7 +11,7 @@ export const Tab = () => {
   return (
     <div className="fixed bottom-0 w-full bg-[#272731] shadow-md border-t flex justify-around py-2 z-50">
       <Link href="/">
-        <div className={`flex flex-col items-center ${!isRankingRoute ? "text-[#63e300]" : "text-gray-400"}`}>
+        <div className={`flex flex-col items-center ${!isRankingRoute ? "text-[#63E300]" : "text-gray-400"}`}>
           <Image
             src={!isRankingRoute ? "/assets/logo-capacete-verde.png" : "/assets/logo-capacete-branco.png"}
             alt="capacete"
@@ -23,7 +23,7 @@ export const Tab = () => {
       </Link>
 
       <Link href="/ranking">
-        <div className={`flex flex-col items-center ${isRankingRoute ? "text-[#63e300]" : "text-gray-400"}`}>
+        <div className={`flex flex-col items-center ${isRankingRoute ? "text-[#63E300]" : "text-gray-400"}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

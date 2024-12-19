@@ -12,7 +12,7 @@ export const Loading = () => {
                 ariaLabel="vortex-loading"
                 wrapperStyle={{}}
                 wrapperClass="vortex-wrapper"
-                color="#63e300" 
+                color="#63E300" 
             />
 
             {/* Imagem no centro do spinner */}

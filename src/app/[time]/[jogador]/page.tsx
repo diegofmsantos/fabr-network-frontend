@@ -132,12 +132,12 @@ export default function Page() {
                 </button>
                 <PlayerNameHeader playerName={currentJogador.nome} />
                 <motion.div className='fixed top-0 w-full z-20' style={{ height }} >
-                    <motion.div className='mt-20 px-6 w-full h-full flex flex-col justify-center items-center rounded-b-xl md:h-full max-w-[1200px] mx-auto'
+                    <motion.div className='mt-20 px-1 w-full h-full flex flex-col justify-center items-center rounded-b-xl min-[375px]:px-3 md:h-full max-w-[1200px] mx-auto'
                         style={{ backgroundColor: currentTime?.cor }} >
                         <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
-                            <div className='text-white text-center font-bold text-xs mb-4'>{currentTime?.nome}</div>
-                            <div className='flex justify-center items-end md:w-screen md:justify-around md:items-center max-w-[1200px]'>
-                                <div className='flex flex-col items-start'>
+                            <div className='text-white text-center font-bold text-xs uppercase  mb-4'>{currentTime?.nome}</div>
+                            <div className='flex justify-center items-end gap-1 min-[375px]:gap-3 md:w-screen md:justify-around md:items-center max-w-[1200px]'>
+                                <div className='flex-1 flex-col items-start'>
                                     <div className='text-[28px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] min-[375px]:text-[32px] md:text-[40px] lg:text-5xl'>
                                         {currentJogador.nome.toLocaleUpperCase()}
                                     </div>
@@ -160,7 +160,7 @@ export default function Page() {
                                         <Image src={logopath} alt='logo' width={100} height={100} quality={100} priority />
                                     </div>
                                 </div>
-                                <div className='flex justify-center items-center'>
+                                <div className='flex-2 justify-center items-center'>
                                     <Image
                                         src={camisasPath} alt={`${currentTime?.nome} camisa`} width={200} height={250} quality={100} className="w-48 h-60" priority
                                     />

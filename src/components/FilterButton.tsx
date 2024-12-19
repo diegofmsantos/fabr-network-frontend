@@ -16,9 +16,9 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
     return (
         <button
             onClick={onClick}
-            className={`relative w-full h-12 flex justify-center shadow items-center p-4 rounded-b-2xl transition-colors ${isSelected ? 'bg-[#72FF30]' : 'bg-[#A2A3A1] text-gray-600'}`}
+            className={`relative w-full h-12 flex justify-center shadow items-center p-4 rounded-b-3xl transition-colors ${isSelected ? 'bg-[#63E300]' : 'bg-[#A2A3A1] text-gray-600'}`}
         >
-            <span className="text-[28px] font-extrabold italic uppercase">{label}</span>
+            <span className="text-[28px] font-extrabold italic uppercase tracking-[-3px]">{label}</span>
         </button>
     );
 };
