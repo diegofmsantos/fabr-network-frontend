@@ -49,3 +49,16 @@
 .slick-next:before {
   content: "→" !important;
 }
+
+/* Em seu arquivo globals.css */
+body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+@supports (-webkit-touch-callout: none) {
+  body {
+    height: -webkit-fill-available;
+  }
+}

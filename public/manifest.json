@@ -8,11 +8,14 @@
     "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
+    "id": "/",
     "icons": [
       {
         "src": "/assets/favicon.png",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "any maskable"
       }
-    ]
+    ],
+    "prefer_related_applications": false
   }
