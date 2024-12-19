@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Tab } from "@/components/Tab"
 import Link from "next/link";
 import { Analytics } from '@vercel/analytics/react';
+import { Suspense } from "react";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -49,6 +50,13 @@ export default function RootLayout({
     <html lang="pt-br" className={poppins.className}>
       <head>
         <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon" />
+        {/* Meta tags para cor do navegador móvel */}
+        <meta name="theme-color" content="#63E300" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="FABR-Network" />
+        {/* Meta tag específica para Safari */}
+        <meta name="apple-mobile-web-app-status-bar-style" content="#63E300" />
       </head>
       <body className="bg-[#ECECEC]">
         <header className="w-full h-20 bg-[#272731] flex justify-center items-end px-2 fixed z-50">
@@ -64,7 +72,9 @@ export default function RootLayout({
             />
           </Link>
         </header>
-        {children}
+        <Suspense fallback={<div>Loading...</div>}>
+          {children}
+        </Suspense>
         <Analytics />
         <Tab />
       </body>
