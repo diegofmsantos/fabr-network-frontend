@@ -13,6 +13,7 @@ import { ProcessedPlayer } from '@/types/processedPlayer';
 import { StatType } from '@/types/Stats';
 import { TeamStatSelect } from '@/components/StatSelect';
 import { PlayerStatSelect } from '@/components/PlayerStatSelect';
+import { StatsLayout } from '@/components/StatsLayout';
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();
@@ -102,20 +103,24 @@ const StatsPage: React.FC = () => {
   const tierPlayers = groupPlayersByTier(processedPlayers);
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen py-24 px-6">
-      <div className="max-w-4xl mx-auto">
-        <PlayerStatSelect currentStat={statParam} />
+    <StatsLayout initialFilter="jogadores" statType={statParam}>
+      {/* Conteúdo existente da página */}
 
-        {renderTierSection(1, tierPlayers.tier1, 0)}
-        {renderTierSection(2, tierPlayers.tier2, tierPlayers.tier1.length, 'bg-gray-700')}
-        {renderTierSection(
-          3,
-          tierPlayers.tier3,
-          tierPlayers.tier1.length + tierPlayers.tier2.length,
-          'bg-gray-500'
-        )}
+      <div className="bg-[#ECECEC] min-h-screen pt-8 pb-14 px-2">
+        <div className="">
+          <PlayerStatSelect currentStat={statParam} />
+
+          {renderTierSection(1, tierPlayers.tier1, 0)}
+          {renderTierSection(2, tierPlayers.tier2, tierPlayers.tier1.length, 'bg-gray-700')}
+          {renderTierSection(
+            3,
+            tierPlayers.tier3,
+            tierPlayers.tier1.length + tierPlayers.tier2.length,
+            'bg-gray-500'
+          )}
+        </div>
       </div>
-    </div>
+    </StatsLayout>
   );
 };
 

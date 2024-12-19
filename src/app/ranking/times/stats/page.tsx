@@ -8,6 +8,7 @@ import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { getStatMapping } from '@/utils/statMappings';
 import { TeamStatsList } from '@/components/TeamStatsList';
 import { statGroups } from '@/utils/statGroups';
+import { StatsLayout } from '@/components/StatsLayout';
 
 // Função para obter o grupo da estatística atual
 const getStatGroup = (statParam: string): string => {
@@ -62,7 +63,7 @@ function TeamStatsContent() {
     }
 
     return (
-        <div className="max-w-4xl mx-auto">
+        <div className="">
             <TeamStatSelect currentStat={statParam} />
             <TeamStatsList
                 players={players}
@@ -74,11 +75,17 @@ function TeamStatsContent() {
 }
 
 export default function TeamStatsPage() {
+    const searchParams = useSearchParams();
+    const statParam = searchParams.get('stat') || '';
     return (
-        <div className="bg-[#ECECEC] min-h-screen py-24 px-2">
-            <Suspense fallback={<Loading />}>
-                <TeamStatsContent />
-            </Suspense>
-        </div>
+        <StatsLayout initialFilter="times" statType={statParam}>
+            {/* Conteúdo existente da página */}
+
+            <div className="bg-[#ECECEC] min-h-screen pt-7 pb-4 px-2">
+                <Suspense fallback={<Loading />}>
+                    <TeamStatsContent />
+                </Suspense>
+            </div>
+        </StatsLayout>
     );
 }

@@ -35,6 +35,30 @@ interface RankingGroupProps {
   players: Jogador[];
 }
 
+const NextArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      className="bg-black hover:bg-gray-800 w-8 h-8 rounded-full flex items-center justify-center absolute right-0 z-10"
+    >
+      <span className="text-white">›</span>
+    </button>
+  );
+};
+
+const PrevArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <button
+      onClick={onClick}
+      className="bg-black hover:bg-gray-800 w-8 h-8 rounded-full flex items-center justify-center absolute left-0 z-10"
+    >
+      <span className="text-white">‹</span>
+    </button>
+  );
+};
+
 const SLIDER_SETTINGS = {
   dots: true,
   infinite: false,
@@ -314,7 +338,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
       .replace(/[^a-z0-9-]/g, '');
 
   return (
-    <div className="mb-8 pl-4 pt-8 overflow-x-hidden overflow-y-hidden mx-auto">
+    <div className="mb pl-4 pt-8 overflow-x-hidden overflow-y-hidden mx-auto xl:px-12 xl:overflow-x xl:overflow-y">
       <h2 className="text-4xl pl-2 font-extrabold italic mb-4 leading-[30px] tracking-[-2px]">{title}</h2>
       <Slider {...SLIDER_SETTINGS}>
         {stats.map((stat, index) => {

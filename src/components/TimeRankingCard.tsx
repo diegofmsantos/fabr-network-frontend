@@ -105,7 +105,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                             >
                                 {team.isFirst ? (
                                     <div className="flex justify-around items-center w-full text-white">
-                                        <div className="flex flex-col justify-between">
+                                        <div className="flex flex-col justify-center">
                                             <p className="text-[25px] font-bold">{index + 1}</p>
                                             <div className='flex flex-col gap-2'>
                                                 <h4 className="font-extrabold italic leading-4 text-xl uppercase">{team.name}</h4>
@@ -134,7 +134,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                     </div>
                                 ) : (
                                     <div className="w-full h-auto flex justify-between items-center gap-2 px-2">
-                                        <div className="flex items-center gap-4 max-[374px]:gap-1">
+                                        <div className="flex items-center gap-2 max-[374px]:gap-1">
                                             <span className="font-bold text-[14px]">{index + 1}</span>
                                             <Image
                                                 src={teamLogoPath}
@@ -142,7 +142,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                                 height={40}
                                                 alt={`Logo do time ${team.name}`}
                                             />
-                                            <div className="text-xs">{team.name}</div>
+                                            <div className="text-sm">{team.name}</div>
                                         </div>
                                         <span className="font-bold text-lg">
                                             {formatValue(team.value, title)}

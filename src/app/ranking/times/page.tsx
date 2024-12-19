@@ -169,96 +169,96 @@ export default function TeamRankingPage() {
     return (
         <RankingLayout initialFilter="times">
             <div className="pb-12 bg-[#ECECEC]">
-    <TeamRankingGroup
-        title="PASSE"
-        stats={[
-            { key: "jardas_de_passe", title: "JARDAS" },
-            { key: "passes_tentados", title: "PASSES TENT." },
-            { key: "td_passados", title: "TOUCHDOWNS" },
-            { key: "jardas_media", title: "JARDAS(AVG)" },
-            { key: "passes_completos", title: "PASSES COMP." },
-            { key: "interceptacoes_sofridas", title: "INTERCEPTAÇÕES" },
-            { key: "sacks_sofridos", title: "SACKS" },
-            { key: "fumble_de_passador", title: "FUMBLES" }
-        ]}
-        teamStats={teamStats}
-    />
+                <TeamRankingGroup
+                    title="PASSE"
+                    stats={[
+                        { key: "jardas_de_passe", title: "JARDAS" },
+                        { key: "passes_tentados", title: "PASSES TENT." },
+                        { key: "td_passados", title: "TOUCHDOWNS" },
+                        { key: "jardas_media", title: "JARDAS(AVG)" },
+                        { key: "passes_completos", title: "PASSES COMP." },
+                        { key: "interceptacoes_sofridas", title: "INTERCEPTAÇÕES" },
+                        { key: "sacks_sofridos", title: "SACKS" },
+                        { key: "fumble_de_passador", title: "FUMBLES" }
+                    ]}
+                    teamStats={teamStats}
+                />
 
-    <TeamRankingGroup
-        title="CORRIDA"
-        stats={[
-            { key: "jardas_corridas", title: "JARDAS" },
-            { key: "corridas", title: "CORRIDAS" },
-            { key: "tds_corridos", title: "TOUCHDOWNS" },
-            { key: "jardas_corridas_media", title: "JARDAS(AVG)" },
-            { key: "fumble_de_corredor", title: "FUMBLES" }
-        ]}
-        teamStats={teamStats}
-    />
+                <TeamRankingGroup
+                    title="CORRIDA"
+                    stats={[
+                        { key: "jardas_corridas", title: "JARDAS" },
+                        { key: "corridas", title: "CORRIDAS" },
+                        { key: "tds_corridos", title: "TOUCHDOWNS" },
+                        { key: "jardas_corridas_media", title: "JARDAS(AVG)" },
+                        { key: "fumble_de_corredor", title: "FUMBLES" }
+                    ]}
+                    teamStats={teamStats}
+                />
 
-    <TeamRankingGroup
-        title="RECEPÇÃO"
-        stats={[
-            { key: "jardas_recebidas", title: "JARDAS" },
-            { key: "recepcoes", title: "RECEPÇÕES" },
-            { key: "tds_recebidos", title: "TOUCHDOWNS" },
-            { key: "jardas_recebidas_media", title: "JARDAS(AVG)" },
-            { key: "fumble_de_recebedor", title: "FUMBLES" }
-        ]}
-        teamStats={teamStats}
-    />
+                <TeamRankingGroup
+                    title="RECEPÇÃO"
+                    stats={[
+                        { key: "jardas_recebidas", title: "JARDAS" },
+                        { key: "recepcoes", title: "RECEPÇÕES" },
+                        { key: "tds_recebidos", title: "TOUCHDOWNS" },
+                        { key: "jardas_recebidas_media", title: "JARDAS(AVG)" },
+                        { key: "fumble_de_recebedor", title: "FUMBLES" }
+                    ]}
+                    teamStats={teamStats}
+                />
 
-    <TeamRankingGroup
-        title="RETORNO"
-        stats={[
-            { key: "jardas_retornadas", title: "JARDAS" },
-            { key: "retornos", title: "RETORNOS" },
-            { key: "td_retornados", title: "TOUCHDOWNS" },
-            { key: "jardas_retornadas_media", title: "JARDAS(AVG)" },
-            { key: "fumble_retornador", title: "FUMBLES" }
-        ]}
-        teamStats={teamStats}
-    />
+                <TeamRankingGroup
+                    title="RETORNO"
+                    stats={[
+                        { key: "jardas_retornadas", title: "JARDAS" },
+                        { key: "retornos", title: "RETORNOS" },
+                        { key: "td_retornados", title: "TOUCHDOWNS" },
+                        { key: "jardas_retornadas_media", title: "JARDAS(AVG)" },
+                        { key: "fumble_retornador", title: "FUMBLES" }
+                    ]}
+                    teamStats={teamStats}
+                />
 
-    <TeamRankingGroup
-        title="DEFESA"
-        stats={[
-            { key: "interceptacao_forcada", title: "INTERCEPTAÇÕES" },
-            { key: "sacks_forcado", title: "SACKS" },
-            { key: "fumble_forcado", title: "FUMBLES FORÇ." },
-            { key: "td_defensivo", title: "TOUCHDOWNS" },
-            { key: "passe_desviado", title: "PASSES DESV." },
-            { key: "tackles_for_loss", title: "TACKLES(LOSS)" },
-            { key: "tackles_totais", title: "TACKLES TOTAIS" },
-            { key: "safety", title: "SAFETIES" }
-        ]}
-        teamStats={teamStats}
-    />
+                <TeamRankingGroup
+                    title="DEFESA"
+                    stats={[
+                        { key: "interceptacao_forcada", title: "INTERCEPTAÇÕES" },
+                        { key: "sacks_forcado", title: "SACKS" },
+                        { key: "fumble_forcado", title: "FUMBLES FORÇ." },
+                        { key: "td_defensivo", title: "TOUCHDOWNS" },
+                        { key: "passe_desviado", title: "PASSES DESV." },
+                        { key: "tackles_for_loss", title: "TACKLES(LOSS)" },
+                        { key: "tackles_totais", title: "TACKLES TOTAIS" },
+                        { key: "safety", title: "SAFETIES" }
+                    ]}
+                    teamStats={teamStats}
+                />
 
-    <TeamRankingGroup
-        title="CHUTE"
-        stats={[
-            { key: "field_goals", title: "FG(%)" },
-            { key: "fg_bons", title: "FG BOM" },
-            { key: "fg_mais_longo", title: "MAIS LONGO" },
-            { key: "tentativas_de_fg", title: "FG TENTADOS" },
-            { key: "extra_points", title: "XP(%)" },
-            { key: "xp_bons", title: "XP BOM" },
-            { key: "tentativas_de_xp", title: "XP TENTADOS" }
-        ]}
-        teamStats={teamStats}
-    />
+                <TeamRankingGroup
+                    title="CHUTE"
+                    stats={[
+                        { key: "field_goals", title: "FG(%)" },
+                        { key: "fg_bons", title: "FG BOM" },
+                        { key: "fg_mais_longo", title: "MAIS LONGO" },
+                        { key: "tentativas_de_fg", title: "FG TENTADOS" },
+                        { key: "extra_points", title: "XP(%)" },
+                        { key: "xp_bons", title: "XP BOM" },
+                        { key: "tentativas_de_xp", title: "XP TENTADOS" }
+                    ]}
+                    teamStats={teamStats}
+                />
 
-    <TeamRankingGroup
-        title="PUNT"
-        stats={[
-            { key: "jardas_de_punt", title: "JARDAS" },
-            { key: "punts", title: "PUNTS" },
-            { key: "jardas_punt_media", title: "JARDAS(AVG)" }
-        ]}
-        teamStats={teamStats}
-    />
-</div>
+                <TeamRankingGroup
+                    title="PUNT"
+                    stats={[
+                        { key: "jardas_de_punt", title: "JARDAS" },
+                        { key: "punts", title: "PUNTS" },
+                        { key: "jardas_punt_media", title: "JARDAS(AVG)" }
+                    ]}
+                    teamStats={teamStats}
+                />
+            </div>
         </RankingLayout>
     );
 }

@@ -60,7 +60,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
   }
 
   return (
-    <div className="mb-8">
+    <div className="mb-8 max-w-[1200px] mx-auto">
       <Link
         href={"/ranking"}
         className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50 xl:left-32 2xl:left-[500px]'>
@@ -77,7 +77,8 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
           return (
             <li
               key={player.id}
-              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
+              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md 
+                ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
                 }`}
               style={{
                 backgroundColor: index === 0 ? teamInfo.cor : undefined,
@@ -88,14 +89,14 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                 className="w-full"
               >
                 {index === 0 ? (
-                  <div className="flex justify-between items-center w-full text-white">
+                  <div className="flex justify-between items-center w-full text-white min-[375px]:pl-4 md:justify-around md:pl-6">
                     <div className="flex flex-col justify-center">
                       <p className="text-[25px] font-bold">{globalIndex}</p>
-                      <h4 className="font-bold flex flex-col leading-tight">
-                        <span className="text-[12px] font-extrabold italic uppercase leading-4">{player.nome.split(" ")[0]}</span>
-                        <span className="text-2xl font-extrabold italic uppercase leading-4">{player.nome.split(" ").slice(1).join(" ")}</span>
+                      <h4 className="font-bold flex flex-col leading-tight md:mt-2">
+                        <span className="text-[12px] font-extrabold italic uppercase leading-4 md:text-lg md:leading-5">{player.nome.split(" ")[0]}</span>
+                        <span className="text-2xl font-extrabold italic uppercase leading-4 md:text-3xl md:leading-5">{player.nome.split(" ").slice(1).join(" ")}</span>
                       </h4>
-                      <div className="flex items-center gap-1 min-w-32 max-[374px]:hidden">
+                      <div className="flex items-center gap-1 min-w-32 max-[374px]:hidden md:mt-3">
                         <Image
                           src={teamLogoPath}
                           width={40}

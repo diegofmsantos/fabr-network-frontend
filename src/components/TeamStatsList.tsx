@@ -158,7 +158,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
     const isFirstPlace = index === 0;
 
     return (
-      <div className="bg-[#ECECEC]">
+      <div className="bg-[#ECECEC] max-w-[1200px] mx-auto">
         <Link
           href={`/ranking/times`}
           className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50 xl:left-32 2xl:left-[500px]'
@@ -166,7 +166,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
           <FontAwesomeIcon icon={faAngleLeft} />
         </Link>
 
-        <div className="max-w-2xl mx-auto px-4">
+        <div>
           <Link
             key={team.time.id}
             href={`/${encodeURIComponent(team.time.nome || '')}`}
@@ -180,11 +180,11 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
               }}
             >
               {index === 0 ? (
-                <div className="flex justify-around items-center w-full text-white">
-                  <div className="flex flex-col gap-2 justify-center">
-                    <p className="text-[20px] font-bold">{index + 1}</p>
-                    <h4 className="font-extrabold italic text-xl uppercase leading-4">{team.time.nome}</h4>
-                    <div className="flex items-center gap-1 min-w-28">
+                <div className="flex justify-around items-center w-full text-white min-[375px]:px-4 md:justify-around md:pl-6">
+                  <div className="flex flex-col justify-center pt-4">
+                    <p className="text-[25px] font-bold">{index + 1}</p>
+                    <h4 className="font-extrabold italic text-xl max-w-36 uppercase leading-4 md:text-[28px] md:leading-6">{team.time.nome}</h4>
+                    <div className="flex items-center gap-1 ">
                       <Image
                         src={`/assets/times/logos/${normalizeForFilePath(team.time.nome)}.png`}
                         width={60}
@@ -221,7 +221,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
                         className='mr-4'
                       />
                     </span>
-                    <div className="font-bold text-xs">
+                    <div className=" text-sm">
                       {team.time.nome}
                     </div>
                   </div>
@@ -249,9 +249,9 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
   }
 
   return (
-    <div className="bg-[#ECECEC] py-8">
+    <div className="bg-[#ECECEC] py-8 max-w-[1200px] mx-auto">
       {/* Lista de times */}
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="">
         {rankedTeams.map((team, index) => (
           <TeamListItem
             key={team.time.id}

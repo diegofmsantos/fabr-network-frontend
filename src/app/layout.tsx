@@ -33,7 +33,9 @@ export const metadata: Metadata = {
     description: 'O banco de dados do futebol americano do Brasil.',
     siteName: 'FABR-Network',
     images: '/assets/logo-fabr-color.png'
-  }
+  },
+  themeColor: '#63E300',
+  manifest: '/manifest.json'
 };
 
 export default function RootLayout({
