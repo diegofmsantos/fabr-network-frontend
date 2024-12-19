@@ -10,7 +10,7 @@ import { TeamStatsList } from '@/components/TeamStatsList';
 import { statGroups } from '@/utils/statGroups';
 import { StatsLayout } from '@/components/StatsLayout';
 
-// Função para obter o grupo da estatística atual
+// Função getStatGroup permanece a mesma
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
         if (group.stats.some(stat => stat.urlParam === statParam)) {
@@ -20,8 +20,8 @@ const getStatGroup = (statParam: string): string => {
     return 'Passando';
 };
 
-// Componente Select atualizado
-const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
+// Componente Select em um componente separado com Suspense
+const TeamStatSelect = React.memo(({ currentStat }: { currentStat: string }) => {
     const router = useRouter();
     const currentGroup = getStatGroup(currentStat);
 
@@ -49,8 +49,11 @@ const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
             </select>
         </div>
     );
-};
+});
 
+TeamStatSelect.displayName = 'TeamStatSelect';
+
+// Componente de conteúdo separado
 function TeamStatsContent() {
     const searchParams = useSearchParams();
     const statParam = searchParams.get('stat') || 'passe-jardas';
@@ -63,29 +66,31 @@ function TeamStatsContent() {
     }
 
     return (
-        <div className="">
-            <TeamStatSelect currentStat={statParam} />
-            <TeamStatsList
-                players={players}
-                times={times}
-                statMapping={statMapping}
-            />
-        </div>
+        <Suspense fallback={<Loading />}>
+            <div className="">
+                <TeamStatSelect currentStat={statParam} />
+                <TeamStatsList
+                    players={players}
+                    times={times}
+                    statMapping={statMapping}
+                />
+            </div>
+        </Suspense>
     );
 }
 
+// Componente principal da página envolto em um Suspense
 export default function TeamStatsPage() {
     const searchParams = useSearchParams();
     const statParam = searchParams.get('stat') || '';
-    return (
-        <StatsLayout initialFilter="times" statType={statParam}>
-            {/* Conteúdo existente da página */}
 
-            <div className="bg-[#ECECEC] min-h-screen pt-7 pb-4 px-2">
-                <Suspense fallback={<Loading />}>
+    return (
+        <Suspense fallback={<Loading />}>
+            <StatsLayout initialFilter="times" statType={statParam}>
+                <div className="bg-[#ECECEC] min-h-screen pt-7 pb-4 px-2">
                     <TeamStatsContent />
-                </Suspense>
-            </div>
-        </StatsLayout>
+                </div>
+            </StatsLayout>
+        </Suspense>
     );
 }
