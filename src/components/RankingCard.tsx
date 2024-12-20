@@ -1,22 +1,22 @@
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
 
 interface PlayerCardProps {
   id: number
-  name: string;
-  team: string;
-  value: string;
-  camisa: string;
-  teamColor?: string;
-  teamLogo?: string;
-  isFirst?: boolean;
+  name: string
+  team: string
+  value: string
+  camisa: string
+  teamColor?: string
+  teamLogo?: string
+  isFirst?: boolean
 }
 
 interface RankingCardProps {
-  title: string;
+  title: string
   category: string
-  players: PlayerCardProps[];
+  players: PlayerCardProps[]
 }
 
 export const RankingCard: React.FC<RankingCardProps> = ({ title, category, players }) => {
@@ -28,14 +28,14 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9-]/g, "")
       .replace(/-+$/, '');
-  };
+  }
 
   const getShirtPath = (team: string, camisa: string): string => {
     const normalizedTeam = normalizeForFilePath(team);
     return team && team !== "time-desconhecido" && camisa
       ? `/assets/times/camisas/${normalizedTeam}/${camisa}`
-      : "/assets/times/camisas/camisa-default.png";
-  };
+      : "/assets/times/camisas/camisa-default.png"
+  }
 
   return (
     <div className="ranking-card-container px-3">
@@ -50,16 +50,14 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
               className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md ${player.isFirst ?
                 "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
                 }`}
-              style={{
-                backgroundColor: player.isFirst ? player.teamColor : undefined,
-              }}
+              style={{backgroundColor: player.isFirst ? player.teamColor : undefined }}
             >
               <Link
                 href={`/ranking/stats?stat=${normalizeForFilePath(category)}-${normalizeForFilePath(title)}`}
                 className="w-full"
               >
                 {player.isFirst ? (
-                  <div className="flex justify-between items-center w-full text-white">
+                  <div className="flex justify-between items-center w-full text-white md:px-10 lg:px-20 xl:px-32">
                     <div className="flex flex-col justify-center">
                       <p className="text-[25px] font-bold">{index + 1}</p>
                       <h4 className="font-bold flex flex-col leading-tight">
@@ -67,39 +65,32 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         <span className="text-2xl font-extrabold italic leading-4 uppercase">{player.name.split(" ").slice(1).join(" ")}</span>
                       </h4>
                       <div className="flex items-center gap-1 min-w-32 max-[374px]:hidden">
-                        <Image
-                          src={teamLogoPath}
-                          width={40}
-                          height={40}
-                          alt={`Logo do time ${player.team}`}
-                        />
+                        <Image src={teamLogoPath} width={40}  height={40} alt={`Logo do time ${player.team}`} />
                         <p className="text-[10px]">{player.team}</p>
                       </div>
                       <span className="font-extrabold italic text-[40px] max-[374px]:mt-4">{!isNaN(Number(player.value))
                         ? Number(player.value).toLocaleString('pt-BR')
                         : player.value}</span>
                     </div>
-                    <Image
-                      src={getShirtPath(player.team, player.camisa)}
-                      width={100}
-                      height={100}
-                      alt={`Camisa`}
-                      className="w-28 h-36"
-                      priority
-                    />
+                    <div className="relative w-[200px] h-[200px]">
+                      <Image
+                        src={getShirtPath(player.team, player.camisa)}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        alt={`Camisa`}
+                        className="object-contain"
+                        priority
+                        quality={100}
+                      />
+                    </div>
+                    
                   </div>
                 ) : (
-                  <div className="w-full h-auto flex justify-between items-center gap-2">
+                  <div className="w-full h-auto flex justify-between items-center gap-2 md:px-10 lg:px-20 xl:px-32">
                     <div className="flex items-center">
                       <span className="font-bold flex items-center gap-1 mr-1 max-[374px]:gap-1">
                         <div>{index + 1}</div>
-                        <Image
-                          src={teamLogoPath}
-                          width={40}
-                          height={40}
-                          alt={`Logo do time ${player.team}`}
-                          className="max-[374px]:hidden"
-                        />
+                        <Image src={teamLogoPath} width={40} height={40} alt={`Logo do time ${player.team}`} className="max-[374px]:hidden" />
                       </span>
                       <div className="flex flex-col">
                         <div className="text-[12px] min-[375px]:font-bold min-[375px]:text-sm">{player.name}</div>
@@ -125,5 +116,5 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
         </Link>
       )}
     </div>
-  );
-};
+  )
+}

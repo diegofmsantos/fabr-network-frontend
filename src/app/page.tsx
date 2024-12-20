@@ -1,11 +1,10 @@
-import { Lista } from "@/components/Lista";
-import { Metadata } from "next";
-import { getTimes } from "@/api/api";
+import { Lista } from "@/components/Lista"
+import { Metadata } from "next"
+import { getTimes } from "@/api/api"
 
 export const metadata: Metadata = {
   title: "Times",
-};
-
+}
 
 export default async function Page() {
   const times = await getTimes();
@@ -17,5 +16,5 @@ export default async function Page() {
       </h1>
       <Lista times={times} />
     </div>
-  );
+  )
 }

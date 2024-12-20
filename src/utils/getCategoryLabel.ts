@@ -7,7 +7,7 @@ export const getCategoryLabel = (category: string): string => {
     defesa: 'DEFESA',
     kicker: 'CHUTE',
     punter: 'PUNT'
-  };
+  }
 
-  return labels[category] || 'ESTATÍSTICAS';
-};
+  return labels[category] || 'ESTATÍSTICAS'
+}

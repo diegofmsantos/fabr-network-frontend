@@ -1,32 +1,28 @@
-"use client";
+"use client"
 
-import React, { Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Loading } from '@/components/ui/Loading';
-import { useStats } from '@/hooks/useStats';
-import { useTeamInfo } from '@/hooks/useTeamInfo';
-import { getStatMapping } from '@/utils/statMappings';
-import { TeamStatsList } from '@/components/TeamStatsList';
-import { teamStatGroups } from '@/utils/statGroups';
+import React, { Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { Loading } from '@/components/ui/Loading'
+import { useStats } from '@/hooks/useStats'
+import { useTeamInfo } from '@/hooks/useTeamInfo'
+import { getStatMapping } from '@/utils/statMappings'
+import { TeamStatsList } from '@/components/TeamStatsList'
+import { teamStatGroups } from '@/utils/statGroups'
 
 // Função para obter o grupo da estatística atual
 const getStatGroup = (statParam: string): string => {
     for (const group of teamStatGroups) {
         if (group.stats.some(stat => stat.urlParam === statParam)) {
-            return group.title;
+            return group.title
         }
     }
-    return 'Passando'; // Valor padrão
-};
+    return 'Passando'
+}
 
-// Componente Select atualizado
 const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
-    const router = useRouter();
-    const currentGroup = getStatGroup(currentStat);
-
-    const handleStatChange = (newStat: string) => {
-        router.push(`/ranking/times/stats?stat=${newStat}`);
-    };
+    const router = useRouter()
+    const currentGroup = getStatGroup(currentStat)
+    const handleStatChange = (newStat: string) => router.push(`/ranking/times/stats?stat=${newStat}`)
 
     return (
         <div className="mb-6">
@@ -47,30 +43,24 @@ const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
                 ))}
             </select>
         </div>
-    );
-};
+    )
+}
 
 function TeamStatsContent() {
-    const searchParams = useSearchParams();
-    const statParam = searchParams.get('stat') || 'passe-jardas';
-    const { players, times, loading } = useStats();
-    const getTeamInfo = useTeamInfo(times);
-    const statMapping = getStatMapping(statParam);
+    const searchParams = useSearchParams()
+    const statParam = searchParams.get('stat') || 'passe-jardas'
+    const { players, times, loading } = useStats()
+    const getTeamInfo = useTeamInfo(times)
+    const statMapping = getStatMapping(statParam)
 
-    if (loading) {
-        return <Loading />;
-    }
+    if (loading) return <Loading />
 
     return (
         <div className="max-w-4xl mx-auto">
             <TeamStatSelect currentStat={statParam} />
-            <TeamStatsList 
-                players={players}
-                times={times}
-                statMapping={statMapping}
-            />
+            <TeamStatsList  players={players} times={times} statMapping={statMapping} />
         </div>
-    );
+    )
 }
 
 export default function TeamStatsPage() {
@@ -80,5 +70,5 @@ export default function TeamStatsPage() {
                 <TeamStatsContent />
             </Suspense>
         </div>
-    );
+    )
 }

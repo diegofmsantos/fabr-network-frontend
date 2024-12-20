@@ -1,127 +1,122 @@
-import React from 'react';
-import Image from 'next/image';
-import { Jogador } from '@/types/jogador';
-import { Time } from '@/types/time';
-import { StatConfig } from '@/utils/statMappings';
-import NoStats from './ui/NoStats';
-import { getCategoryFromKey } from './TimeRankingGroup';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { StatsFormatter } from '@/utils/statsFormater';
-import { useRouter } from 'next/navigation';
+import React from 'react'
+import Image from 'next/image'
+import { Jogador } from '@/types/jogador'
+import { Time } from '@/types/time'
+import { StatConfig } from '@/utils/statMappings'
+import { getCategoryFromKey } from './TimeRankingGroup'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { StatsFormatter } from '@/utils/statsFormater'
+import { NoStats } from './ui/NoStats'
 
 interface TeamStatsListProps {
-  players: Jogador[];
-  times: Time[];
-  statMapping: StatConfig;
+  players: Jogador[]
+  times: Time[]
+  statMapping: StatConfig
 }
 
 interface RankedTeam {
   time: {
-    id: number;
-    nome: string;
-    cor?: string;
-    capacete?: string;
-  };
-  value: number;
+    id: number
+    nome: string
+    cor?: string
+    capacete?: string
+  }
+  value: number
 }
 
 export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, statMapping }) => {
-  const router = useRouter()
 
   const calculateTeamStat = (timeId: number): number | null => {
-    if (!timeId) return null;
+    if (!timeId) return null
     try {
-      const teamPlayers = players.filter(player => player.timeId === timeId);
-      const category = getCategoryFromKey(statMapping.key);
-      let total = 0;
-      let divisor = 0;
+      const teamPlayers = players.filter(player => player.timeId === timeId)
+      const category = getCategoryFromKey(statMapping.key)
+      let total = 0
+      let divisor = 0
 
-      // Tratamento especial para fumbles
       if (statMapping.key === 'fumble_de_passador') {
         teamPlayers.forEach(player => {
-          total += player.estatisticas.passe.fumble_de_passador;
-        });
-        return total > 0 ? total : null;
+          total += player.estatisticas.passe.fumble_de_passador
+        })
+        return total > 0 ? total : null
       }
 
-      // Tratamento especial para média de punts
       if (statMapping.key === 'jardas_punt_media') {
         teamPlayers.forEach(player => {
-          total += player.estatisticas.punter.jardas_de_punt;
-          divisor += player.estatisticas.punter.punts;
-        });
-        return divisor > 0 ? total / divisor : null;
+          total += player.estatisticas.punter.jardas_de_punt
+          divisor += player.estatisticas.punter.punts
+        })
+        return divisor > 0 ? total / divisor : null
       }
-      // Para estatísticas calculadas (médias e percentuais)
+
       if (statMapping.isCalculated) {
         switch (statMapping.key) {
           case 'passes_percentual':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.passe.passes_completos;
-              divisor += player.estatisticas.passe.passes_tentados;
-            });
-            return divisor > 0 ? (total / divisor) * 100 : null;
+              total += player.estatisticas.passe.passes_completos
+              divisor += player.estatisticas.passe.passes_tentados
+            })
+            return divisor > 0 ? (total / divisor) * 100 : null
 
           case 'jardas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.passe.jardas_de_passe;
-              divisor += player.estatisticas.passe.passes_tentados;
-            });
-            return divisor > 0 ? total / divisor : null;
+              total += player.estatisticas.passe.jardas_de_passe
+              divisor += player.estatisticas.passe.passes_tentados
+            })
+            return divisor > 0 ? total / divisor : null
 
           case 'jardas_corridas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.corrida.jardas_corridas;
-              divisor += player.estatisticas.corrida.corridas;
-            });
-            return divisor > 0 ? total / divisor : null;
+              total += player.estatisticas.corrida.jardas_corridas
+              divisor += player.estatisticas.corrida.corridas
+            })
+            return divisor > 0 ? total / divisor : null
 
           case 'jardas_recebidas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.recepcao.jardas_recebidas;
-              divisor += player.estatisticas.recepcao.alvo;
-            });
-            return divisor > 0 ? total / divisor : null;
+              total += player.estatisticas.recepcao.jardas_recebidas
+              divisor += player.estatisticas.recepcao.alvo
+            })
+            return divisor > 0 ? total / divisor : null
 
           case 'jardas_retornadas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.retorno.jardas_retornadas;
-              divisor += player.estatisticas.retorno.retornos;
-            });
-            return divisor > 0 ? total / divisor : null;
+              total += player.estatisticas.retorno.jardas_retornadas
+              divisor += player.estatisticas.retorno.retornos
+            })
+            return divisor > 0 ? total / divisor : null
 
           case 'field_goals':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.kicker.fg_bons;
-              divisor += player.estatisticas.kicker.tentativas_de_fg;
-            });
-            return divisor > 0 ? (total / divisor) * 100 : null;
+              total += player.estatisticas.kicker.fg_bons
+              divisor += player.estatisticas.kicker.tentativas_de_fg
+            })
+            return divisor > 0 ? (total / divisor) * 100 : null
 
           case 'extra_points':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.kicker.xp_bons;
-              divisor += player.estatisticas.kicker.tentativas_de_xp;
-            });
-            return divisor > 0 ? (total / divisor) * 100 : null;
+              total += player.estatisticas.kicker.xp_bons
+              divisor += player.estatisticas.kicker.tentativas_de_xp
+            })
+            return divisor > 0 ? (total / divisor) * 100 : null
         }
       }
 
-      // Para estatísticas normais
       teamPlayers.forEach(player => { // @ts-ignore
-        const value = player.estatisticas[category]?.[statMapping.key];
+        const value = player.estatisticas[category]?.[statMapping.key]
         if (typeof value === 'number') {
-          total += value;
+          total += value
         }
-      });
+      })
 
-      return total || null;
+      return total || null
     } catch (error) {
-      console.error(`Error calculating stat:`, error);
-      return null;
+      console.error(`Error calculating stat:`, error)
+      return null
     }
-  };
+  }
 
   const normalizeForFilePath = (input: string): string => {
     return input
@@ -141,21 +136,20 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
       team.value !== null &&
       typeof team.value === 'number' &&
       !isNaN(team.value) &&
-      team.value > 0  // Adicionamos esta condição
+      team.value > 0 
     )
     .sort((a, b) => {
-      if (a.value === null || b.value === null) return 0;
+      if (a.value === null || b.value === null) return 0
       if (b.value === a.value) {
         // @ts-ignore
-        return a.time.nome.localeCompare(b.time.nome);
+        return a.time.nome.localeCompare(b.time.nome)
       }
-      return b.value - a.value;
-    });
+      return b.value - a.value
+    })
 
 
 
   const TeamListItem: React.FC<{ team: RankedTeam; index: number }> = ({ team, index }) => {
-    const isFirstPlace = index === 0;
 
     return (
       <div className="bg-[#ECECEC] max-w-[1200px] mx-auto">
@@ -175,9 +169,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
             <li
               className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md 
                         ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"}`}
-              style={{
-                backgroundColor: index === 0 ? team.time.cor : undefined,
-              }}
+              style={{ backgroundColor: index === 0 ? team.time.cor : undefined }}
             >
               {index === 0 ? (
                 <div className="flex justify-around items-center w-full text-white min-[375px]:px-4 md:justify-around md:pl-6">
@@ -234,8 +226,8 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
           </Link>
         </div>
       </div>
-    );
-  };
+    )
+  }
 
   if (!rankedTeams.length) {
     return (
@@ -245,24 +237,16 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
           <NoStats />
         </div>
       </div>
-    );
+    )
   }
 
   return (
     <div className="bg-[#ECECEC] py-8 max-w-[1200px] mx-auto">
-      {/* Lista de times */}
       <div className="">
         {rankedTeams.map((team, index) => (
-          <TeamListItem
-            key={team.time.id}
-            team={team}
-            index={index}
-          />
+          <TeamListItem key={team.time.id} team={team} index={index} />
         ))}
       </div>
-
-      {/* Explicação em uma div separada */}
-
     </div>
-  );
-};
+  )
+}

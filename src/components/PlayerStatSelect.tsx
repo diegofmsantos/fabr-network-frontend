@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { statGroups } from '@/utils/statGroups';
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { statGroups } from '@/utils/statGroups'
 
 interface PlayerStatSelectProps {
     currentStat: string;
@@ -11,23 +11,23 @@ interface PlayerStatSelectProps {
 // Função para obter o grupo da estatística atual
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
-        const stat = group.stats.find(s => s.urlParam === statParam);
+        const stat = group.stats.find(s => s.urlParam === statParam)
         if (stat) {
-            return group.title;
+            return group.title
         }
     }
-    return 'Passando';
-};
+    return 'Passando'
+}
 
 export const PlayerStatSelect: React.FC<PlayerStatSelectProps> = ({ currentStat }) => {
-    const router = useRouter();
-    const currentGroup = getStatGroup(currentStat);
-    const [selectedStat, setSelectedStat] = useState(currentStat);
+    const router = useRouter()
+    const currentGroup = getStatGroup(currentStat)
+    const [selectedStat, setSelectedStat] = useState(currentStat)
 
     const handleStatChange = (newStat: string) => {
-        setSelectedStat(newStat);
-        router.push(`/ranking/stats?stat=${newStat}`);
-    };
+        setSelectedStat(newStat)
+        router.push(`/ranking/stats?stat=${newStat}`)
+    }
 
     return (
         <div className="mb-6">
@@ -48,5 +48,5 @@ export const PlayerStatSelect: React.FC<PlayerStatSelectProps> = ({ currentStat 
                 ))}
             </select>
         </div>
-    );
-};
+    )
+}

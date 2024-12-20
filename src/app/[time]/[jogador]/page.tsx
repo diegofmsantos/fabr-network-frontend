@@ -21,7 +21,7 @@ import { SemJogador } from "@/components/SemJogador"
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
     return jogadores.find((jogador) => jogador.id === jogadorId) || null
-};
+}
 
 export default function Page() {
     const params = useParams()
@@ -32,15 +32,11 @@ export default function Page() {
             : parseInt(params.jogador, 10)
         : null
 
-    if (jogadorId === null || isNaN(jogadorId)) {
-        throw new Error("ID do jogador é inválido ou não foi fornecido.")
-    }
+    if (jogadorId === null || isNaN(jogadorId)) throw new Error("ID do jogador é inválido ou não foi fornecido.")
 
     const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
     const [loading, setLoading] = useState(true)
-    const [season, setSeason] = useState('2024');
-
-
+    const [season, setSeason] = useState('2024')
     const { scrollY } = useScroll()
     const opacity = useTransform(scrollY, [0, 200], [1, 0])
     const height = useTransform(scrollY, [0, 200], [340, 50])
@@ -48,14 +44,13 @@ export default function Page() {
     useEffect(() => {
         const fetchJogador = async () => {
             try {
-                if (!jogadorId) {
-                    throw new Error("ID do jogador não encontrado.")
-                }
+                if (!jogadorId) throw new Error("ID do jogador não encontrado.")
 
                 const jogadores = await getJogadores()
                 const jogadorEncontrado = findJogador(jogadores, jogadorId)
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
+
                     // Buscar o time completo associado ao jogador
                     const times = await getTimes()
                     const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
@@ -81,23 +76,8 @@ export default function Page() {
     }, [jogadorId])
 
     if (loading) { return <Loading /> }
-
-    if (jogadorData?.jogador.nome == '') {
-        return (
-            <div>
-                <SemJogador />
-            </div>
-        )
-    }
-
-    if (!jogadorData) {
-        return (
-            <div>
-                <JogadorSkeleton />
-                <p>Jogador não encontrado ou ocorreu um erro.</p>
-            </div>
-        )
-    }
+    if (jogadorData?.jogador.nome == '') return (<div><SemJogador /></div>)
+    if (!jogadorData) return (<div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p> </div>)
 
     const { jogador: currentJogador, time: currentTime } = jogadorData
 
@@ -136,7 +116,7 @@ export default function Page() {
                         style={{ backgroundColor: currentTime?.cor }} >
                         <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
                             <div className='text-white text-center font-bold text-xs uppercase  mb-4'>{currentTime?.nome}</div>
-                            <div className='flex justify-center items-end gap-1 min-[375px]:gap-3 md:w-screen md:justify-around md:items-center max-w-[1200px]'>
+                            <div className='flex justify-center items-end gap-1 min-[375px]:gap-3 md:w-screen md:justify-around md:items-center md:px-20 max-w-[1200px]'>
                                 <div className='flex-1 flex-col items-start'>
                                     <div className='text-[28px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] min-[375px]:text-[32px] md:text-[40px] lg:text-5xl'>
                                         {currentJogador.nome.toLocaleUpperCase()}
@@ -178,7 +158,7 @@ export default function Page() {
                     transition={{ duration: 0.5 }}
                 >
                     <div className="w-full bg-[#ECECEC] flex flex-col justify-center items-center">
-                        <div className="w-full mt-4 flex justify-center">
+                        <div className="w-full flex justify-center">
                             <SelectFilter
                                 label="TEMPORADA"
                                 value={season}

@@ -1,45 +1,37 @@
 "use client"
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { RankingFilters } from './FilterButton';
-import { SelectFilter } from './SelectFilter';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { RankingFilters } from './FilterButton'
+import { SelectFilter } from './SelectFilter'
 
 interface StatsLayoutProps {
     children: React.ReactNode;
-    initialFilter: 'jogadores' | 'times';
-    statType: string;
+    initialFilter: 'jogadores' | 'times'
+    statType: string
 }
 
 export function StatsLayout({ children, initialFilter, statType }: StatsLayoutProps) {
-    const router = useRouter();
-    const [season, setSeason] = useState('2024');
-
+    const router = useRouter()
+    const [season, setSeason] = useState('2024')
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
-        // Pegar o parâmetro stat atual da URL
-        const searchParams = new URLSearchParams(window.location.search);
-        const currentStat = searchParams.get('stat');
+        const searchParams = new URLSearchParams(window.location.search)
+        const currentStat = searchParams.get('stat')
 
         if (filter === 'jogadores') {
-            router.push(`/ranking/stats?stat=${currentStat}`);
+            router.push(`/ranking/stats?stat=${currentStat}`)
         } else {
-            router.push(`/ranking/times/stats?stat=${currentStat}`);
+            router.push(`/ranking/times/stats?stat=${currentStat}`)
         }
-    };
+    }
 
-    const handleSeasonChange = (newSeason: string) => {
-        setSeason(newSeason);
-    };
+    const handleSeasonChange = (newSeason: string) => setSeason(newSeason)
 
     return (
         <div className="min-h-screen bg-[#ECECEC] max-w-[1200px] mx-auto">
             <div className="w-full pt-20">
-                <RankingFilters
-                    currentFilter={initialFilter}
-                    onFilterChange={handleFilterChange}
-                    isStatsPage={true}
-                />
+                <RankingFilters currentFilter={initialFilter} onFilterChange={handleFilterChange} isStatsPage={true} />
                 <div className="w-full mt-8 flex justify-center">
                     <SelectFilter
                         label="TEMPORADA"
@@ -54,5 +46,5 @@ export function StatsLayout({ children, initialFilter, statType }: StatsLayoutPr
                 {children}
             </div>
         </div>
-    );
+    )
 }

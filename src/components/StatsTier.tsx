@@ -1,26 +1,26 @@
-import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { StatsExplicacao } from './StatsExplicacao';
+import React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { StatsExplicacao } from './StatsExplicacao'
 
 interface PlayerStats {
-  player: any;
+  player: any
   teamInfo: {
-    nome: string;
-    cor: string;
-  };
-  value: string | number;
-  index: number;
+    nome: string
+    cor: string
+  }
+  value: string | number
+  index: number
 }
 
 interface StatsTierProps {
-  title: string;
-  players: PlayerStats[];
-  backgroundColor?: string;
-  statsType: 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT';
-  isLastTier?: boolean;
+  title: string
+  players: PlayerStats[]
+  backgroundColor?: string
+  statsType: 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT'
+  isLastTier?: boolean
 }
 
 const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor = 'bg-black', statsType, isLastTier = false }) => {
@@ -29,22 +29,22 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
       .replace(/\s+/g, '-')
       .normalize('NFD')
       .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9-]/g, '');
+      .replace(/[^a-z0-9-]/g, '')
 
   const getShirtPath = (team: string, camisa: string): string => {
     const normalizedTeam = normalizeForFilePath(team);
     return team && team !== "time-desconhecido" && camisa
       ? `/assets/times/camisas/${normalizedTeam}/${camisa}`
-      : "/assets/times/camisas/camisa-default.png";
-  };
+      : "/assets/times/camisas/camisa-default.png"
+  }
 
   const formatNumber = (value: string | number): string => {
     if (typeof value === 'number') {
-      return value.toLocaleString('pt-BR');
+      return value.toLocaleString('pt-BR')
     }
     const num = parseInt(value);
-    return isNaN(num) ? value : num.toLocaleString('pt-BR');
-  };
+    return isNaN(num) ? value : num.toLocaleString('pt-BR')
+  }
 
   if (players.length === 0) {
     return (
@@ -56,7 +56,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
           Nenhum jogador encontrado
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -72,7 +72,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
       <ul className="flex flex-col text-white h-full">
         {players.map(({ player, teamInfo, value, index }) => {
           const teamLogoPath = `/assets/times/logos/${normalizeForFilePath(teamInfo.nome)}.png`;
-          const globalIndex = index + 1;
+          const globalIndex = index + 1
 
           return (
             <li
@@ -80,9 +80,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
               className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md 
                 ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"
                 }`}
-              style={{
-                backgroundColor: index === 0 ? teamInfo.cor : undefined,
-              }}
+              style={{ backgroundColor: index === 0 ? teamInfo.cor : undefined }}
             >
               <Link
                 href={`/${normalizeForFilePath(teamInfo.nome)}/${player.id}`}
@@ -97,12 +95,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                         <span className="text-2xl font-extrabold italic uppercase leading-4 md:text-3xl md:leading-5">{player.nome.split(" ").slice(1).join(" ")}</span>
                       </h4>
                       <div className="flex items-center gap-1 min-w-32 max-[374px]:hidden md:mt-3">
-                        <Image
-                          src={teamLogoPath}
-                          width={40}
-                          height={40}
-                          alt={`Logo do time ${teamInfo.nome}`}
-                        />
+                        <Image src={teamLogoPath} width={40} height={40} alt={`Logo do time ${teamInfo.nome}`} />
                         <p className="text-[10px]">{teamInfo.nome}</p>
                       </div>
                       <span className="font-extrabold italic text-[40px] max-[374px]:mt-4">{value}</span>
@@ -125,13 +118,7 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                     <div className="flex items-center md:w-60">
                       <span className="font-bold flex items-center gap-2">
                         <div>{globalIndex}</div>
-                        <Image
-                          src={teamLogoPath}
-                          width={40}
-                          height={40}
-                          alt={`Logo do time ${teamInfo.nome}`}
-                          className=""
-                        />
+                        <Image src={teamLogoPath} width={40} height={40} alt={`Logo do time ${teamInfo.nome}`} />
                       </span>
                       <div className="flex flex-col">
                         <div className="font-bold text-[14px]">{player.nome}</div>
@@ -143,12 +130,12 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
                 )}
               </Link>
             </li>
-          );
+          )
         })}
       </ul>
       {isLastTier && statsType && <StatsExplicacao type={statsType} />}
     </div>
-  );
-};
+  )
+}
 
-export default StatsTier;
+export default StatsTier

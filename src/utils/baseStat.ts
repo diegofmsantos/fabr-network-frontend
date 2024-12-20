@@ -1,13 +1,13 @@
-import { DefesaStats, StatsBase } from "@/types/Stats";
-import { CategoryKey } from "./categoryThresholds";
+import { DefesaStats, StatsBase } from "@/types/Stats"
+import { CategoryKey } from "./categoryThresholds"
 
 export class BaseStatCalculator {
     static calculate(stats: StatsBase[keyof StatsBase], category: CategoryKey): number {
       switch (category) {
         case 'defesa':
-          return this.calculateDefenseTotal(stats as DefesaStats);
+          return this.calculateDefenseTotal(stats as DefesaStats)
         default:
-          return this.getBasicStat(stats, category);
+          return this.getBasicStat(stats, category)
       }
     }
   
@@ -31,7 +31,7 @@ export class BaseStatCalculator {
         kicker: 'tentativas_de_fg',
         punter: 'punts',
         defesa: 'tackles_totais'
-      };
+      }
   
       return stats[statMap[category]] || 0;
     }

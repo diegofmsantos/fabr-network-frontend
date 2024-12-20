@@ -1,32 +1,29 @@
-"use client";
+"use client"
 
-import { Time } from "@/types/time";
-import Image from "next/image";
-import Link from "next/link";
-import { motion } from "framer-motion";
+import { Time } from "@/types/time"
+import Image from "next/image"
+import Link from "next/link"
+import { motion } from "framer-motion"
 
 interface ListaProps {
-    times: Time[];
+    times: Time[]
 }
 
 export const Lista = ({ times }: ListaProps) => {
     const itemVariants = {
         hidden: { opacity: 0, x: 50 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
-    };
-
-    if (!times || times.length === 0) {
-        return <div className="text-center text-gray-500">Nenhum time encontrado.</div>;
     }
+
+    if (!times || times.length === 0) return <div className="text-center text-gray-500">Nenhum time encontrado.</div>
 
     return (
         <motion.div
-            className="grid grid-cols-3 gap-4 px-3 pt-56 pb-20 container bg-[#ECECEC] relative min-[400px]:grid-cols-4 md:grid-cols-5 md:pt-48 md:gap-5 lg:px-20 xl:mx-auto lg:grid-cols-6 xl:grid-cols-8"
+            className="grid grid-cols-3 gap-4 px-3 pt-56 pb-20 container bg-[#ECECEC] relative 
+            min-[400px]:grid-cols-4 md:grid-cols-5 md:pt-48 md:gap-5 lg:px-20 xl:mx-auto lg:grid-cols-6 xl:grid-cols-8"
             initial="hidden"
             animate="visible"
-            variants={{
-                visible: { transition: { staggerChildren: 0.1 } },
-            }}
+            variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
         >
             {times
                 .sort((a, b) => (a.sigla ?? "").localeCompare(b.sigla ?? ""))
@@ -47,16 +44,12 @@ export const Lista = ({ times }: ListaProps) => {
                                     <Image
                                         src={`/assets/times/capacetes/${item.capacete}`}
                                         alt="Capacete"
-                                        width={90}  // Aumentando um pouco o tamanho base
-                                        height={90} // Mantendo proporção quadrada
-                                        quality={100} // Máxima qualidade
-                                        priority // Carregamento prioritário
-                                        className="w-24 h-14 rotate-12 md:h-16 md:mt-2" // Ajustando classes
-                                        style={{
-                                            imageRendering: 'crisp-edges', // Melhora a nitidez
-                                            WebkitFontSmoothing: 'antialiased',
-                                            objectFit: 'contain'  // Mantém a proporção
-                                        }}
+                                        width={90}
+                                        height={90}
+                                        quality={100}
+                                        priority
+                                        className="w-24 h-14 rotate-12 md:h-16 md:mt-2"
+                                        style={{ imageRendering: 'crisp-edges', WebkitFontSmoothing: 'antialiased', objectFit: 'contain' }}
                                     />
 
                                     <Image
@@ -67,10 +60,7 @@ export const Lista = ({ times }: ListaProps) => {
                                         quality={100}
                                         priority
                                         className="md:w-14"
-                                        style={{
-                                            imageRendering: 'crisp-edges',
-                                            WebkitFontSmoothing: 'antialiased'
-                                        }}
+                                        style={{ imageRendering: 'crisp-edges', WebkitFontSmoothing: 'antialiased' }}
                                     />
                                 </div>
                             </div>
@@ -78,5 +68,5 @@ export const Lista = ({ times }: ListaProps) => {
                     </motion.div>
                 ))}
         </motion.div>
-    );
-};
+    )
+}

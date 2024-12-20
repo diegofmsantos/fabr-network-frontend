@@ -19,18 +19,17 @@ import TeamNameHeader from "@/components/TeamHeader"
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
 export default function Page() {
+
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
   const timeName = Array.isArray(params.time) ? params.time[0] : params.time
-
   const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
   const [loadingTeam, setLoadingTeam] = useState(true)
   const [loadingJogadores, setLoadingJogadores] = useState(false)
   const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "bio")
   const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE")
   const [season, setSeason] = useState('2024');
-
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 200], [1, 0])
   const height = useTransform(scrollY, [0, 200], [330, 50])
@@ -39,9 +38,7 @@ export default function Page() {
     async function fetchCurrentTeam() {
       setLoadingTeam(true)
       try {
-        if (!timeName) {
-          throw new Error("Nome do time não encontrado.")
-        }
+        if (!timeName) throw new Error("Nome do time não encontrado.")
 
         const teams = await getTimes()
         const team = teams?.find(
@@ -85,10 +82,8 @@ export default function Page() {
     router.replace(`?show=jogadores&setor=${encodeURIComponent(setor)}`)
   }
 
-  if (loadingTeam) { return <Loading /> }
-
-  if (!currentTeam) { return <div>Time não encontrado</div> }
-
+  if (loadingTeam) return <Loading />
+  if (!currentTeam) return <div>Time não encontrado</div>
   const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`
 
   return (
@@ -128,16 +123,8 @@ export default function Page() {
           </motion.div>
 
           <motion.div className="flex justify-between gap-8 mt-4 md:mt-8" style={{ opacity }}>
-            <ButtonTime
-              label="BIO"
-              onClick={handleShowBio}
-              isSelected={selectedButton === "bio"}
-            />
-            <ButtonTime
-              label="JOGADORES"
-              onClick={handleShowJogadores}
-              isSelected={selectedButton === "jogadores"}
-            />
+            <ButtonTime label="BIO" onClick={handleShowBio} isSelected={selectedButton === "bio"} />
+            <ButtonTime label="JOGADORES" onClick={handleShowJogadores} isSelected={selectedButton === "jogadores"} />
           </motion.div>
         </motion.div>
       </motion.div>
@@ -151,7 +138,7 @@ export default function Page() {
           transition={{ duration: 0.5 }}
         >
           <div className="sticky top-[55px] w-full xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto z-40 bg-[#ECECEC]">
-            <div className="w-full mt-4 flex justify-center">
+            <div className="w-full flex justify-center">
               <SelectFilter
                 label="TEMPORADA"
                 value={season}
@@ -163,24 +150,9 @@ export default function Page() {
               />
             </div>
             <section className="w-full flex items-center justify-between gap-5 py-5 px-4 md:px-6">
-              <ButtonSetor
-                label="ATAQUE"
-                borderColor={currentTeam.cor || "#000"}
-                isSelected={selectedSetor === "ATAQUE"}
-                onClick={() => handleSetorChange("ATAQUE")}
-              />
-              <ButtonSetor
-                label="DEFESA"
-                borderColor={currentTeam.cor || "#000"}
-                isSelected={selectedSetor === "DEFESA"}
-                onClick={() => handleSetorChange("DEFESA")}
-              />
-              <ButtonSetor
-                label="SPECIAL"
-                borderColor={currentTeam.cor || "#000"}
-                isSelected={selectedSetor === "SPECIAL"}
-                onClick={() => handleSetorChange("SPECIAL")}
-              />
+              <ButtonSetor label="ATAQUE" borderColor={currentTeam.cor || "#000"} isSelected={selectedSetor === "ATAQUE"} onClick={() => handleSetorChange("ATAQUE")} />
+              <ButtonSetor label="DEFESA" borderColor={currentTeam.cor || "#000"} isSelected={selectedSetor === "DEFESA"} onClick={() => handleSetorChange("DEFESA")} />
+              <ButtonSetor label="SPECIAL" borderColor={currentTeam.cor || "#000"} isSelected={selectedSetor === "SPECIAL"} onClick={() => handleSetorChange("SPECIAL")} />
             </section>
           </div>
           <div className="xl:border min-h-screen">

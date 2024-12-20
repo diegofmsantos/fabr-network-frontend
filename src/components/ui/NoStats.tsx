@@ -1,4 +1,4 @@
-const NoStats = () => {
+export const NoStats = () => {
     return (
       <div className="flex flex-col items-center justify-center p-4 bg-gray-100 rounded-lg">
         <p className="text-gray-500 text-lg font-medium">Sem estatísticas disponíveis</p>
@@ -6,5 +6,3 @@ const NoStats = () => {
       </div>
     )
   }
-  
-  export default NoStats

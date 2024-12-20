@@ -63,16 +63,16 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon" />
       </head>
       <body className="bg-[#ECECEC]">
-        <header className="w-full h-20 bg-[#63E300] flex justify-center items-end px-2 fixed z-50">
+        <header className="w-full h-20 bg-[#272731] flex justify-center items-end px-2 fixed z-50">
           <Link href="/" className="w-40 h-20 flex justify-center items-end p-2 md:w-28 md:h-14">
             <Image
-              src="/assets/logo-fabr-color-1.png"
-              width={150}
-              height={75}
+              src="/assets/logo-fabr-color.png"
+              width={120}
+              height={60}
               alt="logo-fabr"
               quality={100}
               priority
-              style={{ width: '150px', height: '75px', objectFit: 'contain' }}
+              style={{ width: '120px', height: '60px', objectFit: 'contain' }}
             />
           </Link>
         </header>

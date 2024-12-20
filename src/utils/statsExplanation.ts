@@ -69,4 +69,4 @@ export const statsExplanations = {
         ],
         totalPlayers: "186 punts/37 jogadores = 5"
     } 
-};
+}

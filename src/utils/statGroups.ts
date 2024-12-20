@@ -1,4 +1,4 @@
-import { StatGroup } from '@/types/Stats';
+import { StatGroup } from '@/types/Stats'
 
 export const statGroups: StatGroup[] = [
     {
@@ -86,9 +86,8 @@ export const statGroups: StatGroup[] = [
             { title: 'Punts', urlParam: 'punt-punts' }
         ]
     }
-];
+]
 
-// Grupos de estatísticas específicos para times
 export const teamStatGroups: StatGroup[] = [
     {
         title: 'PASSE',
@@ -172,5 +171,4 @@ export const teamStatGroups: StatGroup[] = [
             { title: 'Jardas(AVG)', urlParam: 'punt-jardasavg' }
         ]
     }
-];
-
+]

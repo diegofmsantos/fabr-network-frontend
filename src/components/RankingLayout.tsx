@@ -1,31 +1,29 @@
-// src/components/RankingLayout.tsx
 "use client"
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { RankingFilters } from './FilterButton';
-import { SelectFilter } from './SelectFilter';
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { RankingFilters } from './FilterButton'
+import { SelectFilter } from './SelectFilter'
 interface RankingLayoutProps {
-    children: React.ReactNode;
-    initialFilter: 'jogadores' | 'times';
+    children: React.ReactNode
+    initialFilter: 'jogadores' | 'times'
 }
 
 export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
-    const router = useRouter();
-    const [season, setSeason] = useState('2024');
+    const router = useRouter()
+    const [season, setSeason] = useState('2024')
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
         if (filter === 'jogadores') {
-            router.push('/ranking');
+            router.push('/ranking')
         } else {
-            router.push('/ranking/times');
+            router.push('/ranking/times')
         }
-    };
+    }
 
     const handleSeasonChange = (newSeason: string) => {
-        setSeason(newSeason);
-        // Aqui você pode adicionar lógica adicional quando a temporada mudar
-    };
+        setSeason(newSeason)
+    }
 
     return (
         <div className="min-h-screen max-w-[1200px] mx-auto bg-[#ECECEC]">
@@ -48,5 +46,5 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
                 {children}
             </div>
         </div>
-    );
+    )
 }

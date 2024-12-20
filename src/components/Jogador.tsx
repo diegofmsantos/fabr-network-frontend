@@ -6,7 +6,6 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
-import { JogadorSkeleton } from "./ui/JogadorSkeleton"
 import { SemJogador } from "./SemJogador"
 
 type Props = {
@@ -21,7 +20,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     useEffect(() => {
         const fetchJogadores = async () => {
             try {
-                // Certifique-se de que o time e o setor estão definidos
                 if (!currentTeam || !selectedSetor) {
                     console.warn("Time ou setor não definidos corretamente.")
                     return
@@ -46,10 +44,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
             }
         }
 
-        // Só busca se houver time e setor selecionados
-        if (currentTeam && selectedSetor) {
-            fetchJogadores()
-        }
+        if (currentTeam && selectedSetor) fetchJogadores()
+
     }, [currentTeam, selectedSetor])
 
     const calcularExperiencia = (anoInicio: number) => {
@@ -57,23 +53,12 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         return anoAtual - anoInicio
     }
 
-    if (jogadoresFiltrados.length === 0) {
-        return (
-            <div>
-                <JogadorSkeleton />
-                <JogadorSkeleton />
-                <JogadorSkeleton />
-            </div>
-        )
-    }
+    if (jogadoresFiltrados.length === 0) return (<div className="text-center text-lg italic">Nenhum jogador encontrado.</div>)
 
-    const todosJogadoresSemNome = jogadoresFiltrados.length > 0 && 
-        jogadoresFiltrados.every(jogador => !jogador.nome || jogador.nome === "");
+    const todosJogadoresSemNome = jogadoresFiltrados.length > 0 &&
+        jogadoresFiltrados.every(jogador => !jogador.nome || jogador.nome === "")
 
-    // Se todos estão sem nome, mostra o componente SemJogador
-    if (todosJogadoresSemNome) {
-        return <SemJogador />;
-    }
+    if (todosJogadoresSemNome) return <SemJogador />
 
     return (
         <div className="w-full flex flex-col gap-3 px-4 pb-4 z-50">
@@ -98,14 +83,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         }
                     >
                         <div className="min-w-20 md:flex-1 md:flex md:justify-center">
-                            <Image
-                                src={camisaPath}
-                                width={100}
-                                height={100}
-                                alt="Camisa"
-                                quality={100}
-                                className="w-16 h-20 md:w-20 md:h-24"
-                            />
+                            <Image src={camisaPath} width={100} height={100} alt="Camisa" quality={100} className="w-16 h-20 md:w-20 md:h-24" />
                         </div>
                         <div className="flex flex-col gap-3 md:flex-1">
                             <div className="flex items-center gap-2">

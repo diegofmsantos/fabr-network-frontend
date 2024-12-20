@@ -21,7 +21,6 @@ export const CurrentTime = ({ currentTeam }: Props) => {
 
     const bandeiraspath = `/assets/bandeiras/${currentTeam.bandeira_estado}`;
 
-
     return (
         <div className="p-4 mb-6 flex flex-col gap-8 xl:max-w-[1200px] xl:min-w-[1100px] xl:m-auto">
             <div>
@@ -48,14 +47,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                                 {currentTeam.cidade?.toUpperCase() ?? 'Cidade não disponível'}
                             </div>
                             <div className="w-6 h-4">
-                                <Image
-                                    src={bandeiraspath}
-                                    alt="bandeira do estado"
-                                    width={40}
-                                    height={20}
-                                    quality={100} 
-                                    className="w-auto h-auto"
-                                />
+                                <Image src={bandeiraspath} alt="bandeira do estado" width={40} height={20} quality={100} className="w-auto h-auto"/>
                             </div>
                         </div>
                     </div>

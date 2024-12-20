@@ -1,45 +1,44 @@
-"use client";
+"use client"
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { statGroups } from '@/utils/statGroups';
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { statGroups } from '@/utils/statGroups'
 
-// Interface para as propriedades do select
 interface TeamStatSelectProps {
-    currentStat: string;
+    currentStat: string
 }
 
 // Função para obter o grupo da estatística atual
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
-        const stat = group.stats.find(s => s.urlParam === statParam);
+        const stat = group.stats.find(s => s.urlParam === statParam)
         if (stat) {
-            return group.title;
+            return group.title
         }
     }
-    return 'Passando';
-};
+    return 'Passando'
+}
 
 // Função para obter o título da estatística atual
 const getStatTitle = (statParam: string): string => {
     for (const group of statGroups) {
-        const stat = group.stats.find(s => s.urlParam === statParam);
+        const stat = group.stats.find(s => s.urlParam === statParam)
         if (stat) {
             return stat.title;
         }
     }
-    return '';
-};
+    return ''
+}
 
 export const TeamStatSelect: React.FC<TeamStatSelectProps> = ({ currentStat }) => {
-    const router = useRouter();
-    const currentGroup = getStatGroup(currentStat);
-    const [selectedStat, setSelectedStat] = useState(currentStat);
 
+    const router = useRouter()
+    const currentGroup = getStatGroup(currentStat)
+    const [selectedStat, setSelectedStat] = useState(currentStat)
     const handleStatChange = (newStat: string) => {
-        setSelectedStat(newStat);
-        router.push(`/ranking/times/stats?stat=${newStat}`);
-    };
+        setSelectedStat(newStat)
+        router.push(`/ranking/times/stats?stat=${newStat}`)
+    }
 
     return (
         <div className="mb-6">
@@ -60,5 +59,5 @@ export const TeamStatSelect: React.FC<TeamStatSelectProps> = ({ currentStat }) =
                 ))}
             </select>
         </div>
-    );
-};
+    )
+}
