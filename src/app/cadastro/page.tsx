@@ -1,4 +1,5 @@
 "use client";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 
 export default function Cadastro() {
@@ -25,6 +26,7 @@ export default function Cadastro() {
     } else {
       alert("Erro no cadastro");
     }
+    redirect("/")
   };
 
   return (

@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -15,7 +16,7 @@ export default function Login() {
       body: JSON.stringify({ email, senha }),
     });
     if (response.ok) {
-      router.push("/app"); // Redireciona para a área logada
+      router.push("/app")
     } else {
       alert("Login inválido!");
     }
@@ -44,6 +45,10 @@ export default function Login() {
       >
         Entrar
       </button>
+      <div className="flex gap-2 items-center mt-4">
+        <div>Não tem uma conta?</div>
+        <Link href="/cadastro" className="underline">Cadastre-se</Link>
+      </div>
     </div>
-  );
+  )
 }
