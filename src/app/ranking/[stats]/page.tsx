@@ -11,7 +11,6 @@ import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
 import { ProcessedPlayer } from '@/types/processedPlayer';
 import { StatType } from '@/types/Stats';
-import { TeamStatSelect } from '@/components/StatSelect';
 import { PlayerStatSelect } from '@/components/PlayerStatSelect';
 import { StatsLayout } from '@/components/StatsLayout';
 

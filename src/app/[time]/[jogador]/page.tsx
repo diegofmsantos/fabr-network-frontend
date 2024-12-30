@@ -14,7 +14,6 @@ import { getJogadores, getTimes } from "@/api/api"
 import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton"
 import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
-import TeamNameHeader from "@/components/TeamHeader"
 import PlayerNameHeader from "@/components/PlayerNameHeader"
 import { SemJogador } from "@/components/SemJogador"
 

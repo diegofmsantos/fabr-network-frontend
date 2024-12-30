@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     'Safety Brasil', 'Linebacker Brasil', 'Special Teams Brasil', 'Placekicker Brasil', 'Punter Brasil', 'Cornerback Brasil', 'Tight End Brasil',
     'Final Nacional FA', 'Semifinal BFA', 'Norte Bowl', 'Sul Bowl', 'Nordeste Bowl', 'Centro-Oeste Bowl', 'Sudeste Bowl', 'Tryouts Brasil FA', 'Preseason BFA',
     'All-Star Game Brasil FA', 'Field Goal Brasil', 'Extra Point Brasil', 'Two Point Conversion', 'Fair Catch Brasil', 'Snap Brasil', 'Huddle Brasil', 'Blitz Brasil FA',
-    'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças'
+    'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças', 'Almirantes FA', ''
   ],
   openGraph: {
     title: 'FABR-Network',

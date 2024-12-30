@@ -13,7 +13,7 @@
   @apply rounded-full !important;
   @apply flex items-center justify-center !important;
   @apply z-10 !important;
-  @apply hidden !important; /* Esconde por padrão */
+  @apply hidden !important; 
   @apply absolute !important;
   @apply top-[200px] !important;
 }
@@ -22,7 +22,7 @@
 @media (min-width: 860px) {
   .slick-prev,
   .slick-next {
-    @apply block !important; /* Mostra apenas acima de 860px */
+    @apply block !important; 
   }
 
   .slick-prev {
