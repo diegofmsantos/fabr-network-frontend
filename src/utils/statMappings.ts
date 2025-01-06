@@ -1,6 +1,6 @@
 import { Jogador } from '@/types/jogador'
 import { CategoryKey, CATEGORY_THRESHOLDS, getTierForValue } from './categoryThresholds'
-import { StatKey } from '@/components/RankingGroup'
+import { StatKey } from '@/components/Ranking/RankingGroup'
 
 export interface StatConfig {
     key: string
