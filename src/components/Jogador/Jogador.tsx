@@ -6,7 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
-import { SemJogador } from "./SemJogador"
+import { SemJogador } from "../SemJogador"
 
 type Props = {
     currentTeam: Time

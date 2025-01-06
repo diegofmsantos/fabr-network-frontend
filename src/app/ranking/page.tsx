@@ -4,8 +4,8 @@ import { getJogadores } from "@/api/api";
 import { useEffect, useState } from "react";
 import { Jogador } from "@/types/jogador";
 import { Loading } from "@/components/ui/Loading";
-import { RankingGroup } from "@/components/RankingGroup";
-import { RankingLayout } from "@/components/RankingLayout";
+import { RankingLayout } from "@/components/Ranking/RankingLayout";
+import { RankingGroup } from "@/components/Ranking/RankingGroup";
 
 export default function Page() {
     const [players, setPlayers] = useState<Jogador[]>([]);

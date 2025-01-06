@@ -6,9 +6,9 @@ import { Loading } from '@/components/ui/Loading';
 import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { getStatMapping } from '@/utils/statMappings';
-import { TeamStatsList } from '@/components/TeamStatsList';
+import { TeamStatsList } from '@/components/Stats/TeamStatsList';
 import { statGroups } from '@/utils/statGroups';
-import { StatsLayout } from '@/components/StatsLayout';
+import { StatsLayout } from '@/components/Stats/StatsLayout';
 
 // Função getStatGroup permanece a mesma
 const getStatGroup = (statParam: string): string => {

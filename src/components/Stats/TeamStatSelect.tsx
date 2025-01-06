@@ -6,7 +6,7 @@ import { Loading } from '@/components/ui/Loading'
 import { useStats } from '@/hooks/useStats'
 import { useTeamInfo } from '@/hooks/useTeamInfo'
 import { getStatMapping } from '@/utils/statMappings'
-import { TeamStatsList } from '@/components/TeamStatsList'
+import { TeamStatsList } from '@/components/Stats/TeamStatsList'
 import { teamStatGroups } from '@/utils/statGroups'
 
 // Função para obter o grupo da estatística atual

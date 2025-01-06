@@ -5,14 +5,14 @@ import { useSearchParams } from 'next/navigation';
 import { Loading } from '@/components/ui/Loading';
 import { CategoryKey, getTierTitle, getTierForValue } from '@/utils/categoryThresholds';
 import { getStatMapping } from '@/utils/statMappings';
-import StatsTier from '@/components/StatsTier';
+import StatsTier from '@/components/Stats/StatsTier';
 import { useStats } from '@/hooks/useStats';
 import { useTeamInfo } from '@/hooks/useTeamInfo';
 import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
 import { ProcessedPlayer } from '@/types/processedPlayer';
 import { StatType } from '@/types/Stats';
-import { PlayerStatSelect } from '@/components/PlayerStatSelect';
-import { StatsLayout } from '@/components/StatsLayout';
+import { PlayerStatSelect } from '@/components/Stats/PlayerStatSelect';
+import { StatsLayout } from '@/components/Stats/StatsLayout';
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams();

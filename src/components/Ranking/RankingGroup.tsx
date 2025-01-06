@@ -6,8 +6,8 @@ import { getTimes } from '@/api/api'
 import { RankingCard } from './RankingCard'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
-import { NoStats } from './ui/NoStats'
 import { calculateStat, compareValues, shouldIncludePlayer } from '@/utils/statMappings'
+import { NoStats } from '../ui/NoStats'
 
 type StatisticKey =
   | keyof Jogador['estatisticas']['passe']

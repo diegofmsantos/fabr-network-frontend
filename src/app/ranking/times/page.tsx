@@ -5,8 +5,8 @@ import { getJogadores } from "@/api/api";
 import { useEffect, useState } from "react";
 import { Jogador } from "@/types/jogador";
 import { Loading } from "@/components/ui/Loading";
-import { TeamRankingGroup } from '@/components/TimeRankingGroup';
-import { RankingLayout } from '@/components/RankingLayout';
+import { RankingLayout } from '@/components/Ranking/RankingLayout';
+import { TeamRankingGroup } from '@/components/Ranking/TimeRankingGroup';
 
 // Tipo para as estatísticas agregadas do time
 interface TeamStats {
