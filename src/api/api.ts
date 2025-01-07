@@ -27,8 +27,7 @@ const processJogadoresDoTime = (time: Time): Jogador[] => {
   
   return jogadores.map(jogador => ({
     ...jogador,
-    timeId: time.id ?? 0,  // Fornece um valor padrão se time.id for undefined
-    timeFormador: time.nome ?? ''  // Fornece um valor padrão se time.nome for undefined
+    timeId: time.id ?? 0,
   }))
 }
 
