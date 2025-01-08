@@ -24,7 +24,6 @@ export default function NoticiasPage() {
         fetchNoticias();
     }, []);
 
-
     return (
         <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4">
             <h1 className="text-[40px] bg-[#ECECEC] fixed mt-16 z-50 ml-2 text-black w-full p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase xl:ml-20 2xl:ml-48">
