@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'FABR-Network',
-    description: 'O banco de dados do futebol americano do Brasil.',
+    description: 'A plataforma de estatísticas do FABR.',
     siteName: 'FABR-Network',
     images: '/assets/logo-fabr-color.png'
   }

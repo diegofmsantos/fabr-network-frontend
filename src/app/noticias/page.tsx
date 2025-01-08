@@ -3,14 +3,36 @@
 import { Noticias } from '@/data/noticias'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useState, useEffect } from 'react'
+import { Noticia } from '@/types/noticia'
+import { getNoticias } from '@/api/api'
 
 export default function NoticiasPage() {
+    const [noticias, setNoticias] = useState<Noticia[]>([]);
+
+    useEffect(() => {
+        const fetchNoticias = async () => {
+            try {
+                // Usa a função getNoticias para buscar as notícias
+                const noticiasResponse = await getNoticias();
+                setNoticias(noticiasResponse);
+            } catch (error) {
+                console.error('Erro ao carregar notícias:', error);
+            }
+        };
+
+        fetchNoticias();
+    }, []);
+
+
     return (
         <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4">
-            <h1 className="text-[40px] bg-[#ECECEC] fixed mt-16 z-50 text-black w-full p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase">Últimas Notícias</h1>
-            <div className="container mx-auto px-4 mt-32 mb-10">
-                <div className="grid grid-cols-1 gap-6">
-                    {Noticias.map((noticia) => (
+            <h1 className="text-[40px] bg-[#ECECEC] fixed mt-16 z-50 ml-2 text-black w-full p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase xl:ml-20 2xl:ml-48">
+                Últimas Notícias
+            </h1>
+            <div className="container mx-auto px-4 mt-40 mb-10">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    {noticias.map((noticia) => (
                         <Link href={`/noticias/${noticia.id}`} key={noticia.id}>
                             <div className="rounded-lg overflow-hidden shadow-lg bg-white">
                                 <div className="relative h-48 w-full">

@@ -1,62 +1,123 @@
-// app/noticias/[id]/page.tsx
 "use client"
 
 import { Noticias } from '@/data/noticias'
+import { Noticia } from '@/types/noticia'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
+import { useState, useEffect } from 'react'
 
 export default function NoticiaDetalhes() {
-  const params = useParams()
-  const noticiaId = Number(params.id)
+ const params = useParams()
+ const noticiaId = Number(params.id)
+ const [noticia, setNoticia] = useState<Noticia | undefined>()
+ const [loading, setLoading] = useState(true)
 
-  const noticia = Noticias.find(n => n.id === noticiaId)
+ useEffect(() => {
+   // Tenta buscar do localStorage
+   const storedNoticias = localStorage.getItem('fabr_noticias')
+   if (storedNoticias) {
+     try {
+       const parsedNoticias = JSON.parse(storedNoticias)
+       const foundNoticia = parsedNoticias.find((n: Noticia) => n.id === noticiaId)
+       if (foundNoticia) {
+         setNoticia(foundNoticia)
+         setLoading(false)
+         return
+       }
+     } catch (error) {
+       console.error('Erro ao carregar notícia do localStorage:', error)
+     }
+   }
 
-  if (!noticia) {
-    return (
-      <div className="min-h-screen bg-[#1C1C24] flex justify-center items-center">
-        <p className="text-white">Notícia não encontrada</p>
-      </div>
-    )
-  }
+   // Se não encontrar no localStorage, usa os dados estáticos
+   const staticNoticia = Noticias.find(n => n.id === noticiaId)
+   setNoticia(staticNoticia)
+   setLoading(false)
+ }, [noticiaId])
 
-  return (
-    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px]">
-      <Link
-        href={`/noticias`}
-        className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50 xl:left-32 2xl:left-[500px]'
-      >
-        <FontAwesomeIcon icon={faAngleLeft} />
-      </Link>
-      <div className="container mx-auto p-4 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl font-bold mb-4">{noticia.titulo}</h1>
-          <h2 className="text-xl text-gray-400 mb-6">{noticia.subtitulo}</h2>
+ if (loading) {
+   return (
+     <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
+       <p>Carregando...</p>
+     </div>
+   )
+ }
 
-          <div className="relative h-64 w-full mb-8">
-            <Image
-              src={noticia.imagem}
-              alt={noticia.titulo}
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
+ if (!noticia) {
+   return (
+     <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
+       <p>Notícia não encontrada</p>
+     </div>
+   )
+ }
 
-          <div className="flex justify-between items-center text-sm text-gray-500 mb-8">
-            <span>Por {noticia.autor}</span>
-            <span>{new Date(noticia.createdAt).toLocaleDateString('pt-BR')}</span>
-          </div>
+ return (
+   <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px]">
+     <Link
+       href={`/noticias`}
+       className='fixed top-8 left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center bg-gray-200/20 z-50 xl:left-32 2xl:left-[500px]'
+     >
+       <FontAwesomeIcon icon={faAngleLeft} />
+     </Link>
+     <div className="container mx-auto p-4 bg-white">
+       <div className="max-w-4xl mx-auto">
+         <h1 className="text-3xl font-bold mb-4">{noticia.titulo}</h1>
+         <h2 className="text-xl text-gray-400 mb-6">{noticia.subtitulo}</h2>
 
-          <div
-            className="prose max-w-none"
-            style={{ whiteSpace: 'pre-line' }}
-          >
-            {noticia.texto}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+         <div className="relative h-64 w-full mb-8">
+           <Image
+             src={noticia.imagem}
+             alt={noticia.titulo}
+             fill
+             className="object-cover rounded-lg"
+           />
+         </div>
+
+         <div className="flex justify-between items-center gap-1 mb-8">
+           <div className='flex items-center gap-1'>
+             <div className="relative w-10 h-10">
+               <Image
+                 src={noticia.autorImage}
+                 alt={noticia.autor}
+                 fill
+                 className="rounded-full object-cover"
+               />
+             </div>
+             <span className="text-xs text-gray-500">Por {noticia.autor}</span>
+           </div>
+           <div className='flex flex-col gap-2 italic'>
+             <span className="text-xs text-gray-500">
+               Postado: {new Date(noticia.createdAt).toLocaleString('pt-BR', {
+                 day: '2-digit',
+                 month: '2-digit',
+                 year: 'numeric',
+                 hour: '2-digit',
+                 minute: '2-digit'
+               })}
+             </span>
+             <span className="text-xs text-gray-500">
+               Atualizado: {new Date(noticia.updatedAt).toLocaleString('pt-BR', {
+                 day: '2-digit',
+                 month: '2-digit',
+                 year: 'numeric',
+                 hour: '2-digit',
+                 minute: '2-digit'
+               })}
+             </span>
+           </div>
+         </div>
+
+         <div
+           className="prose max-w-none"
+           style={{ whiteSpace: 'pre-line' }}
+         >
+           {noticia.texto}
+         </div>
+       </div>
+     </div>
+   </div>
+ )
 }
