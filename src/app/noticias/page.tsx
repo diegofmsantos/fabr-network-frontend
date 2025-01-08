@@ -6,9 +6,11 @@ import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { Noticia } from '@/types/noticia'
 import { getNoticias } from '@/api/api'
+import { Loading } from '@/components/ui/Loading'
 
 export default function NoticiasPage() {
-    const [noticias, setNoticias] = useState<Noticia[]>([]);
+    const [noticias, setNoticias] = useState<Noticia[]>([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const fetchNoticias = async () => {
@@ -18,11 +20,22 @@ export default function NoticiasPage() {
                 setNoticias(noticiasResponse);
             } catch (error) {
                 console.error('Erro ao carregar notícias:', error);
+            } finally {
+                setLoading(false)
             }
-        };
+        }
 
-        fetchNoticias();
-    }, []);
+        fetchNoticias()
+    }, [])
+
+    if (loading) {
+        return (
+          <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
+            <Loading />
+          </div>
+        )
+      }
+
 
     return (
         <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4">

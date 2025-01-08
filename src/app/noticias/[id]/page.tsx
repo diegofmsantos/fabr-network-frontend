@@ -1,49 +1,84 @@
 "use client"
 
 import { getNoticias } from '@/api/api'
+import { Loading } from '@/components/ui/Loading'
 import { Noticia } from '@/types/noticia'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import Slider from 'react-slick'
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+
+// Função helper para embaralhar e filtrar notícias
+function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
+  return allNews
+    .filter(news => news.id !== currentNewsId)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, limit);
+}
 
 export default function NoticiaDetalhes() {
   const params = useParams()
-  const noticiaId = Number(params.id) // Obtém o ID da notícia a partir da URL
+  const noticiaId = Number(params.id)
   const [loading, setLoading] = useState(true)
   const [noticias, setNoticias] = useState<Noticia[]>([])
   const [noticia, setNoticia] = useState<Noticia | null>(null)
 
+  const SLIDER_SETTINGS = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1.2,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  }
+
   useEffect(() => {
     const fetchNoticias = async () => {
       try {
-        // Usa a função getNoticias para buscar as notícias
-        const noticiasResponse = await getNoticias();
+        const noticiasResponse = await getNoticias()
         setNoticias(noticiasResponse);
       } catch (error) {
-        console.error('Erro ao carregar notícias:', error);
+        console.error('Erro ao carregar notícias:', error)
       } finally {
-        setLoading(false) // Marca o carregamento como concluído
+        setLoading(false)
       }
-    };
+    }
 
-    fetchNoticias();
-  }, []);
+    fetchNoticias()
+  }, [])
 
-  // Filtra a notícia específica com base no ID
   useEffect(() => {
     if (noticias.length > 0) {
       const foundNoticia = noticias.find(n => n.id === noticiaId)
       setNoticia(foundNoticia || null)
     }
-  }, [noticias, noticiaId]);
+  }, [noticias, noticiaId])
 
   if (loading) {
     return (
       <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
-        <p>Carregando...</p>
+        <Loading />
       </div>
     )
   }
@@ -69,13 +104,22 @@ export default function NoticiaDetalhes() {
           <h1 className="text-3xl font-bold mb-4">{noticia.titulo}</h1>
           <h2 className="text-xl text-gray-400 mb-6">{noticia.subtitulo}</h2>
 
+          {/* Container da imagem com legenda */}
           <div className="relative h-64 w-full mb-8">
             <Image
               src={noticia.imagem}
               alt={noticia.titulo}
               fill
               className="object-cover rounded-lg"
+              loading="lazy"
+              placeholder="blur"
+              blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx0fHRsdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/2wBDAR0XFyAeIB4dHiAeHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
             />
+            {noticia.legenda && (
+              <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-sm">
+                {noticia.legenda}
+              </div>
+            )}
           </div>
 
           <div className="flex justify-between items-center gap-1 mb-8">
@@ -114,9 +158,122 @@ export default function NoticiaDetalhes() {
 
           <div
             className="prose max-w-none"
-            style={{ whiteSpace: 'pre-line' }}
-          >
-            {noticia.texto}
+            dangerouslySetInnerHTML={{
+              __html: noticia.texto
+                .replace(/<p>&nbsp;<\/p>/g, '<p></p>')
+                .replace(/&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});/gi, match => {
+                  const entities: { [key: string]: string } = {
+                    '&aacute;': 'á',
+                    '&eacute;': 'é',
+                    '&iacute;': 'í',
+                    '&oacute;': 'ó',
+                    '&uacute;': 'ú',
+                    '&ccedil;': 'ç',
+                    '&atilde;': 'ã',
+                    '&otilde;': 'õ',
+                    '&acirc;': 'â',
+                    '&ecirc;': 'ê',
+                    '&ocirc;': 'ô',
+                    '&nbsp;': ' ',
+                  };
+                  return entities[match] || match;
+                })
+            }}
+            style={{ // @ts-ignore
+              '& a': {
+                color: '#0066cc',
+                textDecoration: 'underline',
+              },
+              '& a:hover': {
+                textDecoration: 'none',
+              },
+              '& p': {
+                marginBottom: '1rem',
+              },
+              '& strong': {
+                fontWeight: 'bold',
+              },
+              '& em': {
+                fontStyle: 'italic',
+              }
+            }}
+          />
+
+          {/* Seção de Mais Notícias */}
+          <div className="border-t mt-8">
+            <div className='flex items-center gap-2'>
+              <Link href="https://www.instagram.com/fabrnetwork/" target='_blank'>
+                <Image src={`/assets/instagram.png`} alt='logo instagram' width={45} height={45} />
+              </Link>
+              <Link
+                href="https://wa.me/+5581998725448"
+                target="_blank"
+                className="flex items-center justify-center size-8 bg-green-500 rounded-md text-white  hover:bg-green-600 transition-colors"
+              >
+                <Image src={`/assets/whatsapp.png`} alt="logo whatsapp" width={20} height={20} quality={100} priority />
+              </Link>
+            </div>
+            <h3 className="text-2xl font-bold my-6">Mais notícias</h3>
+
+            <div className="mb-6 pl-4 pr-4 overflow-x-hidden overflow-y-hidden">
+              <Slider {...SLIDER_SETTINGS}>
+                {shuffleAndFilterNews(noticias, noticia.id).map((newsItem) => (
+                  <div key={newsItem.id} className="px-2">
+                    <Link href={`/noticias/${newsItem.id}`}>
+                      <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
+                        <div className="relative h-48 w-full">
+                          <Image
+                            src={newsItem.imagem}
+                            alt={newsItem.titulo}
+                            fill
+                            className="object-cover rounded-t-lg"
+                            loading="lazy"
+                          />
+                        </div>
+
+                        <div className="p-4">
+                          <h4 className="font-bold text-lg mb-2 line-clamp-2">
+                            {newsItem.titulo}
+                          </h4>
+                          <p className="text-gray-600 text-sm line-clamp-2">
+                            {newsItem.subtitulo}
+                          </p>
+
+                          <div className="mt-4 flex items-center justify-between">
+                            <div className="flex items-center space-x-2">
+                              <div className="relative w-8 h-8">
+                                <Image
+                                  src={newsItem.autorImage}
+                                  alt={newsItem.autor}
+                                  fill
+                                  className="rounded-full object-cover"
+                                />
+                              </div>
+                              <span className="text-xs text-gray-500">
+                                {newsItem.autor}
+                              </span>
+                            </div>
+                            <span className="text-xs text-gray-400">
+                              {new Date(newsItem.createdAt).toLocaleDateString('pt-BR')}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </Slider>
+            </div>
+
+            {/* Botão Ver Todas as Notícias */}
+            <div className="mt-8 text-center">
+              <Link
+                href="/noticias"
+                className="inline-block px-6 py-3 bg-[#63E300] text-black rounded-lg hover:bg-[#50B800] transition-colors"
+              >
+                Ver todas as notícias
+              </Link>
+            </div>
           </div>
         </div>
       </div>
