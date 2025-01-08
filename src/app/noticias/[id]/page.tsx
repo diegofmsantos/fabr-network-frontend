@@ -102,7 +102,7 @@ export default function NoticiaDetalhes() {
       <div className="container mx-auto p-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-4">{noticia.titulo}</h1>
-          <h2 className="text-xl text-gray-400 mb-6">{noticia.subtitulo}</h2>
+          <h2 className="text-[18px] text-gray-400 mb-6">{noticia.subtitulo}</h2>
 
           {/* Container da imagem com legenda */}
           <div className="relative h-64 w-full mb-8">
@@ -122,8 +122,8 @@ export default function NoticiaDetalhes() {
             )}
           </div>
 
-          <div className="flex justify-between items-center gap-1 mb-8">
-            <div className='flex items-center gap-1'>
+          <div className="flex flex-col justify-between items-start gap-2 mb-8">
+            <div className='flex items-center gap-3'>
               <div className="relative w-10 h-10">
                 <Image
                   src={noticia.autorImage}
@@ -134,7 +134,7 @@ export default function NoticiaDetalhes() {
               </div>
               <span className="text-xs text-gray-500">Por {noticia.autor}</span>
             </div>
-            <div className='flex flex-col gap-2 italic'>
+            <div className='flex  gap-2 italic'>
               <span className="text-xs text-gray-500">
                 Postado: {new Date(noticia.createdAt).toLocaleString('pt-BR', {
                   day: '2-digit',
@@ -157,10 +157,14 @@ export default function NoticiaDetalhes() {
           </div>
 
           <div
-            className="prose max-w-none"
+            className="prose max-w-none flex flex-col gap-1 [&>a]:text-[#0066cc] [&>a]:underline hover:[&>a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
             dangerouslySetInnerHTML={{
               __html: noticia.texto
-                .replace(/<p>&nbsp;<\/p>/g, '<p></p>')
+                .replace(/<p>&nbsp;<\/p>/g, '')
+                .split('\n')
+                .filter(line => line.trim())
+                .map(line => `<p>${line}</p>`)
+                .join('')
                 .replace(/&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});/gi, match => {
                   const entities: { [key: string]: string } = {
                     '&aacute;': 'á',
@@ -179,24 +183,6 @@ export default function NoticiaDetalhes() {
                   return entities[match] || match;
                 })
             }}
-            style={{ // @ts-ignore
-              '& a': {
-                color: '#0066cc',
-                textDecoration: 'underline',
-              },
-              '& a:hover': {
-                textDecoration: 'none',
-              },
-              '& p': {
-                marginBottom: '1rem',
-              },
-              '& strong': {
-                fontWeight: 'bold',
-              },
-              '& em': {
-                fontStyle: 'italic',
-              }
-            }}
           />
 
           {/* Seção de Mais Notícias */}
@@ -213,7 +199,7 @@ export default function NoticiaDetalhes() {
                 <Image src={`/assets/whatsapp.png`} alt="logo whatsapp" width={20} height={20} quality={100} priority />
               </Link>
             </div>
-            <h3 className="text-2xl font-bold my-6">Mais notícias</h3>
+            <h3 className="text-2xl font-bold my-6 border-b-4 border-b-[#63E300]">Mais notícias</h3>
 
             <div className="mb-6 pl-4 pr-4 overflow-x-hidden overflow-y-hidden">
               <Slider {...SLIDER_SETTINGS}>

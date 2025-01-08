@@ -30,16 +30,17 @@ export default function NoticiasPage() {
 
     if (loading) {
         return (
-          <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
-            <Loading />
-          </div>
+            <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
+                <Loading />
+            </div>
         )
-      }
+    }
 
 
     return (
         <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4">
-            <h1 className="text-[40px] bg-[#ECECEC] fixed mt-16 z-50 ml-2 text-black w-full p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase xl:ml-20 2xl:ml-48">
+            <h1
+                className="text-[40px] bg-[#ECECEC] fixed mt-16 z-50 ml-2 text-black w-full p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase xl:ml-20 2xl:ml-44">
                 Últimas Notícias
             </h1>
             <div className="container mx-auto px-4 mt-40 mb-10">
