@@ -1,10 +1,10 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Materia } from '@/types/noticia'
+import { Noticia } from '@/types/noticia'
 
 interface NoticiaCardProps {
-  noticia: Materia
+  noticia: Noticia
 }
 
 export const NoticiaCard = ({ noticia }: NoticiaCardProps) => {
