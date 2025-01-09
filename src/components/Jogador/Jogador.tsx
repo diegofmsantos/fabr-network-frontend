@@ -7,6 +7,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
 import { SemJogador } from "../SemJogador"
+import { getPlayerSlug, getTeamSlug } from "@/utils/formatUrl"
 
 type Props = {
     currentTeam: Time
@@ -67,8 +68,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                 const experienciaAnos = calcularExperiencia(jogador.experiencia)
 
                 return (
-                    <Link
-                        href={`/${currentTeam.nome}/${jogador.id}`}
+                    <Link href={`/${getTeamSlug(currentTeam.nome)}/${getPlayerSlug(jogador.nome)}`}
                         key={jogador.id}
                         className="flex h-24 justify-between items-center p-2 rounded-md border text-sm bg-white min-[425px]:p-4
                             md:text-base md:justify-center md:h-28 xl:text-lg xl:max-w-[1200px] xl:min-w-[1100px] o transition duration-300"

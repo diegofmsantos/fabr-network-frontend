@@ -15,15 +15,27 @@ import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
 import TeamNameHeader from "@/components/Time/TeamHeader"
+import ShareButton from "@/components/ui/buttonShare"
+import { createSlug, getTeamSlug } from "@/utils/formatUrl"
+import Link from "next/link"
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
 export default function Page() {
 
-  const params = useParams()
-  const router = useRouter()
-  const searchParams = useSearchParams()
-  const timeName = Array.isArray(params.time) ? params.time[0] : params.time
+  const params = useParams();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  useEffect(() => {
+    const currentPath = params.time?.toString() || '';
+    if (currentPath.includes('%20')) {
+      const decodedPath = decodeURIComponent(currentPath);
+      const correctSlug = createSlug(decodedPath);
+      router.replace(`/${correctSlug}`);
+    }
+  }, [params.time, router]);
+  const timeName = Array.isArray(params.time) ? params.time[0] : params.time;
+  const decodedTimeName = timeName ? decodeURIComponent(timeName).replace(/-/g, ' ') : '';
   const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
   const [loadingTeam, setLoadingTeam] = useState(true)
   const [loadingJogadores, setLoadingJogadores] = useState(false)
@@ -36,33 +48,36 @@ export default function Page() {
 
   useEffect(() => {
     async function fetchCurrentTeam() {
-      setLoadingTeam(true)
+      setLoadingTeam(true);
       try {
-        if (!timeName) throw new Error("Nome do time não encontrado.")
+        if (!timeName) throw new Error("Nome do time não encontrado.");
 
-        const teams = await getTimes()
-        const team = teams?.find(
-          (t) =>
-            t.nome &&
-            t.nome.toLowerCase() === decodeURIComponent(timeName).toLowerCase()
-        ) || null
-        setCurrentTeam(team)
+        const teams = await getTimes();
+        // Procura o time tanto pelo nome exato quanto pelo slug
+        const team = teams?.find((t) => {
+          if (!t.nome) return false;
+          const teamSlug = getTeamSlug(t.nome);
+          const currentSlug = createSlug(timeName);
+          return teamSlug === currentSlug;
+        }) || null;
+
+        setCurrentTeam(team);
 
         if (team && team.nome) {
-          document.title = `${team.nome}`
+          document.title = `${team.nome}`;
         } else {
-          document.title = "Time não encontrado"
+          document.title = "Time não encontrado";
         }
       } catch (error) {
-        console.error("Erro ao buscar os times:", error)
-        document.title = "Erro ao carregar time"
-        setCurrentTeam(null)
+        console.error("Erro ao buscar os times:", error);
+        document.title = "Erro ao carregar time";
+        setCurrentTeam(null);
       } finally {
-        setLoadingTeam(false)
+        setLoadingTeam(false);
       }
     }
 
-    fetchCurrentTeam()
+    fetchCurrentTeam();
   }, [timeName]);
 
   const handleShowBio = () => {
@@ -87,21 +102,26 @@ export default function Page() {
   const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`
 
   return (
-    <div className="pt-20 pb-14 bg-[#ECECEC]">
-      
+    <div className="pt-[79px] pb-14 bg-[#ECECEC]">
       <TeamNameHeader teamName={currentTeam?.nome} />
       <motion.div className="fixed z-50 w-full" style={{ height }}>
+        <ShareButton
+          title={currentTeam.nome}
+          variant="team"
+          buttonStyle="absolute"
+          className="xl:right-32 2xl:right-96"
+        />
         <motion.div
           className="p-4 w-full h-full flex flex-col justify-center items-center rounded-b-xl max-w-[1200px] mx-auto"
           style={{ backgroundColor: currentTeam.cor || "#000" }}
         >
-          <button
-            onClick={() => router.back()}
+          <Link
+            href="/"
             className="absolute top-2 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20 xl:left-32 2xl:left-96 3xl:56"
           >
             {currentTeam.sigla || "N/A"}
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
-          </button>
+          </Link>
           <TeamNameHeader teamName={currentTeam?.nome} />
           <motion.div className="flex flex-col justify-center items-center md:mb-4" style={{ opacity, pointerEvents: 'none' }}>
             <div className="text-[45px] mt-2 text-white text-center px-6 font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl md:mt-4">

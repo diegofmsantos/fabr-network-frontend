@@ -16,6 +16,8 @@ import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
 import PlayerNameHeader from "@/components/Jogador/PlayerNameHeader"
 import { SemJogador } from "@/components/SemJogador"
+import { findPlayerBySlug, getPlayerSlug } from "@/utils/formatUrl"
+import ShareButton from "@/components/ui/buttonShare"
 
 // Função para buscar o jogador por ID
 const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
@@ -23,62 +25,68 @@ const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null =>
 }
 
 export default function Page() {
-    const params = useParams()
-    const router = useRouter()
-    const jogadorId = params.jogador
-        ? Array.isArray(params.jogador)
-            ? parseInt(params.jogador[0], 10)
-            : parseInt(params.jogador, 10)
-        : null
 
-    if (jogadorId === null || isNaN(jogadorId)) throw new Error("ID do jogador é inválido ou não foi fornecido.")
+    const params = useParams();
+    const router = useRouter();
+    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [season, setSeason] = useState('2024');
+    const { scrollY } = useScroll();
+    const opacity = useTransform(scrollY, [0, 200], [1, 0]);
+    const height = useTransform(scrollY, [0, 200], [340, 50]);
 
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
-    const [loading, setLoading] = useState(true)
-    const [season, setSeason] = useState('2024')
-    const { scrollY } = useScroll()
-    const opacity = useTransform(scrollY, [0, 200], [1, 0])
-    const height = useTransform(scrollY, [0, 200], [340, 50])
+    useEffect(() => {
+        const redirectToNamedUrl = async () => {
+            if (!isNaN(Number(params.jogador))) {
+                const jogadores = await getJogadores();
+                const jogador = jogadores.find(j => j.id === Number(params.jogador));
+                if (jogador) {
+                    const time = decodeURIComponent(params.time as string);
+                    const jogadorSlug = getPlayerSlug(jogador.nome);
+                    router.replace(`/${time}/${jogadorSlug}`);
+                }
+            }
+        };
+        redirectToNamedUrl();
+    }, [params.jogador, params.time, router]);
 
     useEffect(() => {
         const fetchJogador = async () => {
             try {
-                if (!jogadorId) throw new Error("ID do jogador não encontrado.")
+                if (!params.jogador) return;
 
-                const jogadores = await getJogadores()
-                const jogadorEncontrado = findJogador(jogadores, jogadorId)
+                const jogadores = await getJogadores();
+                const jogadorSlug = params.jogador.toString();
+                const jogadorEncontrado = findPlayerBySlug(jogadores, jogadorSlug);
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
-
-                    // Buscar o time completo associado ao jogador
-                    const times = await getTimes()
-                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
+                    const times = await getTimes();
+                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
 
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
-                        })
-                        // Atualizar o título da página com o nome do time e do jogador
-                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
+                        });
+                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`;
                     }
                 }
             } catch (error) {
-                console.error("Erro ao buscar os jogadores:", error)
-                setJogadorData(null)
+                console.error("Erro ao buscar os jogadores:", error);
+                setJogadorData(null);
             } finally {
-                setLoading(false)
+                setLoading(false);
             }
-        }
+        };
 
-        fetchJogador()
-    }, [jogadorId])
+        fetchJogador();
+    }, [params.jogador]);
 
-    if (loading) { return <Loading /> }
-    if (jogadorData?.jogador.nome == '') return (<div><SemJogador /></div>)
-    if (!jogadorData) return (<div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p> </div>)
+    if (loading) return <Loading />;
+    if (!jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>;
+    if (jogadorData.jogador.nome === '') return <div><SemJogador /></div>;
 
-    const { jogador: currentJogador, time: currentTime } = jogadorData
+    const { jogador: currentJogador, time: currentTime } = jogadorData;
 
     // Caminho para o logo do time e para a camisa do jogador
     const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`
@@ -96,7 +104,7 @@ export default function Page() {
         <AnimatePresence>
             <motion.div
                 className="relative min-h-screen pb-16 bg-[#ECECEC]"
-                key={jogadorId}
+                key={currentJogador.id}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -110,9 +118,15 @@ export default function Page() {
                     <FontAwesomeIcon icon={faAngleLeft} />
                 </button>
                 <PlayerNameHeader playerName={currentJogador.nome} />
-                <motion.div className='fixed top-0 w-full z-20' style={{ height }} >
+                <motion.div className='fixed w-full z-20' style={{ height }} >
                     <motion.div className='mt-20 px-1 w-full h-full flex flex-col justify-center items-center rounded-b-xl min-[375px]:px-3 md:h-full max-w-[1200px] mx-auto'
                         style={{ backgroundColor: currentTime?.cor }} >
+                        <ShareButton
+                            title={jogadorData.jogador.nome}
+                            variant="player"
+                            buttonStyle="fixed"
+                            className="xl:right-32 2xl:right-96"
+                        />
                         <motion.div style={{ opacity }} className="w-full max-w-[1200px]">
                             <div className='text-white text-center font-bold text-xs uppercase  mb-4'>{currentTime?.nome}</div>
                             <div className='flex justify-center items-end gap-1 min-[375px]:gap-3 md:w-screen md:justify-around md:items-center md:px-20 max-w-[1200px]'>

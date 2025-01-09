@@ -13,6 +13,7 @@ import { useState, useEffect, useRef } from 'react'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import ShareButton from '@/components/ui/buttonShare'
 
 // Função helper para embaralhar e filtrar notícias
 function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
@@ -155,7 +156,6 @@ export default function NoticiaDetalhes() {
               </span>
             </div>
           </div>
-
           <div
             className="prose max-w-none flex flex-col gap-1 [&>a]:text-[#0066cc] [&>a]:underline hover:[&>a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
             dangerouslySetInnerHTML={{
@@ -186,19 +186,8 @@ export default function NoticiaDetalhes() {
           />
 
           {/* Seção de Mais Notícias */}
-          <div className="border-t mt-8">
-            <div className='flex items-center gap-2'>
-              <Link href="https://www.instagram.com/fabrnetwork/" target='_blank'>
-                <Image src={`/assets/instagram.png`} alt='logo instagram' width={45} height={45} />
-              </Link>
-              <Link
-                href="https://wa.me/+5581998725448"
-                target="_blank"
-                className="flex items-center justify-center size-8 bg-green-500 rounded-md text-white  hover:bg-green-600 transition-colors"
-              >
-                <Image src={`/assets/whatsapp.png`} alt="logo whatsapp" width={20} height={20} quality={100} priority />
-              </Link>
-            </div>
+          <div className="border-t">
+
             <h3 className="text-2xl font-bold my-6 border-b-4 border-b-[#63E300]">Mais notícias</h3>
 
             <div className="mb-6 pl-4 pr-4 overflow-x-hidden overflow-y-hidden">
