@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Share2, Facebook, Twitter, Instagram, Link, MessageCircle } from 'lucide-react';
+import { Share, Facebook, Twitter, Instagram, Link, MessageCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 interface ShareButtonProps {
@@ -94,7 +94,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                     : 'absolute top-3'
                     } right-3 rounded-lg text-[#63E300] ${className}`}
             >
-                <Share2 className="w-6 h-6" />
+                <Share className="w-6 h-6" />
             </button>
 
             {isOpen && (
