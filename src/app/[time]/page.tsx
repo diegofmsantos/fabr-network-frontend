@@ -88,6 +88,7 @@ export default function Page() {
 
   return (
     <div className="pt-20 pb-14 bg-[#ECECEC]">
+      
       <TeamNameHeader teamName={currentTeam?.nome} />
       <motion.div className="fixed z-50 w-full" style={{ height }}>
         <motion.div
