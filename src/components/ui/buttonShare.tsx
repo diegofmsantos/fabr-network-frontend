@@ -1,20 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Share, Facebook, Twitter, Instagram, Link, MessageCircle } from 'lucide-react';
+import { Share2, Facebook, Twitter, Instagram, Link, MessageCircle } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 interface ShareButtonProps {
     title: string | undefined;
     description?: string;
-    imageUrl?: string;
     className?: string;
     variant?: 'team' | 'player' | 'news';
-    buttonStyle?: 'fixed' | 'absolute'; // Novo prop para controlar o estilo
+    buttonStyle?: 'fixed' | 'absolute';
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({
     title,
     description,
-    imageUrl,
     className = '',
     variant = 'team',
     buttonStyle = 'absolute'
@@ -94,54 +92,61 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                     : 'absolute top-3'
                     } right-3 rounded-lg text-[#63E300] ${className}`}
             >
-                <Share className="w-6 h-6" />
+                <Share2 className="w-6 h-6" />
             </button>
 
             {isOpen && (
                 <div className={`${buttonStyle === 'fixed'
-                        ? 'fixed right-3 top-[120px]'
-                        : 'absolute right-0 mt-10'
-                    } w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}>
-                    <div className="py-1">
-                        <button
-                            onClick={shareToWhatsApp}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                            <MessageCircle className="w-5 h-5 mr-3 text-green-500" />
-                            WhatsApp
-                        </button>
+                    ? 'fixed right-3 top-[130px]'
+                    : 'absolute right-0 mt-2'
+                    } w-80 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5`}>
+                    <div className="p-4">
+                        <div className="flex flex-col items-center space-y-4">
+                            <div className="text-xl font-bold text-center">{title}</div>
+                        </div>
+                    </div>
+                    <div className="border-t border-gray-100">
+                        <div className="py-1">
+                            <button
+                                onClick={shareToWhatsApp}
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                                <MessageCircle className="w-5 h-5 mr-3 text-green-500" />
+                                WhatsApp
+                            </button>
 
-                        <button
-                            onClick={shareToFacebook}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                            <Facebook className="w-5 h-5 mr-3 text-blue-600" />
-                            Facebook
-                        </button>
+                            <button
+                                onClick={shareToFacebook}
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                                <Facebook className="w-5 h-5 mr-3 text-blue-600" />
+                                Facebook
+                            </button>
 
-                        <button
-                            onClick={shareToTwitter}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                            <Twitter className="w-5 h-5 mr-3 text-blue-400" />
-                            Twitter
-                        </button>
+                            <button
+                                onClick={shareToTwitter}
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                                <Twitter className="w-5 h-5 mr-3 text-blue-400" />
+                                Twitter
+                            </button>
 
-                        <button
-                            onClick={shareToInstagram}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                            <Instagram className="w-5 h-5 mr-3 text-pink-600" />
-                            Instagram
-                        </button>
+                            <button
+                                onClick={shareToInstagram}
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                                <Instagram className="w-5 h-5 mr-3 text-pink-600" />
+                                Instagram
+                            </button>
 
-                        <button
-                            onClick={copyToClipboard}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                        >
-                            <Link className="w-5 h-5 mr-3 text-gray-500" />
-                            Copiar link
-                        </button>
+                            <button
+                                onClick={copyToClipboard}
+                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                                <Link className="w-5 h-5 mr-3 text-gray-500" />
+                                Copiar link
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

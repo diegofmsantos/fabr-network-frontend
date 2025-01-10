@@ -53,14 +53,20 @@ export default function Page() {
     useEffect(() => {
         const fetchJogador = async () => {
             try {
-                if (!params.jogador) return;
+                if (!params.jogador || !params.time) return;
 
-                const jogadores = await getJogadores();
+                const [jogadores, times] = await Promise.all([
+                    getJogadores(),
+                    getTimes()
+                ]);
+
                 const jogadorSlug = params.jogador.toString();
-                const jogadorEncontrado = findPlayerBySlug(jogadores, jogadorSlug);
+                const timeSlug = params.time.toString();
+
+                // Agora passamos o array de times como quarto parâmetro
+                const jogadorEncontrado = findPlayerBySlug(jogadores, jogadorSlug, timeSlug, times);
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
-                    const times = await getTimes();
                     const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
 
                     if (timeEncontrado) {
@@ -80,7 +86,7 @@ export default function Page() {
         };
 
         fetchJogador();
-    }, [params.jogador]);
+    }, [params.jogador, params.time]);
 
     if (loading) return <Loading />;
     if (!jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>;
@@ -122,7 +128,7 @@ export default function Page() {
                     <motion.div className='mt-20 px-1 w-full h-full flex flex-col justify-center items-center rounded-b-xl min-[375px]:px-3 md:h-full max-w-[1200px] mx-auto'
                         style={{ backgroundColor: currentTime?.cor }} >
                         <ShareButton
-                            title={jogadorData.jogador.nome}
+                            title={currentJogador.nome}
                             variant="player"
                             buttonStyle="fixed"
                             className="xl:right-32 2xl:right-96"

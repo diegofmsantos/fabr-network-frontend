@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next"
+import type { Metadata } from "next"
 import "./globals.css"
 import { Poppins } from "next/font/google"
 import Image from "next/image";
@@ -16,7 +16,10 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://fabrnetwork.com.br/'),
-  title: 'FABR-Network',
+  title: {
+    default: 'FABR-Network',
+    template: '%s | FABR Network'
+  },
   description: "O banco de dados do futebol americano do Brasil.",
   keywords: ['FABR', 'FABR-Network', 'BFA', 'Futebol Americano Brasil', 'Futebol Americano', 'NFL', 'NFL Brasil', 'ESPN',
     'Futebol Americano Brasileiro', 'Flag', 'Flag Football', 'Brasileirão de Futebol Americano', 'Brasileirão', 'CBFA', 'Liga BFA', 'Salão Oval',
@@ -29,13 +32,7 @@ export const metadata: Metadata = {
     'All-Star Game Brasil FA', 'Field Goal Brasil', 'Extra Point Brasil', 'Two Point Conversion', 'Fair Catch Brasil', 'Snap Brasil', 'Huddle Brasil', 'Blitz Brasil FA',
     'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças', 'Almirantes FA', ''
   ],
-  openGraph: {
-    title: 'FABR-Network',
-    description: 'A plataforma de estatísticas do FABR.',
-    siteName: 'FABR-Network',
-    images: '/assets/logo-fabr-color.png'
-  }
-};
+}
 
 export default function RootLayout({
   children,
@@ -57,6 +54,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="FABR-Network" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="FABR-Network" />
+        <meta property="og:locale" content="pt_BR" />
 
         {/* Links */}
         <link rel="manifest" href="/manifest.json" />

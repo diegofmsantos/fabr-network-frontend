@@ -65,9 +65,26 @@ export const getOriginalName = (teams: Time[], slug: string): string | null => {
     return team?.nome || null;
 };
 
-export const findPlayerBySlug = (jogadores: Jogador[], slug: string): Jogador | null => {
-    if (!slug) return null;
-    // Normaliza o slug recebido para garantir consistência na comparação
-    const normalizedSlug = createSlug(slug);
-    return jogadores.find(jogador => getPlayerSlug(jogador.nome) === normalizedSlug) || null;
+export const findPlayerBySlug = (
+    jogadores: Jogador[],
+    playerSlug: string,
+    timeSlug: string,
+    times: Time[]  // Adicionando times como parâmetro
+): Jogador | null => {
+    if (!playerSlug || !timeSlug) return null;
+
+    const normalizedPlayerSlug = createSlug(playerSlug);
+    const normalizedTeamSlug = createSlug(timeSlug);
+
+    return jogadores.find(jogador => {
+        // Verifica se o nome do jogador corresponde
+        const playerMatches = getPlayerSlug(jogador.nome) === normalizedPlayerSlug;
+
+        // Pega o time do jogador e verifica se corresponde
+        const playerTeam = times.find(t => t.id === jogador.timeId);
+        const teamMatches = playerTeam && getTeamSlug(playerTeam.nome) === normalizedTeamSlug;
+
+        // Retorna verdadeiro apenas se tanto o jogador quanto o time corresponderem
+        return playerMatches && teamMatches;
+    }) || null;
 };
