@@ -30,7 +30,11 @@ export const metadata: Metadata = {
     'Safety Brasil', 'Linebacker Brasil', 'Special Teams Brasil', 'Placekicker Brasil', 'Punter Brasil', 'Cornerback Brasil', 'Tight End Brasil',
     'Final Nacional FA', 'Semifinal BFA', 'Norte Bowl', 'Sul Bowl', 'Nordeste Bowl', 'Centro-Oeste Bowl', 'Sudeste Bowl', 'Tryouts Brasil FA', 'Preseason BFA',
     'All-Star Game Brasil FA', 'Field Goal Brasil', 'Extra Point Brasil', 'Two Point Conversion', 'Fair Catch Brasil', 'Snap Brasil', 'Huddle Brasil', 'Blitz Brasil FA',
-    'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças', 'Almirantes FA', ''
+    'Tackle Brasil', 'Cheerleaders FA Brasil', 'Torcida Organizada FA', 'Brasil Onças', 'Almirantes FA', 'Brown Spiders', 'Caruaru Wolves', 'Coritiba Crocodiles', 'Cuiabá Arsenal',
+    'Istepôs FA', 'João Pessoa Espectros', 'Manaus FA', 'Mossoró Petroleiros', 'Moura Lacerda Dragons', 'Porto Velho Miners', 'Remo FA', 'Santa Maria Soldiers', 'Sergipe Redentores',
+    'Recife Mariners', 'Timbó Rex', 'Galo FA', 'Rondonópolis Hawks', 'Cavalaria 2 de Julho', 'América Locomotiva', 'Fortaleza Tritões', 'Tubarões do Cerrado', 'Vasco Almirantes',
+    'Remo FA', 'Sinop Coyotes', 'Rio Preto Weilers', 'Flamengo Imperadores', 'Guarulhos Rhynos', 'Six Spartans', 'Cruzeiro FA', 'Gama Leões de Judá', 'Corinthians Steamrollers',
+    'Paraná HP', 'Tritões'
   ],
 }
 
@@ -45,10 +49,6 @@ export default function RootLayout({
         {/* Viewport e configurações básicas */}
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-
-        {/* Configurações de tema para Chrome/Android */}
-        <meta name="theme-color" content="#63E300" media="(prefers-color-scheme: light)" />
-        <meta name="theme-color" content="#63E300" media="(prefers-color-scheme: dark)" />
 
         {/* Configurações para Safari/iOS */}
         <meta name="apple-mobile-web-app-capable" content="yes" />

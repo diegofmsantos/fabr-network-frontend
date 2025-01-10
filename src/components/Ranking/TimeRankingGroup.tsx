@@ -138,7 +138,7 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
                         : null
                 case 'field_goals':
                     return teamStat.kicker.tentativas_de_fg > 0
-                        ? (teamStat.icker.fg_bons / teamStat.kicker.tentativas_de_fg) * 100
+                        ? (teamStat.kicker.fg_bons / teamStat.kicker.tentativas_de_fg) * 100
                         : null;
                 default:
                     return teamStat[category][key] ?? null

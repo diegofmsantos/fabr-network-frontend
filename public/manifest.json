@@ -2,8 +2,6 @@
   "name": "FABR-Network",
   "short_name": "FABR",
   "description": "O banco de dados do futebol americano do Brasil",
-  "theme_color": "#63E300",
-  "background_color": "#63E300",
   "display": "standalone",
   "display_override": [
     "standalone",
