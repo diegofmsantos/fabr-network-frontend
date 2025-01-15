@@ -1,11 +1,11 @@
 import type { Metadata } from "next"
 import "./globals.css"
 import { Poppins } from "next/font/google"
-import Image from "next/image";
+import Image from "next/image"
 import { Tab } from "@/components/Tab"
-import Link from "next/link";
-import { Analytics } from '@vercel/analytics/react';
-import { Suspense } from "react";
+import Link from "next/link"
+import { Analytics } from '@vercel/analytics/react'
+import { Suspense } from "react"
 
 const poppins = Poppins({
   subsets: ['latin'],

@@ -1,13 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Share, Facebook, Twitter, Instagram, Link, MessageCircle } from 'lucide-react';
-import { usePathname } from 'next/navigation';
+import React, { useState, useRef, useEffect } from 'react'
+import { Share, Facebook, Twitter, Instagram, Link, MessageCircle } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 interface ShareButtonProps {
-    title: string | undefined;
-    description?: string;
-    className?: string;
-    variant?: 'team' | 'player' | 'news';
-    buttonStyle?: 'fixed' | 'absolute';
+    title: string | undefined
+    description?: string
+    className?: string
+    variant?: 'team' | 'player' | 'news'
+    buttonStyle?: 'fixed' | 'absolute'
 }
 
 const ShareButton: React.FC<ShareButtonProps> = ({
@@ -19,69 +19,69 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 }) => {
     const pathname = usePathname();
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://fabrnetwork.com.br';
-    const fullUrl = `${baseUrl}${pathname}`;
+    const fullUrl = `${baseUrl}${pathname}`
 
-    const [isOpen, setIsOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement>(null);
+    const [isOpen, setIsOpen] = useState(false)
+    const menuRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-                setIsOpen(false);
+                setIsOpen(false)
             }
-        };
+        }
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        document.addEventListener('mousedown', handleClickOutside)
+        return () => document.removeEventListener('mousedown', handleClickOutside)
+    }, [])
 
     const getFormattedDescription = () => {
         switch (variant) {
             case 'team':
-                return `Confira as estatísticas do ${title} no FABR Network.`;
+                return `Confira as estatísticas do ${title} no FABR Network.`
             case 'player':
-                return `Confira o perfil e as estatísticas de ${title} no FABR Network.`;
+                return `Confira o perfil e as estatísticas de ${title} no FABR Network.`
             case 'news':
-                return description || 'Confira esta notícia no FABR Network.';
+                return description || 'Confira esta notícia no FABR Network.'
             default:
-                return description;
+                return description
         }
     };
 
     const shareToWhatsApp = () => {
-        const text = encodeURIComponent(`${title}\n\n${getFormattedDescription()}\n\n${fullUrl}`);
-        window.open(`https://wa.me/?text=${text}`, '_blank');
-        setIsOpen(false);
+        const text = encodeURIComponent(`${title}\n\n${getFormattedDescription()}\n\n${fullUrl}`)
+        window.open(`https://wa.me/?text=${text}`, '_blank')
+        setIsOpen(false)
     };
 
     const shareToFacebook = () => {
-        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullUrl)}`, '_blank');
-        setIsOpen(false);
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(fullUrl)}`, '_blank')
+        setIsOpen(false)
     };
 
     const shareToTwitter = () => {
-        const text = encodeURIComponent(`${title}\n${getFormattedDescription()}`);
-        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(fullUrl)}`, '_blank');
-        setIsOpen(false);
+        const text = encodeURIComponent(`${title}\n${getFormattedDescription()}`)
+        window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(fullUrl)}`, '_blank')
+        setIsOpen(false)
     };
 
     const shareToInstagram = () => {
-        const text = `${title}\n\n${getFormattedDescription()}\n\n${fullUrl}`;
-        navigator.clipboard.writeText(text);
-        alert('Link copiado! Você pode compartilhar nos stories do Instagram.');
-        setIsOpen(false);
+        const text = `${title}\n\n${getFormattedDescription()}\n\n${fullUrl}`
+        navigator.clipboard.writeText(text)
+        alert('Link copiado! Você pode compartilhar nos stories do Instagram.')
+        setIsOpen(false)
     };
 
     const copyToClipboard = async () => {
         try {
-            const shareText = `${title}\n\n${getFormattedDescription()}\n\n${fullUrl}`;
-            await navigator.clipboard.writeText(shareText);
-            alert('Conteúdo copiado para a área de transferência!');
+            const shareText = `${title}\n\n${getFormattedDescription()}\n\n${fullUrl}`
+            await navigator.clipboard.writeText(shareText)
+            alert('Conteúdo copiado para a área de transferência!')
         } catch (error) {
-            console.error('Erro ao copiar:', error);
+            console.error('Erro ao copiar:', error)
         }
-        setIsOpen(false);
-    };
+        setIsOpen(false)
+    }
 
     return (
         <div className="relative z-[9999]" ref={menuRef}>
@@ -90,7 +90,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                 className={`inline-flex items-center ${buttonStyle === 'fixed'
                     ? 'fixed top-[90px]'
                     : 'absolute top-3'
-                    } right-3 rounded-lg text-[#63E300] ${className}`}
+                    } right-3 rounded-lg text-white ${className}`}
             >
                 <Share className="w-6 h-6" />
             </button>
@@ -151,7 +151,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                 </div>
             )}
         </div>
-    );
-};
+    )
+}
 
-export default ShareButton;
+export default ShareButton

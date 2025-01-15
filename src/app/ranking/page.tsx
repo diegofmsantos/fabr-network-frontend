@@ -1,29 +1,29 @@
 "use client"
 
-import { getJogadores } from "@/api/api";
-import { useEffect, useState } from "react";
-import { Jogador } from "@/types/jogador";
-import { Loading } from "@/components/ui/Loading";
-import { RankingLayout } from "@/components/Ranking/RankingLayout";
-import { RankingGroup } from "@/components/Ranking/RankingGroup";
+import { getJogadores } from "@/api/api"
+import { useEffect, useState } from "react"
+import { Jogador } from "@/types/jogador"
+import { Loading } from "@/components/ui/Loading"
+import { RankingLayout } from "@/components/Ranking/RankingLayout"
+import { RankingGroup } from "@/components/Ranking/RankingGroup"
 
 export default function Page() {
-    const [players, setPlayers] = useState<Jogador[]>([]);
+    const [players, setPlayers] = useState<Jogador[]>([])
 
     useEffect(() => {
         const fetchPlayers = async () => {
             try {
-                const playersData = await getJogadores();
-                setPlayers(playersData);
+                const playersData = await getJogadores()
+                setPlayers(playersData)
             } catch (error) {
-                console.error("Error fetching players:", error);
+                console.error("Error fetching players:", error)
             }
-        };
-        fetchPlayers();
-    }, []);
+        }
+        fetchPlayers()
+    }, [])
 
     if (!players.length) {
-        return <Loading />;
+        return <Loading />
     }
 
     return (
@@ -126,5 +126,5 @@ export default function Page() {
                 />
             </div>
         </RankingLayout>
-    );
+    )
 }

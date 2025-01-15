@@ -1,33 +1,33 @@
-"use client";
+"use client"
 
-import React, { Suspense } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { Loading } from '@/components/ui/Loading';
-import { useStats } from '@/hooks/useStats';
-import { useTeamInfo } from '@/hooks/useTeamInfo';
-import { getStatMapping } from '@/utils/statMappings';
-import { TeamStatsList } from '@/components/Stats/TeamStatsList';
-import { statGroups } from '@/utils/statGroups';
-import { StatsLayout } from '@/components/Stats/StatsLayout';
+import React, { Suspense } from 'react'
+import { useSearchParams, useRouter } from 'next/navigation'
+import { Loading } from '@/components/ui/Loading'
+import { useStats } from '@/hooks/useStats'
+import { useTeamInfo } from '@/hooks/useTeamInfo'
+import { getStatMapping } from '@/utils/statMappings'
+import { TeamStatsList } from '@/components/Stats/TeamStatsList'
+import { statGroups } from '@/utils/statGroups'
+import { StatsLayout } from '@/components/Stats/StatsLayout'
 
 // Função getStatGroup permanece a mesma
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
         if (group.stats.some(stat => stat.urlParam === statParam)) {
-            return group.title;
+            return group.title
         }
     }
-    return 'Passando';
-};
+    return 'Passando'
+}
 
 // Componente Select em um componente separado com Suspense
 const TeamStatSelect = React.memo(({ currentStat }: { currentStat: string }) => {
-    const router = useRouter();
-    const currentGroup = getStatGroup(currentStat);
+    const router = useRouter()
+    const currentGroup = getStatGroup(currentStat)
 
     const handleStatChange = (newStat: string) => {
-        router.push(`/ranking/times/stats?stat=${newStat}`);
-    };
+        router.push(`/ranking/times/stats?stat=${newStat}`)
+    }
 
     return (
         <div className="mb-6 mx-4">
@@ -48,21 +48,21 @@ const TeamStatSelect = React.memo(({ currentStat }: { currentStat: string }) => 
                 ))}
             </select>
         </div>
-    );
-});
+    )
+})
 
-TeamStatSelect.displayName = 'TeamStatSelect';
+TeamStatSelect.displayName = 'TeamStatSelect'
 
 // Componente de conteúdo separado
 function TeamStatsContent() {
-    const searchParams = useSearchParams();
-    const statParam = searchParams.get('stat') || 'passe-jardas';
-    const { players, times, loading } = useStats();
-    const getTeamInfo = useTeamInfo(times);
-    const statMapping = getStatMapping(statParam);
+    const searchParams = useSearchParams()
+    const statParam = searchParams.get('stat') || 'passe-jardas'
+    const { players, times, loading } = useStats()
+    const getTeamInfo = useTeamInfo(times)
+    const statMapping = getStatMapping(statParam)
 
     if (loading) {
-        return <Loading />;
+        return <Loading />
     }
 
     return (
@@ -92,5 +92,5 @@ export default function TeamStatsPage() {
                 </div>
             </StatsLayout>
         </Suspense>
-    );
+    )
 }

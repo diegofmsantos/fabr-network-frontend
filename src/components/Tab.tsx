@@ -44,7 +44,7 @@ export const Tab = () => {
           <div className={`flex flex-col items-center ${isNoticiasRoute ? "text-[#63E300]" : "text-gray-400"}`}>
             <Image
               src={isNoticiasRoute ? "/assets/news2.png" : "/assets/news.png"}
-              alt="capacete"
+              alt="noticias"
               width={25}
               height={25}
             />

@@ -1,8 +1,8 @@
-import { Jogador } from "@/types/jogador";
-import { Time } from "@/types/time";
+import { Jogador } from "@/types/jogador"
+import { Time } from "@/types/time"
 
 export const createSlug = (text: string): string => {
-    if (!text) return '';
+    if (!text) return ''
 
     const charMap = {
         'á': 'a', 'à': 'a', 'ã': 'a', 'â': 'a', 'ä': 'a',
@@ -21,7 +21,7 @@ export const createSlug = (text: string): string => {
         'Ý': 'Y',
         'Ñ': 'N',
         'Ç': 'C',
-    };
+    }
 
     // Remove acentos e caracteres especiais
     const normalized = text
@@ -39,31 +39,31 @@ export const createSlug = (text: string): string => {
         .map(word => {
             // Se a palavra tem 2 letras e é toda em maiúsculo (como FA, HP)
             if (word.length === 2 && word.toUpperCase() === word) {
-                return word.toUpperCase();
+                return word.toUpperCase()
             }
             // Caso contrário, capitaliza apenas a primeira letra
-            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
         })
-        .join('-');
-};
+        .join('-')
+}
 
 export const getTeamSlug = (teamName: string | undefined): string => {
-    if (!teamName) return '';
-    return createSlug(teamName);
-};
+    if (!teamName) return ''
+    return createSlug(teamName)
+}
 
 export const getPlayerSlug = (playerName: string | undefined): string => {
-    if (!playerName) return '';
-    return createSlug(playerName);
-};
+    if (!playerName) return ''
+    return createSlug(playerName)
+}
 
 export const getOriginalName = (teams: Time[], slug: string): string | null => {
-    if (!slug) return null;
+    if (!slug) return null
     // Normaliza o slug recebido para garantir consistência na comparação
-    const normalizedSlug = createSlug(slug);
-    const team = teams.find(team => getTeamSlug(team.nome) === normalizedSlug);
-    return team?.nome || null;
-};
+    const normalizedSlug = createSlug(slug)
+    const team = teams.find(team => getTeamSlug(team.nome) === normalizedSlug)
+    return team?.nome || null
+}
 
 export const findPlayerBySlug = (
     jogadores: Jogador[],
@@ -71,10 +71,10 @@ export const findPlayerBySlug = (
     timeSlug: string,
     times: Time[]  // Adicionando times como parâmetro
 ): Jogador | null => {
-    if (!playerSlug || !timeSlug) return null;
+    if (!playerSlug || !timeSlug) return null
 
-    const normalizedPlayerSlug = createSlug(playerSlug);
-    const normalizedTeamSlug = createSlug(timeSlug);
+    const normalizedPlayerSlug = createSlug(playerSlug)
+    const normalizedTeamSlug = createSlug(timeSlug)
 
     return jogadores.find(jogador => {
         // Verifica se o nome do jogador corresponde
@@ -85,6 +85,6 @@ export const findPlayerBySlug = (
         const teamMatches = playerTeam && getTeamSlug(playerTeam.nome) === normalizedTeamSlug;
 
         // Retorna verdadeiro apenas se tanto o jogador quanto o time corresponderem
-        return playerMatches && teamMatches;
-    }) || null;
-};
+        return playerMatches && teamMatches
+    }) || null
+}

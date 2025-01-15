@@ -23,25 +23,25 @@ type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
 export default function Page() {
 
-  const params = useParams();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const params = useParams()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   useEffect(() => {
-    const currentPath = params.time?.toString() || '';
+    const currentPath = params.time?.toString() || ''
     if (currentPath.includes('%20')) {
-      const decodedPath = decodeURIComponent(currentPath);
-      const correctSlug = createSlug(decodedPath);
-      router.replace(`/${correctSlug}`);
+      const decodedPath = decodeURIComponent(currentPath)
+      const correctSlug = createSlug(decodedPath)
+      router.replace(`/${correctSlug}`)
     }
-  }, [params.time, router]);
-  const timeName = Array.isArray(params.time) ? params.time[0] : params.time;
-  const decodedTimeName = timeName ? decodeURIComponent(timeName).replace(/-/g, ' ') : '';
+  }, [params.time, router])
+  const timeName = Array.isArray(params.time) ? params.time[0] : params.time
+  const decodedTimeName = timeName ? decodeURIComponent(timeName).replace(/-/g, ' ') : ''
   const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
   const [loadingTeam, setLoadingTeam] = useState(true)
   const [loadingJogadores, setLoadingJogadores] = useState(false)
   const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "bio")
   const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE")
-  const [season, setSeason] = useState('2024');
+  const [season, setSeason] = useState('2024')
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 200], [1, 0])
   const height = useTransform(scrollY, [0, 200], [330, 50])
@@ -50,35 +50,35 @@ export default function Page() {
     async function fetchCurrentTeam() {
       setLoadingTeam(true);
       try {
-        if (!timeName) throw new Error("Nome do time não encontrado.");
+        if (!timeName) throw new Error("Nome do time não encontrado.")
 
-        const teams = await getTimes();
+        const teams = await getTimes()
         // Procura o time tanto pelo nome exato quanto pelo slug
         const team = teams?.find((t) => {
-          if (!t.nome) return false;
-          const teamSlug = getTeamSlug(t.nome);
-          const currentSlug = createSlug(timeName);
-          return teamSlug === currentSlug;
-        }) || null;
+          if (!t.nome) return false
+          const teamSlug = getTeamSlug(t.nome)
+          const currentSlug = createSlug(timeName)
+          return teamSlug === currentSlug
+        }) || null
 
         setCurrentTeam(team);
 
         if (team && team.nome) {
-          document.title = `${team.nome}`;
+          document.title = `${team.nome}`
         } else {
-          document.title = "Time não encontrado";
+          document.title = "Time não encontrado"
         }
       } catch (error) {
-        console.error("Erro ao buscar os times:", error);
-        document.title = "Erro ao carregar time";
-        setCurrentTeam(null);
+        console.error("Erro ao buscar os times:", error)
+        document.title = "Erro ao carregar time"
+        setCurrentTeam(null)
       } finally {
-        setLoadingTeam(false);
+        setLoadingTeam(false)
       }
     }
 
-    fetchCurrentTeam();
-  }, [timeName]);
+    fetchCurrentTeam()
+  }, [timeName])
 
   const handleShowBio = () => {
     router.replace(`?show=bio`)

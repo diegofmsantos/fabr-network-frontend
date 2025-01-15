@@ -27,7 +27,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/[^a-z0-9-]/g, "")
-      .replace(/-+$/, '');
+      .replace(/-+$/, '')
   }
 
   const getShirtPath = (team: string, camisa: string): string => {

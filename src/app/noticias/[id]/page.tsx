@@ -4,23 +4,21 @@ import { getNoticias } from '@/api/api'
 import { Loading } from '@/components/ui/Loading'
 import { Noticia } from '@/types/noticia'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
-import { faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import ShareButton from '@/components/ui/buttonShare'
 
 // Função helper para embaralhar e filtrar notícias
 function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
   return allNews
     .filter(news => news.id !== currentNewsId)
     .sort(() => Math.random() - 0.5)
-    .slice(0, limit);
+    .slice(0, limit)
 }
 
 export default function NoticiaDetalhes() {
@@ -135,14 +133,15 @@ export default function NoticiaDetalhes() {
               </div>
               <span className="text-xs text-gray-500">Por {noticia.autor}</span>
             </div>
-            <div className='flex  gap-2 italic'>
+            <div className='flex gap-2 italic'>
               <span className="text-xs text-gray-500">
                 Postado: {new Date(noticia.createdAt).toLocaleString('pt-BR', {
                   day: '2-digit',
                   month: '2-digit',
                   year: 'numeric',
                   hour: '2-digit',
-                  minute: '2-digit'
+                  minute: '2-digit',
+                  timeZone: 'America/Sao_Paulo'
                 })}
               </span>
               <span className="text-xs text-gray-500">
@@ -151,7 +150,8 @@ export default function NoticiaDetalhes() {
                   month: '2-digit',
                   year: 'numeric',
                   hour: '2-digit',
-                  minute: '2-digit'
+                  minute: '2-digit',
+                  timeZone: 'America/Sao_Paulo'
                 })}
               </span>
             </div>

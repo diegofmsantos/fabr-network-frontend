@@ -1,28 +1,28 @@
 "use client"
 
-import React from 'react';
-import { useSearchParams } from 'next/navigation';
-import { Loading } from '@/components/ui/Loading';
-import { CategoryKey, getTierTitle, getTierForValue } from '@/utils/categoryThresholds';
-import { getStatMapping } from '@/utils/statMappings';
-import StatsTier from '@/components/Stats/StatsTier';
-import { useStats } from '@/hooks/useStats';
-import { useTeamInfo } from '@/hooks/useTeamInfo';
-import { usePlayerProcessing } from '@/hooks/usePlayerProcessing';
-import { ProcessedPlayer } from '@/types/processedPlayer';
-import { StatType } from '@/types/Stats';
-import { PlayerStatSelect } from '@/components/Stats/PlayerStatSelect';
-import { StatsLayout } from '@/components/Stats/StatsLayout';
+import React from 'react'
+import { useSearchParams } from 'next/navigation'
+import { Loading } from '@/components/ui/Loading'
+import { CategoryKey, getTierTitle, getTierForValue } from '@/utils/categoryThresholds'
+import { getStatMapping } from '@/utils/statMappings'
+import StatsTier from '@/components/Stats/StatsTier'
+import { useStats } from '@/hooks/useStats'
+import { useTeamInfo } from '@/hooks/useTeamInfo'
+import { usePlayerProcessing } from '@/hooks/usePlayerProcessing'
+import { ProcessedPlayer } from '@/types/processedPlayer'
+import { StatType } from '@/types/Stats'
+import { PlayerStatSelect } from '@/components/Stats/PlayerStatSelect'
+import { StatsLayout } from '@/components/Stats/StatsLayout'
 
 const StatsPage: React.FC = () => {
-  const searchParams = useSearchParams();
-  const statParam = searchParams.get('stat') || '';
-  const { players, times, loading } = useStats();
+  const searchParams = useSearchParams()
+  const statParam = searchParams.get('stat') || ''
+  const { players, times, loading } = useStats()
   const getTeamInfo = useTeamInfo(times);
-  const statMapping = getStatMapping(statParam);
-  const { processPlayers } = usePlayerProcessing(statMapping, getTeamInfo);
+  const statMapping = getStatMapping(statParam)
+  const { processPlayers } = usePlayerProcessing(statMapping, getTeamInfo)
 
-  if (loading) return <Loading />;
+  if (loading) return <Loading />
 
   const groupPlayersByTier = (processedPlayers: ProcessedPlayer[]) => {
     return processedPlayers.reduce<Record<string, ProcessedPlayer[]>>(
@@ -34,17 +34,17 @@ const StatsPage: React.FC = () => {
         );
 
         // Agrupa o jogador no tier apropriado
-        const tierKey = `tier${tier}`;
+        const tierKey = `tier${tier}`
         if (!acc[tierKey]) {
-          acc[tierKey] = [];
+          acc[tierKey] = []
         }
-        acc[tierKey].push(player);
+        acc[tierKey].push(player)
 
-        return acc;
+        return acc
       },
       { tier1: [], tier2: [], tier3: [] }
-    );
-  };
+    )
+  }
 
   const mapPlayersToProps = (
     players: ProcessedPlayer[],
@@ -55,8 +55,8 @@ const StatsPage: React.FC = () => {
       teamInfo: item.teamInfo,
       value: item.value,
       index: index + startIndex
-    }));
-  };
+    }))
+  }
 
   const renderTierSection = (
     tier: number,
@@ -79,13 +79,13 @@ const StatsPage: React.FC = () => {
       // Verifica primeiro pelo statParam para casos especiais
       if (statParam) {
         const statBase = statParam.split('-')[0]; // Pega a parte antes do hífen
-        const mappedType = categoryMapping[statBase as CategoryKey];
-        if (mappedType) return mappedType;
+        const mappedType = categoryMapping[statBase as CategoryKey]
+        if (mappedType) return mappedType
       }
 
       // Se não encontrou pelo statParam, usa a categoria direta
-      return categoryMapping[category] || 'PASSE';
-    };
+      return categoryMapping[category] || 'PASSE'
+    }
 
     return (
       <StatsTier
@@ -95,11 +95,11 @@ const StatsPage: React.FC = () => {
         statsType={getStatsType(statMapping.category)}
         isLastTier={tier === 3}
       />
-    );
-  };
+    )
+  }
 
-  const processedPlayers = processPlayers(players);
-  const tierPlayers = groupPlayersByTier(processedPlayers);
+  const processedPlayers = processPlayers(players)
+  const tierPlayers = groupPlayersByTier(processedPlayers)
 
   return (
     <StatsLayout initialFilter="jogadores" statType={statParam}>
@@ -120,7 +120,7 @@ const StatsPage: React.FC = () => {
         </div>
       </div>
     </StatsLayout>
-  );
-};
+  )
+}
 
-export default StatsPage;
+export default StatsPage

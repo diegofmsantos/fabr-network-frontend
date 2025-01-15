@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { statGroups } from '@/utils/statGroups'
 
 interface PlayerStatSelectProps {
-    currentStat: string;
+    currentStat: string
 }
 
 // Função para obter o grupo da estatística atual

@@ -1,6 +1,5 @@
 "use client"
 
-import { Noticias } from '@/data/noticias'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
@@ -16,10 +15,10 @@ export default function NoticiasPage() {
         const fetchNoticias = async () => {
             try {
                 // Usa a função getNoticias para buscar as notícias
-                const noticiasResponse = await getNoticias();
-                setNoticias(noticiasResponse);
+                const noticiasResponse = await getNoticias()
+                setNoticias(noticiasResponse)
             } catch (error) {
-                console.error('Erro ao carregar notícias:', error);
+                console.error('Erro ao carregar notícias:', error)
             } finally {
                 setLoading(false)
             }

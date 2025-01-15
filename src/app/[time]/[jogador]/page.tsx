@@ -26,73 +26,73 @@ const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null =>
 
 export default function Page() {
 
-    const params = useParams();
-    const router = useRouter();
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [season, setSeason] = useState('2024');
-    const { scrollY } = useScroll();
-    const opacity = useTransform(scrollY, [0, 200], [1, 0]);
-    const height = useTransform(scrollY, [0, 200], [340, 50]);
+    const params = useParams()
+    const router = useRouter()
+    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [season, setSeason] = useState('2024')
+    const { scrollY } = useScroll()
+    const opacity = useTransform(scrollY, [0, 200], [1, 0])
+    const height = useTransform(scrollY, [0, 200], [340, 50])
 
     useEffect(() => {
         const redirectToNamedUrl = async () => {
             if (!isNaN(Number(params.jogador))) {
-                const jogadores = await getJogadores();
-                const jogador = jogadores.find(j => j.id === Number(params.jogador));
+                const jogadores = await getJogadores()
+                const jogador = jogadores.find(j => j.id === Number(params.jogador))
                 if (jogador) {
-                    const time = decodeURIComponent(params.time as string);
-                    const jogadorSlug = getPlayerSlug(jogador.nome);
-                    router.replace(`/${time}/${jogadorSlug}`);
+                    const time = decodeURIComponent(params.time as string)
+                    const jogadorSlug = getPlayerSlug(jogador.nome)
+                    router.replace(`/${time}/${jogadorSlug}`)
                 }
             }
-        };
-        redirectToNamedUrl();
-    }, [params.jogador, params.time, router]);
+        }
+        redirectToNamedUrl()
+    }, [params.jogador, params.time, router])
 
     useEffect(() => {
         const fetchJogador = async () => {
             try {
-                if (!params.jogador || !params.time) return;
+                if (!params.jogador || !params.time) return
 
                 const [jogadores, times] = await Promise.all([
                     getJogadores(),
                     getTimes()
-                ]);
+                ])
 
-                const jogadorSlug = params.jogador.toString();
-                const timeSlug = params.time.toString();
+                const jogadorSlug = params.jogador.toString()
+                const timeSlug = params.time.toString()
 
                 // Agora passamos o array de times como quarto parâmetro
-                const jogadorEncontrado = findPlayerBySlug(jogadores, jogadorSlug, timeSlug, times);
+                const jogadorEncontrado = findPlayerBySlug(jogadores, jogadorSlug, timeSlug, times)
 
                 if (jogadorEncontrado && jogadorEncontrado.timeId) {
-                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId);
+                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
 
                     if (timeEncontrado) {
                         setJogadorData({
                             jogador: jogadorEncontrado,
                             time: timeEncontrado,
                         });
-                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`;
+                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
                     }
                 }
             } catch (error) {
-                console.error("Erro ao buscar os jogadores:", error);
-                setJogadorData(null);
+                console.error("Erro ao buscar os jogadores:", error)
+                setJogadorData(null)
             } finally {
-                setLoading(false);
+                setLoading(false)
             }
-        };
+        }
 
-        fetchJogador();
-    }, [params.jogador, params.time]);
+        fetchJogador()
+    }, [params.jogador, params.time])
 
-    if (loading) return <Loading />;
-    if (!jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>;
-    if (jogadorData.jogador.nome === '') return <div><SemJogador /></div>;
+    if (loading) return <Loading />
+    if (!jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>
+    if (jogadorData.jogador.nome === '') return <div><SemJogador /></div>
 
-    const { jogador: currentJogador, time: currentTime } = jogadorData;
+    const { jogador: currentJogador, time: currentTime } = jogadorData
 
     // Caminho para o logo do time e para a camisa do jogador
     const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`
