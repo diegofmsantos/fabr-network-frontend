@@ -12,7 +12,7 @@ import "slick-carousel/slick/slick-theme.css"
 import { Noticia } from '@/types/noticia'
 import { useNoticiaDetalhes } from '@/hooks/queries'
 
-export function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
+export function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6): Noticia[] {
   return allNews
     .filter(news => news.id !== currentNewsId)
     .sort(() => Math.random() - 0.5)
