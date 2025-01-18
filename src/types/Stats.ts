@@ -30,14 +30,12 @@ export interface RecepcaoStats {
   alvo: number
   jardas_recebidas: number
   tds_recebidos: number
-  fumble_de_recebedor: number
 }
 
 export interface RetornoStats {
   retornos: number
   jardas_retornadas: number
   td_retornados: number
-  fumble_retornador: number
 }
 
 export interface DefesaStats {
@@ -84,11 +82,6 @@ export interface CalculatedStats {
   field_goals: string | null
   extra_points: string | null
 
-  fg_0_10: string | null
-  fg_11_20: string | null
-  fg_21_30: string | null
-  fg_31_40: string | null
-  fg_41_50: string | null
 }
 
 export type StatType = 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT'

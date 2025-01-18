@@ -7,10 +7,6 @@ export class StatsCalculator {
     return attempted > 0 ? (made / attempted) * 100 : null
   }
 
-  private static formatFGRatio(made: number, attempted: number): string | null {
-    return attempted > 0 ? `${made}/${attempted}` : null
-  }
-
   private static parseStringRatio(value: string): { made: number; attempted: number } | null {
     if (!value || value === '') return null
     const [made, attempted] = value.split('/').map(Number)
