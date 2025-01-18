@@ -9,18 +9,14 @@ import { useParams } from 'next/navigation'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { useNoticiaDetalhes } from '@/hooks/queries'
 import { Noticia } from '@/types/noticia'
+import { useNoticiaDetalhes } from '@/hooks/queries'
 
-export function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
-  if (!allNews || !Array.isArray(allNews)) {
-    return [];
-  }
-  
+function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
   return allNews
     .filter(news => news.id !== currentNewsId)
     .sort(() => Math.random() - 0.5)
-    .slice(0, limit);
+    .slice(0, limit)
 }
 
 export default function NoticiaDetalhes() {
