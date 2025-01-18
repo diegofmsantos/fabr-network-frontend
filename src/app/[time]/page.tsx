@@ -25,7 +25,7 @@ export default function Page() {
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
-  
+
   // Trata a URL
   useEffect(() => {
     const currentPath = params.time?.toString() || ''
@@ -38,11 +38,11 @@ export default function Page() {
 
   const timeName = Array.isArray(params.time) ? params.time[0] : params.time
   const decodedTimeName = timeName ? decodeURIComponent(timeName).replace(/-/g, ' ') : ''
-  
-  const { 
-    data: currentTeam, 
+
+  const {
+    data: currentTeam,
     isLoading: loadingTeam,
-    error 
+    error
   } = useTeam(decodedTimeName)
 
   const [loadingJogadores, setLoadingJogadores] = useState(false)
@@ -51,7 +51,7 @@ export default function Page() {
     (searchParams.get("setor") as Setor) || "ATAQUE"
   )
   const [season, setSeason] = useState('2024')
-  
+
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 200], [1, 0])
   const height = useTransform(scrollY, [0, 200], [330, 50])
@@ -86,7 +86,7 @@ export default function Page() {
 
   if (loadingTeam) return <Loading />
   if (error) return <div>Erro ao carregar o time</div>
-  if (!currentTeam) return <div>Time não encontrado</div>
+  if (!currentTeam) return <Loading />
 
   const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`
   return (
@@ -105,7 +105,7 @@ export default function Page() {
         >
           <Link
             href="/"
-            className="absolute top-2 left-5 rounded-xl text-xs text-white py-1 px-2 bg-black/20 xl:left-32 2xl:left-96 3xl:56"
+            className="absolute top-2 left-3 rounded-xl text-xs text-white py-1 px-2 bg-black/20 xl:left-32 2xl:left-96 3xl:56"
           >
             {currentTeam.sigla || "N/A"}
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />

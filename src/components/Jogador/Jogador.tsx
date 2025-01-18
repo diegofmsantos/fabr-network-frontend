@@ -89,7 +89,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                         </div>
                         <div className="flex flex-col gap-3 md:flex-1">
                             <div className="flex items-center gap-2">
-                                <div className="text-sm min-[375px]:text-[18px] font-extrabold italic md:text-xl">{jogador.nome}</div>
+                                <div className="text-sm min-[375px]:text-[17px] min-[425px]:text-[20px] font-extrabold italic md:text-xl">{jogador.nome}</div>
                                 <div className="text-base min-[375px]:text-[18px] font-extrabold italic md:text-xl">({jogador.posicao})</div>
                             </div>
                             <div className="flex justify-between gap-2 min-[400px]:gap-6 md:justify-start">

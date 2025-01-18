@@ -58,7 +58,8 @@ export default function Page() {
     }, [jogadorData])
 
     if (loading) return <Loading />
-    if (error || !jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>
+    if (error) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>
+    if (!jogadorData) return <Loading />
     if (jogadorData.jogador.nome === '') return <div><SemJogador /></div>
 
     const { jogador: currentJogador, time: currentTime } = jogadorData
@@ -87,7 +88,7 @@ export default function Page() {
             >
                 <button
                     onClick={() => router.back()}
-                    className="fixed top-[85px] left-5 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center
+                    className="fixed top-[85px] left-3 rounded-full text-xs text-white p-2 w-8 h-8 flex justify-center items-center
                      bg-black/20 z-[100] xl:left-32 2xl:left-96 3xl:56"
                 >
                     <FontAwesomeIcon icon={faAngleLeft} />
@@ -106,7 +107,7 @@ export default function Page() {
                             <div className='text-white text-center font-bold text-xs uppercase  mb-4'>{currentTime?.nome}</div>
                             <div className='flex justify-center items-end gap-1 min-[375px]:gap-3 md:w-screen md:justify-around md:items-center md:px-20 max-w-[1200px]'>
                                 <div className='flex-1 flex-col items-start'>
-                                    <div className='text-[28px] text-white px-2 font-extrabold italic leading-[35px] tracking-[-3px] min-[375px]:text-[32px] md:text-[40px] lg:text-5xl'>
+                                    <div className='text-[28px] text-white  font-extrabold italic leading-[35px] tracking-[-2px] min-[375px]:text-[27px] min-[425px]:text-[30px] md:text-[40px] lg:text-5xl'>
                                         {currentJogador.nome.toLocaleUpperCase()}
                                     </div>
                                     <div className='flex items-center gap-2'>
@@ -298,7 +299,7 @@ export default function Page() {
                         (
                             currentJogador.estatisticas.recepcao.jardas_recebidas > 0 ||
                             currentJogador.estatisticas.recepcao.recepcoes > 0 ||
-                            currentJogador.estatisticas.recepcao.alvo > 0 
+                            currentJogador.estatisticas.recepcao.alvo > 0
                         ) && (
                             <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
@@ -413,7 +414,7 @@ export default function Page() {
                                 currentJogador.estatisticas.kicker.tentativas_de_xp > 0 ||
                                 currentJogador.estatisticas.kicker.fg_bons > 0 ||
                                 currentJogador.estatisticas.kicker.tentativas_de_fg > 0 ||
-                                currentJogador.estatisticas.kicker.fg_mais_longo > 0 )
+                                currentJogador.estatisticas.kicker.fg_mais_longo > 0)
                         ) && (
                             <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
@@ -444,7 +445,7 @@ export default function Page() {
                                         label1='MAIS LONGO'
                                         label2={currentJogador.estatisticas.kicker.fg_mais_longo || "-"}
                                     />
-                                  
+
                                 </div>
                             </div>
                         )}
