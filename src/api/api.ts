@@ -1,7 +1,6 @@
 import { Time } from '@/types/time'
 import { Jogador } from '@/types/jogador'
 import { Noticia } from '@/types/noticia'
-
 import axios, { AxiosResponse } from 'axios'
 
 const api = axios.create({

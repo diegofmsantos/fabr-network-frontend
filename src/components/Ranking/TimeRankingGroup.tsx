@@ -55,13 +55,11 @@ export const getCategoryFromKey = (key: string): string => {
         'recepcoes': 'recepcao',
         'jardas_recebidas': 'recepcao',
         'tds_recebidos': 'recepcao',
-        'fumble_de_recebedor': 'recepcao',
         'alvo': 'recepcao',
 
         'jardas_retornadas': 'retorno',
         'retornos': 'retorno',
         'td_retornados': 'retorno',
-        'fumble_retornador': 'retorno',
 
         'passe_desviado': 'defesa',
         'tackles_totais': 'defesa',

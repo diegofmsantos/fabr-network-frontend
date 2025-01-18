@@ -10,94 +10,63 @@ import Link from "next/link"
 import { Stats } from "@/components/Stats/Stats"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useState } from "react"
-import { getJogadores, getTimes } from "@/api/api"
 import { JogadorSkeleton } from "@/components/ui/JogadorSkeleton"
 import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
 import PlayerNameHeader from "@/components/Jogador/PlayerNameHeader"
 import { SemJogador } from "@/components/SemJogador"
-import { findPlayerBySlug, getPlayerSlug } from "@/utils/formatUrl"
+import { getPlayerSlug } from "@/utils/formatUrl"
 import ShareButton from "@/components/ui/buttonShare"
-
-// Função para buscar o jogador por ID
-const findJogador = (jogadores: Jogador[], jogadorId: number): Jogador | null => {
-    return jogadores.find((jogador) => jogador.id === jogadorId) || null
-}
+import { usePlayerDetails, useJogadores } from '@/hooks/queries'
 
 export default function Page() {
-
     const params = useParams()
     const router = useRouter()
-    const [jogadorData, setJogadorData] = useState<{ jogador: Jogador; time: Time } | null>(null)
-    const [loading, setLoading] = useState(true)
     const [season, setSeason] = useState('2024')
     const { scrollY } = useScroll()
     const opacity = useTransform(scrollY, [0, 200], [1, 0])
     const height = useTransform(scrollY, [0, 200], [340, 50])
 
+    // Redirect de URLs numéricas para slugs
+    const { data: jogadores } = useJogadores()
     useEffect(() => {
-        const redirectToNamedUrl = async () => {
-            if (!isNaN(Number(params.jogador))) {
-                const jogadores = await getJogadores()
-                const jogador = jogadores.find(j => j.id === Number(params.jogador))
-                if (jogador) {
-                    const time = decodeURIComponent(params.time as string)
-                    const jogadorSlug = getPlayerSlug(jogador.nome)
-                    router.replace(`/${time}/${jogadorSlug}`)
-                }
+        if (!isNaN(Number(params.jogador)) && jogadores) {
+            const jogador = jogadores.find(j => j.id === Number(params.jogador))
+            if (jogador) {
+                const time = decodeURIComponent(params.time as string)
+                const jogadorSlug = getPlayerSlug(jogador.nome)
+                router.replace(`/${time}/${jogadorSlug}`)
             }
         }
-        redirectToNamedUrl()
-    }, [params.jogador, params.time, router])
+    }, [params.jogador, params.time, router, jogadores])
 
+    // Buscar dados do jogador usando TanStack Query
+    const {
+        data: jogadorData,
+        isLoading: loading,
+        error
+    } = usePlayerDetails(
+        params.time?.toString(),
+        params.jogador?.toString()
+    )
+
+    // Atualizar título da página
     useEffect(() => {
-        const fetchJogador = async () => {
-            try {
-                if (!params.jogador || !params.time) return
-
-                const [jogadores, times] = await Promise.all([
-                    getJogadores(),
-                    getTimes()
-                ])
-
-                const jogadorSlug = params.jogador.toString()
-                const timeSlug = params.time.toString()
-
-                // Agora passamos o array de times como quarto parâmetro
-                const jogadorEncontrado = findPlayerBySlug(jogadores, jogadorSlug, timeSlug, times)
-
-                if (jogadorEncontrado && jogadorEncontrado.timeId) {
-                    const timeEncontrado = times.find((time) => time.id === jogadorEncontrado.timeId)
-
-                    if (timeEncontrado) {
-                        setJogadorData({
-                            jogador: jogadorEncontrado,
-                            time: timeEncontrado,
-                        });
-                        document.title = `${jogadorEncontrado.nome} - ${timeEncontrado.nome}`
-                    }
-                }
-            } catch (error) {
-                console.error("Erro ao buscar os jogadores:", error)
-                setJogadorData(null)
-            } finally {
-                setLoading(false)
-            }
+        if (jogadorData) {
+            document.title = `${jogadorData.jogador.nome} - ${jogadorData.time.nome}`
         }
-
-        fetchJogador()
-    }, [params.jogador, params.time])
+    }, [jogadorData])
 
     if (loading) return <Loading />
-    if (!jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>
+    if (error || !jogadorData) return <div><JogadorSkeleton /><p>Jogador não encontrado ou ocorreu um erro.</p></div>
     if (jogadorData.jogador.nome === '') return <div><SemJogador /></div>
 
     const { jogador: currentJogador, time: currentTime } = jogadorData
 
-    // Caminho para o logo do time e para a camisa do jogador
+    // Caminhos para assets
     const logopath = `/assets/times/logos/${currentTime.logo?.toLowerCase().replace(/\s/g, "-") || "default-logo.png"}`
     const camisasPath = `/assets/times/camisas/${currentTime.nome?.toLowerCase()
-        .replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${jogadorData.jogador.camisa}`
+        .replace(/\s/g, '-').normalize("NFD").replace(/[\u0300-\u036f]/g, "")}/${currentJogador.camisa}`
 
     const calcularExperiencia = (anoInicio: number) => {
         const anoAtual = new Date().getFullYear()
@@ -329,8 +298,7 @@ export default function Page() {
                         (
                             currentJogador.estatisticas.recepcao.jardas_recebidas > 0 ||
                             currentJogador.estatisticas.recepcao.recepcoes > 0 ||
-                            currentJogador.estatisticas.recepcao.alvo > 0 ||
-                            currentJogador.estatisticas.recepcao.fumble_de_recebedor > 0
+                            currentJogador.estatisticas.recepcao.alvo > 0 
                         ) && (
                             <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
@@ -353,7 +321,6 @@ export default function Page() {
                                     />
                                     <Stats
                                         label1='FUMBLES'
-                                        label2={currentJogador.estatisticas.recepcao.fumble_de_recebedor}
                                         noBorder
                                     />
                                 </div>
@@ -364,8 +331,7 @@ export default function Page() {
                         (
                             currentJogador.estatisticas.retorno.retornos > 0 ||
                             currentJogador.estatisticas.retorno.jardas_retornadas > 0 ||
-                            currentJogador.estatisticas.retorno.td_retornados > 0 ||
-                            currentJogador.estatisticas.retorno.fumble_retornador > 0
+                            currentJogador.estatisticas.retorno.td_retornados > 0
                         ) && (
                             <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
@@ -390,7 +356,6 @@ export default function Page() {
                                     />
                                     <Stats
                                         label1='FUMBLES'
-                                        label2={currentJogador.estatisticas.retorno.fumble_retornador}
                                         noBorder
                                     />
                                 </div>
@@ -448,12 +413,7 @@ export default function Page() {
                                 currentJogador.estatisticas.kicker.tentativas_de_xp > 0 ||
                                 currentJogador.estatisticas.kicker.fg_bons > 0 ||
                                 currentJogador.estatisticas.kicker.tentativas_de_fg > 0 ||
-                                currentJogador.estatisticas.kicker.fg_mais_longo > 0 ||
-                                (currentJogador.estatisticas.kicker.fg_0_10 && currentJogador.estatisticas.kicker.fg_0_10 !== "") ||
-                                (currentJogador.estatisticas.kicker.fg_11_20 && currentJogador.estatisticas.kicker.fg_11_20 !== "") ||
-                                (currentJogador.estatisticas.kicker.fg_21_30 && currentJogador.estatisticas.kicker.fg_21_30 !== "") ||
-                                (currentJogador.estatisticas.kicker.fg_31_40 && currentJogador.estatisticas.kicker.fg_31_40 !== "") ||
-                                (currentJogador.estatisticas.kicker.fg_41_50 && currentJogador.estatisticas.kicker.fg_41_50 !== ""))
+                                currentJogador.estatisticas.kicker.fg_mais_longo > 0 )
                         ) && (
                             <div className='xl:max-w-[1200px] xl:min-w-[1200px] xl:m-auto'>
                                 <div className="border py-2 px-3 font-extrabold text-white text-xs w-36 flex justify-center items-center rounded-md mb-3"
@@ -483,22 +443,8 @@ export default function Page() {
                                     <Stats
                                         label1='MAIS LONGO'
                                         label2={currentJogador.estatisticas.kicker.fg_mais_longo || "-"}
-                                        label3='FG (0-10 JDS)'
-                                        label4={currentJogador.estatisticas.kicker.fg_0_10 || "-"}
                                     />
-                                    <Stats
-                                        label1='FG (11-20 JDS)'
-                                        label2={currentJogador.estatisticas.kicker.fg_11_20 || "-"}
-                                        label3='FG (21-30 JDS)'
-                                        label4={currentJogador.estatisticas.kicker.fg_21_30 || "-"}
-                                    />
-                                    <Stats
-                                        label1='FG (31-40 JDS)'
-                                        label2={currentJogador.estatisticas.kicker.fg_31_40 || "-"}
-                                        label3='FG (41-50 JDS)'
-                                        label4={currentJogador.estatisticas.kicker.fg_41_50 || "-"}
-                                        noBorder
-                                    />
+                                  
                                 </div>
                             </div>
                         )}

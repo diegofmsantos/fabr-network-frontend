@@ -6,6 +6,7 @@ import { Tab } from "@/components/Tab"
 import Link from "next/link"
 import { Analytics } from '@vercel/analytics/react'
 import { Suspense } from "react"
+import { QueryProvider } from "@/providers/query-provider"
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -77,9 +78,11 @@ export default function RootLayout({
             />
           </Link>
         </header>
-        <Suspense fallback={<div>Loading...</div>}>
-          {children}
-        </Suspense>
+        <QueryProvider>
+          <Suspense fallback={<div>Loading...</div>}>
+            {children}
+          </Suspense>
+        </QueryProvider>
         <Analytics />
         <Tab />
       </body>

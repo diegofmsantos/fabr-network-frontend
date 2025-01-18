@@ -10,22 +10,23 @@ import { ButtonSetor } from "@/components/ui/buttonSetor"
 import { Jogador } from "@/components/Jogador/Jogador"
 import { CurrentTime } from "@/components/Time/Time"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { getTimes } from "../../api/api"
 import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
 import TeamNameHeader from "@/components/Time/TeamHeader"
 import ShareButton from "@/components/ui/buttonShare"
-import { createSlug, getTeamSlug } from "@/utils/formatUrl"
+import { createSlug } from "@/utils/formatUrl"
 import Link from "next/link"
+import { useTeam } from "@/hooks/queries"
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
 export default function Page() {
-
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
+  
+  // Trata a URL
   useEffect(() => {
     const currentPath = params.time?.toString() || ''
     if (currentPath.includes('%20')) {
@@ -34,51 +35,37 @@ export default function Page() {
       router.replace(`/${correctSlug}`)
     }
   }, [params.time, router])
+
   const timeName = Array.isArray(params.time) ? params.time[0] : params.time
   const decodedTimeName = timeName ? decodeURIComponent(timeName).replace(/-/g, ' ') : ''
-  const [currentTeam, setCurrentTeam] = useState<Time | null>(null)
-  const [loadingTeam, setLoadingTeam] = useState(true)
+  
+  const { 
+    data: currentTeam, 
+    isLoading: loadingTeam,
+    error 
+  } = useTeam(decodedTimeName)
+
   const [loadingJogadores, setLoadingJogadores] = useState(false)
   const [selectedButton, setSelectedButton] = useState(searchParams.get("show") || "bio")
-  const [selectedSetor, setSelectedSetor] = useState<Setor>((searchParams.get("setor") as Setor) || "ATAQUE")
+  const [selectedSetor, setSelectedSetor] = useState<Setor>(
+    (searchParams.get("setor") as Setor) || "ATAQUE"
+  )
   const [season, setSeason] = useState('2024')
+  
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 200], [1, 0])
   const height = useTransform(scrollY, [0, 200], [330, 50])
 
+  // Atualiza o título da página
   useEffect(() => {
-    async function fetchCurrentTeam() {
-      setLoadingTeam(true);
-      try {
-        if (!timeName) throw new Error("Nome do time não encontrado.")
-
-        const teams = await getTimes()
-        // Procura o time tanto pelo nome exato quanto pelo slug
-        const team = teams?.find((t) => {
-          if (!t.nome) return false
-          const teamSlug = getTeamSlug(t.nome)
-          const currentSlug = createSlug(timeName)
-          return teamSlug === currentSlug
-        }) || null
-
-        setCurrentTeam(team);
-
-        if (team && team.nome) {
-          document.title = `${team.nome}`
-        } else {
-          document.title = "Time não encontrado"
-        }
-      } catch (error) {
-        console.error("Erro ao buscar os times:", error)
-        document.title = "Erro ao carregar time"
-        setCurrentTeam(null)
-      } finally {
-        setLoadingTeam(false)
-      }
+    if (currentTeam?.nome) {
+      document.title = currentTeam.nome
+    } else if (error) {
+      document.title = "Erro ao carregar time"
+    } else if (!loadingTeam) {
+      document.title = "Time não encontrado"
     }
-
-    fetchCurrentTeam()
-  }, [timeName])
+  }, [currentTeam, loadingTeam, error])
 
   const handleShowBio = () => {
     router.replace(`?show=bio`)
@@ -98,9 +85,10 @@ export default function Page() {
   }
 
   if (loadingTeam) return <Loading />
+  if (error) return <div>Erro ao carregar o time</div>
   if (!currentTeam) return <div>Time não encontrado</div>
-  const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`
 
+  const capacetePath = `/assets/times/capacetes/${currentTeam.capacete || "default-capacete.png"}`
   return (
     <div className="pt-[79px] pb-14 bg-[#ECECEC]">
       <TeamNameHeader teamName={currentTeam?.nome} />

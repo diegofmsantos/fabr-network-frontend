@@ -187,12 +187,6 @@ export const getFGRatio = (fgString: string): number => {
 
 export const calculateStat = (player: Jogador, key: StatKey): string | number | null => {
     try {
-        // Tratamento especial para FGs por distância
-        if (['fg_11_20', 'fg_21_30', 'fg_31_40', 'fg_41_50'].includes(key)) {
-            const statValue = player.estatisticas.kicker[key as keyof typeof player.estatisticas.kicker]
-            return typeof statValue === 'string' ? statValue : null
-        }
-
         switch (key) {
             case 'passes_percentual':
                 return player.estatisticas.passe.passes_tentados > 0
@@ -279,13 +273,6 @@ export const shouldIncludePlayer = (player: Jogador, key: StatKey, category: str
             return false
         }
 
-        if (['fg_11_20', 'fg_21_30', 'fg_31_40', 'fg_41_50'].includes(key)) {
-            const fgString = player.estatisticas.kicker[key as keyof typeof player.estatisticas.kicker]
-            if (typeof fgString !== 'string' || fgString === '') return false
-            const [_, attempted] = fgString.split('/').map(Number)
-            return !isNaN(attempted) && attempted > 0
-        }
-
         const value = calculateStat(player, key)
         if (value === null) return false
         return Number(value) > 0
@@ -299,13 +286,6 @@ export const compareValues = (a: string | number | null, b: string | number | nu
     if (a === null && b === null) return 0
     if (a === null) return 1
     if (b === null) return -1
-
-    // Comparação especial para strings de FG (X/Y)
-    if (typeof a === 'string' && typeof b === 'string' && a.includes('/') && b.includes('/')) {
-        const ratioA = getFGRatio(a)
-        const ratioB = getFGRatio(b)
-        return ratioB - ratioA
-    }
 
     // Comparação normal para números
     return Number(b) - Number(a)
@@ -334,13 +314,11 @@ export const getStatCategory = (key: StatKey): keyof Jogador['estatisticas'] => 
         case 'alvo':
         case 'jardas_recebidas':
         case 'tds_recebidos':
-        case 'fumble_de_recebedor':
         case 'jardas_recebidas_media':
             return 'recepcao'
         case 'retornos':
         case 'jardas_retornadas':
         case 'td_retornados':
-        case 'fumble_retornador':
         case 'jardas_retornadas_media':
             return 'retorno'
         case 'tackles_totais':
@@ -359,10 +337,6 @@ export const getStatCategory = (key: StatKey): keyof Jogador['estatisticas'] => 
         case 'fg_bons':
         case 'tentativas_de_fg':
         case 'fg_mais_longo':
-        case 'fg_11_20':
-        case 'fg_21_30':
-        case 'fg_31_40':
-        case 'fg_41_50':
             return 'kicker'
         case 'jardas_punt_media':
         case 'punts':
@@ -478,11 +452,6 @@ export const statMappings: { [key: string]: StatConfig } = {
         title: 'Alvos',
         category: 'recepcao'
     },
-    'recepcao-fumbles': {
-        key: 'fumble_de_recebedor',
-        title: 'Fumbles',
-        category: 'recepcao'
-    },
 
     // RETORNO
     'retorno-jardas': {
@@ -505,11 +474,6 @@ export const statMappings: { [key: string]: StatConfig } = {
         title: 'Jardas(AVG)',
         category: 'retorno',
         isCalculated: true
-    },
-    'retorno-fumbles': {
-        key: 'fumble_retornador',
-        title: 'Fumbles',
-        category: 'retorno'
     },
 
     // DEFESA
@@ -590,31 +554,6 @@ export const statMappings: { [key: string]: StatConfig } = {
     'chute-mais-longo': {
         key: 'fg_mais_longo',
         title: 'FG Mais Longo',
-        category: 'kicker'
-    },
-    'chute-fg-0-10': {
-        key: 'fg_0_10',
-        title: 'FG (0-10)',
-        category: 'kicker'
-    },
-    'chute-fg11-20': {
-        key: 'fg_11_20',
-        title: 'FG (11-20)',
-        category: 'kicker'
-    },
-    'chute-fg21-30': {
-        key: 'fg_21_30',
-        title: 'FG (21-30)',
-        category: 'kicker'
-    },
-    'chute-fg31-40': {
-        key: 'fg_31_40',
-        title: 'FG (31-40)',
-        category: 'kicker'
-    },
-    'chute-fg41-50': {
-        key: 'fg_41_50',
-        title: 'FG (41-50)',
         category: 'kicker'
     },
 

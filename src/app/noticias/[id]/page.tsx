@@ -1,20 +1,18 @@
 "use client"
 
-import { getNoticias } from '@/api/api'
 import { Loading } from '@/components/ui/Loading'
-import { Noticia } from '@/types/noticia'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useState, useEffect } from 'react'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { Noticia } from '@/types/noticia'
+import { useNoticiaDetalhes } from '@/hooks/queries'
 
-// Função helper para embaralhar e filtrar notícias
-function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
+export function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
   return allNews
     .filter(news => news.id !== currentNewsId)
     .sort(() => Math.random() - 0.5)
@@ -24,9 +22,12 @@ function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: 
 export default function NoticiaDetalhes() {
   const params = useParams()
   const noticiaId = Number(params.id)
-  const [loading, setLoading] = useState(true)
-  const [noticias, setNoticias] = useState<Noticia[]>([])
-  const [noticia, setNoticia] = useState<Noticia | null>(null)
+
+  const {
+    noticia,
+    noticias,
+    isLoading
+  } = useNoticiaDetalhes(noticiaId)
 
   const SLIDER_SETTINGS = {
     dots: true,
@@ -52,29 +53,7 @@ export default function NoticiaDetalhes() {
     ],
   }
 
-  useEffect(() => {
-    const fetchNoticias = async () => {
-      try {
-        const noticiasResponse = await getNoticias()
-        setNoticias(noticiasResponse);
-      } catch (error) {
-        console.error('Erro ao carregar notícias:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchNoticias()
-  }, [])
-
-  useEffect(() => {
-    if (noticias.length > 0) {
-      const foundNoticia = noticias.find(n => n.id === noticiaId)
-      setNoticia(foundNoticia || null)
-    }
-  }, [noticias, noticiaId])
-
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
         <Loading />
@@ -89,6 +68,7 @@ export default function NoticiaDetalhes() {
       </div>
     )
   }
+
 
   return (
     <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px]">

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { getJogadores } from "@/api/api"
 import { SemJogador } from "../SemJogador"
 import { getPlayerSlug, getTeamSlug } from "@/utils/formatUrl"
+import { JogadorSkeleton } from "../ui/JogadorSkeleton"
 
 type Props = {
     currentTeam: Time
@@ -54,7 +55,8 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         return anoAtual - anoInicio
     }
 
-    if (jogadoresFiltrados.length === 0) return (<div className="text-center text-lg italic">Nenhum jogador encontrado.</div>)
+    if (loading) return <JogadorSkeleton />
+    if (jogadoresFiltrados.length === 0) return (<div className="text-center text-lg italic mt-2">Nenhum jogador encontrado.</div>)
 
     const todosJogadoresSemNome = jogadoresFiltrados.length > 0 &&
         jogadoresFiltrados.every(jogador => !jogador.nome || jogador.nome === "")

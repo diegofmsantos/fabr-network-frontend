@@ -2,30 +2,15 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
 import { Noticia } from '@/types/noticia'
-import { getNoticias } from '@/api/api'
 import { Loading } from '@/components/ui/Loading'
+import { useNoticias } from '@/hooks/queries'
 
 export default function NoticiasPage() {
-    const [noticias, setNoticias] = useState<Noticia[]>([])
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchNoticias = async () => {
-            try {
-                // Usa a função getNoticias para buscar as notícias
-                const noticiasResponse = await getNoticias()
-                setNoticias(noticiasResponse)
-            } catch (error) {
-                console.error('Erro ao carregar notícias:', error)
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchNoticias()
-    }, [])
+    const {
+        data: noticias = [], // fornece um array vazio como fallback
+        isLoading: loading
+    } = useNoticias()
 
     if (loading) {
         return (
@@ -34,7 +19,6 @@ export default function NoticiasPage() {
             </div>
         )
     }
-
 
     return (
         <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4">

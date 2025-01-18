@@ -36,7 +36,6 @@ export const statGroups: StatGroup[] = [
             { title: 'Jardas(AVG)', urlParam: 'recepcao-jardasavg' },
             { title: 'Touchdowns', urlParam: 'recepcao-touchdowns' },
             { title: 'Alvos', urlParam: 'recepcao-alvos' },
-            { title: 'Fumbles', urlParam: 'recepcao-fumbles' }
         ]
     },
     {
@@ -47,7 +46,6 @@ export const statGroups: StatGroup[] = [
             { title: 'Retornos', urlParam: 'retorno-retornos' },
             { title: 'Jardas(AVG)', urlParam: 'retorno-jardasavg' },
             { title: 'Touchdowns', urlParam: 'retorno-touchdowns' },
-            { title: 'Fumbles', urlParam: 'retorno-fumbles' }
         ]
     },
     {
@@ -121,7 +119,6 @@ export const teamStatGroups: StatGroup[] = [
             { title: 'Recepções', urlParam: 'recepcao-recepcoes' },
             { title: 'Touchdowns', urlParam: 'recepcao-touchdowns' },
             { title: 'Jardas(AVG)', urlParam: 'recepcao-jardasavg' },
-            { title: 'Fumbles', urlParam: 'recepcao-fumbles' }
         ]
     },
     {
@@ -132,7 +129,6 @@ export const teamStatGroups: StatGroup[] = [
             { title: 'Retornos', urlParam: 'retorno-retornos' },
             { title: 'Touchdowns', urlParam: 'retorno-touchdowns' },
             { title: 'Jardas(AVG)', urlParam: 'retorno-jardasavg' },
-            { title: 'Fumbles', urlParam: 'retorno-fumbles' }
         ]
     },
     {

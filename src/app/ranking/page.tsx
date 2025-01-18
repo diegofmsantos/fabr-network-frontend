@@ -65,7 +65,6 @@ export default function Page() {
                         { key: "tds_recebidos", title: "TOUCHDOWNS" },
                         { key: "jardas_recebidas_media", title: "JARDAS(AVG)" },
                         { key: "alvo", title: "ALVOS" },
-                        { key: "fumble_de_recebedor", title: "FUMBLES" }
                     ]}
                     players={players}
                 />
@@ -77,7 +76,6 @@ export default function Page() {
                         { key: "retornos", title: "RETORNOS" },
                         { key: "jardas_retornadas", title: "JARDAS" },
                         { key: "td_retornados", title: "TOUCHDOWNS" },
-                        { key: "fumble_retornador", title: "FUMBLES" }
                     ]}
                     players={players}
                 />
@@ -107,10 +105,6 @@ export default function Page() {
                         { key: "extra_points", title: "XP(%)" },
                         { key: "xp_bons", title: "XP BOM" },
                         { key: "tentativas_de_xp", title: "XP TENTADOS" },
-                        { key: "fg_11_20", title: "FG(11-20)" },
-                        { key: "fg_21_30", title: "FG(21-30)" },
-                        { key: "fg_31_40", title: "FG(31-40)" },
-                        { key: "fg_41_50", title: "FG(41-50)" }
                     ]}
                     players={players}
                 />

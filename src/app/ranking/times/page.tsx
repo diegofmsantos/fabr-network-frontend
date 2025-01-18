@@ -31,13 +31,11 @@ interface TeamStats {
         recepcoes: number
         tds_recebidos: number
         alvo: number
-        fumble_de_recebedor: number
     }
     retorno: {
         jardas_retornadas: number
         retornos: number
         td_retornados: number
-        fumble_retornador: number
     }
     defesa: {
         tackles_totais: number
@@ -112,13 +110,11 @@ export default function TeamRankingPage() {
                         recepcoes: 0,
                         tds_recebidos: 0,
                         alvo: 0,
-                        fumble_de_recebedor: 0,
                     },
                     retorno: {
                         jardas_retornadas: 0,
                         retornos: 0,
                         td_retornados: 0,
-                        fumble_retornador: 0,
                     },
                     defesa: {
                         tackles_totais: 0,
@@ -203,7 +199,6 @@ export default function TeamRankingPage() {
                         { key: "recepcoes", title: "RECEPÇÕES" },
                         { key: "tds_recebidos", title: "TOUCHDOWNS" },
                         { key: "jardas_recebidas_media", title: "JARDAS(AVG)" },
-                        { key: "fumble_de_recebedor", title: "FUMBLES" }
                     ]}
                     teamStats={teamStats}
                 />
@@ -215,7 +210,6 @@ export default function TeamRankingPage() {
                         { key: "retornos", title: "RETORNOS" },
                         { key: "td_retornados", title: "TOUCHDOWNS" },
                         { key: "jardas_retornadas_media", title: "JARDAS(AVG)" },
-                        { key: "fumble_retornador", title: "FUMBLES" }
                     ]}
                     teamStats={teamStats}
                 />

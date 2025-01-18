@@ -5,13 +5,11 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
+import { useTimes } from '@/hooks/queries' // Adicione esta importação
 
-interface ListaProps {
-    times: Time[]
-}
-
-export const Lista = ({ times }: ListaProps) => {
+export const Lista = () => {
     const [lastClicked, setLastClicked] = useState<string | null>(null)
+    const { data: times, isLoading, error } = useTimes() // Use o hook aqui
 
     const itemVariants = {
         hidden: { opacity: 0, x: 50 },
@@ -19,7 +17,6 @@ export const Lista = ({ times }: ListaProps) => {
     }
 
     useEffect(() => {
-        // Recupera o último elemento clicado do localStorage quando o componente monta
         const stored = localStorage.getItem('lastClickedTeam')
         if (stored) {
             setLastClicked(stored)
@@ -27,11 +24,13 @@ export const Lista = ({ times }: ListaProps) => {
     }, [])
 
     const handleClick = (teamName: string) => {
-        // Atualiza o localStorage e o estado quando um time é clicado
         localStorage.setItem('lastClickedTeam', teamName)
         setLastClicked(teamName)
     }
 
+    // Adicione estados de loading e error
+    if (isLoading) return <div className="text-center text-gray-500">Carregando times...</div>
+    if (error) return <div className="text-center text-gray-500">Erro ao carregar times.</div>
     if (!times || times.length === 0) return <div className="text-center text-gray-500">Nenhum time encontrado.</div>
 
     return (

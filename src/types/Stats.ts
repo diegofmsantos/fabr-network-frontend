@@ -57,11 +57,6 @@ export interface KickerStats {
   fg_bons: number
   tentativas_de_fg: number
   fg_mais_longo: number
-  fg_0_10: string
-  fg_11_20: string
-  fg_21_30: string
-  fg_31_40: string
-  fg_41_50: string
 }
 
 export interface PunterStats {
