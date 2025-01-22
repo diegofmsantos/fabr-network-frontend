@@ -1,4 +1,5 @@
-const time = [
+const time = {
+    
+}
   
  
-]
