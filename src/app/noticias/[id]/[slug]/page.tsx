@@ -84,7 +84,7 @@ export default function NoticiaDetalhes() {
           <h2 className="text-[18px] text-gray-400 mb-6">{noticia.subtitulo}</h2>
 
           {/* Container da imagem com legenda */}
-          <div className="relative w-full max-w-2xl mx-auto mb-8">
+          <div className="relative w-full max-w-4xl mx-auto mb-8">
             <div className="relative w-full">
               <Image
                 src={noticia.imagem}
