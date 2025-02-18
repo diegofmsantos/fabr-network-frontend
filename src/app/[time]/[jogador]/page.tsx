@@ -50,7 +50,6 @@ export default function Page() {
         params.jogador?.toString()
     )
 
-    // Atualizar título da página
     useEffect(() => {
         if (jogadorData) {
             document.title = `${jogadorData.jogador.nome} - ${jogadorData.time.nome}`

@@ -10,7 +10,6 @@ import { ButtonSetor } from "@/components/ui/buttonSetor"
 import { Jogador } from "@/components/Jogador/Jogador"
 import { CurrentTime } from "@/components/Time/Time"
 import { motion, useScroll, useTransform } from "framer-motion"
-import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
 import { SelectFilter } from "@/components/SelectFilter"
 import TeamNameHeader from "@/components/Time/TeamHeader"
@@ -26,7 +25,6 @@ export default function Page() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // Trata a URL
   useEffect(() => {
     const currentPath = params.time?.toString() || ''
     if (currentPath.includes('%20')) {

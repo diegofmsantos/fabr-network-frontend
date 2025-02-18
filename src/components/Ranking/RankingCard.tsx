@@ -42,7 +42,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       <h3 className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">{title}</h3>
       <ul className="flex flex-col text-white h-full">
         {players.map((player, index) => {
-          const teamLogoPath = player.teamLogo || "/assets/times/logos/default-logo.png";
+          const teamLogoPath = player.teamLogo?.toLowerCase().replace(/\s/g, "-") || "/assets/times/logos/default-logo.png";
 
           return (
             <li

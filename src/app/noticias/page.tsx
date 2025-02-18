@@ -25,20 +25,21 @@ export default function NoticiasPage() {
                 className="text-[40px] bg-[#ECECEC] fixed mt-16 z-50 ml-2 text-black w-full p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase xl:ml-20 2xl:ml-44">
                 Últimas Notícias
             </h1>
-            <div className="container mx-auto px-4 mt-40 mb-10">
-                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="max-w-7xl px-4 mt-40 mb-10">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-1">
                     {noticias.map((noticia) => (
                         <Link href={`/noticias/${noticia.id}`} key={noticia.id}>
-                            <div className="rounded-lg overflow-hidden shadow-lg bg-white">
-                                <div className="relative h-48 w-full">
+                            <div className="rounded-lg overflow-hidden shadow-lg bg-white flex flex-col md:flex-row md:h-60  xl:ml-20 2xl:ml-40">
+                                <div className="w-full h-48 md:h-full">
                                     <Image
                                         src={noticia.imagem}
                                         alt={noticia.titulo}
-                                        fill
-                                        className="object-cover"
+                                        width={96}
+                                        height={96}
+                                        className="object-cover w-full h-48 md:h-full"
                                     />
                                 </div>
-                                <div className="p-4">
+                                <div className="pt-2 px-4">
                                     <h2 className="text-xl font-bold mb-2">{noticia.titulo}</h2>
                                     <p className="text-gray-400 mb-4">{noticia.subtitulo}</p>
                                     <div className="flex justify-between items-center text-sm text-gray-500 mb-2">

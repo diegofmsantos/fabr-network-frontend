@@ -1,15 +1,14 @@
 "use client"
 
-import { Time } from "@/types/time"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { useTimes } from '@/hooks/queries' // Adicione esta importação
+import { useTimes } from '@/hooks/queries'
 
 export const Lista = () => {
     const [lastClicked, setLastClicked] = useState<string | null>(null)
-    const { data: times, isLoading, error } = useTimes() // Use o hook aqui
+    const { data: times, isLoading, error } = useTimes()
 
     const itemVariants = {
         hidden: { opacity: 0, x: 50 },
