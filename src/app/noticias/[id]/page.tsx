@@ -78,13 +78,13 @@ export default function NoticiaDetalhes() {
       >
         <FontAwesomeIcon icon={faAngleLeft} />
       </Link>
-      <div className="container mx-auto p-4 bg-white">
+      <div className="max-w-4xl mx-auto p-4 bg-white">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-4">{noticia.titulo}</h1>
           <h2 className="text-[18px] text-gray-400 mb-6">{noticia.subtitulo}</h2>
 
           {/* Container da imagem com legenda */}
-          <div className="relative w-full max-w-4xl mx-auto mb-8">
+          <div className="relative w-full max-w-2xl mx-auto mb-8">
             <div className="relative w-full">
               <Image
                 src={noticia.imagem}
@@ -140,7 +140,7 @@ export default function NoticiaDetalhes() {
             </div>
           </div>
           <div
-            className="prose max-w-none flex flex-col gap-1 [&>a]:text-[#0066cc] [&>a]:underline hover:[&>a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
+            className="prose max-w-none flex flex-col gap-1 [&_a]:text-[#0066cc] [&_a]:underline hover:[&_a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
             dangerouslySetInnerHTML={{
               __html: noticia.texto
                 .replace(/<p>&nbsp;<\/p>/g, '')
@@ -207,7 +207,7 @@ export default function NoticiaDetalhes() {
                                   className="rounded-full object-cover"
                                 />
                               </div>
-                              <span className="text-xs text-gray-500">
+                              <span className="text-[10px] text-gray-500">
                                 {newsItem.autor}
                               </span>
                             </div>
