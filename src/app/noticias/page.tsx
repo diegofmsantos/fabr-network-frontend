@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Noticia } from '@/types/noticia'
 import { Loading } from '@/components/ui/Loading'
 import { useNoticias } from '@/hooks/queries'
 
