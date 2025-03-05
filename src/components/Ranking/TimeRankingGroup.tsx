@@ -87,7 +87,6 @@ export const getCategoryFromKey = (key: string): string => {
 
 export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats, teamStats }) => {
     const [times, setTimes] = useState<Time[]>([])
-    const [season, setSeason] = useState('2024')
 
     useEffect(() => {
         const fetchTimes = async () => {

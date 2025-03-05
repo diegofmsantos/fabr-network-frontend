@@ -1,29 +1,22 @@
+"use client"
+
 import { useQuery } from '@tanstack/react-query'
 import { Time } from '@/types/time'
 import { Jogador } from '@/types/jogador'
 import { Noticia } from '@/types/noticia'
 import { api } from '@/libs/axios'
 import { createSlug, findPlayerBySlug, getTeamSlug } from '@/utils/formatUrl'
-import { ProcessedPlayer } from '@/types/processedPlayer'
-import { CategoryKey, getTierForValue } from '@/utils/categoryThresholds'
-import { getStatMapping } from '@/utils/statMappings'
-import React from 'react'
-
-// Keys para as queries
-export const queryKeys = {
-    times: ['times'],
-    jogadores: ['jogadores'],
-    noticias: ['noticias']
-} as const
+import { useSearchParams } from 'next/navigation'
+import { queryKeys } from './queryKeys'
 
 // Funções de fetch
-const fetchTimes = async (): Promise<Time[]> => {
-    const { data } = await api.get<Time[]>('/times')
+const fetchTimes = async (temporada: string = '2024'): Promise<Time[]> => {
+    const { data } = await api.get<Time[]>(`/times?temporada=${temporada}`)
     return data
 }
 
-const fetchJogadores = async (): Promise<Jogador[]> => {
-    const { data } = await api.get<Jogador[]>('/jogadores')
+const fetchJogadores = async (temporada: string = '2024'): Promise<Jogador[]> => {
+    const { data } = await api.get<Jogador[]>(`/jogadores?temporada=${temporada}`)
     return data
 }
 
@@ -31,8 +24,6 @@ const fetchNoticias = async (): Promise<Noticia[]> => {
     const { data } = await api.get<Noticia[]>('/materias')
     return data
 }
-
-
 
 // Função helper para notícias relacionadas
 function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
@@ -42,20 +33,26 @@ function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: 
         .slice(0, limit)
 }
 
+// Hook para obter a temporada dos parâmetros da URL
+export function useTemporada() {
+    const searchParams = useSearchParams()
+    return searchParams?.get('temporada') || '2024'
+}
+
 // Hooks básicos
-export function useTimes() {
+export function useJogadores(temporada: string = '2024') {
     return useQuery({
-        queryKey: queryKeys.times,
-        queryFn: fetchTimes,
+        queryKey: queryKeys.jogadores(temporada),
+        queryFn: () => fetchJogadores(temporada),
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 30,
     })
 }
 
-export function useJogadores() {
+export function useTimes(temporada: string = '2024') {
     return useQuery({
-        queryKey: queryKeys.jogadores,
-        queryFn: fetchJogadores,
+        queryKey: queryKeys.times(temporada),
+        queryFn: () => fetchTimes(temporada),
         staleTime: 1000 * 60 * 5,
         gcTime: 1000 * 60 * 30,
     })
@@ -72,10 +69,11 @@ export function useNoticias() {
 
 // Hooks compostos
 export function useTeam(teamName: string | undefined) {
+    const temporada = useTemporada()
     return useQuery({
-        queryKey: [...queryKeys.times, teamName],
+        queryKey: [...queryKeys.times(temporada), teamName],
         queryFn: async () => {
-            const times = await fetchTimes()
+            const times = await fetchTimes(temporada)
             if (!teamName) throw new Error("Nome do time não encontrado.")
 
             return times.find(t => {
@@ -89,12 +87,20 @@ export function useTeam(teamName: string | undefined) {
     })
 }
 
-export function usePlayerDetails(timeSlug: string | undefined, jogadorSlug: string | undefined) {
-    const { data: jogadores = [], isLoading: jogadoresLoading } = useJogadores()
-    const { data: times = [], isLoading: timesLoading } = useTimes()
+export function usePlayerDetails(
+    timeSlug: string | undefined,
+    jogadorSlug: string | undefined,
+    temporada?: string // Torna o parâmetro opcional
+) {
+    // Se nenhuma temporada for passada, usa o hook para buscar
+    const urlTemporada = useTemporada()
+    const currentTemporada = temporada || urlTemporada
+
+    const { data: jogadores = [], isLoading: jogadoresLoading } = useJogadores(currentTemporada)
+    const { data: times = [], isLoading: timesLoading } = useTimes(currentTemporada)
 
     return useQuery({
-        queryKey: [...queryKeys.jogadores, timeSlug, jogadorSlug],
+        queryKey: [...queryKeys.jogadores(currentTemporada), timeSlug, jogadorSlug],
         queryFn: async () => {
             if (!jogadores || !times || !timeSlug || !jogadorSlug) return null
 
@@ -126,16 +132,16 @@ export function useNoticiaDetalhes(noticiaId: number) {
     }
 }
 
-// Função de prefetch exatamente como está nas imagens
-export const prefetchQueries = async (queryClient: any) => {
+// Função de prefetch atualizada para suportar temporada
+export const prefetchQueries = async (queryClient: any, temporada: string = '2024') => {
     await Promise.all([
         queryClient.prefetchQuery({
-            queryKey: queryKeys.times,
-            queryFn: fetchTimes,
+            queryKey: queryKeys.times(temporada),
+            queryFn: () => fetchTimes(temporada),
         }),
         queryClient.prefetchQuery({
-            queryKey: queryKeys.jogadores,
-            queryFn: fetchJogadores,
+            queryKey: queryKeys.jogadores(temporada),
+            queryFn: () => fetchJogadores(temporada),
         }),
         queryClient.prefetchQuery({
             queryKey: queryKeys.noticias,

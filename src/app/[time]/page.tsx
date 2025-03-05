@@ -24,6 +24,7 @@ export default function Page() {
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
+  const temporada = searchParams.get('temporada') || '2024'
 
   useEffect(() => {
     const currentPath = params.time?.toString() || ''
@@ -48,7 +49,7 @@ export default function Page() {
   const [selectedSetor, setSelectedSetor] = useState<Setor>(
     (searchParams.get("setor") as Setor) || "ATAQUE"
   )
-  const [season, setSeason] = useState('2024')
+
 
   const { scrollY } = useScroll()
   const opacity = useTransform(scrollY, [0, 200], [1, 0])
@@ -148,8 +149,8 @@ export default function Page() {
             <div className="w-full flex justify-center">
               <SelectFilter
                 label="TEMPORADA"
-                value={season}
-                onChange={setSeason}
+                value={temporada} // Use o valor diretamente
+                onChange={() => { }} // Função vazia ou lógica de mudança de temporada
                 options={[
                   { label: '2024', value: '2024' },
                   { label: '2025', value: '2025' }

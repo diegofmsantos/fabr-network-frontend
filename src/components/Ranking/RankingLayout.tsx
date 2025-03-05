@@ -1,9 +1,11 @@
 "use client"
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { RankingFilters } from '../FilterButton'
 import { SelectFilter } from '../SelectFilter'
+import { useJogadores, useTimes } from '@/hooks/queries' // Importe os hooks necessários
+
 interface RankingLayoutProps {
     children: React.ReactNode
     initialFilter: 'jogadores' | 'times'
@@ -11,7 +13,18 @@ interface RankingLayoutProps {
 
 export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     const router = useRouter()
-    const [season, setSeason] = useState('2024')
+    const searchParams = useSearchParams()
+    const [season, setSeason] = useState(searchParams.get('temporada') || '2024')
+
+    // Use a temporada nos hooks de busca
+    const { data: jogadores, refetch: refetchJogadores } = useJogadores(season)
+    const { data: times, refetch: refetchTimes } = useTimes(season)
+
+    // Efeito para refetch quando a temporada muda
+    useEffect(() => {
+        refetchJogadores()
+        refetchTimes()
+    }, [season, refetchJogadores, refetchTimes])
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
         if (filter === 'jogadores') {
@@ -23,6 +36,8 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
 
     const handleSeasonChange = (newSeason: string) => {
         setSeason(newSeason)
+        const currentPath = window.location.pathname
+        router.push(`${currentPath}?temporada=${newSeason}`)
     }
 
     return (
@@ -36,7 +51,7 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
                     <SelectFilter
                         label="TEMPORADA"
                         value={season}
-                        onChange={setSeason}
+                        onChange={handleSeasonChange}
                         options={[
                             { label: '2024', value: '2024' },
                             { label: '2025', value: '2025' }
