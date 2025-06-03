@@ -2,7 +2,7 @@ import React from 'react';
 import { AlertCircle, Calendar, User, Users } from 'lucide-react';
 
 interface NoDataFoundProps {
-  type: 'player' | 'team';
+  type: 'player' | 'team' | 'campeonato';
   temporada: string;
   entityName?: string;
   onGoBack?: () => void;
