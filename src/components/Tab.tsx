@@ -4,7 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Menu } from "lucide-react"
+import { Menu, Trophy } from "lucide-react"
 import { Sobre } from "./Sobre"
 
 interface TabProps {
@@ -17,15 +17,17 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
   const isNoticiasRoute = pathname.startsWith('/noticias')
   const isMercadoRoute = pathname.startsWith('/mercado')
   const isCompararRoute = pathname.startsWith('/comparar-times')
+  const isCampeonatoRoute = pathname.startsWith('/campeonato')
+  const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isCampeonatoRoute
   const [isAboutOpen, setIsAboutOpen] = useState(false)
 
   return (
     <>
       <div className={`fixed bottom-0 w-full bg-[#272731] shadow-md border-t flex justify-around items-center py-2 z-50 ${className} xl:hidden`}>
         <Link href="/">
-          <div className={`flex flex-col items-center ${!isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+          <div className={`flex flex-col items-center ${isTimesRoute ? "text-[#63E300]" : "text-gray-400"}`}>
             <Image
-              src={!isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute ? "/assets/logo-capacete-verde.png" : "/assets/logo-capacete-branco.png"}
+              src={isTimesRoute ? "/assets/logo-capacete-verde.png" : "/assets/logo-capacete-branco.png"}
               alt="capacete"
               width={25}
               height={25}
@@ -43,6 +45,16 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
               height={25}
             />
             <span className="text-[12px]">Ranking</span>
+          </div>
+        </Link>
+
+        <Link href="/campeonato">
+          <div className={`flex flex-col items-center ${isCampeonatoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+            <Trophy 
+              size={25} 
+              className={isCampeonatoRoute ? "text-[#63E300]" : "text-gray-400"}
+            />
+            <span className="text-[12px]">Campeonatos</span>
           </div>
         </Link>
 

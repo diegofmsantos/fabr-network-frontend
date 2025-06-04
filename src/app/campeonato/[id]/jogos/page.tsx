@@ -6,7 +6,7 @@ import { Loading } from '@/components/ui/Loading'
 import { CalendarioJogos } from '@/components/Campeonato/CalendarioJogos'
 import { JogoCard } from '@/components/Campeonato/JogoCard'
 import { useCampeonato, useJogos } from '@/hooks/useCampeonatos'
-import { ArrowLeft, Calendar, Filter, Search, Download, BarChart3, Clock, CheckCircle, Play, Pause } from 'lucide-react'
+import { ArrowLeft, Calendar, Filter, Search, Download, BarChart3, Clock, CheckCircle, Play, Pause, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 import { format, parseISO, startOfWeek, endOfWeek } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
@@ -119,6 +119,21 @@ export default function JogosPage() {
     return Array.from(rodasSet).sort((a, b) => a - b)
   }, [jogos])
 
+  // Função para limpar filtros
+  const clearFilters = () => {
+    setFilterStatus('todos')
+    setFilterGrupo('todos')
+    setFilterTime('todos')
+    setFilterRodada('todas')
+    setSearchTerm('')
+  }
+
+  // Função para exportar dados
+  const handleExport = () => {
+    // Implementar exportação em CSV/PDF
+    console.log('Exportar jogos:', jogosFiltrados)
+  }
+
   if (loading) return <Loading />
 
   if (error || !campeonato) {
@@ -197,7 +212,10 @@ export default function JogosPage() {
             </div>
 
             {/* Botão de Download */}
-            <button className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <button 
+              onClick={handleExport}
+              className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
               <Download className="w-4 h-4" />
               Exportar
             </button>
@@ -329,3 +347,72 @@ export default function JogosPage() {
           {/* Limpar Filtros */}
           <div className="flex items-end">
             <button
+              onClick={clearFilters}
+              className="w-full flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              <RefreshCw className="w-4 h-4" />
+              Limpar
+            </button>
+          </div>
+        </div>
+
+        {/* Filtros Ativos */}
+        {(filterStatus !== 'todos' || filterGrupo !== 'todos' || filterTime !== 'todos' || filterRodada !== 'todas' || searchTerm) && (
+          <div className="mt-4 pt-4 border-t">
+            <p className="text-sm text-gray-600 mb-2">Filtros ativos:</p>
+            <div className="flex flex-wrap gap-2">
+              {filterStatus !== 'todos' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                  Status: {filterStatus}
+                  <button onClick={() => setFilterStatus('todos')} className="hover:text-blue-900">×</button>
+                </span>
+              )}
+              {filterGrupo !== 'todos' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
+                  Grupo: {grupos.find(g => g.id === filterGrupo)?.nome}
+                  <button onClick={() => setFilterGrupo('todos')} className="hover:text-green-900">×</button>
+                </span>
+              )}
+              {filterTime !== 'todos' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded-full">
+                  Time: {times.find(t => t.id === filterTime)?.nome}
+                  <button onClick={() => setFilterTime('todos')} className="hover:text-purple-900">×</button>
+                </span>
+              )}
+              {filterRodada !== 'todas' && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">
+                  Rodada: {filterRodada}ª
+                  <button onClick={() => setFilterRodada('todas')} className="hover:text-yellow-900">×</button>
+                </span>
+              )}
+              {searchTerm && (
+                <span className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">
+                  Busca: "{searchTerm}"
+                  <button onClick={() => setSearchTerm('')} className="hover:text-gray-900">×</button>
+                </span>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Componente de Calendário */}
+      <CalendarioJogos 
+        jogos={jogosFiltrados} 
+        loading={loading}
+        showFilters={false} // Já temos filtros acima
+        compact={false}
+      />
+
+      {/* Footer com informações */}
+      <div className="mt-8 bg-blue-50 rounded-lg p-6 border border-blue-200">
+        <h3 className="font-semibold text-blue-900 mb-2">Informações</h3>
+        <div className="text-sm text-blue-800 space-y-1">
+          <p><strong>Total de jogos encontrados:</strong> {jogosFiltrados.length}</p>
+          <p><strong>Jogos finalizados:</strong> {jogosFiltrados.filter(j => j.status === 'FINALIZADO').length}</p>
+          <p><strong>Próximos jogos:</strong> {jogosFiltrados.filter(j => j.status === 'AGENDADO').length}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
