@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useCreateCampeonato } from '@/hooks/useCampeonatos'
 import { useTimes } from '@/hooks/queries'
-import { CampeonatoForm } from '@/components/Admin/forms/CampeonatoForm'
 import { ArrowLeft, Save, Eye } from 'lucide-react'
 import Link from 'next/link'
+import { CampeonatoForm } from '@/components/Admin/forms/CampeonatoForm'
 
 export default function CriarCampeonato() {
   const router = useRouter()

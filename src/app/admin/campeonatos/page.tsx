@@ -3,10 +3,11 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useCampeonatos, useDeleteCampeonato } from '@/hooks/useCampeonatos'
-import { CampeonatoCard } from '@/components/Admin/CampeonatoCard'
+import { useCampeonatos } from '@/hooks/useCampeonatos'
 import { Loading } from '@/components/ui/Loading'
 import { Plus, Filter, Search, Download } from 'lucide-react'
+import { useDeleteCampeonato } from '@/hooks/useDeleteCampeonato'
+import { CampeonatoCard } from '@/components/Admin/CampeonatoCard'
 
 type FilterStatus = 'todos' | 'NAO_INICIADO' | 'EM_ANDAMENTO' | 'FINALIZADO'
 type FilterTipo = 'todos' | 'REGULAR' | 'PLAYOFFS' | 'COPA'

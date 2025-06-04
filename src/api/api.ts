@@ -1,4 +1,3 @@
-// src/api/api.ts - VERSÃO ATUALIZADA
 import { Time } from '@/types/time'
 import { Jogador } from '@/types/jogador'
 import { Noticia } from '@/types/noticia'

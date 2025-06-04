@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useCampeonato, useJogos, useGerarJogos } from '@/hooks/useCampeonatos'
-import { JogoManager } from '@/components/Admin/JogoManager'
 import { Loading } from '@/components/ui/Loading'
 import { NoDataFound } from '@/components/ui/NoDataFound'
 import { 
@@ -18,6 +17,7 @@ import {
   Zap
 } from 'lucide-react'
 import Link from 'next/link'
+import { JogoManager } from '@/components/Admin/JogoManager'
 
 type FilterStatus = 'todos' | 'AGENDADO' | 'AO_VIVO' | 'FINALIZADO' | 'ADIADO'
 type ViewMode = 'calendar' | 'list' | 'table'

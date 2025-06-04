@@ -1,11 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import { useAdminStats } from '@/hooks/useAdminStats'
 import { Loading } from '@/components/ui/Loading'
-import { StatsCard } from '@/components/Admin/StatsCard'
-import { ChartCard } from '@/components/Admin/ChartCard'
-import { ActivityTimeline } from '@/components/Admin/ActivityTimeline'
 import { 
   Trophy, 
   Calendar, 
@@ -17,10 +13,16 @@ import {
   Clock,
   Play
 } from 'lucide-react'
+import { useAdminStats } from '@/hooks/useAdminStats'
+import { QuickStats } from '@/components/Admin/Dashboard/QuickStats'
+import { ActionableAlerts } from '@/components/Admin/Dashboard/ActionableAlerts'
+import { SystemHealth } from '@/components/Admin/Dashboard/SystemHealth'
+import { ChartCard } from '@/components/Admin/ChartCard'
+import { ActivityTimeline } from '@/components/Admin/ActivityTimeline'
 
 export default function Dashboard() {
   const [selectedTemporada, setSelectedTemporada] = useState('2025')
-  const [selectedPeriod, setSelectedPeriod] = useState('30d') // 7d, 30d, 90d, 1y
+  const [selectedPeriod, setSelectedPeriod] = useState('30d')
   
   const { data: stats, isLoading, error } = useAdminStats({
     temporada: selectedTemporada,
@@ -28,7 +30,13 @@ export default function Dashboard() {
   })
 
   if (isLoading) return <Loading />
-  if (error) return <div className="text-center text-red-600">Erro ao carregar dados</div>
+  if (error) {
+    return (
+      <div className="text-center text-red-600">
+        Erro ao carregar dados: {error.message}
+      </div>
+    )
+  }
 
   return (
     <div className="space-y-8">
@@ -64,98 +72,40 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* KPIs Principais */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <StatsCard
-          title="Campeonatos Ativos"
-          value={stats?.campeonatosAtivos || 0}
-          icon={Trophy}
-          color="blue"
-          change={`+${stats?.crescimentoCampeonatos || 0}%`}
-          changeType="positive"
-          subtitle="vs. período anterior"
-        />
-        
-        <StatsCard
-          title="Jogos Esta Semana"
-          value={stats?.jogosEstaSemana || 0}
-          icon={Calendar}
-          color="green"
-          change={`${stats?.jogosAgendados || 0} agendados`}
-          changeType="neutral"
-          subtitle="próximos 7 dias"
-        />
-        
-        <StatsCard
-          title="Times Participantes"
-          value={stats?.timesParticipantes || 0}
-          icon={Users}
-          color="purple"
-          change={`${stats?.novosTimes || 0} novos`}
-          changeType="positive"
-          subtitle="nesta temporada"
-        />
-        
-        <StatsCard
-          title="Taxa de Conclusão"
-          value={`${stats?.taxaConclusao || 0}%`}
-          icon={CheckCircle}
-          color="emerald"
-          change={`+${stats?.melhoriaOperacional || 0}%`}
-          changeType="positive"
-          subtitle="jogos finalizados"
-        />
-      </div>
+      {/* Stats Principais */}
+      <QuickStats />
 
-      {/* Alertas e Notificações */}
-      {stats?.alertas && stats.alertas.length > 0 && (
-        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-          <div className="flex items-center">
-            <AlertTriangle className="h-5 w-5 text-yellow-600 mr-3" />
-            <h3 className="text-lg font-medium text-yellow-800">
-              Ações Necessárias ({stats.alertas.length})
-            </h3>
-          </div>
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {stats.alertas.map((alerta: any, index: number) => (
-              <div key={index} className="bg-white rounded-md p-4 shadow-sm">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium text-gray-900">{alerta.titulo}</span>
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    alerta.prioridade === 'alta' ? 'bg-red-100 text-red-800' :
-                    alerta.prioridade === 'media' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-blue-100 text-blue-800'
-                  }`}>
-                    {alerta.prioridade}
-                  </span>
-                </div>
-                <p className="mt-1 text-sm text-gray-600">{alerta.descricao}</p>
-              </div>
-            ))}
-          </div>
+      {/* Sistema de Alertas */}
+      <ActionableAlerts />
+
+      {/* Grid de Componentes */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
+        {/* Status do Sistema */}
+        <div className="lg:col-span-1">
+          <SystemHealth />
         </div>
-      )}
 
-      {/* Gráficos Principais */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <ChartCard
-          title="Evolução de Campeonatos"
-          subtitle="Criação de campeonatos ao longo do tempo"
-          data={stats?.evolucaoCampeonatos || []}
-          type="area"
-          height={300}
-        />
-        
-        <ChartCard
-          title="Status dos Jogos"
-          subtitle="Distribuição atual dos jogos"
-          data={stats?.statusJogos || []}
-          type="donut"
-          height={300}
-        />
+        {/* Gráficos */}
+        <div className="lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <ChartCard
+            title="Evolução de Campeonatos"
+            subtitle="Criação ao longo do tempo"
+            data={stats?.evolucaoCampeonatos || []}
+            type="area"
+            height={300}
+          />
+          
+          <ChartCard
+            title="Status dos Jogos"
+            subtitle="Distribuição atual"
+            data={stats?.statusJogos || []}
+            type="donut"
+            height={300}
+          />
+        </div>
       </div>
 
-      {/* Linha de Gráficos Secundários */}
+      {/* Gráficos Secundários */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <ChartCard
           title="Performance por Tipo"
@@ -179,7 +129,7 @@ export default function Dashboard() {
         />
       </div>
 
-      {/* Timeline de Atividades e Estatísticas Detalhadas */}
+      {/* Timeline e Métricas Detalhadas */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {/* Atividades Recentes */}
         <div className="lg:col-span-1">
@@ -191,7 +141,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Estatísticas Detalhadas */}
+        {/* Métricas Detalhadas */}
         <div className="lg:col-span-2">
           <div className="bg-white shadow rounded-lg p-6">
             <h3 className="text-lg font-medium text-gray-900 mb-6">
@@ -199,7 +149,6 @@ export default function Dashboard() {
             </h3>
             
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {/* Coluna 1 */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium text-gray-600">Média de Jogos/Campeonato</span>
@@ -217,7 +166,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Coluna 2 */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                   <span className="text-sm font-medium text-gray-600">Grupos por Campeonato</span>

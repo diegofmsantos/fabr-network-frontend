@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { useCampeonato, useUpdateCampeonato, useDeleteCampeonato } from '@/hooks/useCampeonatos'
+import { useCampeonato } from '@/hooks/useCampeonatos'
 import { useJogos, useClassificacao } from '@/hooks/useCampeonatos'
 import { Loading } from '@/components/ui/Loading'
 import { NoDataFound } from '@/components/ui/NoDataFound'
@@ -19,6 +19,9 @@ import {
   BarChart3
 } from 'lucide-react'
 import Link from 'next/link'
+import { CampeonatoForm } from '@/components/Admin/forms/CampeonatoForm'
+import { useUpdateCampeonato } from '@/hooks/useUpdateCampeonato'
+import { useDeleteCampeonato } from '@/hooks/useDeleteCampeonato'
 
 type TabType = 'configuracoes' | 'grupos' | 'jogos' | 'classificacao'
 

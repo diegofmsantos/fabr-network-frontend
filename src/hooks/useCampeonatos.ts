@@ -2,6 +2,8 @@
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { Campeonato, Jogo, ClassificacaoGrupo, FiltroJogos, CriarCampeonatoRequest } from '@/types/campeonato'
+import { useNotifications } from '@/hooks/useNotifications'
+import { handleApiError } from '@/utils/errorHandler'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
@@ -183,25 +185,35 @@ export function useUltimosResultados(campeonatoId: number, limit = 10) {
 // Mutations para operações de escrita
 export function useCreateCampeonato() {
   const queryClient = useQueryClient()
+  const notifications = useNotifications()
 
   return useMutation({
     mutationFn: async (data: CriarCampeonatoRequest): Promise<Campeonato> => {
       const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
 
       if (!response.ok) {
-        throw new Error('Erro ao criar campeonato')
+        const error = await response.json().catch(() => ({}))
+        throw handleApiError({ response, message: error.message })
       }
 
       return response.json()
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.lists() })
+      notifications.success(
+        'Campeonato criado!', 
+        `${data.nome} foi criado com sucesso`
+      )
+    },
+    onError: (error) => {
+      notifications.error(
+        'Erro ao criar campeonato', 
+        error.message || 'Tente novamente'
+      )
     },
   })
 }

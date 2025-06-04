@@ -1,24 +1,43 @@
+// src/app/admin/page.tsx - SUBSTITUIR COMPLETAMENTE
 "use client"
 
 import { useState } from 'react'
-import { StatsCard } from '@/components/Admin/StatsCard'
-import { RecentActivity } from '@/components/Admin/RecentActivity'
-import { QuickActions } from '@/components/Admin/QuickActions'
-import { ChartCard } from '@/components/Admin/ChartCard'
-import { useAdminStats } from '@/hooks/useAdminStats'
 import { Loading } from '@/components/ui/Loading'
-import { Trophy, Calendar, Users, BarChart3, AlertCircle, CheckCircle } from 'lucide-react'
+
+// Novos componentes do dashboard
+import { QuickStats } from '@/components/Admin/Dashboard/QuickStats'
+import { ActionableAlerts } from '@/components/Admin/Dashboard/ActionableAlerts'
+import { SystemHealth } from '@/components/Admin/Dashboard/SystemHealth'
+import { useAdminStats } from '@/hooks/useAdminStats'
+import { QuickActions } from '@/components/Admin/QuickActions'
+import { RecentActivity } from '@/components/Admin/RecentActivity'
+import { ChartCard } from '@/components/Admin/ChartCard'
+
+// Componentes existentes
 
 export default function AdminDashboard() {
   const [selectedTemporada, setSelectedTemporada] = useState('2025')
   const { data: stats, isLoading, error } = useAdminStats(selectedTemporada)
 
   if (isLoading) return <Loading />
-  if (error) return <div className="text-center text-red-600">Erro ao carregar dados</div>
+  
+  if (error) {
+    return (
+      <div className="text-center py-12">
+        <div className="text-red-600 mb-4">Erro ao carregar dashboard</div>
+        <button 
+          onClick={() => window.location.reload()}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Tentar novamente
+        </button>
+      </div>
+    )
+  }
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-8">
+      {/* Header com Filtros */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Dashboard Administrativo</h1>
@@ -39,44 +58,32 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        <StatsCard
-          title="Total Campeonatos"
-          value={stats?.totalCampeonatos || 0}
-          icon={Trophy}
-          color="blue"
-          change="+2 este mês"
-          changeType="positive"
-        />
-        <StatsCard
-          title="Jogos Agendados"
-          value={stats?.jogosAgendados || 0}
-          icon={Calendar}
-          color="green"
-          change="Esta semana"
-          changeType="neutral"
-        />
-        <StatsCard
-          title="Times Ativos"
-          value={stats?.timesAtivos || 0}
-          icon={Users}
-          color="purple"
-          change="30 times"
-          changeType="neutral"
-        />
-        <StatsCard
-          title="Jogos Finalizados"
-          value={stats?.jogosFinalizados || 0}
-          icon={CheckCircle}
-          color="emerald"
-          change="+15 esta semana"
-          changeType="positive"
-        />
+      {/* Stats Cards Principais */}
+      <QuickStats />
+
+      {/* Alertas Críticos */}
+      <ActionableAlerts />
+
+      {/* Grid Principal */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {/* Ações Rápidas */}
+        <div className="lg:col-span-1">
+          <QuickActions />
+        </div>
+        
+        {/* Status do Sistema */}
+        <div className="lg:col-span-1">
+          <SystemHealth />
+        </div>
+
+        {/* Atividades Recentes */}
+        <div className="lg:col-span-1">
+          <RecentActivity activities={stats?.recentActivities || []} />
+        </div>
       </div>
 
       {/* Charts Row */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
         <ChartCard
           title="Campeonatos por Status"
           data={stats?.campeonatosPorStatus || []}
@@ -88,42 +95,6 @@ export default function AdminDashboard() {
           type="line"
         />
       </div>
-
-      {/* Bottom Row */}
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-        {/* Quick Actions */}
-        <div className="lg:col-span-1">
-          <QuickActions />
-        </div>
-        
-        {/* Recent Activity */}
-        <div className="lg:col-span-2">
-          <RecentActivity activities={stats?.recentActivities || []} />
-        </div>
-      </div>
-
-      {/* Alerts Section */}
-      {stats?.alerts && stats.alerts.length > 0 && (
-        <div className="rounded-md bg-yellow-50 p-4">
-          <div className="flex">
-            <div className="flex-shrink-0">
-              <AlertCircle className="h-5 w-5 text-yellow-400" />
-            </div>
-            <div className="ml-3">
-              <h3 className="text-sm font-medium text-yellow-800">
-                Atenção Necessária
-              </h3>
-              <div className="mt-2 text-sm text-yellow-700">
-                <ul className="list-disc space-y-1 pl-5">
-                  {stats.alerts.map((alert, index) => (
-                    <li key={index}>{alert}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
