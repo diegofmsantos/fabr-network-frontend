@@ -16,7 +16,7 @@ import { NoDataFound } from '@/components/ui/NoDataFound'
 export default function JogoDetalhesPage() {
   const params = useParams()
   const router = useRouter()
-  
+
   const jogoId = parseInt(params.jogoId as string)
   const campeonatoId = parseInt(params.id as string)
 
@@ -30,13 +30,14 @@ export default function JogoDetalhesPage() {
         type="jogo"
         entityName={params.jogoId as string}
         onGoBack={() => router.back()}
+        temporada="2025"
       />
     )
   }
 
   const isFinished = jogo.status === 'FINALIZADO'
   const hasScore = jogo.placarCasa !== null && jogo.placarVisitante !== null
-  
+
   const getWinner = () => {
     if (!hasScore) return null
     if (jogo.placarCasa! > jogo.placarVisitante!) return 'casa'
@@ -76,7 +77,7 @@ export default function JogoDetalhesPage() {
           <ArrowLeft className="w-4 h-4" />
           Voltar
         </button>
-        
+
         <nav className="flex items-center space-x-2 text-sm text-gray-600">
           <Link href="/campeonato" className="hover:text-blue-600">
             Campeonatos
@@ -110,7 +111,7 @@ export default function JogoDetalhesPage() {
                 </span>
               )}
             </div>
-            
+
             <div className="text-right">
               <div className="text-sm text-gray-600">
                 {format(new Date(jogo.dataJogo), "EEEE, dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
@@ -127,7 +128,7 @@ export default function JogoDetalhesPage() {
           <div className="flex items-center justify-between">
             {/* Time da Casa */}
             <div className="flex-1 text-center">
-              <Link 
+              <Link
                 href={`/${jogo.timeCasa.nome}?temporada=${jogo.campeonato?.temporada || '2025'}`}
                 className="group block"
               >
@@ -164,16 +165,16 @@ export default function JogoDetalhesPage() {
               ) : (
                 <div className="text-2xl text-gray-400 font-bold">VS</div>
               )}
-              
+
               <div className="mt-4">
                 <span className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium
                   ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
                     jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
-                    jogo.status === 'AGENDADO' ? 'bg-blue-100 text-blue-800' :
-                    'bg-yellow-100 text-yellow-800'}`}>
+                      jogo.status === 'AGENDADO' ? 'bg-blue-100 text-blue-800' :
+                        'bg-yellow-100 text-yellow-800'}`}>
                   {jogo.status === 'FINALIZADO' ? 'Finalizado' :
-                   jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
-                   jogo.status === 'AGENDADO' ? 'Agendado' : 'Adiado'}
+                    jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
+                      jogo.status === 'AGENDADO' ? 'Agendado' : 'Adiado'}
                 </span>
               </div>
 
@@ -184,7 +185,7 @@ export default function JogoDetalhesPage() {
 
             {/* Time Visitante */}
             <div className="flex-1 text-center">
-              <Link 
+              <Link
                 href={`/${jogo.timeVisitante.nome}?temporada=${jogo.campeonato?.temporada || '2025'}`}
                 className="group block"
               >
@@ -217,7 +218,7 @@ export default function JogoDetalhesPage() {
           value={format(new Date(jogo.dataJogo), "dd/MM/yyyy 'às' HH:mm", { locale: ptBR })}
           description={format(new Date(jogo.dataJogo), "EEEE", { locale: ptBR })}
         />
-        
+
         {jogo.local && (
           <StatCard
             icon={MapPin}
@@ -225,7 +226,7 @@ export default function JogoDetalhesPage() {
             value={jogo.local}
           />
         )}
-        
+
         <StatCard
           icon={Trophy}
           title="Fase"

@@ -142,6 +142,7 @@ export default function JogosPage() {
         type="campeonato"
         entityName={params.id as string}
         onGoBack={() => router.back()}
+         temporada="2025"
       />
     )
   }
