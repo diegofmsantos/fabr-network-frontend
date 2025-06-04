@@ -30,10 +30,7 @@ export function useCampeonatos(filters?: { temporada?: string; tipo?: string; st
       if (filters?.tipo) params.append('tipo', filters.tipo)
       if (filters?.status) params.append('status', filters.status)
 
-      // ❌ ESTAVA ASSIM (URL INCORRETA):
-      // const url = `${API_BASE_URL}/campeonatos/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
-
-      // ✅ CORRIGIR PARA:
+    
       const url = `${API_BASE_URL}/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
       
       console.log('🔍 URL corrigida:', url) // Para debug
@@ -55,8 +52,6 @@ export function useCampeonato(id: number) {
   return useQuery({
     queryKey: campeonatoQueryKeys.detail(id),
     queryFn: async (): Promise<Campeonato> => {
-      // ❌ ESTAVA: `/campeonatos/campeonatos/${id}`
-      // ✅ CORRIGIR PARA:
       const response = await fetch(`${API_BASE_URL}/campeonatos/${id}`)
       
       if (!response.ok) {

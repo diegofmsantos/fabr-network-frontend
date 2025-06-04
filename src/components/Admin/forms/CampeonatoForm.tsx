@@ -27,12 +27,13 @@ export const CampeonatoForm: React.FC<CampeonatoFormProps> = ({
   isLastStep
 }) => {
   const [timesDisponiveis, setTimesDisponiveis] = useState<Time[]>([])
-  const [timesSelecionados, setTimesSelecionados] = useState<number[]>([])
+
+  const grupos = formData.grupos || []
 
   useEffect(() => {
-    const timesUsados = formData.grupos.flatMap(grupo => grupo.times)
+    const timesUsados = grupos.flatMap(grupo => grupo.times || [])
     setTimesDisponiveis(times.filter(time => !timesUsados.includes(time.id || 0)))
-  }, [times, formData.grupos])
+  }, [times, grupos])
 
   const handleInputChange = (field: string, value: any) => {
     onChange({ ...formData, [field]: value })
@@ -47,29 +48,34 @@ export const CampeonatoForm: React.FC<CampeonatoFormProps> = ({
 
   const adicionarGrupo = () => {
     const novoGrupo = {
-      nome: `Grupo ${String.fromCharCode(65 + formData.grupos.length)}`,
+      nome: `Grupo ${String.fromCharCode(65 + grupos.length)}`,
       times: []
     }
     onChange({
       ...formData,
-      grupos: [...formData.grupos, novoGrupo]
+      grupos: [...grupos, novoGrupo]
     })
   }
 
   const removerGrupo = (index: number) => {
-    const novosGrupos = formData.grupos.filter((_, i) => i !== index)
+    const novosGrupos = grupos.filter((_, i) => i !== index)
     onChange({ ...formData, grupos: novosGrupos })
   }
 
   const adicionarTimeAoGrupo = (grupoIndex: number, timeId: number) => {
-    const novosGrupos = [...formData.grupos]
-    novosGrupos[grupoIndex].times.push(timeId)
+    const novosGrupos = [...grupos]
+    if (!novosGrupos[grupoIndex].times) {
+      novosGrupos[grupoIndex].times = []
+    }
+    novosGrupos[grupoIndex].times!.push(timeId)
     onChange({ ...formData, grupos: novosGrupos })
   }
 
   const removerTimeDoGrupo = (grupoIndex: number, timeId: number) => {
-    const novosGrupos = [...formData.grupos]
-    novosGrupos[grupoIndex].times = novosGrupos[grupoIndex].times.filter(id => id !== timeId)
+    const novosGrupos = [...grupos]
+    if (novosGrupos[grupoIndex].times) {
+      novosGrupos[grupoIndex].times = novosGrupos[grupoIndex].times!.filter(id => id !== timeId)
+    }
     onChange({ ...formData, grupos: novosGrupos })
   }
 
@@ -247,7 +253,7 @@ export const CampeonatoForm: React.FC<CampeonatoFormProps> = ({
     </div>
   )
 
-  const renderStep3 = () => (
+    const renderStep3 = () => (
     <div className="space-y-6">
       <div className="bg-white shadow rounded-lg p-6">
         <div className="flex items-center justify-between mb-6">
@@ -266,14 +272,15 @@ export const CampeonatoForm: React.FC<CampeonatoFormProps> = ({
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {formData.grupos.map((grupo, index) => (
+          {/* ✅ CORREÇÃO 7: Usar grupos local */}
+          {grupos.map((grupo, index) => (
             <div key={index} className="border border-gray-200 rounded-lg p-4">
               <div className="flex items-center justify-between mb-3">
                 <input
                   type="text"
                   value={grupo.nome}
                   onChange={(e) => {
-                    const novosGrupos = [...formData.grupos]
+                    const novosGrupos = [...grupos]
                     novosGrupos[index].nome = e.target.value
                     onChange({ ...formData, grupos: novosGrupos })
                   }}
@@ -289,7 +296,8 @@ export const CampeonatoForm: React.FC<CampeonatoFormProps> = ({
               </div>
 
               <div className="space-y-2 mb-4">
-                {grupo.times.map((timeId) => {
+                {/* ✅ CORREÇÃO 8: Garantir que times existe */}
+                {(grupo.times || []).map((timeId) => {
                   const time = times.find(t => t.id === timeId)
                   return (
                     <div key={timeId} className="flex items-center justify-between bg-gray-50 p-2 rounded">
@@ -372,18 +380,18 @@ export const CampeonatoForm: React.FC<CampeonatoFormProps> = ({
             </div>
             <div>
               <dt className="text-sm font-medium text-gray-500">Grupos</dt>
-              <dd className="text-sm text-gray-900">{formData.grupos.length}</dd>
+              <dd className="text-sm text-gray-900">{grupos.length}</dd>
             </div>
           </dl>
         </div>
 
         <div>
           <h3 className="text-lg font-medium text-gray-900 mb-2">Times por Grupo</h3>
-          {formData.grupos.map((grupo, index) => (
+          {grupos.map((grupo, index) => (
             <div key={index} className="mb-3">
               <h4 className="text-sm font-medium text-gray-700">{grupo.nome}</h4>
               <p className="text-sm text-gray-600">
-                {grupo.times.map(timeId => times.find(t => t.id === timeId)?.sigla).join(', ')}
+                {(grupo.times || []).map(timeId => times.find(t => t.id === timeId)?.sigla).filter(Boolean).join(', ')}
               </p>
             </div>
           ))}
