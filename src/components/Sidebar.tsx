@@ -63,7 +63,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
 
                 <Link
-                    href="/campeonato"
+                    href="/campeonatos"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'campeonatos' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >

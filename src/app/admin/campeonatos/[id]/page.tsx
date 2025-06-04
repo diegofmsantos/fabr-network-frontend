@@ -6,12 +6,12 @@ import { useCampeonato } from '@/hooks/useCampeonatos'
 import { useJogos, useClassificacao } from '@/hooks/useCampeonatos'
 import { Loading } from '@/components/ui/Loading'
 import { NoDataFound } from '@/components/ui/NoDataFound'
-import { 
-  ArrowLeft, 
-  Save, 
-  Trash2, 
-  Play, 
-  Pause, 
+import {
+  ArrowLeft,
+  Save,
+  Trash2,
+  Play,
+  Pause,
   RotateCcw,
   Settings,
   Calendar,
@@ -30,13 +30,13 @@ export default function EditarCampeonato() {
   const router = useRouter()
   const [activeTab, setActiveTab] = useState<TabType>('configuracoes')
   const [isEditing, setIsEditing] = useState(false)
-  
+
   const campeonatoId = parseInt(params.id as string)
-  
+
   const { data: campeonato, isLoading, error } = useCampeonato(campeonatoId)
   const { data: jogos = [] } = useJogos({ campeonatoId })
   const { data: classificacao = [] } = useClassificacao(campeonatoId)
-  
+
   const updateMutation = useUpdateCampeonato()
   const deleteMutation = useDeleteCampeonato()
 
@@ -44,7 +44,7 @@ export default function EditarCampeonato() {
 
   const handleSave = async () => {
     if (!formData) return
-    
+
     try {
       await updateMutation.mutateAsync({ id: campeonatoId, data: formData })
       setIsEditing(false)
@@ -57,7 +57,7 @@ export default function EditarCampeonato() {
     if (!confirm('Tem certeza que deseja excluir este campeonato? Esta ação não pode ser desfeita.')) {
       return
     }
-    
+
     try {
       await deleteMutation.mutateAsync(campeonatoId)
       router.push('/admin/campeonatos')
@@ -66,9 +66,9 @@ export default function EditarCampeonato() {
     }
   }
 
-  const handleStatusChange = async (newStatus: string) => {
+  const handleStatusChange = async (newStatus: 'NAO_INICIADO' | 'EM_ANDAMENTO' | 'FINALIZADO') => {
     if (!campeonato) return
-    
+
     try {
       await updateMutation.mutateAsync({
         id: campeonatoId,
@@ -142,7 +142,7 @@ export default function EditarCampeonato() {
                 </div>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               {/* Status Actions */}
               {campeonato.status === 'NAO_INICIADO' && (
@@ -154,7 +154,7 @@ export default function EditarCampeonato() {
                   Iniciar
                 </button>
               )}
-              
+
               {campeonato.status === 'EM_ANDAMENTO' && (
                 <>
                   <button
@@ -223,11 +223,10 @@ export default function EditarCampeonato() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as TabType)}
-                  className={`${
-                    activeTab === tab.id
+                  className={`${activeTab === tab.id
                       ? 'border-blue-500 text-blue-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-                  } whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium flex items-center`}
+                    } whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium flex items-center`}
                 >
                   <Icon className="h-5 w-5 mr-2" />
                   {tab.name}
@@ -260,23 +259,23 @@ export default function EditarCampeonato() {
                   <h3 className="text-lg leading-6 font-medium text-gray-900 mb-4">
                     Informações do Campeonato
                   </h3>
-                  
+
                   <dl className="grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-2">
                     <div>
                       <dt className="text-sm font-medium text-gray-500">Nome</dt>
                       <dd className="mt-1 text-sm text-gray-900">{campeonato.nome}</dd>
                     </div>
-                    
+
                     <div>
                       <dt className="text-sm font-medium text-gray-500">Temporada</dt>
                       <dd className="mt-1 text-sm text-gray-900">{campeonato.temporada}</dd>
                     </div>
-                    
+
                     <div>
                       <dt className="text-sm font-medium text-gray-500">Tipo</dt>
                       <dd className="mt-1 text-sm text-gray-900">{campeonato.tipo}</dd>
                     </div>
-                    
+
                     <div>
                       <dt className="text-sm font-medium text-gray-500">Status</dt>
                       <dd className="mt-1">
@@ -285,14 +284,14 @@ export default function EditarCampeonato() {
                         </span>
                       </dd>
                     </div>
-                    
+
                     <div>
                       <dt className="text-sm font-medium text-gray-500">Data de Início</dt>
                       <dd className="mt-1 text-sm text-gray-900">
                         {new Date(campeonato.dataInicio).toLocaleDateString('pt-BR')}
                       </dd>
                     </div>
-                    
+
                     {campeonato.dataFim && (
                       <div>
                         <dt className="text-sm font-medium text-gray-500">Data de Fim</dt>
@@ -301,7 +300,7 @@ export default function EditarCampeonato() {
                         </dd>
                       </div>
                     )}
-                    
+
                     {campeonato.descricao && (
                       <div className="sm:col-span-2">
                         <dt className="text-sm font-medium text-gray-500">Descrição</dt>
@@ -309,7 +308,7 @@ export default function EditarCampeonato() {
                       </div>
                     )}
                   </dl>
-                  
+
                   <div className="mt-6 pt-6 border-t border-gray-200">
                     <h4 className="text-md font-medium text-gray-900 mb-4">Formato do Campeonato</h4>
                     <dl className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-3">
@@ -317,12 +316,12 @@ export default function EditarCampeonato() {
                         <dt className="text-sm font-medium text-gray-500">Tipo de Disputa</dt>
                         <dd className="mt-1 text-sm text-gray-900">{campeonato.formato?.tipoDisputa}</dd>
                       </div>
-                      
+
                       <div>
                         <dt className="text-sm font-medium text-gray-500">Número de Rodadas</dt>
                         <dd className="mt-1 text-sm text-gray-900">{campeonato.formato?.numeroRodadas}</dd>
                       </div>
-                      
+
                       <div>
                         <dt className="text-sm font-medium text-gray-500">Tem Grupos</dt>
                         <dd className="mt-1 text-sm text-gray-900">

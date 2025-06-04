@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import { StatsCard } from '@/components/Admin/StatsCard'
 import { Trophy, Calendar, Users, AlertTriangle } from 'lucide-react'
@@ -35,7 +37,7 @@ export const QuickStats: React.FC = () => {
       value: stats?.alertas?.length || 0,
       icon: AlertTriangle,
       color: 'red' as const,
-      changeType: 'warning' as const
+      changeType: 'negative' as const
     }
   ]
 

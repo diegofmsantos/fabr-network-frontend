@@ -7,40 +7,31 @@ import { useTimes } from '@/hooks/queries'
 import { ArrowLeft, Save, Eye } from 'lucide-react'
 import Link from 'next/link'
 import { CampeonatoForm } from '@/components/Admin/forms/CampeonatoForm'
+import { CriarCampeonatoRequest } from '@/types/campeonato'
 
 export default function CriarCampeonato() {
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
-  const [formData, setFormData] = useState({
-    // Dados básicos
-    nome: '',
-    temporada: '2025',
-    tipo: 'REGULAR' as 'REGULAR' | 'PLAYOFFS' | 'COPA',
-    dataInicio: '',
-    dataFim: '',
-    descricao: '',
-    
-    // Formato
-    formato: {
-      tipoDisputa: 'PONTOS_CORRIDOS' as 'PONTOS_CORRIDOS' | 'MATA_MATA' | 'MISTO',
-      numeroRodadas: 10,
-      temGrupos: true,
-      numeroGrupos: 4,
-      timesGrupo: 8,
-      classificadosGrupo: 2,
-      temPlayoffs: false,
-      formatoPlayoffs: ''
-    },
-    
-    // Times e grupos
-    grupos: [] as Array<{
-      nome: string
-      times: number[]
-    }>,
-    
-    // Configurações
-    gerarJogos: true
-  })
+  const [formData, setFormData] = useState<CriarCampeonatoRequest>({
+  nome: '',
+  temporada: '2025',
+  tipo: 'REGULAR',
+  dataInicio: '',
+  dataFim: undefined, // ✅ Opcional agora
+  descricao: '',
+  formato: {
+    tipoDisputa: 'PONTOS_CORRIDOS',
+    numeroRodadas: 10,
+    temGrupos: true,
+    numeroGrupos: 4,
+    timesGrupo: 8,
+    classificadosGrupo: 2,
+    temPlayoffs: false,
+    formatoPlayoffs: ''
+  },
+  grupos: [],
+  gerarJogos: true
+})
 
   const { data: times = [] } = useTimes(formData.temporada)
   const createMutation = useCreateCampeonato()
@@ -62,20 +53,20 @@ export default function CriarCampeonato() {
     }
   }
 
-  const canProceed = () => {
-    switch (currentStep) {
-      case 1:
-        return formData.nome && formData.dataInicio && formData.temporada
-      case 2:
-        return formData.formato.numeroRodadas > 0
-      case 3:
-        return formData.grupos.length > 0 && formData.grupos.every(g => g.times.length > 0)
-      case 4:
-        return true
-      default:
-        return false
-    }
+ const canProceed = (): boolean => {
+  switch (currentStep) {
+    case 1:
+      return !!(formData.nome && formData.dataInicio && formData.temporada)
+    case 2:
+      return formData.formato.numeroRodadas > 0
+    case 3:
+      return formData.grupos.length > 0 && formData.grupos.every(g => g.times.length > 0)
+    case 4:
+      return true
+    default:
+      return false
   }
+}
 
   return (
     <div className="min-h-screen">
@@ -98,7 +89,7 @@ export default function CriarCampeonato() {
                 </p>
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               <button
                 type="button"
@@ -107,7 +98,7 @@ export default function CriarCampeonato() {
                 <Eye className="h-4 w-4 mr-2" />
                 Prévia
               </button>
-              
+
               {currentStep === steps.length && (
                 <button
                   onClick={handleSubmit}
@@ -132,22 +123,20 @@ export default function CriarCampeonato() {
                 <button
                   key={step.id}
                   onClick={() => setCurrentStep(step.id)}
-                  className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md w-full text-left ${
-                    step.id === currentStep
+                  className={`group flex items-center px-3 py-2 text-sm font-medium rounded-md w-full text-left ${step.id === currentStep
                       ? 'bg-blue-50 border-blue-500 text-blue-700'
                       : step.id < currentStep
-                      ? 'text-green-600 hover:text-green-900'
-                      : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50'
-                  }`}
+                        ? 'text-green-600 hover:text-green-900'
+                        : 'text-gray-900 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
                 >
                   <span
-                    className={`flex-shrink-0 -ml-1 mr-3 h-6 w-6 rounded-full flex items-center justify-center text-xs font-medium ${
-                      step.id === currentStep
+                    className={`flex-shrink-0 -ml-1 mr-3 h-6 w-6 rounded-full flex items-center justify-center text-xs font-medium ${step.id === currentStep
                         ? 'bg-blue-500 text-white'
                         : step.id < currentStep
-                        ? 'bg-green-500 text-white'
-                        : 'bg-gray-300 text-gray-700'
-                    }`}
+                          ? 'bg-green-500 text-white'
+                          : 'bg-gray-300 text-gray-700'
+                      }`}
                   >
                     {step.id < currentStep ? '✓' : step.id}
                   </span>

@@ -5,11 +5,11 @@ import { useParams, useRouter } from 'next/navigation'
 import { useCampeonato, useJogos, useGerarJogos } from '@/hooks/useCampeonatos'
 import { Loading } from '@/components/ui/Loading'
 import { NoDataFound } from '@/components/ui/NoDataFound'
-import { 
-  ArrowLeft, 
-  Plus, 
-  Calendar, 
-  Play, 
+import {
+  ArrowLeft,
+  Plus,
+  Calendar,
+  Play,
   RotateCcw,
   Download,
   Filter,
@@ -25,16 +25,16 @@ type ViewMode = 'calendar' | 'list' | 'table'
 export default function AdminJogos() {
   const params = useParams()
   const router = useRouter()
-  
+
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('todos')
   const [filterGrupo, setFilterGrupo] = useState<number | 'todos'>('todos')
   const [filterRodada, setFilterRodada] = useState<number | 'todas'>('todas')
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedJogos, setSelectedJogos] = useState<number[]>([])
-  
+
   const campeonatoId = parseInt(params.id as string)
-  
+
   const { data: campeonato, isLoading: loadingCampeonato, error } = useCampeonato(campeonatoId)
   const { data: jogos = [], isLoading: loadingJogos, refetch } = useJogos({ campeonatoId })
   const gerarJogosMutation = useGerarJogos()
@@ -46,10 +46,10 @@ export default function AdminJogos() {
     const matchStatus = filterStatus === 'todos' || jogo.status === filterStatus
     const matchGrupo = filterGrupo === 'todos' || jogo.grupoId === filterGrupo
     const matchRodada = filterRodada === 'todas' || jogo.rodada === filterRodada
-    const matchSearch = !searchTerm || 
-      jogo.timeCasa.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      jogo.timeVisitante.nome.toLowerCase().includes(searchTerm.toLowerCase())
-    
+    const matchSearch = !searchTerm ||
+      (jogo.timeCasa.nome?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false) ||
+      (jogo.timeVisitante.nome?.toLowerCase().includes(searchTerm.toLowerCase()) ?? false)
+
     return matchStatus && matchGrupo && matchRodada && matchSearch
   })
 
@@ -69,7 +69,7 @@ export default function AdminJogos() {
       alert('Selecione ao menos um jogo')
       return
     }
-    
+
     console.log(`Ação em lote: ${action}`, selectedJogos)
   }
 
@@ -119,7 +119,7 @@ export default function AdminJogos() {
               </p>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-3">
             <button
               onClick={handleExport}
@@ -128,7 +128,7 @@ export default function AdminJogos() {
               <Download className="h-4 w-4 mr-2" />
               Exportar
             </button>
-            
+
             {estadisticas.total === 0 && (
               <button
                 onClick={handleGerarJogos}
@@ -139,7 +139,7 @@ export default function AdminJogos() {
                 {gerarJogosMutation.isPending ? 'Gerando...' : 'Gerar Jogos'}
               </button>
             )}
-            
+
             <button className="inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500">
               <Plus className="h-4 w-4 mr-2" />
               Novo Jogo
@@ -156,28 +156,28 @@ export default function AdminJogos() {
             <dd className="mt-1 text-3xl font-semibold text-gray-900">{estadisticas.total}</dd>
           </div>
         </div>
-        
+
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <dt className="text-sm font-medium text-gray-500 truncate">Agendados</dt>
             <dd className="mt-1 text-3xl font-semibold text-blue-600">{estadisticas.agendados}</dd>
           </div>
         </div>
-        
+
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <dt className="text-sm font-medium text-gray-500 truncate">Ao Vivo</dt>
             <dd className="mt-1 text-3xl font-semibold text-red-600">{estadisticas.aoVivo}</dd>
           </div>
         </div>
-        
+
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <dt className="text-sm font-medium text-gray-500 truncate">Finalizados</dt>
             <dd className="mt-1 text-3xl font-semibold text-green-600">{estadisticas.finalizados}</dd>
           </div>
         </div>
-        
+
         <div className="bg-white overflow-hidden shadow rounded-lg">
           <div className="p-5">
             <dt className="text-sm font-medium text-gray-500 truncate">Adiados</dt>
@@ -322,7 +322,7 @@ export default function AdminJogos() {
             {estadisticas.total === 0 ? 'Nenhum jogo criado' : 'Nenhum jogo encontrado'}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            {estadisticas.total === 0 
+            {estadisticas.total === 0
               ? 'Comece gerando os jogos para este campeonato.'
               : 'Ajuste os filtros para ver mais jogos.'
             }

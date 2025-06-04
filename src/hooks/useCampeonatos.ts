@@ -30,7 +30,14 @@ export function useCampeonatos(filters?: { temporada?: string; tipo?: string; st
       if (filters?.tipo) params.append('tipo', filters.tipo)
       if (filters?.status) params.append('status', filters.status)
 
-      const url = `${API_BASE_URL}/campeonatos/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
+      // ❌ ESTAVA ASSIM (URL INCORRETA):
+      // const url = `${API_BASE_URL}/campeonatos/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
+
+      // ✅ CORRIGIR PARA:
+      const url = `${API_BASE_URL}/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
+      
+      console.log('🔍 URL corrigida:', url) // Para debug
+      
       const response = await fetch(url)
       
       if (!response.ok) {
@@ -39,16 +46,18 @@ export function useCampeonatos(filters?: { temporada?: string; tipo?: string; st
       
       return response.json()
     },
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5,
   })
 }
 
-// Hook para buscar campeonato específico
+// ===== CORREÇÃO 2: useCampeonato (campeonato específico) =====
 export function useCampeonato(id: number) {
   return useQuery({
     queryKey: campeonatoQueryKeys.detail(id),
     queryFn: async (): Promise<Campeonato> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos/${id}`)
+      // ❌ ESTAVA: `/campeonatos/campeonatos/${id}`
+      // ✅ CORRIGIR PARA:
+      const response = await fetch(`${API_BASE_URL}/campeonatos/${id}`)
       
       if (!response.ok) {
         if (response.status === 404) {
@@ -64,7 +73,7 @@ export function useCampeonato(id: number) {
   })
 }
 
-// Hook para listar jogos
+// ===== CORREÇÃO 3: useJogos =====
 export function useJogos(filters: FiltroJogos) {
   return useQuery({
     queryKey: campeonatoQueryKeys.jogos(filters),
@@ -77,7 +86,8 @@ export function useJogos(filters: FiltroJogos) {
         }
       })
 
-      const response = await fetch(`${API_BASE_URL}/campeonatos/jogos?${params.toString()}`)
+      // ✅ CORRIGIR ROTA DE JOGOS:
+      const response = await fetch(`${API_BASE_URL}/jogos?${params.toString()}`)
       
       if (!response.ok) {
         throw new Error('Erro ao buscar jogos')
@@ -85,37 +95,17 @@ export function useJogos(filters: FiltroJogos) {
       
       return response.json()
     },
-    staleTime: 1000 * 60 * 2, // 2 minutos (jogos mudam mais frequentemente)
-  })
-}
-
-// Hook para buscar jogo específico
-export function useJogo(id: number) {
-  return useQuery({
-    queryKey: [...campeonatoQueryKeys.all, 'jogo', id],
-    queryFn: async (): Promise<Jogo> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/jogos/${id}`)
-      
-      if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error('Jogo não encontrado')
-        }
-        throw new Error('Erro ao buscar jogo')
-      }
-      
-      return response.json()
-    },
-    enabled: !!id,
     staleTime: 1000 * 60 * 2,
   })
 }
 
-// Hook para classificação do campeonato
+// ===== CORREÇÃO 4: useClassificacao =====
 export function useClassificacao(campeonatoId: number) {
   return useQuery({
     queryKey: campeonatoQueryKeys.classificacao(campeonatoId),
     queryFn: async (): Promise<ClassificacaoGrupo[]> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/classificacao/campeonato/${campeonatoId}`)
+      // ✅ CORRIGIR ROTA DE CLASSIFICAÇÃO:
+      const response = await fetch(`${API_BASE_URL}/classificacao/campeonato/${campeonatoId}`)
       
       if (!response.ok) {
         throw new Error('Erro ao buscar classificação')
@@ -128,68 +118,15 @@ export function useClassificacao(campeonatoId: number) {
   })
 }
 
-// Hook para classificação de grupo específico
-export function useClassificacaoGrupo(grupoId: number) {
-  return useQuery({
-    queryKey: [...campeonatoQueryKeys.all, 'classificacao-grupo', grupoId],
-    queryFn: async (): Promise<ClassificacaoGrupo[]> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/classificacao/grupo/${grupoId}`)
-      
-      if (!response.ok) {
-        throw new Error('Erro ao buscar classificação do grupo')
-      }
-      
-      return response.json()
-    },
-    enabled: !!grupoId,
-    staleTime: 1000 * 60 * 5,
-  })
-}
-
-// Hook para próximos jogos
-export function useProximosJogos(campeonatoId: number, limit = 10) {
-  return useQuery({
-    queryKey: campeonatoQueryKeys.proximosJogos(campeonatoId),
-    queryFn: async (): Promise<Jogo[]> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos/${campeonatoId}/proximos-jogos?limit=${limit}`)
-      
-      if (!response.ok) {
-        throw new Error('Erro ao buscar próximos jogos')
-      }
-      
-      return response.json()
-    },
-    enabled: !!campeonatoId,
-    staleTime: 1000 * 60 * 5,
-  })
-}
-
-// Hook para últimos resultados
-export function useUltimosResultados(campeonatoId: number, limit = 10) {
-  return useQuery({
-    queryKey: campeonatoQueryKeys.ultimosResultados(campeonatoId),
-    queryFn: async (): Promise<Jogo[]> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos/${campeonatoId}/ultimos-resultados?limit=${limit}`)
-      
-      if (!response.ok) {
-        throw new Error('Erro ao buscar últimos resultados')
-      }
-      
-      return response.json()
-    },
-    enabled: !!campeonatoId,
-    staleTime: 1000 * 60 * 5,
-  })
-}
-
-// Mutations para operações de escrita
+// ===== CORREÇÃO 5: useCreateCampeonato =====
 export function useCreateCampeonato() {
   const queryClient = useQueryClient()
   const notifications = useNotifications()
 
   return useMutation({
     mutationFn: async (data: CriarCampeonatoRequest): Promise<Campeonato> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos`, {
+      // ✅ CORRIGIR ROTA DE CRIAÇÃO:
+      const response = await fetch(`${API_BASE_URL}/campeonatos`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -218,40 +155,14 @@ export function useCreateCampeonato() {
   })
 }
 
-export function useUpdateJogo() {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: async ({ id, data }: { id: number; data: Partial<Jogo> }): Promise<Jogo> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/jogos/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      })
-
-      if (!response.ok) {
-        throw new Error('Erro ao atualizar jogo')
-      }
-
-      return response.json()
-    },
-    onSuccess: (data) => {
-      // Invalidar queries relacionadas
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.jogos({}) })
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.classificacao(data.campeonatoId) })
-      queryClient.invalidateQueries({ queryKey: [...campeonatoQueryKeys.all, 'jogo', data.id] })
-    },
-  })
-}
-
+// ===== CORREÇÃO 6: useGerarJogos =====
 export function useGerarJogos() {
   const queryClient = useQueryClient()
 
   return useMutation({
     mutationFn: async (campeonatoId: number) => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos/${campeonatoId}/gerar-jogos`, {
+      // ✅ CORRIGIR ROTA DE GERAR JOGOS:
+      const response = await fetch(`${API_BASE_URL}/campeonatos/${campeonatoId}/gerar-jogos`, {
         method: 'POST',
       })
 
@@ -265,5 +176,86 @@ export function useGerarJogos() {
       queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.detail(campeonatoId) })
       queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.jogos({}) })
     },
+  })
+}
+
+// ===== CORREÇÃO 7: useUpdateCampeonato =====
+// src/hooks/useUpdateCampeonato.ts
+export function useUpdateCampeonato() {
+  const queryClient = useQueryClient()
+  const notifications = useNotifications()
+
+  return useMutation({
+    mutationFn: async ({ 
+      id, 
+      data 
+    }: { 
+      id: number; 
+      data: Partial<Campeonato> 
+    }): Promise<Campeonato> => {
+      // ✅ CORRIGIR ROTA DE UPDATE:
+      const response = await fetch(`${API_BASE_URL}/campeonatos/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        throw handleApiError({ response })
+      }
+
+      return response.json()
+    },
+    onSuccess: (data, { id }) => {
+      queryClient.setQueryData(campeonatoQueryKeys.detail(id), data)
+      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.lists() })
+      
+      notifications.success(
+        'Campeonato atualizado!', 
+        `${data.nome} foi atualizado com sucesso`
+      )
+    },
+    onError: (error) => {
+      notifications.error(
+        'Erro ao atualizar campeonato', 
+        error.message || 'Verifique os dados e tente novamente'
+      )
+    }
+  })
+}
+
+// ===== CORREÇÃO 8: useDeleteCampeonato =====
+// src/hooks/useDeleteCampeonato.ts
+export function useDeleteCampeonato() {
+  const queryClient = useQueryClient()
+  const notifications = useNotifications()
+
+  return useMutation({
+    mutationFn: async (campeonatoId: number): Promise<void> => {
+      // ✅ CORRIGIR ROTA DE DELETE:
+      const response = await fetch(`${API_BASE_URL}/campeonatos/${campeonatoId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      if (!response.ok) {
+        throw handleApiError({ response })
+      }
+    },
+    onSuccess: (_, campeonatoId) => {
+      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.lists() })
+      queryClient.removeQueries({ queryKey: campeonatoQueryKeys.detail(campeonatoId) })
+      
+      notifications.success(
+        'Campeonato excluído!', 
+        'O campeonato foi removido permanentemente'
+      )
+    },
+    onError: (error) => {
+      notifications.error(
+        'Erro ao excluir campeonato', 
+        error.message || 'Verifique se o campeonato não possui jogos associados'
+      )
+    }
   })
 }

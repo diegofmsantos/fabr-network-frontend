@@ -1,4 +1,5 @@
-// src/components/Admin/NotificationContainer.tsx
+"use client"
+
 import React from 'react'
 import { CheckCircle, XCircle, AlertTriangle, Info, X } from 'lucide-react'
 import { useNotificationStore } from '@/hooks/useNotifications'
