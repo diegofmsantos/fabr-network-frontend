@@ -6,7 +6,6 @@ import { useCampeonato, useUpdateCampeonato, useDeleteCampeonato } from '@/hooks
 import { useJogos, useClassificacao } from '@/hooks/useCampeonatos'
 import { Loading } from '@/components/ui/Loading'
 import { NoDataFound } from '@/components/ui/NoDataFound'
-import { CampeonatoForm } from '@/components/Admin/forms/CampeonatoForm'
 import { 
   ArrowLeft, 
   Save, 
