@@ -123,7 +123,7 @@ export default function CampeonatosPage() {
           {campeonatos.map((campeonato) => (
             <Link
               key={campeonato.id}
-              href={`/campeonato/${campeonato.id}`}
+              href={`/campeonatos/${campeonato.id}`}
               className="block"
             >
               <div className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300">

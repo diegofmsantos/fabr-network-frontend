@@ -74,20 +74,19 @@ const getNoticiasLocal = async (): Promise<Noticia[]> => {
 
 // ========== FUNÇÕES PARA API EXTERNA ==========
 const getTimesAPI = async (temporada: string = '2024'): Promise<Time[]> => {
-  const response: AxiosResponse<Time[]> = await api.get(`/times?temporada=${temporada}`)
+  const response: AxiosResponse<Time[]> = await api.get(`/times/times?temporada=${temporada}`)
   return response.data || []
 }
 
 const getJogadoresAPI = async (temporada: string = '2024'): Promise<Jogador[]> => {
-  const response: AxiosResponse<Jogador[]> = await api.get(`/jogadores?temporada=${temporada}`)
+  const response: AxiosResponse<Jogador[]> = await api.get(`/jogadores/jogadores?temporada=${temporada}`)
   return response.data || []
 }
 
 const getNoticiasAPI = async (): Promise<Noticia[]> => {
-  const response: AxiosResponse<Noticia[]> = await api.get('/materias')
+  const response: AxiosResponse<Noticia[]> = await api.get('/materias/materias')
   return response.data || []
 }
-
 // ========== FUNÇÕES PÚBLICAS (COMPATIBILIDADE) ==========
 
 // Função para pré-carregar dados no cache

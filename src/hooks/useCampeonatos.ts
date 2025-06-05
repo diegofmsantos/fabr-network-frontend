@@ -1,13 +1,9 @@
 "use client"
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { Campeonato, Jogo, ClassificacaoGrupo, FiltroJogos, CriarCampeonatoRequest } from '@/types/campeonato'
-import { useNotifications } from '@/hooks/useNotifications'
-import { handleApiError } from '@/utils/errorHandler'
-
+import { useQuery } from '@tanstack/react-query'
+import { Campeonato, Jogo, ClassificacaoGrupo, FiltroJogos } from '@/types/campeonato'
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
-// Query Keys
 export const campeonatoQueryKeys = {
   all: ['campeonatos'] as const,
   lists: () => [...campeonatoQueryKeys.all, 'list'] as const,
@@ -20,7 +16,6 @@ export const campeonatoQueryKeys = {
   ultimosResultados: (campeonatoId: number) => [...campeonatoQueryKeys.all, 'resultados', campeonatoId] as const,
 }
 
-// Hook para listar campeonatos
 export function useCampeonatos(filters?: { temporada?: string; tipo?: string; status?: string }) {
   return useQuery({
     queryKey: campeonatoQueryKeys.list(filters || {}),
@@ -29,9 +24,8 @@ export function useCampeonatos(filters?: { temporada?: string; tipo?: string; st
       if (filters?.temporada) params.append('temporada', filters.temporada)
       if (filters?.tipo) params.append('tipo', filters.tipo)
       if (filters?.status) params.append('status', filters.status)
-
     
-      const url = `${API_BASE_URL}/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
+      const url = `${API_BASE_URL}/campeonatos/campeonatos${params.toString() ? `?${params.toString()}` : ''}`
       
       console.log('🔍 URL corrigida:', url) // Para debug
       
@@ -47,12 +41,11 @@ export function useCampeonatos(filters?: { temporada?: string; tipo?: string; st
   })
 }
 
-// ===== CORREÇÃO 2: useCampeonato (campeonato específico) =====
 export function useCampeonato(id: number) {
   return useQuery({
     queryKey: campeonatoQueryKeys.detail(id),
     queryFn: async (): Promise<Campeonato> => {
-      const response = await fetch(`${API_BASE_URL}/campeonatos/${id}`)
+      const response = await fetch(`${API_BASE_URL}/campeonatos/campeonatos/${id}`)
       
       if (!response.ok) {
         if (response.status === 404) {
@@ -68,7 +61,26 @@ export function useCampeonato(id: number) {
   })
 }
 
-// ===== CORREÇÃO 3: useJogos =====
+export function useJogo(jogoId: number) {
+  return useQuery({
+    queryKey: [...campeonatoQueryKeys.all, 'jogo', jogoId] as const,
+    queryFn: async (): Promise<Jogo> => {
+      const response = await fetch(`${API_BASE_URL}/campeonatos/jogos/${jogoId}`)
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error('Jogo não encontrado')
+        }
+        throw new Error('Erro ao buscar jogo')
+      }
+      
+      return response.json()
+    },
+    enabled: !!jogoId,
+    staleTime: 1000 * 60 * 2, 
+  })
+}
+
 export function useJogos(filters: FiltroJogos) {
   return useQuery({
     queryKey: campeonatoQueryKeys.jogos(filters),
@@ -81,8 +93,7 @@ export function useJogos(filters: FiltroJogos) {
         }
       })
 
-      // ✅ CORRIGIR ROTA DE JOGOS:
-      const response = await fetch(`${API_BASE_URL}/jogos?${params.toString()}`)
+      const response = await fetch(`${API_BASE_URL}/campeonatos/jogos?${params.toString()}`)
       
       if (!response.ok) {
         throw new Error('Erro ao buscar jogos')
@@ -94,13 +105,49 @@ export function useJogos(filters: FiltroJogos) {
   })
 }
 
-// ===== CORREÇÃO 4: useClassificacao =====
+export function useProximosJogos(campeonatoId: number, limit: number = 10) {
+  return useQuery({
+    queryKey: [...campeonatoQueryKeys.proximosJogos(campeonatoId), limit] as const,
+    queryFn: async (): Promise<Jogo[]> => {
+      const response = await fetch(
+        `${API_BASE_URL}/campeonatos/campeonatos/${campeonatoId}/proximos-jogos?limit=${limit}`
+      )
+      
+      if (!response.ok) {
+        throw new Error('Erro ao buscar próximos jogos')
+      }
+      
+      return response.json()
+    },
+    enabled: !!campeonatoId,
+    staleTime: 1000 * 60 * 5, 
+  })
+}
+
+export function useUltimosResultados(campeonatoId: number, limit: number = 10) {
+  return useQuery({
+    queryKey: [...campeonatoQueryKeys.ultimosResultados(campeonatoId), limit] as const,
+    queryFn: async (): Promise<Jogo[]> => {
+      const response = await fetch(
+        `${API_BASE_URL}/campeonatos/campeonatos/${campeonatoId}/ultimos-resultados?limit=${limit}`
+      )
+      
+      if (!response.ok) {
+        throw new Error('Erro ao buscar últimos resultados')
+      }
+      
+      return response.json()
+    },
+    enabled: !!campeonatoId,
+    staleTime: 1000 * 60 * 5, 
+  })
+}
+
 export function useClassificacao(campeonatoId: number) {
   return useQuery({
     queryKey: campeonatoQueryKeys.classificacao(campeonatoId),
     queryFn: async (): Promise<ClassificacaoGrupo[]> => {
-      // ✅ CORRIGIR ROTA DE CLASSIFICAÇÃO:
-      const response = await fetch(`${API_BASE_URL}/classificacao/campeonato/${campeonatoId}`)
+      const response = await fetch(`${API_BASE_URL}/campeonatos/classificacao/campeonato/${campeonatoId}`)
       
       if (!response.ok) {
         throw new Error('Erro ao buscar classificação')
@@ -113,144 +160,65 @@ export function useClassificacao(campeonatoId: number) {
   })
 }
 
-// ===== CORREÇÃO 5: useCreateCampeonato =====
-export function useCreateCampeonato() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: async (data: CriarCampeonatoRequest): Promise<Campeonato> => {
-      // ✅ CORRIGIR ROTA DE CRIAÇÃO:
-      const response = await fetch(`${API_BASE_URL}/campeonatos`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-
-      if (!response.ok) {
-        const error = await response.json().catch(() => ({}))
-        throw handleApiError({ response, message: error.message })
-      }
-
-      return response.json()
-    },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.lists() })
-      notifications.success(
-        'Campeonato criado!', 
-        `${data.nome} foi criado com sucesso`
-      )
-    },
-    onError: (error) => {
-      notifications.error(
-        'Erro ao criar campeonato', 
-        error.message || 'Tente novamente'
-      )
-    },
-  })
-}
-
-// ===== CORREÇÃO 6: useGerarJogos =====
-export function useGerarJogos() {
-  const queryClient = useQueryClient()
-
-  return useMutation({
-    mutationFn: async (campeonatoId: number) => {
-      // ✅ CORRIGIR ROTA DE GERAR JOGOS:
-      const response = await fetch(`${API_BASE_URL}/campeonatos/${campeonatoId}/gerar-jogos`, {
-        method: 'POST',
-      })
-
-      if (!response.ok) {
-        throw new Error('Erro ao gerar jogos')
-      }
-
-      return response.json()
-    },
-    onSuccess: (_, campeonatoId) => {
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.detail(campeonatoId) })
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.jogos({}) })
-    },
-  })
-}
-
-// ===== CORREÇÃO 7: useUpdateCampeonato =====
-// src/hooks/useUpdateCampeonato.ts
-export function useUpdateCampeonato() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: async ({ 
-      id, 
-      data 
-    }: { 
-      id: number; 
-      data: Partial<Campeonato> 
-    }): Promise<Campeonato> => {
-      // ✅ CORRIGIR ROTA DE UPDATE:
-      const response = await fetch(`${API_BASE_URL}/campeonatos/${id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-
-      if (!response.ok) {
-        throw handleApiError({ response })
-      }
-
-      return response.json()
-    },
-    onSuccess: (data, { id }) => {
-      queryClient.setQueryData(campeonatoQueryKeys.detail(id), data)
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.lists() })
+export function useJogosTime(timeId: number, campeonatoId?: number, limit: number = 20) {
+  return useQuery({
+    queryKey: [...campeonatoQueryKeys.all, 'jogos-time', timeId, campeonatoId, limit] as const,
+    queryFn: async (): Promise<Jogo[]> => {
+      const params = new URLSearchParams()
+      params.append('timeId', String(timeId))
+      params.append('limit', String(limit))
       
-      notifications.success(
-        'Campeonato atualizado!', 
-        `${data.nome} foi atualizado com sucesso`
-      )
+      if (campeonatoId) {
+        params.append('campeonatoId', String(campeonatoId))
+      }
+
+      const response = await fetch(`${API_BASE_URL}/campeonatos/jogos?${params.toString()}`)
+      
+      if (!response.ok) {
+        throw new Error('Erro ao buscar jogos do time')
+      }
+      
+      return response.json()
     },
-    onError: (error) => {
-      notifications.error(
-        'Erro ao atualizar campeonato', 
-        error.message || 'Verifique os dados e tente novamente'
-      )
-    }
+    enabled: !!timeId,
+    staleTime: 1000 * 60 * 3, // 3 minutos
   })
 }
 
-// ===== CORREÇÃO 8: useDeleteCampeonato =====
-// src/hooks/useDeleteCampeonato.ts
-export function useDeleteCampeonato() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: async (campeonatoId: number): Promise<void> => {
-      // ✅ CORRIGIR ROTA DE DELETE:
-      const response = await fetch(`${API_BASE_URL}/campeonatos/${campeonatoId}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-      })
-
-      if (!response.ok) {
-        throw handleApiError({ response })
-      }
-    },
-    onSuccess: (_, campeonatoId) => {
-      queryClient.invalidateQueries({ queryKey: campeonatoQueryKeys.lists() })
-      queryClient.removeQueries({ queryKey: campeonatoQueryKeys.detail(campeonatoId) })
+// Hook para jogos de uma rodada específica
+export function useJogosRodada(campeonatoId: number, rodada: number) {
+  return useQuery({
+    queryKey: [...campeonatoQueryKeys.all, 'rodada', campeonatoId, rodada] as const,
+    queryFn: async (): Promise<Jogo[]> => {
+      const response = await fetch(
+        `${API_BASE_URL}/campeonatos/jogos?campeonatoId=${campeonatoId}&rodada=${rodada}`
+      )
       
-      notifications.success(
-        'Campeonato excluído!', 
-        'O campeonato foi removido permanentemente'
-      )
+      if (!response.ok) {
+        throw new Error('Erro ao buscar jogos da rodada')
+      }
+      
+      return response.json()
     },
-    onError: (error) => {
-      notifications.error(
-        'Erro ao excluir campeonato', 
-        error.message || 'Verifique se o campeonato não possui jogos associados'
-      )
-    }
+    enabled: !!campeonatoId && !!rodada,
+    staleTime: 1000 * 60 * 5, // 5 minutos
+  })
+}
+
+// Hook para classificação de um grupo específico
+export function useClassificacaoGrupo(grupoId: number) {
+  return useQuery({
+    queryKey: [...campeonatoQueryKeys.all, 'classificacao-grupo', grupoId] as const,
+    queryFn: async (): Promise<ClassificacaoGrupo[]> => {
+      const response = await fetch(`${API_BASE_URL}/campeonatos/classificacao/grupo/${grupoId}`)
+      
+      if (!response.ok) {
+        throw new Error('Erro ao buscar classificação do grupo')
+      }
+      
+      return response.json()
+    },
+    enabled: !!grupoId,
+    staleTime: 1000 * 60 * 5, // 5 minutos
   })
 }

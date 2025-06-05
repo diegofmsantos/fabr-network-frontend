@@ -31,7 +31,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
 
     return (
         <aside className={`hidden xl:flex flex-col w-80 bg-[#272731] fixed left-32 top-28 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
-            <div className="flex justify-center items-center pt-6 pb-8">
+            <div className="flex justify-center items-center pt-2">
                 <Link href="/">
                     <Image
                         src="/assets/logo-fabr-color.png"
@@ -45,7 +45,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
             </div>
 
-            <nav className="flex flex-col mt-8 px-6 gap-6">
+            <nav className="flex flex-col  px-6 gap-6">
                 <Link
                     href="/"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 

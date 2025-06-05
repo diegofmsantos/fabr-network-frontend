@@ -129,21 +129,6 @@ export interface FiltroJogos {
   offset?: number
 }
 
-export interface CriarCampeonatoRequest {
-  nome: string
-  temporada: string
-  tipo: 'REGULAR' | 'PLAYOFFS' | 'COPA'
-  dataInicio: string
-  dataFim?: string
-  descricao?: string
-  formato: FormatoCampeonato
-  grupos?: Array<{
-    nome: string
-    times: number[]
-  }>
-  gerarJogos?: boolean
-}
-
 // Tipos para componentes
 export interface JogoCardProps {
   jogo: Jogo

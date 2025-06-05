@@ -3,8 +3,6 @@
 import React from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Loading } from '@/components/ui/Loading'
-import { JogoCard } from '@/components/Campeonato/JogoCard'
-import { useJogo } from '@/hooks/useCampeonatos'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { ArrowLeft, MapPin, Calendar, Users, Trophy, Target, Clock } from 'lucide-react'
@@ -12,6 +10,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { NoDataFound } from '@/components/ui/NoDataFound'
+import { useJogo } from '@/hooks/useCampeonatos'
 
 export default function JogoDetalhesPage() {
   const params = useParams()
