@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
-import { Jogo, ClassificacaoGrupo } from '@/types/campeonato'
 import { Trophy, Target, TrendingUp, Users, Calendar, BarChart3, Award, Zap } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ImageService } from '@/utils/services/ImageService'
+import { ClassificacaoGrupo, Jogo } from '@/types'
 
 interface CampeonatoStatsProps {
   jogos: Jogo[]

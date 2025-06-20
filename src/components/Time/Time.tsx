@@ -1,6 +1,6 @@
 "use client"
 
-import { Time } from "@/types/time"
+import { Time } from "@/types"
 import { differenceInYears, format } from "date-fns"
 import { ptBR } from "date-fns/locale"
 import Image from "next/image"

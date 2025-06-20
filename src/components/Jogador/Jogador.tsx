@@ -1,7 +1,5 @@
 "use client"
 
-import { Time } from "@/types/time"
-import { Jogador as JogadorType } from "@/types/jogador"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useState } from "react"
@@ -10,6 +8,7 @@ import { getPlayerSlug, getTeamSlug } from "@/utils/helpers/formatUrl"
 import { JogadorSkeleton } from "../ui/JogadorSkeleton"
 import { useSearchParams } from 'next/navigation'
 import { useJogadores } from '@/hooks/queries'
+import { JogadorType, Time } from "@/types"
 
 type Props = {
     currentTeam: Time

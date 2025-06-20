@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react'
-import { Jogo } from '@/types/campeonato'
 import { JogoCard } from './JogoCard'
 import { format, parseISO, isSameDay, startOfWeek, endOfWeek, eachDayOfInterval } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Calendar, Filter, ChevronLeft, ChevronRight, Grid, List } from 'lucide-react'
+import { Jogo } from '@/types'
 
 interface CalendarioJogosProps {
   jogos: Jogo[]

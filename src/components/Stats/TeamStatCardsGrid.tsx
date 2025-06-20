@@ -1,8 +1,8 @@
 import React from 'react';
-import { Time } from '@/types/time';
 import { TeamRankingCard } from '@/components/Ranking/TimeRankingCard';
 import { getCategoryFromKey } from '@/utils/helpers/categoryHelpers';
 import { formatStatValue } from '@/utils/helpers/formatUrl';
+import { Time } from '@/types';
 
 interface TeamCardProps {
   id: number;

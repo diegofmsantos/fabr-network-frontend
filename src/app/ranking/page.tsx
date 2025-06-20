@@ -2,16 +2,14 @@
 
 import { getJogadores, getTimes } from "@/api/api"
 import { useEffect, useState } from "react"
-import { Jogador } from "@/types/jogador"
-import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
 import { RankingLayout } from "@/components/Ranking/RankingLayout"
 import { RankingGroup } from "@/components/Ranking/RankingGroup"
 import { StatCardsGrid } from "@/components/Stats/StatCardsGrid"
 import { StatCategoryButtons } from "@/components/ui/StatCategoryButtons"
 import { getCategoryTitle, getStatsByCategory } from "@/utils/helpers/categoryHelpers"
-import { StatKey } from "@/types/Stats"
 import { calculateStat, compareValues, shouldIncludePlayer } from "@/utils/services/StatsServices"
+import { Jogador, StatKey, Time } from "@/types"
 
 export default function Page() {
     const [players, setPlayers] = useState<Jogador[]>([])

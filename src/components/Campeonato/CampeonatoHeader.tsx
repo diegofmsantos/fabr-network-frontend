@@ -1,8 +1,8 @@
 import React from 'react'
-import { Campeonato } from '@/types/campeonato'
 import { Calendar, Trophy, Users, Play, CheckCircle } from 'lucide-react'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
+import { Campeonato } from '@/types'
 
 interface CampeonatoHeaderProps {
   campeonato: Campeonato

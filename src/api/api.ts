@@ -1,6 +1,5 @@
-import { Time } from '@/types/time'
-import { Jogador } from '@/types/jogador'
-import { Noticia } from '@/types/noticia'
+
+import { Jogador, Noticia, Time } from '@/types';
 import axios, { AxiosResponse } from 'axios'
 
 // Flag para controlar fonte dos dados

@@ -18,9 +18,8 @@ import ShareButton from "@/components/ui/buttonShare"
 import { usePlayerDetails, useJogadores, useTimes } from '@/hooks/queries'
 import { useQueryClient } from "@tanstack/react-query"
 import { queryKeys } from "@/hooks/queryKeys"
-import { Time } from "@/types/time"
-import { Jogador } from "@/types/jogador"
 import { NoDataFound } from "@/components/ui/NoDataFound"
+import { Jogador, Time } from "@/types"
 
 interface DataNotFoundError extends Error {
     code: 'NOT_FOUND';

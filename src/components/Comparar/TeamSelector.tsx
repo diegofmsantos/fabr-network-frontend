@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { RefreshCw } from 'lucide-react';
-import { Time } from '@/types/time';
+import { Time } from '@/types';
 
 interface TeamSelectorProps {
     times: Time[];

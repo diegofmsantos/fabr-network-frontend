@@ -8,8 +8,6 @@ import { JogoCard } from '@/components/Campeonato/JogoCard'
 import { useCampeonato, useJogos } from '@/hooks/useCampeonatos'
 import { ArrowLeft, Calendar, Filter, Search, Download, BarChart3, Clock, CheckCircle, Play, Pause, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
-import { format, parseISO, startOfWeek, endOfWeek } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 import { NoDataFound } from '@/components/ui/NoDataFound'
 
 type FilterStatus = 'todos' | 'agendado' | 'ao_vivo' | 'finalizado' | 'adiado'

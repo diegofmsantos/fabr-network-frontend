@@ -9,10 +9,9 @@ import StatsTier from '@/components/Stats/StatsTier'
 import { useStats } from '@/hooks/useStats'
 import { useTeamInfo } from '@/hooks/useTeamInfo'
 import { usePlayerProcessing } from '@/hooks/usePlayerProcessing'
-import { ProcessedPlayer } from '@/types/processedPlayer'
-import { StatType } from '@/types/Stats'
 import { PlayerStatSelect } from '@/components/Stats/PlayerStatSelect'
 import { StatsLayout } from '@/components/Stats/StatsLayout'
+import { ProcessedPlayer, StatType } from '@/types'
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams()
@@ -66,11 +65,11 @@ const StatsPage: React.FC = () => {
       const categoryMapping: Record<string, StatType> = {
         'passe': 'PASSE',
         'corrida': 'CORRIDA',
-        'recepcao': 'RECEPÇÃO',
+        'recepcao': 'RECEPCAO',
         'retorno': 'RETORNO',
         'defesa': 'DEFESA',
-        'kicker': 'CHUTE',
-        'punter': 'PUNT'
+        'kicker': 'KICKER',
+        'punter': 'PUNTER'
       };
 
       if (statParam) {

@@ -1,12 +1,10 @@
 "use client"
 
 import { useQuery } from '@tanstack/react-query'
-import { Time } from '@/types/time'
-import { Jogador } from '@/types/jogador'
-import { Noticia } from '@/types/noticia'
 import { createSlug, findPlayerBySlug, getPlayerSlug, getTeamSlug } from '@/utils/helpers/formatUrl'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { queryKeys } from './queryKeys'
+import { Jogador, Time } from '@/types'
 
 const USE_LOCAL_DATA = process.env.NEXT_PUBLIC_USE_LOCAL_DATA === 'true'
 

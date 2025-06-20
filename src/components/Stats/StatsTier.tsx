@@ -19,7 +19,7 @@ interface StatsTierProps {
   title: string
   players: PlayerStats[]
   backgroundColor?: string
-  statsType: 'PASSE' | 'CORRIDA' | 'RECEPÇÃO' | 'RETORNO' | 'DEFESA' | 'CHUTE' | 'PUNT'
+  statsType: 'PASSE' | 'CORRIDA' | 'RECEPCAO' | 'RETORNO' | 'DEFESA' | 'KICKER' | 'PUNTER'
   isLastTier?: boolean
 }
 

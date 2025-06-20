@@ -1,8 +1,5 @@
-// src/components/Stats/TeamStatsList.tsx
 import React from 'react'
 import Image from 'next/image'
-import { Jogador } from '@/types/jogador'
-import { Time } from '@/types/time'
 import { StatConfig } from '@/utils/constants/statMappings'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,6 +8,7 @@ import { NoStats } from '../ui/NoStats'
 import { formatValue, StatsFormatter } from '@/utils/services/FormatterService'
 import { ImageService } from '@/utils/services/ImageService'
 import { getCategoryFromKey } from '@/utils/helpers/categoryHelpers'
+import { Jogador, Time } from '@/types'
 
 interface TeamStatsListProps {
   players: Jogador[]

@@ -1,11 +1,11 @@
 import React from 'react'
-import { Jogo } from '@/types/campeonato'
 import Image from 'next/image'
 import Link from 'next/link'
 import { format, isToday, isTomorrow, isPast } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { Clock, MapPin, Play, CheckCircle, Calendar, Pause } from 'lucide-react'
 import { ImageService } from '@/utils/services/ImageService'
+import { Jogo } from '@/types'
 
 interface JogoCardProps {
   jogo: Jogo

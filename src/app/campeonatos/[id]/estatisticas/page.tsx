@@ -12,7 +12,7 @@ import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { NoDataFound } from '@/components/ui/NoDataFound'
 import { calculateStat, shouldIncludePlayer } from '@/utils/services/StatsServices'
-import { StatKey } from '@/types/Stats'
+import { StatKey } from '@/types'
 
 type StatCategory = 'geral' | 'individuais' | 'times' | 'grupos'
 

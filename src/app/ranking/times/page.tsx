@@ -2,15 +2,13 @@
 
 import React, { useEffect, useState } from 'react'
 import { getJogadores, getTimes } from "@/api/api"
-import { Jogador } from "@/types/jogador"
-import { Time } from "@/types/time"
 import { Loading } from "@/components/ui/Loading"
 import { RankingLayout } from '@/components/Ranking/RankingLayout'
 import { TeamRankingGroup } from '@/components/Ranking/TimeRankingGroup'
 import { TeamStatCardsGrid, prepareTeamStatsForCards } from '@/components/Stats/TeamStatCardsGrid'
 import { StatCategoryButtons } from '@/components/ui/StatCategoryButtons'
-import { TeamStats } from '@/types/Stats'
 import { getCategoryTitle, getStatsByCategory } from '@/utils/helpers/categoryHelpers'
+import { Jogador, TeamStats, Time } from '@/types'
 
 export default function TeamRankingPage() {
     const [players, setPlayers] = useState<Jogador[]>([])
