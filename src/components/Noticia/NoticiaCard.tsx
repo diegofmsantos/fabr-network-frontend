@@ -1,7 +1,7 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Noticia } from '@/types/noticia'
+import { Noticia } from '@/types'
 
 interface NoticiaCardProps {
   noticia: Noticia

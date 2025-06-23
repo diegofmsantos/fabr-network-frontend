@@ -3,16 +3,16 @@
 import React, { Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Loading } from '@/components/ui/Loading'
-import { useStats } from '@/hooks/useStats'
-import { useTeamInfo } from '@/hooks/useTeamInfo'
 import { getStatMapping } from '@/utils/constants/statMappings'
 import { TeamStatsList } from '@/components/Stats/TeamStatsList'
 import { statGroups } from '@/utils/statGroups'
 import { StatsLayout } from '@/components/Stats/StatsLayout'
+import { useStats } from '@/hooks/useStats'
+import { useTeamInfo } from '@/hooks/useTeamInfo'
 
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
-        if (group.stats.some(stat => stat.urlParam === statParam)) {
+        if (group.stats.some((stat: any) => stat.urlParam === statParam)) {
             return group.title
         }
     }
@@ -37,7 +37,7 @@ const TeamStatSelect = React.memo(({ currentStat }: { currentStat: string }) => 
             >
                 {statGroups.map((group) => (
                     <optgroup key={group.groupLabel} label={group.title}>
-                        {group.stats.map((stat) => (
+                        {group.stats.map((stat: any) => (
                             <option key={stat.urlParam} value={stat.urlParam}>
                                 {stat.title}
                             </option>

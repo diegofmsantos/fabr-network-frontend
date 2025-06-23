@@ -1,6 +1,6 @@
-import { Jogador } from '@/types/jogador'
+
+import { Jogador, StatKey } from '@/types'
 import { CategoryKey } from '../categoryThresholds'
-import { StatKey } from '@/types/Stats'
 
 export interface StatConfig {
     key: string

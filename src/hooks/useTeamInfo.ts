@@ -1,4 +1,5 @@
-import { Time } from '@/types/time'
+import { Time } from "@/types"
+
 
 export interface TeamInfo {
   nome: string

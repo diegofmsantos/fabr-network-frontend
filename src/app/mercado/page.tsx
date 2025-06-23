@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
-import { getTransferenciasFromJson } from '@/api/api'
+import { ImportacaoService } from '@/services/importacao.service'
 import { Loading } from '@/components/ui/Loading'
 import { SelectFilter } from '@/components/ui/SelectFilter'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -39,7 +39,7 @@ export default function MercadoPage() {
       try {
         setLoading(true)
         setError(null)
-        const data = await getTransferenciasFromJson(temporadaOrigem, temporadaDestino)
+       const data = await ImportacaoService.getTransferencias(temporadaOrigem, temporadaDestino)
         setTransferencias(data)
       } catch (err) {
         console.error('Erro ao carregar transferências:', err)

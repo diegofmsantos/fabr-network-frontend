@@ -1,10 +1,8 @@
 import React from 'react';
-import { Jogador } from '@/types/jogador';
-import { Time } from '@/types/time';
 import { RankingCard } from '@/components/Ranking/RankingCard';
-import { StatKey } from '@/types/Stats';
 import { calculateStat, compareValues, shouldIncludePlayer } from '@/utils/services/StatsServices';
 import { ImageService } from '@/utils/services/ImageService';
+import { Jogador, StatKey, Time } from '@/types';
 
 interface PlayerCardProps {
   id: number;
@@ -29,13 +27,17 @@ interface StatCardsGridProps {
   category: string;
 }
 
+
+
 export const prepareStatsForCards = (
   players: Jogador[],
   times: Time[],
   currentStats: Array<{ key: StatKey; title: string }>,
   categoryTitle: string
 ): StatCardProps[] => {
+
   return currentStats.map(stat => {
+
 
     const filteredPlayers = players
       .filter(player => shouldIncludePlayer(player, stat.key, categoryTitle))
@@ -48,17 +50,17 @@ export const prepareStatsForCards = (
 
 
     const formattedPlayers = filteredPlayers.map((player, index) => {
-      const teamInfo = times.find(t => t.id === player.timeId) || {};
+      const teamInfo: Time | undefined = times.find(t => t.id === player.timeId);
       const value = calculateStat(player, stat.key);
 
       return {
         id: player.id,
         name: player.nome,
-        team: teamInfo.nome || 'Time Desconhecido',
+        team: teamInfo?.nome || 'Time Desconhecido',
         value: value !== null ? String(value) : 'N/A',
-        camisa: player.camisa,
-        teamColor: index === 0 ? teamInfo.cor : undefined,
-        teamLogo: ImageService.getTeamLogo(teamInfo.nome || ''),
+        camisa: player.camisa || '',
+        teamColor: index === 0 ? teamInfo?.cor : undefined,
+        teamLogo: ImageService.getTeamLogo(teamInfo?.nome || ''),
         isFirst: index === 0
       };
     });

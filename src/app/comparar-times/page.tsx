@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useTimes } from '@/hooks/queries';
 import Link from 'next/link';
 import { ArrowLeft, BarChart2 } from 'lucide-react';
 import { SelectFilter } from '@/components/ui/SelectFilter';
@@ -11,6 +10,7 @@ import { TeamSelector } from '@/components/Comparar/TeamSelector';
 import { TeamComparisonHeader } from '@/components/Comparar/TeamComparisonHeader';
 import { StatisticsComparison } from '@/components/Comparar/StatisticsComparison';
 import { ChartsComparison } from '@/components/Comparar/ChartsComparison';
+import { useTimes } from '@/hooks/useTimes';
 
 export default function CompararTimesPage() {
     const router = useRouter();

@@ -1254,3 +1254,30 @@ export type {
   StatCategory as Category,
   StatKey as Key
 }
+
+// ==================== IMPORTAÇÃO RESPONSES ====================
+
+export interface ImportacaoResponse {
+  sucesso: number
+  erros?: Array<{
+    item: string
+    erro: string
+  }>
+  mensagem: string
+  detalhes?: any
+}
+
+export interface EstatisticasResponse {
+  jogoId: string
+  jogadoresAtualizados: number
+  estatisticasProcessadas: number
+  mensagem: string
+  erros?: any[]
+}
+
+export interface TransferenciasResponse {
+  message: string
+  times: number
+  jogadores: number
+  transferencias: number
+}

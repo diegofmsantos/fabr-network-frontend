@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useEffect, useState } from 'react'
-import { getJogadores, getTimes } from "@/api/api"
+import React, { useState, useMemo } from 'react'
+import { useTimes } from '@/hooks/useTimes'
+import { useJogadores } from '@/hooks/useJogadores'
 import { Loading } from "@/components/ui/Loading"
 import { RankingLayout } from '@/components/Ranking/RankingLayout'
 import { TeamRankingGroup } from '@/components/Ranking/TimeRankingGroup'
@@ -10,42 +11,14 @@ import { StatCategoryButtons } from '@/components/ui/StatCategoryButtons'
 import { getCategoryTitle, getStatsByCategory } from '@/utils/helpers/categoryHelpers'
 import { Jogador, TeamStats, Time } from '@/types'
 
-export default function TeamRankingPage() {
-    const [players, setPlayers] = useState<Jogador[]>([])
-    const [times, setTimes] = useState<Time[]>([])
-    const [teamStats, setTeamStats] = useState<TeamStats[]>([])
-    const [loading, setLoading] = useState(true)
-    const [selectedCategory, setSelectedCategory] = useState("passe")
+// Função para calcular estatísticas dos times
+const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
+    const teamStatsMap = new Map<number, TeamStats>()
+    const timeIds = [...new Set(players.map(player => player.timeId))];
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                setLoading(true)
-                const [playersData, timesData] = await Promise.all([
-                    getJogadores(),
-                    getTimes()
-                ])
-
-                setPlayers(playersData)
-                setTimes(timesData)
-
-                const stats = calculateTeamStats(playersData)
-                setTeamStats(stats)
-            } catch (error) {
-                console.error("Error fetching data:", error)
-            } finally {
-                setLoading(false)
-            }
-        }
-        fetchData()
-    }, [])
-
-    const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
-        const teamStatsMap = new Map<number, TeamStats>()
-
-        const timeIds = [...new Set(players.map(player => player.timeId))];
-
-        timeIds.forEach(id => {
+    // Inicializar estatísticas para cada time
+    timeIds.forEach(id => {
+        if (id !== undefined) {
             teamStatsMap.set(id, {
                 timeId: id,
                 passe: {
@@ -96,85 +69,106 @@ export default function TeamRankingPage() {
                     jardas_de_punt: 0,
                 }
             });
-        });
+        }
+    });
 
-        players.forEach(player => {
-            let teamStats = teamStatsMap.get(player.timeId);
+    // Somar estatísticas de todos os jogadores por time
+    players.forEach(player => {
+        const teamStats = teamStatsMap.get(player.timeId ?? 0);
 
-            if (!teamStats) {
-                console.warn(`Time não encontrado para jogador ${player.nome} (ID: ${player.id}), timeId: ${player.timeId}`);
-                return; 
-            }
+        if (!teamStats) {
+            console.warn(`Time não encontrado para jogador ${player.nome} (ID: ${player.id}), timeId: ${player.timeId}`);
+            return;
+        }
 
-            if (player.estatisticas.passe) {
-                teamStats.passe.passes_completos += player.estatisticas.passe.passes_completos || 0;
-                teamStats.passe.passes_tentados += player.estatisticas.passe.passes_tentados || 0;
-                teamStats.passe.jardas_de_passe += player.estatisticas.passe.jardas_de_passe || 0;
-                teamStats.passe.td_passados += player.estatisticas.passe.td_passados || 0;
-                teamStats.passe.interceptacoes_sofridas += player.estatisticas.passe.interceptacoes_sofridas || 0;
-                teamStats.passe.sacks_sofridos += player.estatisticas.passe.sacks_sofridos || 0;
-                teamStats.passe.fumble_de_passador += player.estatisticas.passe.fumble_de_passador || 0;
-            }
-            if (player.estatisticas.corrida) {
-                teamStats.corrida.corridas += player.estatisticas.corrida.corridas || 0;
-                teamStats.corrida.jardas_corridas += player.estatisticas.corrida.jardas_corridas || 0;
-                teamStats.corrida.tds_corridos += player.estatisticas.corrida.tds_corridos || 0;
-                teamStats.corrida.fumble_de_corredor += player.estatisticas.corrida.fumble_de_corredor || 0;
-            }
-            if (player.estatisticas.recepcao) {
-                teamStats.recepcao.recepcoes += player.estatisticas.recepcao.recepcoes || 0;
-                teamStats.recepcao.alvo += player.estatisticas.recepcao.alvo || 0;
-                teamStats.recepcao.jardas_recebidas += player.estatisticas.recepcao.jardas_recebidas || 0;
-                teamStats.recepcao.tds_recebidos += player.estatisticas.recepcao.tds_recebidos || 0;
-            }
-            if (player.estatisticas.retorno) {
-                teamStats.retorno.retornos += player.estatisticas.retorno.retornos || 0;
-                teamStats.retorno.jardas_retornadas += player.estatisticas.retorno.jardas_retornadas || 0;
-                teamStats.retorno.td_retornados += player.estatisticas.retorno.td_retornados || 0;
-            }
-            if (player.estatisticas.defesa) {
-                teamStats.defesa.tackles_totais += player.estatisticas.defesa.tackles_totais || 0;
-                teamStats.defesa.tackles_for_loss += player.estatisticas.defesa.tackles_for_loss || 0;
-                teamStats.defesa.sacks_forcado += player.estatisticas.defesa.sacks_forcado || 0;
-                teamStats.defesa.fumble_forcado += player.estatisticas.defesa.fumble_forcado || 0;
-                teamStats.defesa.interceptacao_forcada += player.estatisticas.defesa.interceptacao_forcada || 0;
-                teamStats.defesa.passe_desviado += player.estatisticas.defesa.passe_desviado || 0;
-                teamStats.defesa.safety += player.estatisticas.defesa.safety || 0;
-                teamStats.defesa.td_defensivo += player.estatisticas.defesa.td_defensivo || 0;
-            }
-            if (player.estatisticas.kicker) {
-                teamStats.kicker.xp_bons += player.estatisticas.kicker.xp_bons || 0;
-                teamStats.kicker.tentativas_de_xp += player.estatisticas.kicker.tentativas_de_xp || 0;
-                teamStats.kicker.fg_bons += player.estatisticas.kicker.fg_bons || 0;
-                teamStats.kicker.tentativas_de_fg += player.estatisticas.kicker.tentativas_de_fg || 0;
+        if (player.estatisticas?.passe) {
+            teamStats.passe.passes_completos += player.estatisticas.passe.passes_completos || 0;
+            teamStats.passe.passes_tentados += player.estatisticas.passe.passes_tentados || 0;
+            teamStats.passe.jardas_de_passe += player.estatisticas.passe.jardas_de_passe || 0;
+            teamStats.passe.td_passados += player.estatisticas.passe.td_passados || 0;
+            teamStats.passe.interceptacoes_sofridas += player.estatisticas.passe.interceptacoes_sofridas || 0;
+            teamStats.passe.sacks_sofridos += player.estatisticas.passe.sacks_sofridos || 0;
+            teamStats.passe.fumble_de_passador += player.estatisticas.passe.fumble_de_passador || 0;
+        }
 
-                if (player.estatisticas.kicker.fg_mais_longo > teamStats.kicker.fg_mais_longo) {
-                    teamStats.kicker.fg_mais_longo = player.estatisticas.kicker.fg_mais_longo;
-                }
+        if (player.estatisticas?.corrida) {
+            teamStats.corrida.corridas += player.estatisticas.corrida.corridas || 0;
+            teamStats.corrida.jardas_corridas += player.estatisticas.corrida.jardas_corridas || 0;
+            teamStats.corrida.tds_corridos += player.estatisticas.corrida.tds_corridos || 0;
+            teamStats.corrida.fumble_de_corredor += player.estatisticas.corrida.fumble_de_corredor || 0;
+        }
+
+        if (player.estatisticas?.recepcao) {
+            teamStats.recepcao.recepcoes += player.estatisticas.recepcao.recepcoes || 0;
+            teamStats.recepcao.alvo += player.estatisticas.recepcao.alvo || 0;
+            teamStats.recepcao.jardas_recebidas += player.estatisticas.recepcao.jardas_recebidas || 0;
+            teamStats.recepcao.tds_recebidos += player.estatisticas.recepcao.tds_recebidos || 0;
+        }
+
+        if (player.estatisticas?.retorno) {
+            teamStats.retorno.retornos += player.estatisticas.retorno.retornos || 0;
+            teamStats.retorno.jardas_retornadas += player.estatisticas.retorno.jardas_retornadas || 0;
+            teamStats.retorno.td_retornados += player.estatisticas.retorno.td_retornados || 0;
+        }
+
+        if (player.estatisticas?.defesa) {
+            teamStats.defesa.tackles_totais += player.estatisticas.defesa.tackles_totais || 0;
+            teamStats.defesa.tackles_for_loss += player.estatisticas.defesa.tackles_for_loss || 0;
+            teamStats.defesa.sacks_forcado += player.estatisticas.defesa.sacks_forcado || 0;
+            teamStats.defesa.fumble_forcado += player.estatisticas.defesa.fumble_forcado || 0;
+            teamStats.defesa.interceptacao_forcada += player.estatisticas.defesa.interceptacao_forcada || 0;
+            teamStats.defesa.passe_desviado += player.estatisticas.defesa.passe_desviado || 0;
+            teamStats.defesa.safety += player.estatisticas.defesa.safety || 0;
+            teamStats.defesa.td_defensivo += player.estatisticas.defesa.td_defensivo || 0;
+        }
+
+        if (player.estatisticas?.kicker) {
+            teamStats.kicker.xp_bons += player.estatisticas.kicker.xp_bons || 0;
+            teamStats.kicker.tentativas_de_xp += player.estatisticas.kicker.tentativas_de_xp || 0;
+            teamStats.kicker.fg_bons += player.estatisticas.kicker.fg_bons || 0;
+            teamStats.kicker.tentativas_de_fg += player.estatisticas.kicker.tentativas_de_fg || 0;
+
+            if ((player.estatisticas?.kicker.fg_mais_longo || 0) > teamStats.kicker.fg_mais_longo) {
+                teamStats.kicker.fg_mais_longo = player.estatisticas.kicker.fg_mais_longo || 0;
             }
+        }
 
-            if (player.estatisticas.punter) {
-                teamStats.punter.punts += player.estatisticas.punter.punts || 0;
-                teamStats.punter.jardas_de_punt += player.estatisticas.punter.jardas_de_punt || 0;
-            }
-        });
+        if (player.estatisticas?.punter) {
+            teamStats.punter.punts += player.estatisticas.punter.punts || 0;
+            teamStats.punter.jardas_de_punt += player.estatisticas.punter.jardas_de_punt || 0;
+        }
+    });
 
-        return Array.from(teamStatsMap.values());
-    }
+    return Array.from(teamStatsMap.values());
+}
 
-    
+export default function TeamRankingPage() {
+    const [selectedCategory, setSelectedCategory] = useState("passe")
 
-    if (loading || !teamStats.length) {
+    // Usar hooks diretamente
+    const { data: times = [], isLoading: timesLoading } = useTimes('2025')
+    const { data: players = [], isLoading: playersLoading } = useJogadores('2025')
+
+    const loading = timesLoading || playersLoading
+
+    // Calcular estatísticas dos times usando useMemo para performance
+    const teamStats = useMemo(() => {
+        if (loading || players.length === 0) return []
+        return calculateTeamStats(players)
+    }, [players, loading])
+
+    // Loading state
+    if (loading || teamStats.length === 0) {
         return <Loading />
     }
+
     const currentStats = getStatsByCategory(selectedCategory)
     const categoryTitle = getCategoryTitle(selectedCategory)
-
     const preparedTeamStats = prepareTeamStatsForCards(teamStats, times, currentStats, categoryTitle)
 
     return (
         <RankingLayout initialFilter="times">
-            <div className="pb-12 bg-[#ECECEC] ">
+            <div className="pb-12 bg-[#ECECEC]">
                 <div className="px-6 max-w-7xl mx-auto xl:mt-10 xl:max-w-5xl xl:px-12 xl:ml-20">
                     <StatCategoryButtons
                         selectedCategory={selectedCategory}

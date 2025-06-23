@@ -15,11 +15,13 @@ import PlayerNameHeader from "@/components/Jogador/PlayerNameHeader"
 import { SemJogador } from "@/components/ui/SemJogador"
 import { getPlayerSlug, getTeamSlug } from "@/utils/helpers/formatUrl"
 import ShareButton from "@/components/ui/buttonShare"
-import { usePlayerDetails, useJogadores, useTimes } from '@/hooks/queries'
 import { useQueryClient } from "@tanstack/react-query"
 import { queryKeys } from "@/hooks/queryKeys"
 import { NoDataFound } from "@/components/ui/NoDataFound"
 import { Jogador, Time } from "@/types"
+import { useJogadores } from "@/hooks/useJogadores"
+import { useTimes } from "@/hooks/useTimes"
+import { usePlayerDetails } from "@/hooks/queries"
 
 interface DataNotFoundError extends Error {
     code: 'NOT_FOUND';
@@ -337,8 +339,8 @@ export default function Page() {
                                 label="TEMPORADA"
                                 value={selectedTemporada}
                                 onChange={(novaTemporada) => {
-                                    queryClient.invalidateQueries({ queryKey: queryKeys.jogadores(selectedTemporada) });
-                                    queryClient.invalidateQueries({ queryKey: queryKeys.times(selectedTemporada) });
+                                    queryClient.invalidateQueries({ queryKey: queryKeys.jogadores.list(selectedTemporada) });
+                                    queryClient.invalidateQueries({ queryKey: queryKeys.times.list(selectedTemporada) });
 
                                     console.log(`Alterando temporada para: ${novaTemporada}`);
                                     setSelectedTemporada(novaTemporada);

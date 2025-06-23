@@ -1,30 +1,13 @@
-import { useState, useEffect } from 'react'
-import { Jogador } from '@/types/jogador'
-import { Time } from '@/types/time'
-import { getJogadores, getTimes } from '@/api/api'
+import { useTimes } from '@/hooks/useTimes'
+import { useJogadores } from '@/hooks/useJogadores'
 
-export const useStats = () => {
-  const [players, setPlayers] = useState<Jogador[]>([])
-  const [times, setTimes] = useState<Time[]>([])
-  const [loading, setLoading] = useState(true)
+export const useStats = (temporada: string = '2025') => {
+  const { data: times = [], isLoading: timesLoading, error: timesError } = useTimes(temporada)
+  const { data: players = [], isLoading: playersLoading, error: playersError } = useJogadores(temporada)
+  
+  const loading = timesLoading || playersLoading
+  
+  const error = timesError || playersError
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [playersData, timesData] = await Promise.all([
-          getJogadores(),
-          getTimes()
-        ])
-        setPlayers(playersData)
-        setTimes(timesData)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchData()
-  }, [])
-
-  return { players, times, loading }
+  return { players, times, loading, error }
 }

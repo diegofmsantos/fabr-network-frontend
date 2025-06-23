@@ -1,8 +1,8 @@
-// Versão atualizada da página inicial (app/page.tsx)
 import { Lista } from "@/components/Lista"
 import { Metadata } from "next"
 import { dehydrate, HydrationBoundary, QueryClient } from '@tanstack/react-query'
 import { queryKeys } from '@/hooks/queryKeys'
+import { TimesService } from '@/services/times.service'
 
 export const metadata: Metadata = {
   title: "Times",
@@ -12,14 +12,8 @@ export default async function Page() {
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery({
-    queryKey: queryKeys.times('2024'),
-    queryFn: async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/times?temporada=2024`)
-      if (!response.ok) {
-        throw new Error('Erro ao buscar times')
-      }
-      return response.json()
-    }
+    queryKey: queryKeys.times.list('2024'),
+    queryFn: () => TimesService.getTimes('2024')
   })
 
   return (

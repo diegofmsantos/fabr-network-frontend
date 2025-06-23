@@ -7,8 +7,8 @@ import { SemJogador } from "../ui/SemJogador"
 import { getPlayerSlug, getTeamSlug } from "@/utils/helpers/formatUrl"
 import { JogadorSkeleton } from "../ui/JogadorSkeleton"
 import { useSearchParams } from 'next/navigation'
-import { useJogadores } from '@/hooks/queries'
 import { JogadorType, Time } from "@/types"
+import { useJogadores } from "@/hooks/useJogadores"
 
 type Props = {
     currentTeam: Time

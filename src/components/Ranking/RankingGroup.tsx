@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Slider from 'react-slick'
-import { Jogador } from '@/types/jogador'
-import { Time } from '@/types/time'
-import { getTimes } from '@/api/api'
+import { useTimes } from '@/hooks/useTimes'
 import { RankingCard } from './RankingCard'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { NoStats } from '../ui/NoStats'
 import { calculateStat, compareValues, shouldIncludePlayer } from '@/utils/services/StatsServices'
-import { StatKey } from '@/types/Stats'
 import { normalizeValue } from '@/utils/helpers/formatUrl'
 import { ImageService } from '@/utils/services/ImageService'
+import { Jogador, StatKey } from '@/types'
 
 interface RankingGroupProps {
   title: string;
@@ -43,23 +41,8 @@ const SLIDER_SETTINGS = {
 }
 
 export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players }) => {
-  const [times, setTimes] = useState<Time[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const fetchTimes = async () => {
-      try {
-        setLoading(true)
-        const timesData = await getTimes()
-        setTimes(timesData)
-      } catch (error) {
-        console.error('Error fetching times:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchTimes()
-  }, [])
+  // Usar hook em vez de useEffect
+  const { data: times = [], isLoading } = useTimes('2025')
 
   const getTeamInfo = (timeId: number) => {
     const team = times.find((t) => t.id === timeId)
@@ -76,7 +59,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
     return validPlayers;
   });
 
-  if (loading) {
+  if (isLoading) {
     return <div className="mb-6 pl-4 py-8">Carregando estatísticas...</div>;
   }
 
@@ -101,7 +84,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
               const bValue = calculateStat(b, stat.key);
               return compareValues(aValue, bValue);
             })
-            .slice(0, 5)
+            .slice(0, 5);
 
           if (filteredPlayers.length === 0) {
             return (
@@ -120,15 +103,14 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
                 title={stat.title}
                 category={title}
                 players={filteredPlayers.map((player, playerIndex) => {
-                  const teamInfo = getTeamInfo(player.timeId);
-                  const value = calculateStat(player, stat.key);
-
+                  const teamInfo = getTeamInfo(player.timeId ?? 0)
+                  const value = calculateStat(player, stat.key)
                   return {
                     id: player.id,
                     name: player.nome,
                     team: teamInfo.nome,
                     value: normalizeValue(value, stat.key),
-                    camisa: player.camisa,
+                    camisa: player.camisa || '', 
                     teamColor: playerIndex === 0 ? teamInfo.cor : undefined,
                     teamLogo: ImageService.getTeamLogo(teamInfo.nome),
                     isFirst: playerIndex === 0,

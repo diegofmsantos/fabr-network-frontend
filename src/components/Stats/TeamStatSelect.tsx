@@ -3,15 +3,15 @@
 import React, { Suspense } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { Loading } from '@/components/ui/Loading'
-import { useStats } from '@/hooks/useStats'
-import { useTeamInfo } from '@/hooks/useTeamInfo'
 import { getStatMapping } from '@/utils/constants/statMappings'
 import { TeamStatsList } from '@/components/Stats/TeamStatsList'
 import { teamStatGroups } from '@/utils/statGroups'
+import { useStats } from '@/hooks/useStats'
+import { useTeamInfo } from '@/hooks/useTeamInfo'
 
 const getStatGroup = (statParam: string): string => {
     for (const group of teamStatGroups) {
-        if (group.stats.some(stat => stat.urlParam === statParam)) {
+        if (group.stats.some((stat: { urlParam: string; title: string }) => stat.urlParam === statParam)) {
             return group.title
         }
     }
@@ -33,7 +33,7 @@ const TeamStatSelect = ({ currentStat }: { currentStat: string }) => {
             >
                 {teamStatGroups.map((group) => (
                     <optgroup key={group.groupLabel} label={group.title}>
-                        {group.stats.map((stat) => (
+                        {group.stats.map((stat: { urlParam: string; title: string }) => (
                             <option key={stat.urlParam} value={stat.urlParam}>
                                 {stat.title}
                             </option>
@@ -57,7 +57,7 @@ function TeamStatsContent() {
     return (
         <div className="max-w-4xl mx-auto">
             <TeamStatSelect currentStat={statParam} />
-            <TeamStatsList  players={players} times={times} statMapping={statMapping} />
+            <TeamStatsList players={players} times={times} statMapping={statMapping} />
         </div>
     )
 }

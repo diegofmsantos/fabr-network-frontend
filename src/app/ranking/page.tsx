@@ -1,7 +1,8 @@
 "use client"
 
-import { getJogadores, getTimes } from "@/api/api"
-import { useEffect, useState } from "react"
+import { useState } from "react"
+import { useTimes } from '@/hooks/useTimes'
+import { useJogadores } from '@/hooks/useJogadores'
 import { Loading } from "@/components/ui/Loading"
 import { RankingLayout } from "@/components/Ranking/RankingLayout"
 import { RankingGroup } from "@/components/Ranking/RankingGroup"
@@ -12,28 +13,13 @@ import { calculateStat, compareValues, shouldIncludePlayer } from "@/utils/servi
 import { Jogador, StatKey, Time } from "@/types"
 
 export default function Page() {
-    const [players, setPlayers] = useState<Jogador[]>([])
-    const [times, setTimes] = useState<Time[]>([])
-    const [loading, setLoading] = useState(true)
     const [selectedCategory, setSelectedCategory] = useState("passe")
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [playersData, timesData] = await Promise.all([
-                    getJogadores(),
-                    getTimes()
-                ])
-                setPlayers(playersData)
-                setTimes(timesData)
-                setLoading(false)
-            } catch (error) {
-                console.error("Error fetching data:", error)
-                setLoading(false)
-            }
-        }
-        fetchData()
-    }, [])
+    // Usar hooks diretamente
+    const { data: times = [], isLoading: timesLoading } = useTimes('2025')
+    const { data: players = [], isLoading: jogadoresLoading } = useJogadores('2025')
+
+    const loading = timesLoading || jogadoresLoading
 
     if (loading) {
         return <Loading />
@@ -65,11 +51,11 @@ export default function Page() {
                 return {
                     id: player.id,
                     name: player.nome,
-                    team: teamInfo.nome || 'Time Desconhecido',
+                    team: (teamInfo as Time)?.nome || 'Time Desconhecido',
                     value: value !== null ? String(value) : 'N/A',
                     camisa: player.camisa,
-                    teamColor: index === 0 ? teamInfo.cor : undefined,
-                    teamLogo: `/assets/times/logos/${teamInfo.logo || 'default-logo.png'}`,
+                    teamColor: index === 0 ? (teamInfo as Time)?.cor : undefined,
+                    teamLogo: `/assets/times/logos/${(teamInfo as Time)?.logo || 'default-logo.png'}`,
                     isFirst: index === 0
                 };
             });

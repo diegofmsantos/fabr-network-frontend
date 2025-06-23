@@ -6,12 +6,12 @@ import { Loading } from '@/components/ui/Loading'
 import { CategoryKey, getTierTitle, getTierForValue } from '@/utils/categoryThresholds'
 import { getStatMapping } from '@/utils/constants/statMappings'
 import StatsTier from '@/components/Stats/StatsTier'
-import { useStats } from '@/hooks/useStats'
-import { useTeamInfo } from '@/hooks/useTeamInfo'
-import { usePlayerProcessing } from '@/hooks/usePlayerProcessing'
 import { PlayerStatSelect } from '@/components/Stats/PlayerStatSelect'
 import { StatsLayout } from '@/components/Stats/StatsLayout'
 import { ProcessedPlayer, StatType } from '@/types'
+import { usePlayerProcessing } from '@/hooks/usePlayerProcessing'
+import { useTeamInfo } from '@/hooks/useTeamInfo'
+import { useStats } from '@/hooks/useStats'
 
 const StatsPage: React.FC = () => {
   const searchParams = useSearchParams()

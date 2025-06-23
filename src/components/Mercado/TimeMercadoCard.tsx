@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { TimeMercadoCardProps } from '@/types/time';
 import { TeamLogo } from '../Time/TeamImage';
-import { UrlService } from '@/utils/services/FormatterService';
+import { TimeMercadoCardProps } from '@/types';
+import { UrlService } from '@/utils/services/ImageService';
 
 export const TimeMercadoCard: React.FC<TimeMercadoCardProps> = ({
   timeNome,

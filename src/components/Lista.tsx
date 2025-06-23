@@ -4,9 +4,9 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { useTimes } from '@/hooks/queries'
 import { Loading } from "./ui/Loading"
 import { useSearchParams, useRouter } from "next/navigation"
+import { useTimes } from "@/hooks/useTimes"
 
 export const Lista = () => {
     const router = useRouter()

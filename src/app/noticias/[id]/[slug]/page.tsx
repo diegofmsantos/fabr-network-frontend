@@ -9,8 +9,8 @@ import { useParams } from 'next/navigation'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { useNoticiaDetalhes } from '@/hooks/queries'
 import { Noticia } from '@/types'
+import { useNoticiaDetalhes } from '@/hooks/queries'
 
 function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
   return allNews
@@ -24,10 +24,12 @@ export default function NoticiaDetalhes() {
   const noticiaId = Number(params.id)
 
   const {
-    noticia,
-    noticias,
+    data,
     isLoading
   } = useNoticiaDetalhes(noticiaId)
+
+  const noticia = data?.noticia
+  const noticias = data?.noticias || []
 
   const SLIDER_SETTINGS = {
     dots: true,
@@ -145,10 +147,10 @@ export default function NoticiaDetalhes() {
               __html: noticia.texto
                 .replace(/<p>&nbsp;<\/p>/g, '')
                 .split('\n')
-                .filter(line => line.trim())
-                .map(line => `<p>${line}</p>`)
+                .filter((line: string) => line.trim())
+                .map((line: string) => `<p>${line}</p>`)
                 .join('')
-                .replace(/&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});/gi, match => {
+                .replace(/&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});/gi, (match: string) => {
                   const entities: { [key: string]: string } = {
                     '&aacute;': 'á',
                     '&eacute;': 'é',

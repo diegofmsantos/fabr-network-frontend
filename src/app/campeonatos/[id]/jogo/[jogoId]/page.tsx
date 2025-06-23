@@ -11,6 +11,7 @@ import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { NoDataFound } from '@/components/ui/NoDataFound'
 import { useJogo } from '@/hooks/useCampeonatos'
+import { JogoEstatisticas } from '@/components/Jogo/JogosEstatisticas'
 
 export default function JogoDetalhesPage() {
   const params = useParams()
@@ -241,9 +242,13 @@ export default function JogoDetalhesPage() {
             <h2 className="text-lg font-semibold text-gray-900">Estatísticas do Jogo</h2>
           </div>
           <div className="p-6">
-            <p className="text-center text-gray-500">
-              Estatísticas detalhadas em breve...
-            </p>
+            <JogoEstatisticas
+              data={{
+                jogo,
+                estatisticasTimeCasa: [], // Buscar do backend quando disponível
+                estatisticasTimeVisitante: []
+              }}
+            />
           </div>
         </div>
       )}

@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import Slider from 'react-slick'
-import { Time } from '@/types/time'
-import { getTimes } from '@/api/api'
+import { useTimes } from '@/hooks/useTimes'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { NoStats } from '../ui/NoStats'
@@ -39,24 +38,8 @@ const SLIDER_SETTINGS = {
 }
 
 export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats, teamStats }) => {
-    const [times, setTimes] = useState<Time[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchTimes = async () => {
-            try {
-                setIsLoading(true)
-                const timesData = await getTimes()
-                setTimes(timesData)
-            } catch (error) {
-                console.error('Error fetching times:', error)
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        fetchTimes()
-    }, [])
-
+    // Usar hook em vez de useEffect
+    const { data: times = [], isLoading } = useTimes('2025')
 
     const normalizeValue = (value: number | null, key: string, title: string): string => {
         if (value === null) return 'N/A';

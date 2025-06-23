@@ -38,15 +38,15 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
 
       if (statMapping.key === 'fumble_de_passador') {
         teamPlayers.forEach(player => {
-          total += player.estatisticas.passe.fumble_de_passador
+          total += player.estatisticas?.passe?.fumble_de_passador || 0
         })
         return total > 0 ? total : null
       }
 
       if (statMapping.key === 'jardas_punt_media') {
         teamPlayers.forEach(player => {
-          total += player.estatisticas.punter.jardas_de_punt
-          divisor += player.estatisticas.punter.punts
+          total += player?.estatisticas?.punter.jardas_de_punt || 0
+          divisor += player?.estatisticas?.punter.punts || 0
         })
         return divisor > 0 ? total / divisor : null
       }
@@ -55,57 +55,57 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         switch (statMapping.key) {
           case 'passes_percentual':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.passe.passes_completos
-              divisor += player.estatisticas.passe.passes_tentados
+              total += player.estatisticas?.passe?.passes_completos || 0
+              divisor += player.estatisticas?.passe?.passes_tentados || 0
             })
             return divisor > 0 ? (total / divisor) * 100 : null
 
           case 'jardas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.passe.jardas_de_passe
-              divisor += player.estatisticas.passe.passes_tentados
+              total += player.estatisticas?.passe?.jardas_de_passe || 0
+              divisor += player.estatisticas?.passe?.passes_tentados || 0
             })
             return divisor > 0 ? total / divisor : null
 
           case 'jardas_corridas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.corrida.jardas_corridas
-              divisor += player.estatisticas.corrida.corridas
+              total += player.estatisticas?.corrida?.jardas_corridas || 0
+              divisor += player.estatisticas?.corrida?.corridas || 0
             })
             return divisor > 0 ? total / divisor : null
 
           case 'jardas_recebidas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.recepcao.jardas_recebidas
-              divisor += player.estatisticas.recepcao.alvo
+              total += player.estatisticas?.recepcao?.jardas_recebidas || 0
+              divisor += player.estatisticas?.recepcao?.alvo || 0
             })
             return divisor > 0 ? total / divisor : null
 
           case 'jardas_retornadas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.retorno.jardas_retornadas
-              divisor += player.estatisticas.retorno.retornos
+              total += player.estatisticas?.retorno?.jardas_retornadas || 0
+              divisor += player.estatisticas?.retorno?.retornos || 0
             })
             return divisor > 0 ? total / divisor : null
 
           case 'field_goals':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.kicker.fg_bons
-              divisor += player.estatisticas.kicker.tentativas_de_fg
+              total += player.estatisticas?.kicker?.fg_bons || 0
+              divisor += player.estatisticas?.kicker?.tentativas_de_fg || 0
             })
             return divisor > 0 ? (total / divisor) * 100 : null
 
           case 'extra_points':
             teamPlayers.forEach(player => {
-              total += player.estatisticas.kicker.xp_bons
-              divisor += player.estatisticas.kicker.tentativas_de_xp
+              total += player.estatisticas?.kicker?.xp_bons || 0
+              divisor += player.estatisticas?.kicker?.tentativas_de_xp || 0
             })
             return divisor > 0 ? (total / divisor) * 100 : null
         }
       }
 
       teamPlayers.forEach(player => { // @ts-ignore
-        const value = player.estatisticas[category]?.[statMapping.key]
+        const value = player.estatisticas?.[category]?.[statMapping.key]
         if (typeof value === 'number') {
           total += value
         }
@@ -123,11 +123,11 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
       time,
       value: calculateTeamStat(time.id || 0)
     }))
-    .filter((team): team is RankedTeam =>
+    .filter((team): team is { time: Time; value: number } =>
       team.value !== null &&
       typeof team.value === 'number' &&
       !isNaN(team.value) &&
-      team.value > 0 
+      team.value > 0
     )
     .sort((a, b) => {
       if (a.value === null || b.value === null) return 0
@@ -173,7 +173,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
                       />
                     </div>
                     <span className="font-extrabold italic text-[40px]">
-                     {formatValue(team.value, statMapping.title)}
+                      {formatValue(team.value, statMapping.title)}
                     </span>
                   </div>
                   <div className="relative w-[200px] h-[200px]">

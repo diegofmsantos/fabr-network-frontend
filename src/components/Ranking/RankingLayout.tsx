@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { RankingFilters } from '../ui/FilterButton'
 import { SelectFilter } from '../ui/SelectFilter'
-import { useJogadores, useTimes } from '@/hooks/queries'
+import { useJogadores } from '@/hooks/useJogadores'
+import { useTimes } from '@/hooks/useTimes'
 
 interface RankingLayoutProps {
     children: React.ReactNode

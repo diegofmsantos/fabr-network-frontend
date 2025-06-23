@@ -10,12 +10,11 @@ interface PlayerStatSelectProps {
 
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
-        const stat = group.stats.find(s => s.urlParam === statParam)
-        if (stat) {
+        if (group.stats.some((s: any) => s.urlParam === statParam)) {
             return group.title
         }
     }
-    return 'Passando'
+    return statGroups[0]?.title || 'PASSE'
 }
 
 export const PlayerStatSelect: React.FC<PlayerStatSelectProps> = ({ currentStat }) => {
@@ -38,7 +37,7 @@ export const PlayerStatSelect: React.FC<PlayerStatSelectProps> = ({ currentStat 
             >
                 {statGroups.map((group) => (
                     <optgroup key={group.groupLabel} label={group.title}>
-                        {group.stats.map((stat) => (
+                        {group.stats.map((stat: any) => (
                             <option key={stat.urlParam} value={stat.urlParam}>
                                 {stat.title}
                             </option>
