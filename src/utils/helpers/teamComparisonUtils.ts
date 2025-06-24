@@ -1,4 +1,5 @@
-import { TeamComparisonData, TeamComparisonTeam, ChartDataPoint, ComparisonCardData, StatCategory,StatType } from '@/types/teamComparison';
+import { ChartDataPoint, ComparisonCardData, StatCategory, StatType, TeamComparisonData, TeamComparisonTeam } from "@/types";
+
 
 export const formatStatValue = (value: number, type: StatType = StatType.TOTAL): string => {
   if (value === null || value === undefined || isNaN(value)) return 'N/A';

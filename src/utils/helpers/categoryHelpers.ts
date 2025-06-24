@@ -1,4 +1,5 @@
-import { StatKey } from "@/types/Stats";
+import { StatKey } from "@/types"
+
 
 export const getCategoryLabel = (category: string): string => {
   const labels: Record<string, string> = {

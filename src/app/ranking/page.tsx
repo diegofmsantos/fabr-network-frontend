@@ -15,7 +15,6 @@ import { Jogador, StatKey, Time } from "@/types"
 export default function Page() {
     const [selectedCategory, setSelectedCategory] = useState("passe")
 
-    // Usar hooks diretamente
     const { data: times = [], isLoading: timesLoading } = useTimes('2025')
     const { data: players = [], isLoading: jogadoresLoading } = useJogadores('2025')
 
@@ -79,7 +78,7 @@ export default function Page() {
                 </div>
 
                 <div className="px-4 lg:px-8 xl:px-12 max-w-7xl mx-auto xl:ml-20">
-                    <StatCardsGrid // @ts-ignore
+                    <StatCardsGrid 
                         stats={prepareStatsForCards(players, times, currentStats, categoryTitle)}
                         category={categoryTitle}
                     />

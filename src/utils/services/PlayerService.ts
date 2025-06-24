@@ -1,13 +1,10 @@
-import { Jogador } from "@/types/jogador"
 import { TeamInfo } from "@/hooks/useTeamInfo"
-import { ProcessedPlayer } from "@/types/processedPlayer"
 import { BaseStatCalculator, calculateStat, compareValues, shouldIncludePlayer, StatsCalculator } from "./StatsServices"
 import { CategoryKey } from "../categoryThresholds"
-import { Time } from "@/types/time"
-import { StatConfig } from "@/types/teamComparison"
-import { normalizeForFilePath, StatsFormatter } from "./FormatterService"
+import { StatsFormatter } from "./FormatterService"
 import { StatResult } from "../constants/statMappings"
-import { StatKey } from "@/types/Stats"
+import { Jogador, ProcessedPlayer, StatConfig, StatKey, Time } from "@/types"
+import { normalizeForFilePath } from "./ImageService"
 
 export function createProcessedPlayer(player: Jogador, statMapping: StatConfig, getTeamInfo: (timeId: number) => TeamInfo): ProcessedPlayer | null {
     const stats = player.estatisticas[statMapping.category]

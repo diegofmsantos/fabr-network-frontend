@@ -11,12 +11,10 @@ import { StatCategoryButtons } from '@/components/ui/StatCategoryButtons'
 import { getCategoryTitle, getStatsByCategory } from '@/utils/helpers/categoryHelpers'
 import { Jogador, TeamStats, Time } from '@/types'
 
-// Função para calcular estatísticas dos times
 const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
     const teamStatsMap = new Map<number, TeamStats>()
     const timeIds = [...new Set(players.map(player => player.timeId))];
 
-    // Inicializar estatísticas para cada time
     timeIds.forEach(id => {
         if (id !== undefined) {
             teamStatsMap.set(id, {
@@ -72,7 +70,6 @@ const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
         }
     });
 
-    // Somar estatísticas de todos os jogadores por time
     players.forEach(player => {
         const teamStats = teamStatsMap.get(player.timeId ?? 0);
 
@@ -145,19 +142,16 @@ const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
 export default function TeamRankingPage() {
     const [selectedCategory, setSelectedCategory] = useState("passe")
 
-    // Usar hooks diretamente
     const { data: times = [], isLoading: timesLoading } = useTimes('2025')
     const { data: players = [], isLoading: playersLoading } = useJogadores('2025')
 
     const loading = timesLoading || playersLoading
 
-    // Calcular estatísticas dos times usando useMemo para performance
     const teamStats = useMemo(() => {
         if (loading || players.length === 0) return []
         return calculateTeamStats(players)
     }, [players, loading])
 
-    // Loading state
     if (loading || teamStats.length === 0) {
         return <Loading />
     }

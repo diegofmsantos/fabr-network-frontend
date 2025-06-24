@@ -1,4 +1,5 @@
-import { StatGroup } from '@/types/Stats'
+import { StatGroup } from "@/types"
+
 
 export const statGroups: StatGroup[] = [
     {

@@ -1,6 +1,5 @@
-import { Jogador } from "@/types/jogador"
-import { StatKey } from "@/types/Stats"
-import { Time } from "@/types/time"
+import { Jogador, StatKey, Time } from "@/types";
+
 
 export const createSlug = (text: string): string => {
     if (!text) return ''

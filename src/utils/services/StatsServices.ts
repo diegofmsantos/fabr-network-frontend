@@ -1,6 +1,6 @@
-import { CorridaStats, DefesaStats, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatKey, StatsBase } from "@/types/Stats";
+import { CorridaStats, DefesaStats, Jogador, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatKey, StatsBase } from "@/types";
 import { CATEGORY_THRESHOLDS, CategoryKey, getTierForValue } from "../categoryThresholds";
-import { Jogador } from "@/types/jogador";
+
 import { getStatCategory, StatConfig, StatResult } from "../constants/statMappings";
 import { getCategoryFromKey } from "../helpers/categoryHelpers";
 
@@ -349,8 +349,7 @@ export const getFGRatio = (fgString: string): number => {
 export const calculateTeamStat = (teamStat: any, key: string): number | null => {
         try {
             const category = getCategoryFromKey(key);
-            
-            // Verificar se a categoria e chave existem
+
             if (!teamStat[category] || !(key in teamStat[category]) && 
                 !['passes_percentual', 'jardas_media', 'jardas_corridas_media', 
                 'jardas_recebidas_media', 'jardas_retornadas_media', 'extra_points', 

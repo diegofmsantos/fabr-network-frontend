@@ -1,3 +1,4 @@
+// src/hooks/useJogadores.ts
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { JogadoresService } from '@/services/jogadores.service'
 import { queryKeys } from './queryKeys'
@@ -7,9 +8,9 @@ import { Jogador } from '@/types'
 // Hook para buscar jogadores
 export function useJogadores(temporada: string = '2025') {
   return useQuery({
-    queryKey: queryKeys.jogadores.list(temporada),
+    queryKey: queryKeys.jogadores.list({ temporada }),
     queryFn: () => JogadoresService.getJogadores(temporada),
-    staleTime: 1000 * 60 * 3, // 3 minutos (jogadores mudam mais frequentemente)
+    staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     retry: 2,
     refetchOnWindowFocus: false,
@@ -35,17 +36,15 @@ export function useCreateJogador() {
   return useMutation({
     mutationFn: (data: Omit<Jogador, 'id'>) => JogadoresService.createJogador(data),
     onSuccess: (newJogador) => {
-      // Invalidar lista de jogadores (todas as temporadas por segurança)
+      // Invalidar lista de jogadores
       queryClient.invalidateQueries({ 
         queryKey: queryKeys.jogadores.lists() 
       })
       
-      // Invalidar jogadores do time específico se aplicável
-      if (newJogador.timeId) {
-        queryClient.invalidateQueries({ 
-          queryKey: queryKeys.times.jogadores(newJogador.timeId) 
-        })
-      }
+      // Invalidar times (jogador está associado a um time)
+      queryClient.invalidateQueries({ 
+        queryKey: queryKeys.times.lists() 
+      })
       
       // Adicionar ao cache
       queryClient.setQueryData(queryKeys.jogadores.detail(newJogador.id), newJogador)
@@ -70,17 +69,13 @@ export function useUpdateJogador() {
       // Atualizar cache específico
       queryClient.setQueryData(queryKeys.jogadores.detail(id), updatedJogador)
       
-      // Invalidar lista de jogadores
+      // Invalidar listas
       queryClient.invalidateQueries({ 
         queryKey: queryKeys.jogadores.lists() 
       })
-      
-      // Invalidar jogadores do time se mudou de time
-      if (updatedJogador.timeId) {
-        queryClient.invalidateQueries({ 
-          queryKey: queryKeys.times.jogadores(updatedJogador.timeId) 
-        })
-      }
+      queryClient.invalidateQueries({ 
+        queryKey: queryKeys.times.lists() 
+      })
       
       notifications.success('Jogador atualizado!', `${updatedJogador.nome} foi atualizado`)
     },
@@ -103,33 +98,7 @@ export function useDeleteJogador() {
         queryKey: queryKeys.jogadores.detail(id) 
       })
       
-      // Invalidar todas as listas de jogadores
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
-      })
-      
-      // Invalidar jogadores de times
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.all 
-      })
-      
-      notifications.success('Jogador removido!', 'Jogador foi excluído com sucesso')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao remover jogador', error.message)
-    },
-  })
-}
-
-// Hook para importar jogadores
-export function useImportarJogadores() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: JogadoresService.importarJogadores,
-    onSuccess: (result) => {
-      // Invalidar todas as listas de jogadores e times
+      // Invalidar listas
       queryClient.invalidateQueries({ 
         queryKey: queryKeys.jogadores.lists() 
       })
@@ -137,41 +106,10 @@ export function useImportarJogadores() {
         queryKey: queryKeys.times.lists() 
       })
       
-      notifications.success(
-        'Importação concluída!', 
-        `${result.sucesso || 0} jogadores importados com sucesso`
-      )
+      notifications.success('Jogador removido!', 'Jogador foi excluído com sucesso')
     },
     onError: (error: any) => {
-      notifications.error('Erro na importação', error.message)
-    },
-  })
-}
-
-// Hook para atualizar estatísticas
-export function useAtualizarEstatisticas() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: ({ arquivo, idJogo, dataJogo }: { arquivo: File; idJogo: string; dataJogo: string }) =>
-      JogadoresService.atualizarEstatisticas(arquivo, idJogo, dataJogo),
-    onSuccess: (result) => {
-      // Invalidar jogadores e jogos relacionados
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
-      })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogos.lists() 
-      })
-      
-      notifications.success(
-        'Estatísticas atualizadas!', 
-        'Estatísticas do jogo foram processadas com sucesso'
-      )
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao atualizar estatísticas', error.message)
+      notifications.error('Erro ao remover jogador', error.message)
     },
   })
 }
