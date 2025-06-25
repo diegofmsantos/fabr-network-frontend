@@ -33,7 +33,6 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       }
     }
 
-    // Usa UrlService em vez de normalizeForFilePath bugada
     return UrlService.getPlayerStatsUrl(category, title);
   }
 

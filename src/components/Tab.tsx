@@ -17,8 +17,8 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
   const isNoticiasRoute = pathname.startsWith('/noticias')
   const isMercadoRoute = pathname.startsWith('/mercado')
   const isCompararRoute = pathname.startsWith('/comparar-times')
-  const isCampeonatoRoute = pathname.startsWith('/campeonato')
-  const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isCampeonatoRoute
+  const isSuperligaRoute = pathname.startsWith('/superliga')
+  const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isSuperligaRoute
   const [isAboutOpen, setIsAboutOpen] = useState(false)
 
   return (
@@ -49,10 +49,10 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
         </Link>
 
         <Link href="/campeonato">
-          <div className={`flex flex-col items-center ${isCampeonatoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+          <div className={`flex flex-col items-center ${isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
             <Trophy 
               size={25} 
-              className={isCampeonatoRoute ? "text-[#63E300]" : "text-gray-400"}
+              className={isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}
             />
             <span className="text-[12px]">Campeonatos</span>
           </div>

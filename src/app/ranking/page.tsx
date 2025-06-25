@@ -52,7 +52,7 @@ export default function Page() {
                     name: player.nome,
                     team: (teamInfo as Time)?.nome || 'Time Desconhecido',
                     value: value !== null ? String(value) : 'N/A',
-                    camisa: player.camisa,
+                    camisa: player.camisa || '',
                     teamColor: index === 0 ? (teamInfo as Time)?.cor : undefined,
                     teamLogo: `/assets/times/logos/${(teamInfo as Time)?.logo || 'default-logo.png'}`,
                     isFirst: index === 0
@@ -62,6 +62,7 @@ export default function Page() {
             return {
                 title: stat.title,
                 key: stat.key,
+                category: categoryTitle,
                 players: formattedPlayers
             };
         });
@@ -78,7 +79,7 @@ export default function Page() {
                 </div>
 
                 <div className="px-4 lg:px-8 xl:px-12 max-w-7xl mx-auto xl:ml-20">
-                    <StatCardsGrid 
+                    <StatCardsGrid
                         stats={prepareStatsForCards(players, times, currentStats, categoryTitle)}
                         category={categoryTitle}
                     />

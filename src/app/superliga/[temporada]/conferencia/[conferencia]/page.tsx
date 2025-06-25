@@ -89,7 +89,6 @@ export default function ConferenciaPage() {
 
   const conferenciaConfig = conferenciasConfig[conferenciaTipo]
 
-  // Buscar dados
   const { data: campeonatos = [] } = useCampeonatos({
     temporada,
     tipo: 'SUPERLIGA'
@@ -98,26 +97,26 @@ export default function ConferenciaPage() {
   const superliga = campeonatos.find(c => c.isSuperliga) || campeonatos[0]
   const superligaId = superliga?.id
 
-  const { 
-    data: classificacao, 
-    isLoading: loadingClassificacao 
+  const {
+    data: classificacao,
+    isLoading: loadingClassificacao
   } = useClassificacaoConferencia(superligaId || 0, conferenciaParam)
 
-  const { 
-    data: jogos = [], 
-    isLoading: loadingJogos 
+  const {
+    data: jogos = [],
+    isLoading: loadingJogos
   } = useJogosSuperliga(superligaId || 0, { conferencia: conferenciaTipo })
 
-  const { 
-    data: playoffs = [], 
-    isLoading: loadingPlayoffs 
+  const {
+    data: playoffs = [],
+    isLoading: loadingPlayoffs
   } = usePlayoffsConferencia(superligaId || 0, conferenciaParam)
 
   const loading = loadingClassificacao || loadingJogos || loadingPlayoffs
 
   if (!conferenciaConfig) {
     return (
-      <NoDataFound 
+      <NoDataFound
         message="Conferência não encontrada"
         description="A conferência solicitada não existe ou não foi configurada corretamente."
       />
@@ -141,7 +140,7 @@ export default function ConferenciaPage() {
         <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-6">
           <div className="flex items-center gap-2 text-white/80 mb-6">
-            <Link 
+            <Link
               href={`/superliga/${temporada}`}
               className="hover:text-white transition-colors flex items-center gap-1"
             >
@@ -164,12 +163,11 @@ export default function ConferenciaPage() {
                 </div>
               </div>
             </div>
-            
+
             <p className="text-lg text-white/80 max-w-3xl mx-auto mb-8">
               {conferenciaConfig.descricao}
             </p>
 
-            {/* Stats */}
             <div className="flex justify-center gap-8 text-center">
               <div>
                 <div className="text-2xl font-bold text-white">{conferenciaConfig.regionais.length}</div>
@@ -192,7 +190,6 @@ export default function ConferenciaPage() {
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="bg-[#1C1C24] border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex space-x-8">
@@ -206,11 +203,10 @@ export default function ConferenciaPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
-                    activeTab === tab.id
-                      ? `border-${conferenciaConfig.cor} text-${conferenciaConfig.cor}`
-                      : 'border-transparent text-gray-400 hover:text-gray-300'
-                  }`}
+                  className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${activeTab === tab.id
+                    ? `border-${conferenciaConfig.cor} text-${conferenciaConfig.cor}`
+                    : 'border-transparent text-gray-400 hover:text-gray-300'
+                    }`}
                 >
                   <Icon size={16} />
                   {tab.label}
@@ -221,7 +217,6 @@ export default function ConferenciaPage() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {activeTab === 'classificacao' && (
           <div className="space-y-8">
@@ -251,19 +246,17 @@ export default function ConferenciaPage() {
                         </thead>
                         <tbody>
                           {regionalData.times?.map((item, index) => (
-                            <tr 
+                            <tr
                               key={item.time.id}
-                              className={`border-b border-gray-800 hover:bg-[#272731] transition-colors ${
-                                index === 0 ? 'bg-green-500/10' : 
+                              className={`border-b border-gray-800 hover:bg-[#272731] transition-colors ${index === 0 ? 'bg-green-500/10' :
                                 index === 1 ? 'bg-blue-500/10' : ''
-                              }`}
+                                }`}
                             >
                               <td className="py-4 px-4">
-                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                                  index === 0 ? 'bg-green-500 text-white' :
+                                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${index === 0 ? 'bg-green-500 text-white' :
                                   index === 1 ? 'bg-blue-500 text-white' :
-                                  'bg-gray-600 text-gray-300'
-                                }`}>
+                                    'bg-gray-600 text-gray-300'
+                                  }`}>
                                   {item.posicao}
                                 </div>
                               </td>
@@ -283,9 +276,8 @@ export default function ConferenciaPage() {
                                 </div>
                               </td>
                               <td className="py-4 px-4 text-center">
-                                <span className={`font-bold ${
-                                  index === 0 ? 'text-green-400' : 'text-white'
-                                }`}>
+                                <span className={`font-bold ${index === 0 ? 'text-green-400' : 'text-white'
+                                  }`}>
                                   {item.pontos}
                                 </span>
                               </td>
@@ -303,16 +295,15 @@ export default function ConferenciaPage() {
                     </div>
                   ))}
 
-                {(!classificacao?.regionais || 
+                {(!classificacao?.regionais ||
                   !classificacao.regionais.find(r => r.nome === regional.nome)) && (
-                  <div className="text-center text-gray-400 py-8">
-                    Classificação não disponível para este regional
-                  </div>
-                )}
+                    <div className="text-center text-gray-400 py-8">
+                      Classificação não disponível para este regional
+                    </div>
+                  )}
               </div>
             ))}
 
-            {/* Legenda */}
             <div className="bg-[#1C1C24] rounded-xl p-6">
               <h3 className="font-bold text-white mb-4">Legenda de Classificação</h3>
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -337,7 +328,6 @@ export default function ConferenciaPage() {
               </div>
             </div>
 
-            {/* Lista de Jogos */}
             <div className="space-y-4">
               {jogos.length > 0 ? (
                 <div className="grid gap-4">
@@ -347,7 +337,6 @@ export default function ConferenciaPage() {
                       <div key={jogo.id} className="bg-[#1C1C24] rounded-xl p-6">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-6">
-                            {/* Time Casa */}
                             <div className="flex items-center gap-3">
                               <Image
                                 src={ImageService.getTeamLogo(jogo.timeCasa.logo)}
@@ -362,7 +351,6 @@ export default function ConferenciaPage() {
                               </div>
                             </div>
 
-                            {/* Placar */}
                             <div className="text-center px-6">
                               {jogo.status === 'FINALIZADO' ? (
                                 <div className="bg-[#272731] px-4 py-2 rounded-lg">
@@ -382,9 +370,9 @@ export default function ConferenciaPage() {
                                 <div className="bg-blue-500 px-4 py-2 rounded-lg">
                                   <div className="text-white font-bold">
                                     <Clock size={16} className="inline mr-1" />
-                                    {new Date(jogo.dataJogo).toLocaleTimeString('pt-BR', { 
-                                      hour: '2-digit', 
-                                      minute: '2-digit' 
+                                    {new Date(jogo.dataJogo).toLocaleTimeString('pt-BR', {
+                                      hour: '2-digit',
+                                      minute: '2-digit'
                                     })}
                                   </div>
                                   <div className="text-xs text-blue-100">Agendado</div>
@@ -392,7 +380,6 @@ export default function ConferenciaPage() {
                               )}
                             </div>
 
-                            {/* Time Visitante */}
                             <div className="flex items-center gap-3">
                               <div>
                                 <div className="font-semibold text-white">{jogo.timeVisitante.nome}</div>
@@ -408,7 +395,6 @@ export default function ConferenciaPage() {
                             </div>
                           </div>
 
-                          {/* Info Adicional */}
                           <div className="text-right">
                             <div className="text-sm text-gray-400">
                               {new Date(jogo.dataJogo).toLocaleDateString('pt-BR')}
@@ -444,7 +430,6 @@ export default function ConferenciaPage() {
                 Sistema de Playoffs - {conferenciaConfig.nome}
               </h2>
 
-              {/* Explicação do Sistema */}
               <div className="bg-[#272731] rounded-lg p-6 mb-6">
                 <h3 className="font-bold text-white mb-4">Como Funciona:</h3>
                 <div className="space-y-3 text-gray-300">
@@ -479,11 +464,9 @@ export default function ConferenciaPage() {
                 </div>
               </div>
 
-              {/* Chaveamento */}
               {playoffs.length > 0 ? (
                 <div className="space-y-6">
                   <h3 className="text-xl font-bold text-white">Chaveamento Atual</h3>
-                  {/* Aqui seria renderizado o chaveamento específico */}
                   <div className="bg-[#272731] rounded-lg p-6 text-center">
                     <div className="text-gray-400">
                       Chaveamento dos playoffs será exibido quando os jogos forem gerados.
@@ -502,13 +485,11 @@ export default function ConferenciaPage() {
               )}
             </div>
 
-            {/* Classificados */}
             <div className="bg-[#1C1C24] rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4">Times Classificados</h3>
-              
+
               {estatisticas.timesClassificados > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {/* Lista de times classificados seria renderizada aqui */}
                   <div className="text-center text-gray-400 py-8 col-span-full">
                     Lista de classificados será exibida quando disponível
                   </div>

@@ -66,7 +66,6 @@ const StatsTier: React.FC<StatsTierProps> = ({ title, players, backgroundColor =
           const teamLogoPath = `/assets/times/logos/${normalizeForFilePath(teamInfo.nome)}.png`;
           const globalIndex = index + 1;
           
-          // Criar uma key única usando múltiplos identificadores
           const uniqueKey = `${statsType}-${title}-${player.id}-${arrayIndex}`;
 
           return (

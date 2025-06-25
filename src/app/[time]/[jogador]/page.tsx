@@ -176,65 +176,65 @@ export default function Page() {
 
     const logoPath = getLogoPath(currentTime);
 
-    const passe = currentJogador.estatisticas?.passe || {};
+    const passe = currentJogador.estatisticas?.passe;
     const passeSafe = {
-        passes_completos: passe.passes_completos || 0,
-        passes_tentados: passe.passes_tentados || 0,
-        jardas_de_passe: passe.jardas_de_passe || 0,
-        td_passados: passe.td_passados || 0,
-        interceptacoes_sofridas: passe.interceptacoes_sofridas || 0,
-        sacks_sofridos: passe.sacks_sofridos || 0,
-        fumble_de_passador: passe.fumble_de_passador || 0
+        passes_completos: passe?.passes_completos || 0,
+        passes_tentados: passe?.passes_tentados || 0,
+        jardas_de_passe: passe?.jardas_de_passe || 0,
+        td_passados: passe?.td_passados || 0,
+        interceptacoes_sofridas: passe?.interceptacoes_sofridas || 0,
+        sacks_sofridos: passe?.sacks_sofridos || 0,
+        fumble_de_passador: passe?.fumble_de_passador || 0
     };
 
-    const corrida = currentJogador.estatisticas?.corrida || {};
+    const corrida = currentJogador.estatisticas?.corrida;
     const corridaSafe = {
-        corridas: corrida.corridas || 0,
-        jardas_corridas: corrida.jardas_corridas || 0,
-        tds_corridos: corrida.tds_corridos || 0,
-        fumble_de_corredor: corrida.fumble_de_corredor || 0
+        corridas: corrida?.corridas || 0,
+        jardas_corridas: corrida?.jardas_corridas || 0,
+        tds_corridos: corrida?.tds_corridos || 0,
+        fumble_de_corredor: corrida?.fumble_de_corredor || 0
     };
 
-    const recepcao = currentJogador.estatisticas?.recepcao || {};
+    const recepcao = currentJogador.estatisticas?.recepcao;
     const recepcaoSafe = {
-        recepcoes: recepcao.recepcoes || 0,
-        alvo: recepcao.alvo || 0,
-        jardas_recebidas: recepcao.jardas_recebidas || 0,
-        tds_recebidos: recepcao.tds_recebidos || 0
+        recepcoes: recepcao?.recepcoes || 0,
+        alvo: recepcao?.alvo || 0,
+        jardas_recebidas: recepcao?.jardas_recebidas || 0,
+        tds_recebidos: recepcao?.tds_recebidos || 0
     };
 
-    const retorno = currentJogador.estatisticas?.retorno || {};
+    const retorno = currentJogador.estatisticas?.retorno;
     const retornoSafe = {
-        retornos: retorno.retornos || 0,
-        jardas_retornadas: retorno.jardas_retornadas || 0,
-        td_retornados: retorno.td_retornados || 0
+        retornos: retorno?.retornos || 0,
+        jardas_retornadas: retorno?.jardas_retornadas || 0,
+        td_retornados: retorno?.td_retornados || 0
     };
 
-    const defesa = currentJogador.estatisticas?.defesa || {};
+    const defesa = currentJogador.estatisticas?.defesa;
     const defesaSafe = {
-        tackles_totais: defesa.tackles_totais || 0,
-        tackles_for_loss: defesa.tackles_for_loss || 0,
-        sacks_forcado: defesa.sacks_forcado || 0,
-        fumble_forcado: defesa.fumble_forcado || 0,
-        interceptacao_forcada: defesa.interceptacao_forcada || 0,
-        passe_desviado: defesa.passe_desviado || 0,
-        safety: defesa.safety || 0,
-        td_defensivo: defesa.td_defensivo || 0
+        tackles_totais: defesa?.tackles_totais || 0,
+        tackles_for_loss: defesa?.tackles_for_loss || 0,
+        sacks_forcado: defesa?.sacks_forcado || 0,
+        fumble_forcado: defesa?.fumble_forcado || 0,
+        interceptacao_forcada: defesa?.interceptacao_forcada || 0,
+        passe_desviado: defesa?.passe_desviado || 0,
+        safety: defesa?.safety || 0,
+        td_defensivo: defesa?.td_defensivo || 0
     };
 
-    const kicker = currentJogador.estatisticas?.kicker || {};
+    const kicker = currentJogador.estatisticas?.kicker;
     const kickerSafe = {
-        xp_bons: kicker.xp_bons || 0,
-        tentativas_de_xp: kicker.tentativas_de_xp || 0,
-        fg_bons: kicker.fg_bons || 0,
-        tentativas_de_fg: kicker.tentativas_de_fg || 0,
-        fg_mais_longo: kicker.fg_mais_longo || 0
+        xp_bons: kicker?.xp_bons || 0,
+        tentativas_de_xp: kicker?.tentativas_de_xp || 0,
+        fg_bons: kicker?.fg_bons || 0,
+        tentativas_de_fg: kicker?.tentativas_de_fg || 0,
+        fg_mais_longo: kicker?.fg_mais_longo || 0
     };
 
-    const punter = currentJogador.estatisticas?.punter || {};
+    const punter = currentJogador.estatisticas?.punter;
     const punterSafe = {
-        punts: punter.punts || 0,
-        jardas_de_punt: punter.jardas_de_punt || 0
+        punts: punter?.punts || 0,
+        jardas_de_punt: punter?.jardas_de_punt || 0
     };
 
     return (

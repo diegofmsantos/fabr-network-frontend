@@ -2,10 +2,12 @@ import React from 'react';
 import { AlertCircle, Calendar, User, Users } from 'lucide-react';
 
 interface NoDataFoundProps {
-  type: 'player' | 'team' | 'campeonato' | 'jogo';
-  temporada: string;
+  type?: 'player' | 'team' | 'campeonato' | 'jogo';
+  temporada?: string;
   entityName?: string;
   onGoBack?: () => void;
+  message?: string
+  description?: string
 }
 
 export const NoDataFound: React.FC<NoDataFoundProps> = ({ type, temporada, entityName, onGoBack }) => {

@@ -1,6 +1,5 @@
 import { Time } from "@/types"
 
-
 export interface TeamInfo {
   nome: string
   cor: string

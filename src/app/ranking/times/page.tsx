@@ -9,7 +9,7 @@ import { TeamRankingGroup } from '@/components/Ranking/TimeRankingGroup'
 import { TeamStatCardsGrid, prepareTeamStatsForCards } from '@/components/Stats/TeamStatCardsGrid'
 import { StatCategoryButtons } from '@/components/ui/StatCategoryButtons'
 import { getCategoryTitle, getStatsByCategory } from '@/utils/helpers/categoryHelpers'
-import { Jogador, TeamStats, Time } from '@/types'
+import { Jogador, TeamStats } from '@/types'
 
 const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
     const teamStatsMap = new Map<number, TeamStats>()

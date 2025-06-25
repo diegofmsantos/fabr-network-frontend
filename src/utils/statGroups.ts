@@ -1,6 +1,5 @@
 import { StatGroup } from "@/types"
 
-
 export const statGroups: StatGroup[] = [
     {
         title: 'PASSE',

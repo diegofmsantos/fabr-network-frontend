@@ -2,8 +2,7 @@ import { TeamInfo } from "@/hooks/useTeamInfo"
 import { BaseStatCalculator, calculateStat, compareValues, shouldIncludePlayer, StatsCalculator } from "./StatsServices"
 import { CategoryKey } from "../categoryThresholds"
 import { StatsFormatter } from "./FormatterService"
-import { StatResult } from "../constants/statMappings"
-import { Jogador, ProcessedPlayer, StatConfig, StatKey, Time } from "@/types"
+import { Jogador, ProcessedPlayer, StatConfig, StatKey, StatResult, Time } from "@/types"
 import { normalizeForFilePath } from "./ImageService"
 
 export function createProcessedPlayer(player: Jogador, statMapping: StatConfig, getTeamInfo: (timeId: number) => TeamInfo): ProcessedPlayer | null {
@@ -17,7 +16,7 @@ export function createProcessedPlayer(player: Jogador, statMapping: StatConfig, 
     const formattedValue = StatsFormatter.format(statValue, statMapping);
 
     const average = typeof statValue === 'string' && statValue.includes('/')
-        ? Number(statValue.split('/')[0]) // Usa apenas o número de acertos para média
+        ? Number(statValue.split('/')[0]) 
         : Number(statValue);
 
     return { player, average, baseStat, teamInfo: getTeamInfo(player.timeId), value: formattedValue }

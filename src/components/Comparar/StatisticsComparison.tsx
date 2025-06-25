@@ -117,7 +117,6 @@ export const StatisticsComparison: React.FC<StatisticsComparisonProps> = ({ comp
 
     return (
         <div>
-            {/* Seção de Estatísticas de Passe */}
             <div className="mt-4">
                 <h2 className="text-2xl font-bold mb-4 bg-[#373740] text-white p-2 inline-block rounded-md">PASSE</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -422,7 +421,6 @@ export const StatisticsComparison: React.FC<StatisticsComparisonProps> = ({ comp
             <div className="mt-8">
                 <h2 className="text-2xl font-bold mb-4 bg-[#373740] text-white p-2 inline-block rounded-md">DESTAQUES</h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    {/* Destaque Ataque */}
                     <div className="bg-white rounded-lg p-6 shadow-md">
                         <h3 className="text-xl font-bold mb-4">Melhores do Ataque</h3>
                         <div className="grid grid-cols-1 gap-4">

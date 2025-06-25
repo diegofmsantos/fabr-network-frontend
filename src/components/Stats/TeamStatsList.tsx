@@ -1,14 +1,13 @@
 import React from 'react'
 import Image from 'next/image'
-import { StatConfig } from '@/utils/constants/statMappings'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { NoStats } from '../ui/NoStats'
-import { formatValue, StatsFormatter } from '@/utils/services/FormatterService'
+import { formatValue } from '@/utils/services/FormatterService'
 import { ImageService } from '@/utils/services/ImageService'
 import { getCategoryFromKey } from '@/utils/helpers/categoryHelpers'
-import { Jogador, Time } from '@/types'
+import { Jogador, StatConfig, Time } from '@/types'
 
 interface TeamStatsListProps {
   players: Jogador[]
@@ -104,7 +103,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         }
       }
 
-      teamPlayers.forEach(player => { // @ts-ignore
+      teamPlayers.forEach(player => { 
         const value = player.estatisticas?.[category]?.[statMapping.key]
         if (typeof value === 'number') {
           total += value

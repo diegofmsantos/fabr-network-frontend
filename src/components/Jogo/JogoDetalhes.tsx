@@ -2,16 +2,7 @@ import React from 'react'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { 
-  Clock, 
-  MapPin, 
-  Users, 
-  Trophy, 
-  Calendar,
-  ArrowLeft,
-  BarChart3,
-  Eye
-} from 'lucide-react'
+import { MapPin, Trophy, Calendar, ArrowLeft, BarChart3, Eye } from 'lucide-react'
 import { Jogo } from '@/types'
 import { ImageService } from '@/utils/services/ImageService'
 import Link from 'next/link'
@@ -25,7 +16,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
   const isFinished = jogo.status === 'FINALIZADO'
   const hasScore = jogo.placarCasa !== null && jogo.placarVisitante !== null
   
-  // Determinar vencedor
   const winner = hasScore && isFinished ? (
     jogo.placarCasa! > jogo.placarVisitante! ? 'casa' : 
     jogo.placarVisitante! > jogo.placarCasa! ? 'visitante' : 'empate'
@@ -53,7 +43,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      {/* Header */}
       <div className="bg-gray-50 px-6 py-4 border-b">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -82,11 +71,8 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           </div>
         </div>
       </div>
-
-      {/* Informações da Partida */}
       <div className="p-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Data e Horário */}
           <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
             <Calendar className="w-6 h-6 text-blue-600" />
             <div>
@@ -100,7 +86,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
             </div>
           </div>
 
-          {/* Local */}
           {jogo.local && (
             <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg">
               <MapPin className="w-6 h-6 text-green-600" />
@@ -111,7 +96,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
             </div>
           )}
 
-          {/* Fase */}
           <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-lg">
             <Trophy className="w-6 h-6 text-purple-600" />
             <div>
@@ -123,10 +107,8 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           </div>
         </div>
 
-        {/* Placar Principal */}
         <div className="bg-gray-50 rounded-xl p-8 mb-8">
           <div className="flex items-center justify-between">
-            {/* Time da Casa */}
             <div className="flex-1 text-center">
               <div className="flex flex-col items-center">
                 <Image
@@ -152,7 +134,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
               </div>
             </div>
 
-            {/* Placar */}
             <div className="flex-shrink-0 mx-8">
               <div className="text-center">
                 <div className="flex items-center gap-4">
@@ -175,7 +156,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
               </div>
             </div>
 
-            {/* Time Visitante */}
             <div className="flex-1 text-center">
               <div className="flex flex-col items-center">
                 <Image
@@ -203,7 +183,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           </div>
         </div>
 
-        {/* Observações */}
         {jogo.observacoes && (
           <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
             <div className="flex items-start gap-3">
@@ -216,7 +195,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           </div>
         )}
 
-        {/* Actions */}
         <div className="flex items-center justify-center gap-4 pt-6 border-t">
           {isFinished && (
             <Link

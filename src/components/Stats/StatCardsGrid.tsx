@@ -27,8 +27,6 @@ interface StatCardsGridProps {
   category: string;
 }
 
-
-
 export const prepareStatsForCards = (
   players: Jogador[],
   times: Time[],

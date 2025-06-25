@@ -38,7 +38,6 @@ const SLIDER_SETTINGS = {
 }
 
 export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats, teamStats }) => {
-    // Usar hook em vez de useEffect
     const { data: times = [], isLoading } = useTimes('2025')
 
     const normalizeValue = (value: number | null, key: string, title: string): string => {

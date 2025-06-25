@@ -39,7 +39,7 @@ export default function MercadoPage() {
       try {
         setLoading(true)
         setError(null)
-       const data = await ImportacaoService.getTransferencias(temporadaOrigem, temporadaDestino)
+        const data = await ImportacaoService.getTransferencias(temporadaOrigem, temporadaDestino)
         setTransferencias(data)
       } catch (err) {
         console.error('Erro ao carregar transferências:', err)

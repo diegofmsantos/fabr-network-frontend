@@ -25,7 +25,6 @@ export default function SuperligaPage() {
   const temporada = params.temporada as string || '2025'
   const [activeTab, setActiveTab] = useState<'overview' | 'conferencias' | 'playoffs'>('overview')
 
-  // Buscar Superliga da temporada
   const { data: campeonatos = [], isLoading: loadingCampeonatos } = useCampeonatos({
     temporada,
     tipo: 'SUPERLIGA'
@@ -90,7 +89,6 @@ export default function SuperligaPage() {
     }
   ]
 
-  // Estatísticas gerais
   const estatisticas = {
     totalJogos: jogos.length,
     jogosFinalizados: jogos.filter(j => j.status === 'FINALIZADO').length,
@@ -154,7 +152,6 @@ export default function SuperligaPage() {
         </div>
       </div>
 
-      {/* Navigation Tabs */}
       <div className="bg-[#1C1C24] border-b border-gray-700">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex space-x-8">
@@ -183,11 +180,9 @@ export default function SuperligaPage() {
         </div>
       </div>
 
-      {/* Content */}
       <div className="max-w-7xl mx-auto px-6 py-8">
         {activeTab === 'overview' && (
           <div className="space-y-8">
-            {/* Status do Campeonato */}
             <div className="bg-[#1C1C24] rounded-xl p-6">
               <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                 <Trophy className="text-[#63E300]" />
@@ -249,9 +244,7 @@ export default function SuperligaPage() {
               </div>
             </div>
 
-            {/* Próximos Jogos e Últimos Resultados */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {/* Próximos Jogos */}
               <div className="bg-[#1C1C24] rounded-xl p-6">
                 <h3 className="text-xl font-bold text-white mb-4">Próximos Jogos</h3>
                 <div className="space-y-3">
@@ -295,7 +288,6 @@ export default function SuperligaPage() {
                 </div>
               </div>
 
-              {/* Últimos Resultados */}
               <div className="bg-[#1C1C24] rounded-xl p-6">
                 <h3 className="text-xl font-bold text-white mb-4">Últimos Resultados</h3>
                 <div className="space-y-3">

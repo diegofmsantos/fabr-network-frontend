@@ -2,26 +2,8 @@ import React from 'react';
 import { TeamRankingCard } from '@/components/Ranking/TimeRankingCard';
 import { getCategoryFromKey } from '@/utils/helpers/categoryHelpers';
 import { formatStatValue } from '@/utils/helpers/formatUrl';
-import { Time } from '@/types';
+import { TeamStatCardProps, TeamStatCardsGridProps, Time } from '@/types';
 
-interface TeamCardProps {
-  id: number;
-  name: string;
-  value: string;
-  teamColor?: string;
-  isFirst?: boolean;
-}
-
-interface TeamStatCardProps {
-  title: string;
-  category: string;
-  teams: TeamCardProps[];
-}
-
-interface TeamStatCardsGridProps {
-  stats: TeamStatCardProps[];
-  category: string;
-}
 
 export const prepareTeamStatsForCards = (
   teamStats: any[],

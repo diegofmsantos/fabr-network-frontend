@@ -41,7 +41,6 @@ const SLIDER_SETTINGS = {
 }
 
 export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players }) => {
-  // Usar hook em vez de useEffect
   const { data: times = [], isLoading } = useTimes('2025')
 
   const getTeamInfo = (timeId: number) => {

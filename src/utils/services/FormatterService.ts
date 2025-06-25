@@ -1,4 +1,4 @@
-import { StatConfig, StatResult } from "../constants/statMappings";
+import { StatConfig, StatResult } from "@/types";
 
 export class StatsFormatter {
     static format(value: number | string | null, config: StatConfig): string {

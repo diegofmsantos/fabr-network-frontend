@@ -1,15 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { 
-  BarChart3, 
-  Target, 
-  Activity, 
-  Shield, 
-  Zap,
-  Award,
-  TrendingUp,
-  Users
-} from 'lucide-react'
+import { BarChart3, Target,  Activity,  Shield,  Zap, Award,  TrendingUp } from 'lucide-react'
 import { Jogo, Jogador, Estatisticas } from '@/types'
 import { ImageService } from '@/utils/services/ImageService'
 
@@ -181,7 +172,6 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      {/* Header */}
       <div className="bg-gray-50 px-6 py-4 border-b">
         <div className="flex items-center gap-3">
           <BarChart3 className="w-6 h-6 text-blue-600" />
@@ -194,10 +184,8 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
         </div>
       </div>
 
-      {/* Filtros */}
       <div className="p-6 border-b bg-gray-50">
         <div className="flex flex-col gap-4">
-          {/* Categorias */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Categoria</label>
             <div className="flex flex-wrap gap-2">
@@ -221,7 +209,6 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
             </div>
           </div>
 
-          {/* Times */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Visualizar</label>
             <div className="flex gap-2">
@@ -260,11 +247,9 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
         </div>
       </div>
 
-      {/* Conteúdo */}
       <div className="p-6">
         {timeAtivo === 'ambos' ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Time da Casa */}
             <div>
               <div className="flex items-center gap-3 mb-4 pb-3 border-b">
                 <Image
@@ -282,7 +267,6 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
               {renderTabelaEstatisticas(estatisticasTimeCasa, 'casa')}
             </div>
 
-            {/* Time Visitante */}
             <div>
               <div className="flex items-center gap-3 mb-4 pb-3 border-b">
                 <Image

@@ -1,6 +1,5 @@
 import { Jogador, StatKey, Time } from "@/types";
 
-
 export const createSlug = (text: string): string => {
     if (!text) return ''
 

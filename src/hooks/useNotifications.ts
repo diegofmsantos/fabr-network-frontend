@@ -1,4 +1,3 @@
-// src/hooks/useNotifications.ts
 import { useState, useCallback } from 'react'
 
 export interface Notification {
@@ -22,7 +21,6 @@ export function useNotifications() {
 
     setNotifications(prev => [...prev, newNotification])
 
-    // Auto remove notification
     setTimeout(() => {
       setNotifications(prev => prev.filter(n => n.id !== id))
     }, newNotification.duration)
@@ -49,7 +47,7 @@ export function useNotifications() {
       type: 'error',
       title,
       message,
-      duration: 8000 // Errors stay longer
+      duration: 8000 
     })
   }, [addNotification])
 

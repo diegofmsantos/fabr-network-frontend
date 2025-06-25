@@ -73,7 +73,7 @@ const StatsPage: React.FC = () => {
       };
 
       if (statParam) {
-        const statBase = statParam.split('-')[0]; 
+        const statBase = statParam.split('-')[0];
         const mappedType = categoryMapping[statBase as CategoryKey]
         if (mappedType) return mappedType
       }

@@ -2,26 +2,15 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { 
-  Clock, 
-  Target, 
-  Flag, 
-  AlertCircle, 
-  CheckCircle,
-  Play,
-  Pause,
-  RotateCcw,
-  Users,
-  Timer
-} from 'lucide-react'
+import { Clock, Target, Flag, AlertCircle, CheckCircle, Play, Pause, RotateCcw, Timer } from 'lucide-react'
 import { Jogo } from '@/types'
 import { ImageService } from '@/utils/services/ImageService'
 
 interface EventoJogo {
   id: string
   tipo: 'touchdown' | 'field_goal' | 'safety' | 'fumble' | 'interceptacao' | 'falta' | 'inicio_periodo' | 'fim_periodo' | 'timeout'
-  tempo: string // Ex: "1Q 14:32"
-  periodo: number // 1, 2, 3, 4
+  tempo: string 
+  periodo: number 
   timeId: number
   jogadorId?: number
   jogadorNome?: string
@@ -61,7 +50,6 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
     )
   }
 
-  // Eventos mock para demonstração (você pode remover quando tiver dados reais)
   const eventosMock: EventoJogo[] = eventos.length > 0 ? eventos : [
     {
       id: '1',
@@ -177,7 +165,6 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-      {/* Header */}
       <div className="bg-gray-50 px-6 py-4 border-b">
         <div className="flex items-center gap-3">
           <Clock className="w-6 h-6 text-blue-600" />
@@ -190,10 +177,8 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
         </div>
       </div>
 
-      {/* Filtros */}
       <div className="p-6 border-b bg-gray-50">
         <div className="flex flex-col sm:flex-row gap-4">
-          {/* Filtro por Tipo */}
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">Tipo de Evento</label>
             <select
@@ -208,7 +193,6 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
             </select>
           </div>
 
-          {/* Filtro por Período */}
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700 mb-2">Período</label>
             <select
@@ -225,7 +209,6 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
         </div>
       </div>
 
-      {/* Timeline */}
       <div className="p-6">
         {eventosFiltrados.length === 0 ? (
           <div className="text-center py-12 text-gray-500">
@@ -242,21 +225,17 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
 
               return (
                 <div key={evento.id} className="relative flex gap-4">
-                  {/* Linha da Timeline */}
                   {!isLastEvent && (
                     <div className="absolute left-6 top-12 w-0.5 h-full bg-gray-200"></div>
                   )}
 
-                  {/* Ícone do Evento */}
                   <div className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${getCorEvento(evento.tipo)}`}>
                     <IconeEvento className="w-5 h-5" />
                   </div>
 
-                  {/* Conteúdo do Evento */}
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
-                        {/* Header do Evento */}
                         <div className="flex items-center gap-3 mb-2">
                           <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
                             {evento.tempo}
@@ -271,10 +250,8 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
                           )}
                         </div>
 
-                        {/* Descrição */}
                         <p className="text-gray-900 font-medium mb-2">{evento.descricao}</p>
 
-                        {/* Jogador e Time */}
                         <div className="flex items-center gap-3">
                           <div className="flex items-center gap-2">
                             <Image
@@ -295,7 +272,6 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
                         </div>
                       </div>
 
-                      {/* Timestamp */}
                       <div className="text-xs text-gray-500 ml-4">
                         {format(new Date(evento.timestamp), 'HH:mm', { locale: ptBR })}
                       </div>
@@ -308,7 +284,6 @@ export const JogoTimeline: React.FC<JogoTimelineProps> = ({ jogo, eventos = [], 
         )}
       </div>
 
-      {/* Footer com Resumo */}
       <div className="bg-gray-50 px-6 py-4 border-t">
         <div className="flex items-center justify-between text-sm text-gray-600">
           <span>{eventosFiltrados.length} eventos exibidos</span>

@@ -22,8 +22,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             setActiveItem('mercado');
         } else if (pathname?.includes('/comparar-times')) {
             setActiveItem('comparar');
-        } else if (pathname?.includes('/campeonato')) {
-            setActiveItem('campeonatos');
+        } else if (pathname?.includes('/superliga')) {
+            setActiveItem('superliga');
         } else {
             setActiveItem('equipes');
         }
@@ -63,11 +63,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
 
                 <Link
-                    href="/campeonatos"
+                    href="/superliga"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
-                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'campeonatos' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
+                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'superliga' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
-                    Campeonatos
+                    Superliga
                 </Link>
 
                 <Link

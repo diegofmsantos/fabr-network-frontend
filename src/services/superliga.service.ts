@@ -1,4 +1,3 @@
-// src/services/superliga.service.ts
 import { BaseService } from './base.service'
 
 export interface SuperligaBracket {
@@ -32,8 +31,6 @@ export interface ConferenciaClassificacao {
 
 export class SuperligaService extends BaseService {
   
-  // ==================== ESTRUTURA E VALIDAÇÃO ====================
-  
   static async validarEstruturaSuperliga(campeonatoId: number): Promise<{
     valida: boolean
     erros: string[]
@@ -53,8 +50,6 @@ export class SuperligaService extends BaseService {
     return service.get(`/superliga/campeonatos/${campeonatoId}/status`)
   }
 
-  // ==================== CLASSIFICAÇÃO ====================
-
   static async getClassificacaoConferencia(campeonatoId: number, conferencia: string): Promise<ConferenciaClassificacao> {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/classificacao/${conferencia}`)
@@ -72,8 +67,6 @@ export class SuperligaService extends BaseService {
     
     return classificacoes
   }
-
-  // ==================== PLAYOFFS ====================
 
   static async getBracketPlayoffs(campeonatoId: number): Promise<SuperligaBracket> {
     const service = new SuperligaService()
@@ -94,8 +87,6 @@ export class SuperligaService extends BaseService {
     return service.get(`/superliga/campeonatos/${campeonatoId}/fase-nacional`)
   }
 
-  // ==================== JOGOS ====================
-
   static async getJogosSuperliga(campeonatoId: number, filters?: {
     conferencia?: string
     fase?: string
@@ -115,8 +106,6 @@ export class SuperligaService extends BaseService {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/ultimos-resultados`, { limite })
   }
-
-  // ==================== ESTATÍSTICAS ====================
 
   static async getEstatisticasSuperliga(campeonatoId: number): Promise<{
     totalJogos: number
@@ -148,8 +137,6 @@ export class SuperligaService extends BaseService {
     return service.get(`/superliga/campeonatos/${campeonatoId}/ranking`)
   }
 
-  // ==================== HISTÓRICO ====================
-
   static async getHistoricoSuperliga(temporadas: string[]): Promise<{
     [temporada: string]: {
       campeao: any
@@ -163,8 +150,6 @@ export class SuperligaService extends BaseService {
     const service = new SuperligaService()
     return service.get(`/superliga/historico`, { temporadas: temporadas.join(',') })
   }
-
-  // ==================== TIMES E CONFERÊNCIAS ====================
 
   static async getTimesPorConferencia(campeonatoId: number): Promise<{
     [conferencia: string]: {
@@ -194,8 +179,6 @@ export class SuperligaService extends BaseService {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/conferencias`)
   }
-
-  // ==================== SIMULAÇÃO E PREVISÕES ====================
 
   static async simularPlayoffs(campeonatoId: number): Promise<SuperligaBracket> {
     const service = new SuperligaService()

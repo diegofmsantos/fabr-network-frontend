@@ -1,7 +1,5 @@
 import { z } from 'zod'
 
-// ==================== ENUMS ====================
-
 export const TipoConferenciaEnum = z.enum(['SUDESTE', 'SUL', 'NORDESTE', 'CENTRO_NORTE'])
 export const TipoRegionalEnum = z.enum([
   'SERRAMAR', 'CANASTRA', 'CANTAREIRA',
@@ -27,8 +25,6 @@ export const TipoJogoSuperligaEnum = z.enum([
   'FINAL_NACIONAL'
 ])
 
-// ==================== SCHEMAS DE CRIAÇÃO ====================
-
 export const CriarSuperligaSchema = z.object({
   temporada: z.string().regex(/^\d{4}$/, 'Temporada deve ser um ano válido'),
   nome: z.string().optional(),
@@ -52,7 +48,6 @@ export const GerarPlayoffsSchema = z.object({
   conferencia: TipoConferenciaEnum
 })
 
-// ==================== SCHEMAS DE ATUALIZAÇÃO ====================
 
 export const AtualizarJogoPlayoffSchema = z.object({
   jogoId: z.number().positive(),
@@ -65,8 +60,6 @@ export const AtualizarStatusSuperligaSchema = z.object({
   campeonatoId: z.number().positive(),
   novaFase: FaseSuperligaEnum
 })
-
-// ==================== SCHEMAS DE RESPONSE ====================
 
 export const ClassificacaoRegionalSchema = z.object({
   regionalId: z.number(),
@@ -118,8 +111,6 @@ export const SuperligaStatusSchema = z.object({
     }).optional()
   }).optional()
 })
-
-// ==================== TYPE EXPORTS ====================
 
 export type CriarSuperligaInput = z.infer<typeof CriarSuperligaSchema>
 export type DistribuirTimesInput = z.infer<typeof DistribuirTimesSchema>

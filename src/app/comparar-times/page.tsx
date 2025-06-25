@@ -15,7 +15,7 @@ import { useTimes } from '@/hooks/useTimes';
 export default function CompararTimesPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    
+
     const [temporada, setTemporada] = useState(searchParams?.get('temporada') || '2024');
     const [selectedTeams, setSelectedTeams] = useState<{ time1Id?: number, time2Id?: number }>({});
     const [comparisonData, setComparisonData] = useState<any>(null);
@@ -61,10 +61,10 @@ export default function CompararTimesPage() {
 
             if (USE_LOCAL_DATA) {
                 await new Promise(resolve => setTimeout(resolve, 500));
-                
+
                 const time1 = times.find(t => t.id === selectedTeams.time1Id);
                 const time2 = times.find(t => t.id === selectedTeams.time2Id);
-                
+
                 if (!time1 || !time2) {
                     throw new Error('Times não encontrados');
                 }
@@ -72,7 +72,6 @@ export default function CompararTimesPage() {
                 const estatisticasTime1 = agregarEstatisticas(time1.jogadores || []);
                 const estatisticasTime2 = agregarEstatisticas(time2.jogadores || []);
 
-                // Calcular destaques reais
                 const destaquesTime1 = encontrarDestaques(time1.jogadores || []);
                 const destaquesTime2 = encontrarDestaques(time2.jogadores || []);
 
@@ -100,10 +99,9 @@ export default function CompararTimesPage() {
                         }
                     }
                 };
-                
+
                 setComparisonData(comparisonData);
             } else {
-                // Manter implementação original para API
                 const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
                 const url = `${apiBaseUrl}/comparar-times?time1Id=${selectedTeams.time1Id}&time2Id=${selectedTeams.time2Id}&temporada=${temporada}`;
 
@@ -199,10 +197,10 @@ export default function CompararTimesPage() {
 
         jogadores.forEach(jogador => {
             if (!jogador.estatisticas || !jogador.estatisticas[categoria]) return;
-            
+
             const categoriaStats = jogador.estatisticas[categoria];
             const valor = categoriaStats[estatistica] || 0;
-            
+
             if (typeof valor === 'number' && valor > melhorValor) {
                 melhorValor = valor;
                 melhor = {
@@ -218,12 +216,6 @@ export default function CompararTimesPage() {
 
         return melhor;
     };
-
-    const createEmptyDestaques = () => ({
-        ataque: { passador: null, corredor: null, recebedor: null, retornador: null },
-        defesa: { tackler: null, rusher: null, interceptador: null, desviador: null },
-        specialTeams: { kicker: null, punter: null }
-    });
 
     const selectTeam = (position: 'time1Id' | 'time2Id', teamId: number) => {
         setSelectedTeams(prev => ({

@@ -1,7 +1,7 @@
-import { CorridaStats, DefesaStats, Jogador, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatKey, StatsBase } from "@/types";
+import { CorridaStats, DefesaStats, Jogador, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatConfig, StatKey, StatResult, StatsBase } from "@/types";
 import { CATEGORY_THRESHOLDS, CategoryKey, getTierForValue } from "../categoryThresholds";
 
-import { getStatCategory, StatConfig, StatResult } from "../constants/statMappings";
+import { getStatCategory } from "../constants/statMappings";
 import { getCategoryFromKey } from "../helpers/categoryHelpers";
 
 
