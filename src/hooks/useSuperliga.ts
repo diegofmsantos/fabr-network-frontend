@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { SuperligaService } from '@/services/superliga.service'
 import { queryKeys } from './queryKeys'
+import { useCampeonatos } from './useCampeonatos'
 
 export function useValidarEstruturaSuperliga(campeonatoId: number) {
   return useQuery({
@@ -177,5 +178,37 @@ export function usePrevisoes(campeonatoId: number) {
     enabled: !!campeonatoId,
     staleTime: 1000 * 60 * 30,
     retry: 2,
+  })
+}
+
+export function useSuperligaFinal(temporada: string) {
+  const { data: campeonatos = [] } = useCampeonatos({
+    temporada,
+    isSuperliga: true
+  })
+  
+  const superligaId = campeonatos[0]?.id
+
+  return useQuery({
+    queryKey: ['superliga', temporada, 'final'],
+    queryFn: () => SuperligaService.getFaseNacional(superligaId), 
+    enabled: !!superligaId,
+    staleTime: 1000 * 60 * 5,
+  })
+}
+
+export function usePlayoffBracket(temporada: string) {
+  const { data: campeonatos = [] } = useCampeonatos({
+    temporada,
+    isSuperliga: true
+  })
+  
+  const superligaId = campeonatos[0]?.id
+
+  return useQuery({
+    queryKey: ['superliga', temporada, 'brackets'],
+    queryFn: () => SuperligaService.getBracketPlayoffs(superligaId), 
+    enabled: !!superligaId,
+    staleTime: 1000 * 60 * 2,
   })
 }

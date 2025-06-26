@@ -29,12 +29,13 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
 
   const calculateTeamStat = (timeId: number): number | null => {
     if (!timeId) return null
+
     try {
       const teamPlayers = players.filter(player => player.timeId === timeId)
-      const category = getCategoryFromKey(statMapping.key)
       let total = 0
       let divisor = 0
 
+      // Casos especiais primeiro
       if (statMapping.key === 'fumble_de_passador') {
         teamPlayers.forEach(player => {
           total += player.estatisticas?.passe?.fumble_de_passador || 0
@@ -44,12 +45,13 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
 
       if (statMapping.key === 'jardas_punt_media') {
         teamPlayers.forEach(player => {
-          total += player?.estatisticas?.punter.jardas_de_punt || 0
-          divisor += player?.estatisticas?.punter.punts || 0
+          total += player.estatisticas?.punter?.jardas_de_punt || 0
+          divisor += player.estatisticas?.punter?.punts || 0
         })
         return divisor > 0 ? total / divisor : null
       }
 
+      // Estatísticas calculadas
       if (statMapping.isCalculated) {
         switch (statMapping.key) {
           case 'passes_percentual':
@@ -103,16 +105,53 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         }
       }
 
-      teamPlayers.forEach(player => { 
-        const value = player.estatisticas?.[category]?.[statMapping.key]
-        if (typeof value === 'number') {
-          total += value
+      // Estatísticas diretas - CORREÇÃO ESPECÍFICA
+      teamPlayers.forEach(player => {
+        if (!player.estatisticas) return
+
+        // Type-safe access baseado na categoria
+        switch (statMapping.category) {
+          case 'passe': {
+            const value = (player.estatisticas.passe as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
+          case 'corrida': {
+            const value = (player.estatisticas.corrida as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
+          case 'recepcao': {
+            const value = (player.estatisticas.recepcao as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
+          case 'retorno': {
+            const value = (player.estatisticas.retorno as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
+          case 'defesa': {
+            const value = (player.estatisticas.defesa as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
+          case 'kicker': {
+            const value = (player.estatisticas.kicker as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
+          case 'punter': {
+            const value = (player.estatisticas.punter as any)[statMapping.key]
+            if (typeof value === 'number') total += value
+            break
+          }
         }
       })
 
       return total || null
     } catch (error) {
-      console.error(`Error calculating stat:`, error)
+      console.error(`Erro ao calcular estatística:`, error)
       return null
     }
   }

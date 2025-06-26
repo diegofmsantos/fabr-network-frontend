@@ -1,8 +1,8 @@
-import { StatConfig } from '@/utils/constants/statMappings'
+
 import { CategoryKey } from '@/utils/categoryThresholds'
 import { BaseStatCalculator, StatsCalculator } from '@/utils/services/StatsServices'
 import { StatsFormatter } from '@/utils/services/FormatterService'
-import { Jogador, ProcessedPlayer, TeamInfo } from '@/types'
+import { Jogador, ProcessedPlayer, StatConfig, TeamInfo } from '@/types'
 
 export const usePlayerProcessing = (statMapping: StatConfig, getTeamInfo: (timeId: number) => TeamInfo) => {
 
@@ -16,8 +16,40 @@ export const usePlayerProcessing = (statMapping: StatConfig, getTeamInfo: (timeI
   return { processPlayers }
 }
 
-export function createProcessedPlayer(player: Jogador, statMapping: StatConfig, getTeamInfo: (timeId: number) => TeamInfo): ProcessedPlayer | null {
-  const stats = player.estatisticas?.[statMapping.category]
+export function createProcessedPlayer(
+  player: Jogador,
+  statMapping: StatConfig,
+  getTeamInfo: (timeId: number) => TeamInfo
+): ProcessedPlayer | null {
+  if (!player.estatisticas) return null
+
+  let stats: any
+  switch (statMapping.category) {
+    case 'passe':
+      stats = player.estatisticas.passe
+      break
+    case 'corrida':
+      stats = player.estatisticas.corrida
+      break
+    case 'recepcao':
+      stats = player.estatisticas.recepcao
+      break
+    case 'retorno':
+      stats = player.estatisticas.retorno
+      break
+    case 'defesa':
+      stats = player.estatisticas.defesa
+      break
+    case 'kicker':
+      stats = player.estatisticas.kicker
+      break
+    case 'punter':
+      stats = player.estatisticas.punter
+      break
+    default:
+      return null
+  }
+
   if (!stats) return null
 
   const statValue = StatsCalculator.calculate(stats, statMapping.key)

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ImportacaoService,} from '@/services/importacao.service'
+import { ImportacaoService, } from '@/services/importacao.service'
 import { queryKeys } from './queryKeys'
 import { useNotifications } from './useNotifications'
 
@@ -9,18 +9,18 @@ export function useImportarTimes() {
 
   return useMutation({
     mutationFn: (arquivo: File) => ImportacaoService.importarTimes(arquivo),
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.lists() 
+    onSuccess: (result: any) => { // Type assertion explícita
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.times.lists()
       })
-      
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.admin.all 
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.admin.all
       })
-      
+
       notifications.success(
-        'Times importados!', 
-        `${result.sucesso} times processados com sucesso`
+        'Times importados!',
+        `${result.sucesso || 0} times processados com sucesso`
       )
 
       if (result.erros && result.erros.length > 0) {
@@ -33,13 +33,10 @@ export function useImportarTimes() {
     },
     onError: (error: any) => {
       notifications.error(
-        'Erro na importação de times', 
+        'Erro na importação de times',
         error.message || 'Verifique o arquivo e tente novamente'
       )
     },
-    meta: {
-      timeout: 60000, 
-    }
   })
 }
 
@@ -49,20 +46,20 @@ export function useImportarJogadores() {
 
   return useMutation({
     mutationFn: (arquivo: File) => ImportacaoService.importarJogadores(arquivo),
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
+    onSuccess: (result: any) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogadores.lists()
       })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.lists() 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.times.lists()
       })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.admin.all 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.admin.all
       })
-      
+
       notifications.success(
-        'Jogadores importados!', 
-        `${result.sucesso} jogadores processados com sucesso`
+        'Jogadores importados!',
+        `${result.sucesso || 0} jogadores processados com sucesso`
       )
 
       if (result.erros && result.erros.length > 0) {
@@ -75,13 +72,10 @@ export function useImportarJogadores() {
     },
     onError: (error: any) => {
       notifications.error(
-        'Erro na importação de jogadores', 
+        'Erro na importação de jogadores',
         error.message || 'Verifique o arquivo e tente novamente'
       )
     },
-    meta: {
-      timeout: 90000,
-    }
   })
 }
 
@@ -90,41 +84,38 @@ export function useAtualizarEstatisticas() {
   const notifications = useNotifications()
 
   return useMutation({
-    mutationFn: ({ arquivo, idJogo, dataJogo }: { 
+    mutationFn: ({ arquivo, idJogo, dataJogo }: {
       arquivo: File
       idJogo: string
-      dataJogo: string 
+      dataJogo: string
     }) => ImportacaoService.atualizarEstatisticas(arquivo, idJogo, dataJogo),
-    
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
+
+    onSuccess: (result: any) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogadores.lists()
       })
-      
+
       if (result.jogoId) {
-        queryClient.invalidateQueries({ 
-          queryKey: queryKeys.jogos.detail(parseInt(result.jogoId)) 
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.jogos.detail(parseInt(result.jogoId))
         })
       }
-      
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogos.lists() 
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogos.lists()
       })
-      
+
       notifications.success(
-        'Estatísticas atualizadas!', 
-        `${result.jogadoresAtualizados} jogadores atualizados, ${result.estatisticasProcessadas} estatísticas processadas`
+        'Estatísticas atualizadas!',
+        `${result.jogadoresAtualizados || 0} jogadores atualizados, ${result.estatisticasProcessadas || 0} estatísticas processadas`
       )
     },
     onError: (error: any) => {
       notifications.error(
-        'Erro ao atualizar estatísticas', 
+        'Erro ao atualizar estatísticas',
         error.message || 'Verifique o arquivo e os dados do jogo'
       )
     },
-    meta: {
-      timeout: 45000, 
-    }
   })
 }
 
@@ -133,43 +124,47 @@ export function useIniciarTemporada() {
   const notifications = useNotifications()
 
   return useMutation({
-    mutationFn: ({ 
-      ano, 
-      alteracoes 
-    }: { 
+    mutationFn: ({
+      ano,
+      alteracoes
+    }: {
       ano: string
       alteracoes: Parameters<typeof ImportacaoService.iniciarTemporada>[1]
     }) => ImportacaoService.iniciarTemporada(ano, alteracoes),
-    
-    onSuccess: (result, { ano }) => {
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.list(ano) 
+
+    onSuccess: (result: any, { ano }) => {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.times.list(ano)
       })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.list(ano) 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogadores.list(ano)
       })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.campeonatos.lists() 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.campeonatos.lists()
       })
-      
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.admin.all 
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.admin.all
       })
-      
+
       notifications.success(
-        `Temporada ${ano} iniciada!`, 
-        `${result.times} times e ${result.jogadores} jogadores criados. ${result.transferencias} transferências processadas.`
+        `Temporada ${ano} iniciada!`,
+        `${result.times || 0} times e ${result.jogadores || 0} jogadores criados. ${result.transferencias || 0} transferências processadas.`
       )
+
+      if (result.transferencias && result.transferencias > 0) {
+        notifications.info(
+          'Transferências processadas',
+          `${result.transferencias} jogadores foram transferidos`
+        )
+      }
     },
     onError: (error: any) => {
       notifications.error(
-        'Erro ao iniciar temporada', 
-        error.message || 'Verifique os dados e tente novamente'
+        'Erro ao iniciar temporada',
+        error.message || 'Ocorreu um erro durante o processo'
       )
     },
-    meta: {
-      timeout: 120000, 
-    }
   })
 }
 
@@ -178,7 +173,7 @@ export function useTransferencias(temporadaOrigem: string, temporadaDestino: str
     queryKey: queryKeys.temporada.transition(temporadaOrigem, temporadaDestino),
     queryFn: () => ImportacaoService.getTransferencias(temporadaOrigem, temporadaDestino),
     enabled: !!(temporadaOrigem && temporadaDestino),
-    staleTime: 1000 * 60 * 10, 
+    staleTime: 1000 * 60 * 10,
     retry: (failureCount, error: any) => {
       if (error?.message?.includes('404')) return false
       return failureCount < 2
@@ -202,9 +197,9 @@ export function useEstatisticasImportacao(temporada: string) {
     queryKey: [...queryKeys.importacao.all, 'stats', temporada],
     queryFn: () => ImportacaoService.getEstatisticasImportacao(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 2, 
+    staleTime: 1000 * 60 * 2,
     retry: 2,
-    throwOnError: false, 
+    throwOnError: false,
   })
 }
 

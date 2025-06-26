@@ -1,17 +1,22 @@
 import { ChartDataPoint, ComparisonCardData, StatCategory, StatType, TeamComparisonData, TeamComparisonTeam } from "@/types";
+export enum StatTypeEnum {
+  TOTAL = 'total',
+  AVERAGE = 'average',
+  PERCENTAGE = 'percentage',
+  RATIO = 'ratio'
+}
 
-
-export const formatStatValue = (value: number, type: StatType = StatType.TOTAL): string => {
+export const formatStatValue = (value: number, type: StatTypeEnum = StatTypeEnum.TOTAL): string => {
   if (value === null || value === undefined || isNaN(value)) return 'N/A';
 
   switch (type) {
-    case StatType.PERCENTAGE:
+    case StatTypeEnum.PERCENTAGE:
       return `${Math.round(value)}%`;
-    case StatType.AVERAGE:
+    case StatTypeEnum.AVERAGE:
       return value.toFixed(1).replace('.', ',');
-    case StatType.RATIO:
+    case StatTypeEnum.RATIO:
       return value.toFixed(2).replace('.', ',');
-    case StatType.TOTAL:
+    case StatTypeEnum.TOTAL:
     default:
       return value.toLocaleString('pt-BR');
   }
@@ -28,12 +33,12 @@ export const calculateAverage = (total: number, attempts: number): number => {
 };
 
 export const compareValues = (
-  value1: number, 
-  value2: number, 
+  value1: number,
+  value2: number,
   higherIsBetter: boolean = true
 ): 'first' | 'second' | 'equal' => {
   if (value1 === value2) return 'equal';
-  
+
   if (higherIsBetter) {
     return value1 > value2 ? 'first' : 'second';
   } else {
@@ -119,7 +124,7 @@ export const generateComparisonCards = (
       {
         title: 'JARDAS DE PASSE',
         getValue: (stats: any) => stats.jardas_de_passe || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'PASSES COMPLETOS/TENTADOS',
@@ -129,41 +134,41 @@ export const generateComparisonCards = (
       {
         title: 'PERCENTUAL DE PASSES',
         getValue: (stats: any) => calculatePercentage(stats.passes_completos || 0, stats.passes_tentados || 0),
-        format: (val: number) => formatStatValue(val, StatType.PERCENTAGE)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.PERCENTAGE)
       },
       {
         title: 'TOUCHDOWNS',
         getValue: (stats: any) => stats.td_passados || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       }
     ],
     corrida: [
       {
         title: 'JARDAS DE CORRIDA',
         getValue: (stats: any) => stats.jardas_corridas || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'CORRIDAS',
         getValue: (stats: any) => stats.corridas || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'TOUCHDOWNS',
         getValue: (stats: any) => stats.tds_corridos || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'MÉDIA POR CORRIDA',
         getValue: (stats: any) => calculateAverage(stats.jardas_corridas || 0, stats.corridas || 0),
-        format: (val: number) => `${formatStatValue(val, StatType.AVERAGE)} jardas`
+        format: (val: number) => `${formatStatValue(val, StatTypeEnum.AVERAGE)} jardas`
       }
     ],
     recepcao: [
       {
         title: 'JARDAS DE RECEPÇÃO',
         getValue: (stats: any) => stats.jardas_recebidas || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'RECEPÇÕES/ALVOS',
@@ -173,46 +178,46 @@ export const generateComparisonCards = (
       {
         title: 'TOUCHDOWNS',
         getValue: (stats: any) => stats.tds_recebidos || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       }
     ],
     retorno: [
       {
         title: 'JARDAS DE RETORNO',
         getValue: (stats: any) => stats.jardas_retornadas || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'RETORNOS',
         getValue: (stats: any) => stats.retornos || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'TOUCHDOWNS',
         getValue: (stats: any) => stats.td_retornados || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       }
     ],
     defesa: [
       {
         title: 'TACKLES TOTAIS',
         getValue: (stats: any) => stats.tackles_totais || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'SACKS',
         getValue: (stats: any) => stats.sacks_forcado || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'INTERCEPTAÇÕES',
         getValue: (stats: any) => stats.interceptacao_forcada || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'FUMBLES FORÇADOS',
         getValue: (stats: any) => stats.fumble_forcado || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       }
     ],
     kicker: [
@@ -224,7 +229,7 @@ export const generateComparisonCards = (
       {
         title: 'PERCENTUAL FG',
         getValue: (stats: any) => calculatePercentage(stats.fg_bons || 0, stats.tentativas_de_fg || 0),
-        format: (val: number) => formatStatValue(val, StatType.PERCENTAGE)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.PERCENTAGE)
       },
       {
         title: 'EXTRA POINTS',
@@ -241,17 +246,17 @@ export const generateComparisonCards = (
       {
         title: 'JARDAS DE PUNT',
         getValue: (stats: any) => stats.jardas_de_punt || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'PUNTS',
         getValue: (stats: any) => stats.punts || 0,
-        format: (val: number) => formatStatValue(val, StatType.TOTAL)
+        format: (val: number) => formatStatValue(val, StatTypeEnum.TOTAL)
       },
       {
         title: 'MÉDIA POR PUNT',
         getValue: (stats: any) => calculateAverage(stats.jardas_de_punt || 0, stats.punts || 0),
-        format: (val: number) => `${formatStatValue(val, StatType.AVERAGE)} jardas`
+        format: (val: number) => `${formatStatValue(val, StatTypeEnum.AVERAGE)} jardas`
       }
     ]
   };
@@ -261,7 +266,7 @@ export const generateComparisonCards = (
   return config.map(({ title, getValue, format }) => {
     const value1 = getValue(stats1);
     const value2 = getValue(stats2);
-    
+
     const stat1 = format(value1);
     const stat2 = format(value2);
 
@@ -294,35 +299,35 @@ export const calculateComparisonSummary = (
   team2: TeamComparisonTeam
 ) => {
   const categories: StatCategory[] = ['passe', 'corrida', 'recepcao', 'retorno', 'defesa', 'kicker', 'punter'];
-  
+
   const summary = {
     jardas_totais: {
-      time1: (team1.estatisticas.passe.jardas_de_passe || 0) + 
-             (team1.estatisticas.corrida.jardas_corridas || 0) + 
-             (team1.estatisticas.recepcao.jardas_recebidas || 0),
-      time2: (team2.estatisticas.passe.jardas_de_passe || 0) + 
-             (team2.estatisticas.corrida.jardas_corridas || 0) + 
-             (team2.estatisticas.recepcao.jardas_recebidas || 0)
+      time1: (team1.estatisticas.passe.jardas_de_passe || 0) +
+        (team1.estatisticas.corrida.jardas_corridas || 0) +
+        (team1.estatisticas.recepcao.jardas_recebidas || 0),
+      time2: (team2.estatisticas.passe.jardas_de_passe || 0) +
+        (team2.estatisticas.corrida.jardas_corridas || 0) +
+        (team2.estatisticas.recepcao.jardas_recebidas || 0)
     },
     touchdowns_totais: {
-      time1: (team1.estatisticas.passe.td_passados || 0) + 
-             (team1.estatisticas.corrida.tds_corridos || 0) + 
-             (team1.estatisticas.recepcao.tds_recebidos || 0) +
-             (team1.estatisticas.retorno.td_retornados || 0) +
-             (team1.estatisticas.defesa.td_defensivo || 0),
-      time2: (team2.estatisticas.passe.td_passados || 0) + 
-             (team2.estatisticas.corrida.tds_corridos || 0) + 
-             (team2.estatisticas.recepcao.tds_recebidos || 0) +
-             (team2.estatisticas.retorno.td_retornados || 0) +
-             (team2.estatisticas.defesa.td_defensivo || 0)
+      time1: (team1.estatisticas.passe.td_passados || 0) +
+        (team1.estatisticas.corrida.tds_corridos || 0) +
+        (team1.estatisticas.recepcao.tds_recebidos || 0) +
+        (team1.estatisticas.retorno.td_retornados || 0) +
+        (team1.estatisticas.defesa.td_defensivo || 0),
+      time2: (team2.estatisticas.passe.td_passados || 0) +
+        (team2.estatisticas.corrida.tds_corridos || 0) +
+        (team2.estatisticas.recepcao.tds_recebidos || 0) +
+        (team2.estatisticas.retorno.td_retornados || 0) +
+        (team2.estatisticas.defesa.td_defensivo || 0)
     },
     turnovers: {
-      time1: (team1.estatisticas.passe.interceptacoes_sofridas || 0) + 
-             (team1.estatisticas.passe.fumble_de_passador || 0) + 
-             (team1.estatisticas.corrida.fumble_de_corredor || 0),
-      time2: (team2.estatisticas.passe.interceptacoes_sofridas || 0) + 
-             (team2.estatisticas.passe.fumble_de_passador || 0) + 
-             (team2.estatisticas.corrida.fumble_de_corredor || 0)
+      time1: (team1.estatisticas.passe.interceptacoes_sofridas || 0) +
+        (team1.estatisticas.passe.fumble_de_passador || 0) +
+        (team1.estatisticas.corrida.fumble_de_corredor || 0),
+      time2: (team2.estatisticas.passe.interceptacoes_sofridas || 0) +
+        (team2.estatisticas.passe.fumble_de_passador || 0) +
+        (team2.estatisticas.corrida.fumble_de_corredor || 0)
     }
   };
 
@@ -350,7 +355,7 @@ export const validateComparisonData = (data: TeamComparisonData): boolean => {
 export const normalizeComparisonData = (data: TeamComparisonData): TeamComparisonData => {
   const normalizeStats = (stats: any) => {
     const categories: StatCategory[] = ['passe', 'corrida', 'recepcao', 'retorno', 'defesa', 'kicker', 'punter'];
-    
+
     categories.forEach(category => {
       if (!stats[category]) {
         stats[category] = {};

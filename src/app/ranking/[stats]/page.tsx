@@ -81,12 +81,30 @@ const StatsPage: React.FC = () => {
       return categoryMapping[category] || 'PASSE'
     }
 
+    const getCategoryKey = (category: string): CategoryKey => {
+      const validCategories: CategoryKey[] = ['passe', 'corrida', 'recepcao', 'retorno', 'defesa', 'kicker', 'punter']
+      return validCategories.includes(category as CategoryKey) ? category as CategoryKey : 'passe'
+    }
+
+    const getStatsTypeForCategory = (category: string): StatType => {
+      const mapping: Record<string, StatType> = {
+        'passe': 'PASSE',
+        'corrida': 'CORRIDA',
+        'recepcao': 'RECEPCAO',
+        'retorno': 'RETORNO',
+        'defesa': 'DEFESA',
+        'kicker': 'KICKER',
+        'punter': 'PUNTER'
+      }
+      return mapping[category] || 'PASSE'
+    }
+
     return (
       <StatsTier
-        title={getTierTitle(statMapping.category as CategoryKey, tier)}
+        title={getTierTitle(getCategoryKey(statMapping.category), tier)}
         players={mapPlayersToProps(players, startIndex)}
         backgroundColor={backgroundColor}
-        statsType={getStatsType(statMapping.category)}
+        statsType={getStatsTypeForCategory(statMapping.category)}
         isLastTier={tier === 3}
       />
     )

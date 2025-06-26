@@ -7,7 +7,7 @@ import { Jogador } from '@/types'
 
 export function useJogadores(temporada: string = '2025') {
   return useQuery({
-    queryKey: queryKeys.jogadores.list({ temporada }),
+    queryKey: queryKeys.jogadores.list(temporada),
     queryFn: () => JogadoresService.getJogadores(temporada),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
@@ -33,16 +33,16 @@ export function useCreateJogador() {
   return useMutation({
     mutationFn: (data: Omit<Jogador, 'id'>) => JogadoresService.createJogador(data),
     onSuccess: (newJogador) => {
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogadores.lists()
       })
-      
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.lists() 
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.times.lists()
       })
-      
+
       queryClient.setQueryData(queryKeys.jogadores.detail(newJogador.id), newJogador)
-      
+
       notifications.success('Jogador criado!', `${newJogador.nome} foi criado com sucesso`)
     },
     onError: (error: any) => {
@@ -60,14 +60,14 @@ export function useUpdateJogador() {
       JogadoresService.updateJogador(id, data),
     onSuccess: (updatedJogador, { id }) => {
       queryClient.setQueryData(queryKeys.jogadores.detail(id), updatedJogador)
-      
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogadores.lists()
       })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.lists() 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.times.lists()
       })
-      
+
       notifications.success('Jogador atualizado!', `${updatedJogador.nome} foi atualizado`)
     },
     onError: (error: any) => {
@@ -83,17 +83,17 @@ export function useDeleteJogador() {
   return useMutation({
     mutationFn: JogadoresService.deleteJogador,
     onSuccess: (_, id) => {
-      queryClient.removeQueries({ 
-        queryKey: queryKeys.jogadores.detail(id) 
+      queryClient.removeQueries({
+        queryKey: queryKeys.jogadores.detail(id)
       })
-      
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.jogadores.lists() 
+
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.jogadores.lists()
       })
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.lists() 
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.times.lists()
       })
-      
+
       notifications.success('Jogador removido!', 'Jogador foi excluído com sucesso')
     },
     onError: (error: any) => {

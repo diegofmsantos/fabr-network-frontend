@@ -2,8 +2,8 @@
 
 import React from 'react'
 import { useParams } from 'next/navigation'
-import { useSuperligaFinal } from '@/hooks/useSuperliga'
 import { Loading } from '@/components/ui/Loading'
+import { useSuperligaFinal } from '@/hooks/useSuperliga'
 
 export default function FinalNacionalPage() {
   const params = useParams()

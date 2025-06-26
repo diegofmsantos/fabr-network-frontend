@@ -5,21 +5,59 @@ import { StatsFormatter } from "./FormatterService"
 import { Jogador, ProcessedPlayer, StatConfig, StatKey, StatResult, Time } from "@/types"
 import { normalizeForFilePath } from "./ImageService"
 
-export function createProcessedPlayer(player: Jogador, statMapping: StatConfig, getTeamInfo: (timeId: number) => TeamInfo): ProcessedPlayer | null {
-    const stats = player.estatisticas[statMapping.category]
+export function createProcessedPlayer(
+    player: Jogador,
+    statMapping: StatConfig,
+    getTeamInfo: (timeId: number) => TeamInfo
+): ProcessedPlayer | null {
+    if (!player.estatisticas) return null
+
+    let stats: any
+    switch (statMapping.category) {
+        case 'passe':
+            stats = player.estatisticas.passe
+            break
+        case 'corrida':
+            stats = player.estatisticas.corrida
+            break
+        case 'recepcao':
+            stats = player.estatisticas.recepcao
+            break
+        case 'retorno':
+            stats = player.estatisticas.retorno
+            break
+        case 'defesa':
+            stats = player.estatisticas.defesa
+            break
+        case 'kicker':
+            stats = player.estatisticas.kicker
+            break
+        case 'punter':
+            stats = player.estatisticas.punter
+            break
+        default:
+            return null
+    }
+
     if (!stats) return null
 
     const statValue = StatsCalculator.calculate(stats, statMapping.key)
-    if (statValue === null || statValue === 0 || (typeof statValue === 'number' && statValue < 0)) return null
+    if (statValue === null) return null
 
     const baseStat = BaseStatCalculator.calculate(stats, statMapping.category as CategoryKey)
     const formattedValue = StatsFormatter.format(statValue, statMapping);
 
     const average = typeof statValue === 'string' && statValue.includes('/')
-        ? Number(statValue.split('/')[0]) 
+        ? Number(statValue.split('/')[0])
         : Number(statValue);
 
-    return { player, average, baseStat, teamInfo: getTeamInfo(player.timeId), value: formattedValue }
+    return {
+        player,
+        average,
+        baseStat,
+        teamInfo: getTeamInfo(player.timeId ?? 0),
+        value: formattedValue
+    }
 }
 
 export function filterValidPlayer(player: ProcessedPlayer | null): player is ProcessedPlayer { return player !== null }
@@ -61,7 +99,7 @@ export const processPlayerStats = (
     stats: Array<{ key: StatKey; title: string }>,
     categoryTitle: string
 ): ProcessedStatCard[] => {
-    
+
     const getTeamInfo = (timeId: number) => {
         const team = times.find((t) => t.id === timeId);
         return {
@@ -84,44 +122,43 @@ export const processPlayerStats = (
             title: stat.title,
             category: categoryTitle,
             players: filteredPlayers.map((player, playerIndex) => {
-                const teamInfo = getTeamInfo(player.timeId);
-                const value = calculateStat(player, stat.key);
+                const teamInfo = getTeamInfo(player.timeId ?? 0) 
+                const value = calculateStat(player, stat.key)
 
                 const normalizeValue = (value: string | number | null, statKey: StatKey): string => {
-                    if (value === null) return "N/A";
+                    if (value === null) return "N/A"
+                    if (typeof value === "string") return value
 
-                    if (typeof value === "string") return value;
-
-                    const percentageStats = ["passes_percentual", "extra_points", "field_goals"];
+                    const percentageStats = ["passes_percentual", "extra_points", "field_goals"]
                     const averageStats = [
                         "jardas_media",
                         "jardas_corridas_media",
                         "jardas_recebidas_media",
                         "jardas_retornadas_media",
                         "jardas_punt_media",
-                    ];
+                    ]
 
                     if (percentageStats.includes(statKey)) {
-                        return `${Math.round(value)}%`;
+                        return `${Math.round(value)}%`
                     } else if (averageStats.includes(statKey)) {
-                        return value.toFixed(1);
+                        return value.toFixed(1)
                     }
 
-                    return Math.round(value).toString();
-                };
+                    return Math.round(value).toString()
+                }
 
                 return {
                     id: player.id,
                     name: player.nome,
                     team: teamInfo.nome,
                     value: normalizeValue(value, stat.key),
-                    camisa: player.camisa,
+                    camisa: player.camisa || '',
                     teamColor: playerIndex === 0 ? teamInfo.cor : undefined,
                     teamLogo: `/assets/times/logos/${normalizeForFilePath(teamInfo.nome)}.png`,
                     isFirst: playerIndex === 0,
-                };
+                }
             }),
-        };
+        }
     });
 };
 

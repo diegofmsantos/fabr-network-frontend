@@ -1,4 +1,4 @@
-import { Jogador, StatConfig, StatKey } from '@/types'
+import { Estatisticas, Jogador, StatConfig, StatKey } from '@/types'
 
 export const getStatMapping = (statParam: string | null): StatConfig => {
     if (!statParam) {
@@ -21,59 +21,66 @@ export const getStatMapping = (statParam: string | null): StatConfig => {
     }
 }
 
-export const getStatCategory = (key: StatKey): keyof Jogador['estatisticas'] => {
-    switch (key) {
-        case 'passes_percentual':
-        case 'passes_completos':
-        case 'passes_tentados':
-        case 'jardas_de_passe':
-        case 'td_passados':
-        case 'interceptacoes_sofridas':
-        case 'sacks_sofridos':
-        case 'fumble_de_passador':
-        case 'jardas_media':
-            return 'passe'
-        case 'corridas':
-        case 'jardas_corridas':
-        case 'tds_corridos':
-        case 'fumble_de_corredor':
-        case 'jardas_corridas_media':
-            return 'corrida'
-        case 'recepcoes':
-        case 'alvo':
-        case 'jardas_recebidas':
-        case 'tds_recebidos':
-        case 'jardas_recebidas_media':
-            return 'recepcao'
-        case 'retornos':
-        case 'jardas_retornadas':
-        case 'td_retornados':
-        case 'jardas_retornadas_media':
-            return 'retorno'
-        case 'tackles_totais':
-        case 'tackles_for_loss':
-        case 'sacks_forcado':
-        case 'fumble_forcado':
-        case 'interceptacao_forcada':
-        case 'passe_desviado':
-        case 'safety':
-        case 'td_defensivo':
-            return 'defesa'
-        case 'extra_points':
-        case 'field_goals':
-        case 'xp_bons':
-        case 'tentativas_de_xp':
-        case 'fg_bons':
-        case 'tentativas_de_fg':
-        case 'fg_mais_longo':
-            return 'kicker'
-        case 'jardas_punt_media':
-        case 'punts':
-        case 'jardas_de_punt':
-            return 'punter'
-        default:
-            throw new Error(`Chave de estatística desconhecida: ${key}`)
-    }
+export const getStatCategory = (key: StatKey): keyof Estatisticas => {
+  // Tipagem mais segura
+  const categoryMap: Record<string, keyof Estatisticas> = {
+    // Passe
+    'passes_percentual': 'passe',
+    'passes_completos': 'passe',
+    'passes_tentados': 'passe',
+    'jardas_de_passe': 'passe',
+    'td_passados': 'passe',
+    'interceptacoes_sofridas': 'passe',
+    'sacks_sofridos': 'passe',
+    'fumble_de_passador': 'passe',
+    'jardas_media': 'passe',
+    
+    // Corrida
+    'corridas': 'corrida',
+    'jardas_corridas': 'corrida',
+    'tds_corridos': 'corrida',
+    'fumble_de_corredor': 'corrida',
+    'jardas_corridas_media': 'corrida',
+    
+    // Recepção
+    'recepcoes': 'recepcao',
+    'alvo': 'recepcao',
+    'jardas_recebidas': 'recepcao',
+    'tds_recebidos': 'recepcao',
+    'jardas_recebidas_media': 'recepcao',
+    
+    // Retorno
+    'retornos': 'retorno',
+    'jardas_retornadas': 'retorno',
+    'td_retornados': 'retorno',
+    'jardas_retornadas_media': 'retorno',
+    
+    // Defesa
+    'tackles_totais': 'defesa',
+    'tackles_for_loss': 'defesa',
+    'sacks_forcado': 'defesa',
+    'fumble_forcado': 'defesa',
+    'interceptacao_forcada': 'defesa',
+    'passe_desviado': 'defesa',
+    'safety': 'defesa',
+    'td_defensivo': 'defesa',
+    
+    // Kicker
+    'extra_points': 'kicker',
+    'field_goals': 'kicker',
+    'xp_bons': 'kicker',
+    'tentativas_de_xp': 'kicker',
+    'fg_bons': 'kicker',
+    'tentativas_de_fg': 'kicker',
+    'fg_mais_longo': 'kicker',
+    
+    // Punter
+    'jardas_punt_media': 'punter',
+    'punts': 'punter',
+    'jardas_de_punt': 'punter',
+  }
+
+  return categoryMap[key] || 'passe' // fallback seguro
 }
 
 export const statMappings: { [key: string]: StatConfig } = {

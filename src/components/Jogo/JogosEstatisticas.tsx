@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
-import { BarChart3, Target,  Activity,  Shield,  Zap, Award,  TrendingUp } from 'lucide-react'
+import { BarChart3, Target, Activity, Shield, Zap, Award, TrendingUp } from 'lucide-react'
 import { Jogo, Jogador, Estatisticas } from '@/types'
 import { ImageService } from '@/utils/services/ImageService'
 
@@ -53,54 +53,66 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
 
   const getEstatisticasPorCategoria = (jogador: JogadorEstatistica, categoria: CategoriaEstat) => {
     const stats = jogador.estatisticasJogo?.[categoria]
-    if (!stats) return null
+    if (!stats) return []
 
     switch (categoria) {
-      case 'passe':
+      case 'passe': {
+        const passeStats = stats as Estatisticas['passe']
         return [
-          { label: 'Jardas', valor: stats.jardas_de_passe || 0 },
-          { label: 'Completos', valor: stats.passes_completos || 0 },
-          { label: 'Tentados', valor: stats.passes_tentados || 0 },
-          { label: 'TDs', valor: stats.td_passados || 0 },
-          { label: 'Ints', valor: stats.interceptacoes_sofridas || 0 },
-          { label: 'Sacks', valor: stats.sacks_sofridos || 0 },
+          { label: 'Jardas', valor: passeStats.jardas_de_passe || 0 },
+          { label: 'Completos', valor: passeStats.passes_completos || 0 },
+          { label: 'Tentados', valor: passeStats.passes_tentados || 0 },
+          { label: 'TDs', valor: passeStats.td_passados || 0 },
+          { label: 'Ints', valor: passeStats.interceptacoes_sofridas || 0 },
+          { label: 'Sacks', valor: passeStats.sacks_sofridos || 0 },
         ]
-      case 'corrida':
+      }
+      case 'corrida': {
+        const corridaStats = stats as Estatisticas['corrida']
         return [
-          { label: 'Jardas', valor: stats.jardas_corridas || 0 },
-          { label: 'Corridas', valor: stats.corridas || 0 },
-          { label: 'TDs', valor: stats.tds_corridos || 0 },
-          { label: 'Fumbles', valor: stats.fumble_de_corredor || 0 },
+          { label: 'Jardas', valor: corridaStats.jardas_corridas || 0 },
+          { label: 'Corridas', valor: corridaStats.corridas || 0 },
+          { label: 'TDs', valor: corridaStats.tds_corridos || 0 },
+          { label: 'Fumbles', valor: corridaStats.fumble_de_corredor || 0 },
         ]
-      case 'recepcao':
+      }
+      case 'recepcao': {
+        const recepcaoStats = stats as Estatisticas['recepcao']
         return [
-          { label: 'Jardas', valor: stats.jardas_recebidas || 0 },
-          { label: 'Recepções', valor: stats.recepcoes || 0 },
-          { label: 'Alvos', valor: stats.alvo || 0 },
-          { label: 'TDs', valor: stats.tds_recebidos || 0 },
+          { label: 'Jardas', valor: recepcaoStats.jardas_recebidas || 0 },
+          { label: 'Recepções', valor: recepcaoStats.recepcoes || 0 },
+          { label: 'Alvos', valor: recepcaoStats.alvo || 0 },
+          { label: 'TDs', valor: recepcaoStats.tds_recebidos || 0 },
         ]
-      case 'defesa':
+      }
+      case 'defesa': {
+        const defesaStats = stats as Estatisticas['defesa']
         return [
-          { label: 'Tackles', valor: stats.tackles_totais || 0 },
-          { label: 'TFL', valor: stats.tackles_for_loss || 0 },
-          { label: 'Sacks', valor: stats.sacks_forcado || 0 },
-          { label: 'Ints', valor: stats.interceptacao_forcada || 0 },
-          { label: 'PD', valor: stats.passe_desviado || 0 },
+          { label: 'Tackles', valor: defesaStats.tackles_totais || 0 },
+          { label: 'TFL', valor: defesaStats.tackles_for_loss || 0 },
+          { label: 'Sacks', valor: defesaStats.sacks_forcado || 0 },
+          { label: 'Ints', valor: defesaStats.interceptacao_forcada || 0 },
+          { label: 'PD', valor: defesaStats.passe_desviado || 0 },
         ]
-      case 'kicker':
+      }
+      case 'kicker': {
+        const kickerStats = stats as Estatisticas['kicker']
         return [
-          { label: 'FG Bons', valor: stats.fg_bons || 0 },
-          { label: 'FG Tent.', valor: stats.tentativas_de_fg || 0 },
-          { label: 'XP Bons', valor: stats.xp_bons || 0 },
-          { label: 'XP Tent.', valor: stats.tentativas_de_xp || 0 },
-          { label: 'Mais Longo', valor: stats.fg_mais_longo || 0 },
+          { label: 'FG Bons', valor: kickerStats.fg_bons || 0 },
+          { label: 'FG Tent.', valor: kickerStats.tentativas_de_fg || 0 },
+          { label: 'XP Bons', valor: kickerStats.xp_bons || 0 },
+          { label: 'XP Tent.', valor: kickerStats.tentativas_de_xp || 0 },
+          { label: 'Mais Longo', valor: kickerStats.fg_mais_longo || 0 },
         ]
-      case 'punter':
+      }
+      case 'punter': {
+        const punterStats = stats as Estatisticas['punter']
         return [
-          { label: 'Punts', valor: stats.punts || 0 },
-          { label: 'Jardas', valor: stats.jardas_de_punt || 0 },
-          { label: 'Média', valor: stats.punts ? Math.round((stats.jardas_de_punt || 0) / stats.punts * 10) / 10 : 0 },
+          { label: 'Punts', valor: punterStats.punts || 0 },
+          { label: 'Jardas', valor: punterStats.jardas_de_punt || 0 },
+          { label: 'Média', valor: punterStats.punts ? Math.round((punterStats.jardas_de_punt || 0) / punterStats.punts * 10) / 10 : 0 },
         ]
+      }
       default:
         return []
     }
@@ -115,7 +127,7 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
 
   const renderTabelaEstatisticas = (jogadores: JogadorEstatistica[], time: 'casa' | 'visitante') => {
     const jogadoresComStats = getJogadoresComEstatisticas(jogadores, categoriaAtiva)
-    
+
     if (jogadoresComStats.length === 0) {
       return (
         <div className="text-center py-8 text-gray-500">
@@ -195,11 +207,10 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
                   <button
                     key={categoria.key}
                     onClick={() => setCategoriaAtiva(categoria.key)}
-                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      categoriaAtiva === categoria.key
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                    }`}
+                    className={`inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${categoriaAtiva === categoria.key
+                      ? 'bg-blue-600 text-white'
+                      : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                      }`}
                   >
                     <Icon className="w-4 h-4" />
                     {categoria.label}
@@ -214,31 +225,28 @@ export const JogoEstatisticas: React.FC<JogoEstatisticasProps> = ({ data, loadin
             <div className="flex gap-2">
               <button
                 onClick={() => setTimeAtivo('ambos')}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  timeAtivo === 'ambos'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${timeAtivo === 'ambos'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                  }`}
               >
                 Ambos os Times
               </button>
               <button
                 onClick={() => setTimeAtivo('casa')}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  timeAtivo === 'casa'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${timeAtivo === 'casa'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                  }`}
               >
                 {jogo.timeCasa.sigla}
               </button>
               <button
                 onClick={() => setTimeAtivo('visitante')}
-                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  timeAtivo === 'visitante'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
-                }`}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${timeAtivo === 'visitante'
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-50'
+                  }`}
               >
                 {jogo.timeVisitante.sigla}
               </button>
