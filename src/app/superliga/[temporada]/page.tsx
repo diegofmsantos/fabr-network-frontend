@@ -108,7 +108,6 @@ export default function SuperligaPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f172a]">
-      {/* Header Hero */}
       <div className="relative bg-gradient-to-r from-[#1a1a2e] to-[#16213e] pt-20 pb-16">
         <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-6">
