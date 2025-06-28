@@ -13,6 +13,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const pathname = usePathname();
     const [activeItem, setActiveItem] = useState('');
 
+    // Determinar a temporada atual ou padrão
+    const getCurrentYear = () => new Date().getFullYear();
+    const temporadaAtual = getCurrentYear().toString();
+
     useEffect(() => {
         if (pathname?.includes('/ranking')) {
             setActiveItem('ranking');
@@ -45,7 +49,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
             </div>
 
-            <nav className="flex flex-col  px-6 gap-6">
+            <nav className="flex flex-col px-6 gap-6">
                 <Link
                     href="/"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
@@ -63,7 +67,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
 
                 <Link
-                    href="/superliga"
+                    href={`/superliga/${temporadaAtual}`}
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'superliga' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >

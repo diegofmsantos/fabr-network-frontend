@@ -12,7 +12,7 @@ export const Lista = () => {
     const router = useRouter()
     const searchParams = useSearchParams()
     const [lastClicked, setLastClicked] = useState<string | null>(null)
-    const [selectedTemporada, setSelectedTemporada] = useState(searchParams?.get('temporada') || '2024')
+    const [selectedTemporada, setSelectedTemporada] = useState(searchParams?.get('temporada') || '2025')
     const { data: times, isLoading, error } = useTimes(selectedTemporada)
 
     const itemVariants = {
@@ -34,7 +34,7 @@ export const Lista = () => {
             setSelectedTemporada(tempParam)
         } else {
             console.log('Nenhum parâmetro de temporada, usando padrão: 2024')
-            setSelectedTemporada('2024')
+            setSelectedTemporada('2025')
         }
     }, [searchParams])
 

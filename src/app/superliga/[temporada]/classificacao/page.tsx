@@ -54,7 +54,7 @@ interface ConferenciaClassificacao {
 export default function ClassificacaoPage() {
   const params = useParams()
   const temporada = params.temporada as string
-  
+
   const [conferenciaAtiva, setConferenciaAtiva] = useState<string>('SUDESTE')
   const [visualizacao, setVisualizacao] = useState<'regional' | 'geral'>('regional')
 
@@ -165,11 +165,10 @@ export default function ClassificacaoPage() {
         {jogos.slice(-5).map((resultado, index) => (
           <div
             key={index}
-            className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-              resultado === 'V' 
-                ? 'bg-green-500 text-white' 
-                : 'bg-red-500 text-white'
-            }`}
+            className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${resultado === 'V'
+              ? 'bg-green-500 text-white'
+              : 'bg-red-500 text-white'
+              }`}
           >
             {resultado}
           </div>
@@ -199,7 +198,7 @@ export default function ClassificacaoPage() {
           </thead>
           <tbody>
             {times.map((time) => (
-              <tr 
+              <tr
                 key={time.timeId}
                 className="border-b border-gray-800 hover:bg-gray-800/50 transition-colors"
               >
@@ -209,13 +208,13 @@ export default function ClassificacaoPage() {
                     {getTendencia(time)}
                   </div>
                 </td>
-                
+
                 <td className="py-4 px-4">
-                  <Link 
+                  <Link
                     href={`/${time.time.sigla.toLowerCase()}`}
                     className="flex items-center gap-3 hover:text-[#63E300] transition-colors"
                   >
-                    <div 
+                    <div
                       className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm"
                       style={{ backgroundColor: time.time.cor }}
                     >
@@ -227,15 +226,14 @@ export default function ClassificacaoPage() {
                     </div>
                   </Link>
                 </td>
-                
+
                 <td className="py-4 px-4 text-center text-white">{time.jogos}</td>
                 <td className="py-4 px-4 text-center text-green-400 font-semibold">{time.vitorias}</td>
                 <td className="py-4 px-4 text-center text-red-400 font-semibold">{time.derrotas}</td>
                 <td className="py-4 px-4 text-center text-white">{time.pontosPro}</td>
                 <td className="py-4 px-4 text-center text-white">{time.pontosContra}</td>
-                <td className={`py-4 px-4 text-center font-semibold ${
-                  time.saldo > 0 ? 'text-green-400' : time.saldo < 0 ? 'text-red-400' : 'text-gray-400'
-                }`}>
+                <td className={`py-4 px-4 text-center font-semibold ${time.saldo > 0 ? 'text-green-400' : time.saldo < 0 ? 'text-red-400' : 'text-gray-400'
+                  }`}>
                   {time.saldo > 0 ? '+' : ''}{time.saldo}
                 </td>
                 <td className="py-4 px-4 text-center text-white font-semibold">
@@ -264,162 +262,161 @@ export default function ClassificacaoPage() {
   const conferenciaAtual = conferencias.find(c => c.tipo === conferenciaAtiva)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f172a]">
-      <div className="bg-[#1a1a2e] border-b border-gray-800">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <Link
-            href={`/superliga/${temporada}`}
-            className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-4"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Voltar para Superliga
-          </Link>
+    <div className='bg-[#ECECEC]'>
+      <div className="min-h-screen bg-[#ECECEC] p-6 max-w-[1200px] mx-auto xl:ml-[510px]">
+        <div className="bg-[#272731] border-b border-gray-800">
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            <Link
+              href={`/superliga/${temporada}`}
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors mb-4"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Voltar para Superliga
+            </Link>
 
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-white mb-2">
-                📊 Classificação {temporada}
-              </h1>
-              <p className="text-gray-400">Acompanhe a posição de todos os times na Superliga</p>
-            </div>
+            <div className="flex items-center justify-between">
+              <div>
+                <h1 className="text-3xl font-bold text-white mb-2">
+                  📊 Classificação {temporada}
+                </h1>
+                <p className="text-gray-400">Acompanhe a posição de todos os times na Superliga</p>
+              </div>
 
-            <div className="flex gap-3">
-              <button
-                onClick={() => setVisualizacao('regional')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  visualizacao === 'regional'
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setVisualizacao('regional')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${visualizacao === 'regional'
                     ? 'bg-[#63E300] text-black'
                     : 'bg-gray-700 text-white hover:bg-gray-600'
-                }`}
-              >
-                Por Regional
-              </button>
-              <button
-                onClick={() => setVisualizacao('geral')}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                  visualizacao === 'geral'
+                    }`}
+                >
+                  Por Regional
+                </button>
+                <button
+                  onClick={() => setVisualizacao('geral')}
+                  className={`px-4 py-2 rounded-lg font-medium transition-colors ${visualizacao === 'geral'
                     ? 'bg-[#63E300] text-black'
                     : 'bg-gray-700 text-white hover:bg-gray-600'
-                }`}
-              >
-                Ranking Geral
-              </button>
+                    }`}
+                >
+                  Ranking Geral
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="mb-8">
-          <div className="flex flex-wrap gap-4">
-            {conferencias.map((conf) => (
-              <button
-                key={conf.tipo}
-                onClick={() => setConferenciaAtiva(conf.tipo)}
-                className={`flex items-center gap-3 px-6 py-3 rounded-xl border transition-all ${
-                  conferenciaAtiva === conf.tipo
-                    ? 'border-[#63E300] bg-[#63E300]/10 text-white'
-                    : 'border-gray-700 bg-[#1a1a2e] text-gray-300 hover:border-gray-600'
-                }`}
-              >
-                <span className="text-2xl">{conf.icone}</span>
-                <div className="text-left">
-                  <div className="font-bold">{conf.nome}</div>
-                  <div className="text-xs opacity-80">
-                    {conf.regionais.length} regionais
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <div className="mb-8">
+            <div className="flex flex-wrap gap-4">
+              {conferencias.map((conf) => (
+                <button
+                  key={conf.tipo}
+                  onClick={() => setConferenciaAtiva(conf.tipo)}
+                  className={`flex items-center gap-3 px-6 py-3 rounded-xl border transition-all ${conferenciaAtiva === conf.tipo
+                    ? 'border-[#63E300] bg-[#63E300]'
+                    : 'border-gray-700 bg-[#272731] text-gray-300 hover:border-gray-600'
+                    }`}
+                >
+                  <span className="text-2xl">{conf.icone}</span>
+                  <div className="text-left">
+                    <div className="font-bold">{conf.nome}</div>
+                    <div className="text-xs opacity-80">
+                      {conf.regionais.length} regionais
+                    </div>
                   </div>
-                </div>
-              </button>
-            ))}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {conferenciaAtual && (
-          <div className="space-y-8">
-            {visualizacao === 'regional' ? (
-              conferenciaAtual.regionais.map((regional) => (
-                <div key={regional.tipo} className="bg-[#1a1a2e] rounded-xl border border-gray-800 overflow-hidden">
-                  <div className={`bg-gradient-to-r ${conferenciaAtual.cor} p-6`}>
+          {conferenciaAtual && (
+            <div className="space-y-8">
+              {visualizacao === 'regional' ? (
+                conferenciaAtual.regionais.map((regional) => (
+                  <div key={regional.tipo} className="bg-[#272731] rounded-xl border border-gray-800 overflow-hidden">
+                    <div className={`bg-gradient-to-r ${conferenciaAtual.cor} p-6`}>
+                      <div className="flex items-center gap-3">
+                        <Trophy className="w-8 h-8 text-white" />
+                        <div>
+                          <h2 className="text-2xl font-bold text-white">Regional {regional.nome}</h2>
+                          <p className="text-white/80">{regional.times.length} times</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      {renderTabelaClassificacao(regional.times)}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="bg-[#272731] rounded-xl border border-gray-800 overflow-hidden">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6">
                     <div className="flex items-center gap-3">
-                      <Trophy className="w-8 h-8 text-white" />
+                      <Crown className="w-8 h-8 text-white" />
                       <div>
-                        <h2 className="text-2xl font-bold text-white">Regional {regional.nome}</h2>
-                        <p className="text-white/80">{regional.times.length} times</p>
+                        <h2 className="text-2xl font-bold text-white">Ranking Geral</h2>
+                        <p className="text-white/80">Todos os times da conferência {conferenciaAtual.nome}</p>
                       </div>
                     </div>
                   </div>
 
                   <div className="p-6">
-                    {renderTabelaClassificacao(regional.times)}
+                    {renderTabelaClassificacao(
+                      conferenciaAtual.regionais
+                        .flatMap(r => r.times)
+                        .sort((a, b) => a.posicao - b.posicao)
+                    )}
                   </div>
                 </div>
-              ))
-            ) : (
-              <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 overflow-hidden">
-                <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6">
-                  <div className="flex items-center gap-3">
-                    <Crown className="w-8 h-8 text-white" />
-                    <div>
-                      <h2 className="text-2xl font-bold text-white">Ranking Geral</h2>
-                      <p className="text-white/80">Todos os times da conferência {conferenciaAtual.nome}</p>
+              )}
+
+              <div className="bg-[#272731] rounded-xl border border-gray-800 p-6">
+                <h3 className="text-xl font-bold text-white mb-4">Legenda</h3>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <h4 className="font-semibold text-white mb-2">Status de Classificação</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getClassificacaoColor('DIRETO')}`}>
+                          Classificado
+                        </span>
+                        <span className="text-gray-400 text-sm">Direto para semifinal</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getClassificacaoColor('WILD_CARD')}`}>
+                          Wild Card
+                        </span>
+                        <span className="text-gray-400 text-sm">Disputa vaga playoff</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="p-6">
-                  {renderTabelaClassificacao(
-                    conferenciaAtual.regionais
-                      .flatMap(r => r.times)
-                      .sort((a, b) => a.posicao - b.posicao)
-                  )}
-                </div>
-              </div>
-            )}
-
-            <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
-              <h3 className="text-xl font-bold text-white mb-4">Legenda</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Status de Classificação</h4>
-                  <div className="space-y-2">
+                  <div>
+                    <h4 className="font-semibold text-white mb-2">Últimos Jogos</h4>
                     <div className="flex items-center gap-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getClassificacaoColor('DIRETO')}`}>
-                        Classificado
-                      </span>
-                      <span className="text-gray-400 text-sm">Direto para semifinal</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${getClassificacaoColor('WILD_CARD')}`}>
-                        Wild Card
-                      </span>
-                      <span className="text-gray-400 text-sm">Disputa vaga playoff</span>
+                      <div className="flex gap-1">
+                        <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs font-bold text-white">V</div>
+                        <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-xs font-bold text-white">D</div>
+                      </div>
+                      <span className="text-gray-400 text-sm">Vitória / Derrota</span>
                     </div>
                   </div>
-                </div>
 
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Últimos Jogos</h4>
-                  <div className="flex items-center gap-2">
-                    <div className="flex gap-1">
-                      <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-xs font-bold text-white">V</div>
-                      <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center text-xs font-bold text-white">D</div>
+                  <div>
+                    <h4 className="font-semibold text-white mb-2">Abreviações</h4>
+                    <div className="text-sm text-gray-400 space-y-1">
+                      <div><strong>J</strong> - Jogos | <strong>V</strong> - Vitórias | <strong>D</strong> - Derrotas</div>
+                      <div><strong>PP</strong> - Pontos Pró | <strong>PC</strong> - Pontos Contra | <strong>SG</strong> - Saldo</div>
                     </div>
-                    <span className="text-gray-400 text-sm">Vitória / Derrota</span>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="font-semibold text-white mb-2">Abreviações</h4>
-                  <div className="text-sm text-gray-400 space-y-1">
-                    <div><strong>J</strong> - Jogos | <strong>V</strong> - Vitórias | <strong>D</strong> - Derrotas</div>
-                    <div><strong>PP</strong> - Pontos Pró | <strong>PC</strong> - Pontos Contra | <strong>SG</strong> - Saldo</div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   )

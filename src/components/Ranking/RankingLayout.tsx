@@ -15,7 +15,7 @@ interface RankingLayoutProps {
 export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
-    const [season, setSeason] = useState(searchParams.get('temporada') || '2024')
+    const [season, setSeason] = useState(searchParams.get('temporada') || '2025')
 
     const { data: jogadores, refetch: refetchJogadores } = useJogadores(season)
     const { data: times, refetch: refetchTimes } = useTimes(season)
