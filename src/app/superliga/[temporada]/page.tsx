@@ -26,17 +26,16 @@ export default function SuperligaPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'conferencias' | 'playoffs'>('overview')
 
   const { data: campeonatos = [], isLoading: loadingCampeonatos } = useCampeonatos({
-    temporada,
-    tipo: 'SUPERLIGA'
+    temporada
   })
 
-  const superliga = campeonatos.find(c => c.isSuperliga) || campeonatos[0]
+  const superliga = campeonatos.find(c => c.isSuperliga === true)
   const superligaId = superliga?.id
 
-  const { data: jogos = [], isLoading: loadingJogos } = useJogos({ 
-    campeonatoId: superligaId 
+  const { data: jogos = [], isLoading: loadingJogos } = useJogos({
+    campeonatoId: superligaId
   })
-  
+
   const { data: classificacao = [] } = useClassificacao(superligaId || 0)
 
   const loading = loadingCampeonatos || loadingJogos
@@ -47,7 +46,7 @@ export default function SuperligaPage() {
 
   if (!superliga) {
     return (
-      <NoDataFound 
+      <NoDataFound
         message={`Superliga ${temporada} não encontrada`}
         description="A Superliga para esta temporada ainda não foi criada."
       />
@@ -123,9 +122,9 @@ export default function SuperligaPage() {
                 </div>
               </div>
             </div>
-            
+
             <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
-              O maior campeonato de futebol americano do Brasil. 32 times, 4 conferências, 
+              O maior campeonato de futebol americano do Brasil. 32 times, 4 conferências,
               8 regionais e a busca pelo título nacional.
             </p>
 
@@ -164,11 +163,10 @@ export default function SuperligaPage() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
-                    activeTab === tab.id
+                  className={`flex items-center gap-2 px-6 py-4 text-sm font-medium border-b-2 transition-colors ${activeTab === tab.id
                       ? 'border-[#63E300] text-[#63E300]'
                       : 'border-transparent text-gray-400 hover:text-gray-300'
-                  }`}
+                    }`}
                 >
                   <Icon size={16} />
                   {tab.label}
@@ -187,7 +185,7 @@ export default function SuperligaPage() {
                 <Trophy className="text-[#63E300]" />
                 Status do Campeonato
               </h2>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-[#272731] rounded-lg p-4">
                   <div className="flex items-center gap-3 mb-3">
@@ -202,10 +200,10 @@ export default function SuperligaPage() {
                       </span>
                     </div>
                     <div className="w-full bg-gray-700 rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-[#63E300] h-2 rounded-full transition-all"
-                        style={{ 
-                          width: `${(estatisticas.jogosFinalizados / estatisticas.totalJogos) * 100}%` 
+                        style={{
+                          width: `${(estatisticas.jogosFinalizados / estatisticas.totalJogos) * 100}%`
                         }}
                       ></div>
                     </div>
@@ -348,7 +346,7 @@ export default function SuperligaPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {conferencias.map((conf) => (
-                <Link 
+                <Link
                   key={conf.tipo}
                   href={`/superliga/${temporada}/conferencia/${conf.tipo.toLowerCase()}`}
                   className="group"
@@ -365,7 +363,7 @@ export default function SuperligaPage() {
                         </div>
                         <ChevronRight className="ml-auto text-white/60 group-hover:text-[#63E300] transition-colors" />
                       </div>
-                      
+
                       <div className="space-y-2">
                         <h4 className="font-semibold text-white">Regionais:</h4>
                         <div className="flex flex-wrap gap-2">
@@ -395,7 +393,7 @@ export default function SuperligaPage() {
 
             <div className="bg-[#1C1C24] rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-6">Como Funcionam os Playoffs</h3>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {conferencias.map((conf, index) => (
                   <div key={conf.tipo} className="space-y-4">
@@ -405,7 +403,7 @@ export default function SuperligaPage() {
                         <span className="font-bold">{conf.nome.replace('Conferência ', '')}</span>
                       </div>
                     </div>
-                    
+
                     <div className="bg-[#272731] p-4 rounded-lg">
                       <h4 className="font-semibold text-white mb-2">Classificação:</h4>
                       <ul className="text-sm text-gray-400 space-y-1">
@@ -424,15 +422,15 @@ export default function SuperligaPage() {
               <div className="mt-8 p-6 bg-gradient-to-r from-[#63E300]/10 to-[#63E300]/20 rounded-lg border border-[#63E300]/30">
                 <h4 className="font-bold text-[#63E300] mb-2">🏆 Grande Final Nacional</h4>
                 <p className="text-gray-300 text-sm">
-                  Os campeões de cada conferência se enfrentam em semifinais cruzadas:<br/>
-                  <strong>Semifinal 1:</strong> Campeão Sul × Campeão Sudeste<br/>
-                  <strong>Semifinal 2:</strong> Campeão Nordeste × Campeão Centro-Norte<br/>
+                  Os campeões de cada conferência se enfrentam em semifinais cruzadas:<br />
+                  <strong>Semifinal 1:</strong> Campeão Sul × Campeão Sudeste<br />
+                  <strong>Semifinal 2:</strong> Campeão Nordeste × Campeão Centro-Norte<br />
                   <strong>Final:</strong> Vencedor Semifinal 1 × Vencedor Semifinal 2
                 </p>
               </div>
             </div>
 
-            <Link 
+            <Link
               href={`/superliga/${temporada}/playoffs`}
               className="block bg-gradient-to-r from-[#63E300] to-[#52C41A] text-black font-bold py-4 px-8 rounded-xl text-center hover:scale-105 transition-transform"
             >

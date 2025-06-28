@@ -1,202 +1,171 @@
+import { ConferenciaConfig, TipoConferencia, TipoRegional } from '@/types'
 import { BaseService } from './base.service'
-
-export interface SuperligaBracket {
-  conferencias: {
-    [key: string]: {
-      fase: string
-      jogos: any[]
-      classificados: any[]
-    }
-  }
-  faseNacional: {
-    semifinais: any[]
-    final: any
-  }
-}
-
-export interface ConferenciaClassificacao {
-  conferencia: string
-  regionais: {
-    nome: string
-    times: {
-      posicao: number
-      time: any
-      pontos: number
-      vitorias: number
-      derrotas: number
-      saldoPontos: number
-    }[]
-  }[]
-}
 
 export class SuperligaService extends BaseService {
   
-  static async validarEstruturaSuperliga(campeonatoId: number): Promise<{
-    valida: boolean
-    erros: string[]
-    avisos: string[]
-  }> {
+  // ✅ CORRIGIDO: Rota deve ser /superliga/criar
+  static async criarSuperliga(temporada: string) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/validar-estrutura`)
+    return service.post('/superliga/criar', {
+      temporada,
+      nome: `Superliga de Futebol Americano ${temporada}`,
+      dataInicio: new Date(),
+      descricao: `Campeonato nacional de futebol americano - temporada ${temporada}`
+    })
   }
 
-  static async getStatusSuperliga(campeonatoId: number): Promise<{
-    fase: 'CONFIGURACAO' | 'TEMPORADA_REGULAR' | 'PLAYOFFS' | 'FINALIZADO'
-    proximoPasso: string
-    podeAvancar: boolean
-    motivos?: string[]
-  }> {
+  static async configurarConferencias(campeonatoId: number, config: ConferenciaConfig[]) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/status`)
+    return service.post(`/superliga/campeonatos/${campeonatoId}/distribuir-times-superliga`, {
+      distribuicao: config
+    })
   }
 
-  static async getClassificacaoConferencia(campeonatoId: number, conferencia: string): Promise<ConferenciaClassificacao> {
+  static async distribuirTimes(campeonatoId: number, distribuicao: Record<TipoRegional, number[]>) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/classificacao/${conferencia}`)
+    return service.post(`/superliga/campeonatos/${campeonatoId}/distribuir-times-superliga`, {
+      distribuicao
+    })
   }
 
-  static async getClassificacaoGeral(campeonatoId: number): Promise<ConferenciaClassificacao[]> {
+  static async distribuirTimesAutomatico(campeonatoId: number) {
     const service = new SuperligaService()
-    const conferencias = ['sudeste', 'sul', 'nordeste', 'centro-norte']
-    
-    const classificacoes = await Promise.all(
-      conferencias.map(conf => 
-        SuperligaService.getClassificacaoConferencia(campeonatoId, conf)
-      )
-    )
-    
-    return classificacoes
+    return service.post(`/superliga/campeonatos/${campeonatoId}/distribuir-times-automatico`)
   }
 
-  static async getBracketPlayoffs(campeonatoId: number): Promise<SuperligaBracket> {
+  static async gerarJogosTemporada(campeonatoId: number, rodadas: number = 4) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/bracket`)
+    return service.post(`/superliga/campeonatos/${campeonatoId}/gerar-jogos-temporada`, {
+      rodadas
+    })
   }
 
-  static async getPlayoffsConferencia(campeonatoId: number, conferencia: string): Promise<any[]> {
+  static async gerarPlayoffs(campeonatoId: number) {
+    const service = new SuperligaService()
+    return service.post(`/superliga/campeonatos/${campeonatoId}/gerar-playoffs`)
+  }
+
+  static async gerarFaseNacional(campeonatoId: number) {
+    const service = new SuperligaService()
+    return service.post(`/superliga/campeonatos/${campeonatoId}/gerar-fase-nacional`)
+  }
+
+  static async getSuperliga(campeonatoId: number) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}`)
+  }
+
+  static async getClassificacaoConferencia(campeonatoId: number, conferencia: TipoConferencia) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/classificacao-conferencia/${conferencia}`)
+  }
+
+  static async getClassificacaoRegional(campeonatoId: number, regional: TipoRegional) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/classificacao-regional/${regional}`)
+  }
+
+  static async getPlayoffsConferencia(campeonatoId: number, conferencia: TipoConferencia) {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/playoffs/${conferencia}`)
   }
 
-  static async getFaseNacional(campeonatoId: number): Promise<{
-    semifinais: any[]
-    final: any
-    status: string
-  }> {
+  static async getFaseNacional(campeonatoId: number) {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/fase-nacional`)
   }
 
-  static async getJogosSuperliga(campeonatoId: number, filters?: {
-    conferencia?: string
-    fase?: string
-    rodada?: number
-    status?: string
-  }): Promise<any[]> {
+  static async getRankingGeral(campeonatoId: number) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/jogos`, filters)
+    return service.get(`/superliga/campeonatos/${campeonatoId}/ranking-geral`)
   }
 
-  static async getProximosJogosSuperliga(campeonatoId: number, limite?: number): Promise<any[]> {
+  static async getWildCardRanking(campeonatoId: number, conferencia: TipoConferencia) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/proximos-jogos`, { limite })
+    return service.get(`/superliga/campeonatos/${campeonatoId}/wild-card-ranking/${conferencia}`)
   }
 
-  static async getUltimosResultadosSuperliga(campeonatoId: number, limite?: number): Promise<any[]> {
+  static async validarIntegridade(campeonatoId: number) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/ultimos-resultados`, { limite })
+    return service.get(`/superliga/campeonatos/${campeonatoId}/validar-integridade`)
   }
 
-  static async getEstatisticasSuperliga(campeonatoId: number): Promise<{
-    totalJogos: number
-    jogosFinalizados: number
-    jogosAgendados: number
-    faseAtual: string
-    progresso: number
-    timesClassificados: number
-    conferencias: {
-      [key: string]: {
-        jogos: number
-        finalizados: number
-        pendentes: number
-      }
-    }
-  }> {
+  static async repararIntegridade(campeonatoId: number) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/estatisticas`)
+    return service.post(`/superliga/campeonatos/${campeonatoId}/reparar-integridade`)
   }
 
-  static async getRankingGeral(campeonatoId: number): Promise<{
-    porConferencia: {
-      [key: string]: any[]
-    }
-    geral: any[]
-    criterios: string[]
-  }> {
+  static async validarEstrutura(campeonatoId: number) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/ranking`)
+    return service.get(`/superliga/campeonatos/${campeonatoId}/validar-estrutura`)
   }
 
-  static async getHistoricoSuperliga(temporadas: string[]): Promise<{
-    [temporada: string]: {
-      campeao: any
-      viceCampeao: any
-      semifinalistas: any[]
-      campeoesPorConferencia: {
-        [conferencia: string]: any
-      }
-    }
-  }> {
+  // ✅ ADICIONANDO MÉTODOS QUE FALTAVAM:
+  static async getPlayoffBracket(campeonatoId: number) {
     const service = new SuperligaService()
-    return service.get(`/superliga/historico`, { temporadas: temporadas.join(',') })
+    return service.get(`/superliga/campeonatos/${campeonatoId}/bracket`)
   }
 
-  static async getTimesPorConferencia(campeonatoId: number): Promise<{
-    [conferencia: string]: {
-      regionais: {
-        [regional: string]: any[]
-      }
-      total: number
-    }
-  }> {
+  static async getBracketPlayoffs(campeonatoId: number) {
     const service = new SuperligaService()
-    return service.get(`/superliga/campeonatos/${campeonatoId}/times-por-conferencia`)
+    return service.get(`/superliga/campeonatos/${campeonatoId}/bracket`)
   }
 
-  static async getConferencias(campeonatoId: number): Promise<{
-    id: number
-    nome: string
-    tipo: string
-    icone: string
-    totalTimes: number
-    regionais: {
-      id: number
-      nome: string
-      tipo: string
-      timesPorRegional: number
-    }[]
-  }[]> {
+  static async atualizarResultadoPlayoff(jogoId: number, placarTime1: number, placarTime2: number) {
+    const service = new SuperligaService()
+    return service.put(`/superliga/playoff-jogos/${jogoId}/resultado`, {
+      placarTime1,
+      placarTime2
+    })
+  }
+
+  static async finalizarJogoPlayoff(jogoId: number) {
+    const service = new SuperligaService()
+    return service.post(`/superliga/playoff-jogos/${jogoId}/finalizar`)
+  }
+
+  static async getConferencias(campeonatoId: number) {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/conferencias`)
   }
 
-  static async simularPlayoffs(campeonatoId: number): Promise<SuperligaBracket> {
+  static async simularPlayoffs(campeonatoId: number) {
     const service = new SuperligaService()
     return service.post(`/superliga/campeonatos/${campeonatoId}/simular-playoffs`)
   }
 
-  static async getPrevisoes(campeonatoId: number): Promise<{
-    favoritos: {
-      [conferencia: string]: {
-        time: any
-        probabilidade: number
-        motivo: string[]
-      }
-    }
-    surpresas: any[]
-    confrontosDestaque: any[]
-  }> {
+  static async getPrevisoes(campeonatoId: number) {
     const service = new SuperligaService()
     return service.get(`/superliga/campeonatos/${campeonatoId}/previsoes`)
+  }
+
+  static async getEstatisticasSuperliga(campeonatoId: number) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/estatisticas`)
+  }
+
+  static async getJogosSuperliga(campeonatoId: number, filters?: any) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/jogos`, filters)
+  }
+
+  static async getProximosJogosSuperliga(campeonatoId: number, limite?: number) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/proximos-jogos`, { limite })
+  }
+
+  static async getUltimosResultadosSuperliga(campeonatoId: number, limite?: number) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/ultimos-resultados`, { limite })
+  }
+
+  static async getHistoricoSuperliga(temporadas: string[]) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/historico`, { temporadas: temporadas.join(',') })
+  }
+
+  static async getTimesPorConferencia(campeonatoId: number) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/campeonatos/${campeonatoId}/times-por-conferencia`)
   }
 }

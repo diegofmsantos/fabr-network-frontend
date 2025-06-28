@@ -1330,120 +1330,9 @@ export interface PlayoffConfig {
 
 // ==================== CONFIGURAÇÃO DA SUPERLIGA ====================
 
-export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
-  {
-    tipo: 'SUDESTE',
-    nome: 'Conferência Sudeste',
-    icone: '🏭',
-    totalTimes: 12,
-    regionais: [
-      {
-        tipo: 'SERRAMAR',
-        nome: 'Regional Serramar',
-        conferencia: 'SUDESTE',
-        timesPorRegional: 4,
-        times: [] // IDs dos times
-      },
-      {
-        tipo: 'CANASTRA', 
-        nome: 'Regional Canastra',
-        conferencia: 'SUDESTE',
-        timesPorRegional: 4,
-        times: []
-      },
-      {
-        tipo: 'CANTAREIRA',
-        nome: 'Regional Cantareira', 
-        conferencia: 'SUDESTE',
-        timesPorRegional: 4,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2, // 2 melhores 1º colocados
-      wildcardVagas: 4, // 4 vagas de wild card
-      estrutura: 'REGIONAL'
-    }
-  },
-  {
-    tipo: 'SUL',
-    nome: 'Conferência Sul',
-    icone: '🧊',
-    totalTimes: 8,
-    regionais: [
-      {
-        tipo: 'ARAUCARIA',
-        nome: 'Regional Araucária',
-        conferencia: 'SUL',
-        timesPorRegional: 4,
-        times: []
-      },
-      {
-        tipo: 'PAMPA',
-        nome: 'Regional Pampa',
-        conferencia: 'SUL', 
-        timesPorRegional: 4,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2, // 1º de cada regional
-      wildcardVagas: 4, // 2º e 3º de cada
-      estrutura: 'REGIONAL'
-    }
-  },
-  {
-    tipo: 'NORDESTE',
-    nome: 'Conferência Nordeste',
-    icone: '🌵',
-    totalTimes: 6,
-    regionais: [
-      {
-        tipo: 'ATLANTICO',
-        nome: 'Regional Atlântico',
-        conferencia: 'NORDESTE',
-        timesPorRegional: 6,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2, // 1º e 2º colocados
-      wildcardVagas: 4, // 3º, 4º, 5º e 6º
-      estrutura: 'GERAL'
-    }
-  },
-  {
-    tipo: 'CENTRO_NORTE',
-    nome: 'Conferência Centro-Norte',
-    icone: '🌲',
-    totalTimes: 6,
-    regionais: [
-      {
-        tipo: 'CERRADO',
-        nome: 'Regional Cerrado',
-        conferencia: 'CENTRO_NORTE',
-        timesPorRegional: 3,
-        times: []
-      },
-      {
-        tipo: 'AMAZONIA', 
-        nome: 'Regional Amazônia',
-        conferencia: 'CENTRO_NORTE',
-        timesPorRegional: 3,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 0, // Nenhum vai direto
-      wildcardVagas: 4, // 1º e 2º de cada regional
-      estrutura: 'REGIONAL'
-    }
-  }
-]
+// ADICIONAR ESTA CONFIGURAÇÃO NO ARQUIVO src/types/index.ts
 
-// ==================== TIMES DA SUPERLIGA ====================
-
-export const TIMES_SUPERLIGA = {
+export const TIMES_SUPERLIGA: Record<TipoRegional, string[]> = {
   // Conferência Sudeste - Regional Serramar
   SERRAMAR: [
     'Vasco Almirantes',
@@ -1468,10 +1357,10 @@ export const TIMES_SUPERLIGA = {
     'Ocelots FA'
   ],
   
-  // Conferência Sul - Regional Araucária  
+  // Conferência Sul - Regional Araucária
   ARAUCARIA: [
     'Timbó Rex',
-    'Coritiba Crocodiles',
+    'Coritiba Crocodiles', 
     'Calvary Cavaliers',
     'Brown Spiders'
   ],
@@ -1479,8 +1368,8 @@ export const TIMES_SUPERLIGA = {
   // Conferência Sul - Regional Pampa
   PAMPA: [
     'Santa Maria Soldiers',
-    'Juventude FA', 
-    'Bravos FA',
+    'Juventude FA',
+    'Bravos FA', 
     'Istepôs FA'
   ],
   
@@ -1501,13 +1390,125 @@ export const TIMES_SUPERLIGA = {
     'Tubarões do Cerrado'
   ],
   
-  // Conferência Centro-Norte - Regional Amazônia
+  // Conferência Centro-Norte - Regional Amazônia  
   AMAZONIA: [
     'Porto Velho Miners',
     'Manaus FA',
     'Manaus Cavaliers'
   ]
 }
+
+// COMPLETAR A CONFIGURAÇÃO SUPERLIGA_CONFIG
+export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
+  {
+    tipo: 'SUDESTE',
+    nome: 'Conferência Sudeste',
+    icone: '🏭',
+    totalTimes: 12,
+    regionais: [
+      {
+        tipo: 'SERRAMAR',
+        nome: 'Regional Serramar',
+        conferencia: 'SUDESTE',
+        timesPorRegional: 4,
+        times: [] // Será preenchido dinamicamente
+      },
+      {
+        tipo: 'CANASTRA', 
+        nome: 'Regional Canastra',
+        conferencia: 'SUDESTE',
+        timesPorRegional: 4,
+        times: []
+      },
+      {
+        tipo: 'CANTAREIRA',
+        nome: 'Regional Cantareira', 
+        conferencia: 'SUDESTE',
+        timesPorRegional: 4,
+        times: []
+      }
+    ],
+    playoffConfig: {
+      semifinalDireta: 2, // 2 melhores 1º colocados vão direto
+      wildcardVagas: 4,   // 4 vagas de wild card
+      estrutura: 'CONFERENCIA'
+    }
+  },
+  {
+    tipo: 'SUL',
+    nome: 'Conferência Sul',
+    icone: '🧊',
+    totalTimes: 8,
+    regionais: [
+      {
+        tipo: 'ARAUCARIA',
+        nome: 'Regional Araucária',
+        conferencia: 'SUL', 
+        timesPorRegional: 4,
+        times: []
+      },
+      {
+        tipo: 'PAMPA',
+        nome: 'Regional Pampa',
+        conferencia: 'SUL',
+        timesPorRegional: 4, 
+        times: []
+      }
+    ],
+    playoffConfig: {
+      semifinalDireta: 2, // 1º de cada regional vai direto
+      wildcardVagas: 4,   // 2º e 3º de cada regional
+      estrutura: 'CONFERENCIA'
+    }
+  },
+  {
+    tipo: 'NORDESTE', 
+    nome: 'Conferência Nordeste',
+    icone: '🌵',
+    totalTimes: 6,
+    regionais: [
+      {
+        tipo: 'ATLANTICO',
+        nome: 'Regional Atlântico',
+        conferencia: 'NORDESTE',
+        timesPorRegional: 6, 
+        times: []
+      }
+    ],
+    playoffConfig: {
+      semifinalDireta: 2, // 1º e 2º vão direto
+      wildcardVagas: 4,   // 3º, 4º, 5º, 6º disputam wild card
+      estrutura: 'CONFERENCIA'
+    }
+  },
+  {
+    tipo: 'CENTRO_NORTE',
+    nome: 'Conferência Centro-Norte', 
+    icone: '🌲',
+    totalTimes: 6,
+    regionais: [
+      {
+        tipo: 'CERRADO',
+        nome: 'Regional Cerrado',
+        conferencia: 'CENTRO_NORTE',
+        timesPorRegional: 3,
+        times: []
+      },
+      {
+        tipo: 'AMAZONIA',
+        nome: 'Regional Amazônia',
+        conferencia: 'CENTRO_NORTE', 
+        timesPorRegional: 3,
+        times: []
+      }
+    ],
+    playoffConfig: {
+      semifinalDireta: 2, // 1º de cada regional vai direto
+      wildcardVagas: 2,   // 2º de cada regional
+      estrutura: 'CONFERENCIA'
+    }
+  }
+]
 
 // ==================== TIPOS PARA PLAYOFFS ====================
 
