@@ -3,19 +3,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  ArrowLeft, 
-  Trophy,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Crown,
-  Target,
-  Calendar,
-  Users,
-  Award,
-  BarChart3
-} from 'lucide-react'
+import { ArrowLeft, Trophy, TrendingUp, TrendingDown, Minus, Crown } from 'lucide-react'
 import { Loading } from '@/components/ui/Loading'
 
 // Mock hooks - substituir pelos reais
@@ -277,7 +265,6 @@ export default function ClassificacaoPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f172a]">
-      {/* Header */}
       <div className="bg-[#1a1a2e] border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <Link
@@ -323,7 +310,6 @@ export default function ClassificacaoPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Seletor de Conferências */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-4">
             {conferencias.map((conf) => (
@@ -348,11 +334,9 @@ export default function ClassificacaoPage() {
           </div>
         </div>
 
-        {/* Conteúdo Principal */}
         {conferenciaAtual && (
           <div className="space-y-8">
             {visualizacao === 'regional' ? (
-              /* Visualização por Regional */
               conferenciaAtual.regionais.map((regional) => (
                 <div key={regional.tipo} className="bg-[#1a1a2e] rounded-xl border border-gray-800 overflow-hidden">
                   <div className={`bg-gradient-to-r ${conferenciaAtual.cor} p-6`}>
@@ -371,7 +355,6 @@ export default function ClassificacaoPage() {
                 </div>
               ))
             ) : (
-              /* Ranking Geral */
               <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 overflow-hidden">
                 <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6">
                   <div className="flex items-center gap-3">
@@ -393,7 +376,6 @@ export default function ClassificacaoPage() {
               </div>
             )}
 
-            {/* Legenda */}
             <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
               <h3 className="text-xl font-bold text-white mb-4">Legenda</h3>
               

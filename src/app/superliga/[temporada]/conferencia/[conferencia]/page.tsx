@@ -3,25 +3,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  ArrowLeft, 
-  Trophy,
-  Target,
-  Calendar,
-  Users,
-  BarChart3,
-  TrendingUp,
-  TrendingDown,
-  Minus,
-  Eye,
-  MapPin,
-  Award,
-  Crown,
-  Zap,
-  Play,
-  Clock,
-  CheckCircle
-} from 'lucide-react'
+import { ArrowLeft, Trophy, Target, Calendar, BarChart3, TrendingUp, TrendingDown, Minus, MapPin, Award, Crown, Zap, Play, Clock, CheckCircle } from 'lucide-react'
 import { Loading } from '@/components/ui/Loading'
 
 interface TimeConferencia {
@@ -493,7 +475,6 @@ export default function ConferenciaPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f172a]">
-      {/* Header */}
       <div className="bg-[#1a1a2e] border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <Link
@@ -528,7 +509,6 @@ export default function ConferenciaPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Abas de Navegação */}
         <div className="mb-8">
           <div className="flex gap-4 border-b border-gray-700">
             {[
@@ -552,10 +532,8 @@ export default function ConferenciaPage() {
           </div>
         </div>
 
-        {/* Conteúdo das Abas */}
         {aba === 'classificacao' && (
           <div className="space-y-8">
-            {/* Controles de Visualização */}
             <div className="flex gap-3">
               <button
                 onClick={() => setVisualizacao('regional')}
@@ -579,7 +557,6 @@ export default function ConferenciaPage() {
               </button>
             </div>
 
-            {/* Líderes dos Regionais */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
               {conferenciaData.regionais.map((regional) => (
                 <div key={regional.tipo} className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
@@ -613,7 +590,6 @@ export default function ConferenciaPage() {
               ))}
             </div>
 
-            {/* Classificação */}
             {visualizacao === 'regional' ? (
               conferenciaData.regionais.map((regional) => (
                 <div key={regional.tipo} className="bg-[#1a1a2e] rounded-xl border border-gray-800 overflow-hidden">
@@ -651,7 +627,6 @@ export default function ConferenciaPage() {
 
         {aba === 'jogos' && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Próximos Jogos */}
             <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
               <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <Calendar className="w-6 h-6 text-blue-400" />
@@ -709,7 +684,6 @@ export default function ConferenciaPage() {
               </div>
             </div>
 
-            {/* Últimos Resultados */}
             <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
               <h2 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
                 <CheckCircle className="w-6 h-6 text-green-400" />
@@ -781,7 +755,6 @@ export default function ConferenciaPage() {
 
         {aba === 'estatisticas' && (
           <div className="space-y-8">
-            {/* Estatísticas Gerais */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6 text-center">
                 <div className="text-3xl font-bold text-blue-400 mb-2">
@@ -818,14 +791,12 @@ export default function ConferenciaPage() {
               </div>
             </div>
 
-            {/* Destaques por Regional */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {conferenciaData.regionais.map((regional) => (
                 <div key={regional.tipo} className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
                   <h3 className="text-xl font-bold text-white mb-6">Destaques - {regional.nome}</h3>
                   
                   <div className="space-y-4">
-                    {/* Melhor Ataque */}
                     <div className="flex items-center justify-between p-4 bg-[#272731] rounded-lg">
                       <div className="flex items-center gap-3">
                         <Target className="w-5 h-5 text-green-400" />
@@ -842,7 +813,6 @@ export default function ConferenciaPage() {
                       </div>
                     </div>
 
-                    {/* Melhor Defesa */}
                     <div className="flex items-center justify-between p-4 bg-[#272731] rounded-lg">
                       <div className="flex items-center gap-3">
                         <Award className="w-5 h-5 text-blue-400" />
@@ -859,7 +829,6 @@ export default function ConferenciaPage() {
                       </div>
                     </div>
 
-                    {/* Média de Gols */}
                     <div className="flex items-center justify-between p-4 bg-[#272731] rounded-lg">
                       <div className="flex items-center gap-3">
                         <BarChart3 className="w-5 h-5 text-yellow-400" />
@@ -882,7 +851,6 @@ export default function ConferenciaPage() {
           </div>
         )}
 
-        {/* Links de Navegação */}
         <div className="mt-12 text-center space-y-4">
           <div className="flex justify-center gap-4">
             <Link

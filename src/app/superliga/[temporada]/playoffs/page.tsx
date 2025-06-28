@@ -3,20 +3,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  ArrowLeft, 
-  Trophy, 
-  Calendar,
-  MapPin,
-  Users,
-  Play,
-  Clock,
-  CheckCircle,
-  Crown,
-  Target,
-  Zap,
-  Eye
-} from 'lucide-react'
+import { ArrowLeft, Trophy, Calendar, MapPin, Play, Clock, CheckCircle, Crown, Target, Zap, Eye } from 'lucide-react'
 import { Loading } from '@/components/ui/Loading'
 
 interface PlayoffJogo {
@@ -234,7 +221,6 @@ export default function PlayoffsPage() {
       <div className={`bg-[#272731] rounded-xl border p-6 ${
         isFinal ? 'border-[#63E300] shadow-lg' : 'border-gray-700'
       }`}>
-        {/* Header do Jogo */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className={`p-2 rounded-lg ${getStatusColor(jogo.status)}`}>
@@ -266,9 +252,7 @@ export default function PlayoffsPage() {
           )}
         </div>
 
-        {/* Times */}
         <div className="space-y-4">
-          {/* Time 1 */}
           <div className="flex items-center justify-between">
             <div className="flex-1">
               {renderTimeCard(jogo.time1, jogo.vencedor?.id === jogo.time1?.id)}
@@ -282,12 +266,10 @@ export default function PlayoffsPage() {
             )}
           </div>
 
-          {/* VS */}
           <div className="text-center">
             <div className="text-gray-500 font-bold">VS</div>
           </div>
 
-          {/* Time 2 */}
           <div className="flex items-center justify-between">
             <div className="flex-1">
               {renderTimeCard(jogo.time2, jogo.vencedor?.id === jogo.time2?.id)}
@@ -302,7 +284,6 @@ export default function PlayoffsPage() {
           </div>
         </div>
 
-        {/* Local do Jogo */}
         {jogo.local && (
           <div className="mt-4 flex items-center gap-2 text-gray-400">
             <MapPin className="w-4 h-4" />
@@ -310,7 +291,6 @@ export default function PlayoffsPage() {
           </div>
         )}
 
-        {/* Vencedor Destacado */}
         {jogo.vencedor && (
           <div className="mt-4 p-3 bg-[#63E300]/10 rounded-lg border border-[#63E300]/30">
             <div className="flex items-center gap-2">
@@ -329,7 +309,6 @@ export default function PlayoffsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f172a]">
-      {/* Header */}
       <div className="bg-[#1a1a2e] border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <Link
@@ -375,7 +354,6 @@ export default function PlayoffsPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Seletor de Conferências */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-4">
             {conferencias.map((conf) => (
@@ -403,13 +381,10 @@ export default function PlayoffsPage() {
           </div>
         </div>
 
-        {/* Conteúdo Principal */}
         {conferenciaAtual && (
           <div className="space-y-8">
             {visualizacao === 'chaveamento' ? (
-              /* Visualização do Chaveamento */
               <>
-                {/* Wild Cards */}
                 {conferenciaAtual.wildcards.length > 0 && (
                   <div>
                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
@@ -422,7 +397,6 @@ export default function PlayoffsPage() {
                   </div>
                 )}
 
-                {/* Semifinais */}
                 {conferenciaAtual.semifinais.length > 0 && (
                   <div>
                     <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
@@ -435,7 +409,6 @@ export default function PlayoffsPage() {
                   </div>
                 )}
 
-                {/* Final da Conferência */}
                 <div>
                   <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                     <Crown className="w-6 h-6 text-[#63E300]" />
@@ -446,7 +419,6 @@ export default function PlayoffsPage() {
                   </div>
                 </div>
 
-                {/* Campeão da Conferência */}
                 {conferenciaAtual.campeao && (
                   <div className="text-center py-8">
                     <div className="bg-gradient-to-r from-[#63E300]/20 to-yellow-500/20 rounded-2xl border border-[#63E300]/50 p-8 max-w-lg mx-auto">
@@ -465,7 +437,6 @@ export default function PlayoffsPage() {
                 )}
               </>
             ) : (
-              /* Visualização do Calendário */
               <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-6">
                 <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-2">
                   <Calendar className="w-6 h-6 text-blue-400" />
@@ -523,7 +494,6 @@ export default function PlayoffsPage() {
               </div>
             )}
 
-            {/* Link para Fase Nacional */}
             <div className="text-center">
               <Link
                 href={`/superliga/${temporada}/final`}

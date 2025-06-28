@@ -3,23 +3,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'next/navigation'
 import Link from 'next/link'
-import { 
-  ArrowLeft, 
-  Trophy, 
-  Crown, 
-  Star,
-  Calendar,
-  MapPin,
-  Users,
-  Play,
-  Clock,
-  CheckCircle,
-  Award,
-  Target,
-  Zap,
-  Eye,
-  Medal
-} from 'lucide-react'
+import { ArrowLeft, Trophy, Crown, Star, Calendar, MapPin, Users, Play, Clock, CheckCircle, Target, Eye, Medal } from 'lucide-react'
 import { Loading } from '@/components/ui/Loading'
 
 interface TimeNacional {
@@ -362,7 +346,6 @@ export default function FinalNacionalPage() {
           </button>
         </div>
 
-        {/* Times */}
         <div className="space-y-6">
           {jogo.time1 && renderTimeCard(jogo.time1, jogo.vencedor?.id === jogo.time1.id, isFinal)}
           
@@ -382,7 +365,6 @@ export default function FinalNacionalPage() {
           {jogo.time2 && renderTimeCard(jogo.time2, jogo.vencedor?.id === jogo.time2.id, isFinal)}
         </div>
 
-        {/* Informações do Jogo */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           {jogo.dataJogo && (
             <div className="flex items-center gap-2 text-gray-300">
@@ -426,7 +408,6 @@ export default function FinalNacionalPage() {
           )}
         </div>
 
-        {/* MVP e Informações Extras */}
         {expandido && jogo.mvp && (
           <div className="mt-6 p-4 bg-[#63E300]/10 rounded-lg border border-[#63E300]/30">
             <div className="flex items-center gap-2 mb-2">
@@ -439,7 +420,6 @@ export default function FinalNacionalPage() {
           </div>
         )}
 
-        {/* Vencedor Destacado */}
         {jogo.vencedor && (
           <div className="mt-6 p-4 bg-gradient-to-r from-[#63E300]/20 to-yellow-500/20 rounded-lg border border-[#63E300]/30">
             <div className="flex items-center gap-2">
@@ -459,7 +439,6 @@ export default function FinalNacionalPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f172a]">
-      {/* Header Hero */}
       <div className="relative bg-gradient-to-r from-[#1a1a2e] to-[#16213e] pt-20 pb-16">
         <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-10"></div>
         <div className="relative max-w-7xl mx-auto px-6">
@@ -488,7 +467,6 @@ export default function FinalNacionalPage() {
               Os 4 melhores times do Brasil disputam o título nacional da Superliga
             </p>
 
-            {/* Status da Fase */}
             <div className="inline-flex items-center gap-2 bg-[#63E300]/20 px-6 py-3 rounded-full border border-[#63E300]/30">
               {faseNacional.status === 'FINALIZADO' ? (
                 <CheckCircle className="w-5 h-5 text-[#63E300]" />
@@ -509,7 +487,6 @@ export default function FinalNacionalPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-6 py-12">
-        {/* Campeões por Conferência */}
         <div className="mb-12">
           <h2 className="text-3xl font-bold text-white mb-8 text-center">
             🏆 Campeões por Conferência
@@ -542,7 +519,6 @@ export default function FinalNacionalPage() {
           </div>
         </div>
 
-        {/* Semifinais Nacionais */}
         {faseNacional.semifinais.length > 0 && (
           <div className="mb-12">
             <h2 className="text-3xl font-bold text-white mb-8 text-center">
@@ -559,7 +535,6 @@ export default function FinalNacionalPage() {
           </div>
         )}
 
-        {/* Final Nacional */}
         {faseNacional.final && (
           <div className="mb-12">
             <h2 className="text-4xl font-bold text-white mb-8 text-center">
@@ -572,7 +547,6 @@ export default function FinalNacionalPage() {
           </div>
         )}
 
-        {/* Campeão Nacional */}
         {faseNacional.campeaoNacional && (
           <div className="mb-12 text-center">
             <div className="bg-gradient-to-r from-[#63E300]/20 to-yellow-500/20 rounded-3xl border border-[#63E300]/50 p-12 max-w-2xl mx-auto">
@@ -613,7 +587,6 @@ export default function FinalNacionalPage() {
           </div>
         )}
 
-        {/* Estatísticas da Fase Nacional */}
         <div className="bg-[#1a1a2e] rounded-xl border border-gray-800 p-8">
           <h3 className="text-2xl font-bold text-white mb-6 text-center">📊 Estatísticas da Fase Nacional</h3>
           
@@ -654,7 +627,6 @@ export default function FinalNacionalPage() {
           </div>
         </div>
 
-        {/* Links de Navegação */}
         <div className="mt-12 text-center space-y-4">
           <Link
             href={`/superliga/${temporada}/playoffs`}

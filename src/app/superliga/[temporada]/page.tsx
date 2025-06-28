@@ -44,14 +44,14 @@ export default function SuperligaPage() {
     return <Loading />
   }
 
-  if (!superliga) {
-    return (
-      <NoDataFound
-        message={`Superliga ${temporada} não encontrada`}
-        description="A Superliga para esta temporada ainda não foi criada."
-      />
-    )
-  }
+ if (!superliga) {
+  return (
+    <NoDataFound
+      message={`A Superliga ${temporada} ainda não foi criada`}
+      description="Aguarde a criação da Superliga para esta temporada."
+    />
+  )
+}
 
   const conferencias: ConferenciaInfo[] = [
     {
