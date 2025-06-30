@@ -387,7 +387,7 @@ export default function PlayoffsPage() {
                         <Zap className="w-6 h-6 text-yellow-400" />
                         Wild Card
                       </h2>
-                      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div  className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         {conferenciaAtual.wildcards.map((jogo) => renderJogoCard(jogo))}
                       </div>
                     </div>
