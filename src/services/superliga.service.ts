@@ -263,4 +263,15 @@ export class SuperligaService extends BaseService {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}/exportar`, { formato })
   }
+
+  // ✅ ADICIONAR estes métodos se não existirem
+static async getClassificacao(temporada: string) {
+  const service = new SuperligaService()
+  return service.get(`/superliga/${temporada}/classificacao`)
+}
+
+static async getPlayoffBracket(temporada: string) {
+  const service = new SuperligaService()
+  return service.get(`/superliga/${temporada}/bracket`)
+}
 }

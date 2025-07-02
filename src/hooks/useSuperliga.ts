@@ -368,3 +368,15 @@ export function useSuperligaPorFase(temporada: string, fase: string) {
     }
   }
 }
+
+export function useClassificacaoSuperliga(temporada: string) {
+  return useQuery({
+    queryKey: [...superligaQueryKeys.classificacao(temporada)],
+    queryFn: () => SuperligaService.getClassificacao(temporada),
+    enabled: !!temporada,
+    staleTime: 1000 * 60 * 10,
+    retry: 2,
+    refetchOnWindowFocus: false,
+  })
+}
+
