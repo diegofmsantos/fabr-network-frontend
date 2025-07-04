@@ -13,7 +13,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const pathname = usePathname();
     const [activeItem, setActiveItem] = useState('');
 
-    // Determinar a temporada atual ou padrão
     const getCurrentYear = () => new Date().getFullYear();
     const temporadaAtual = getCurrentYear().toString();
 
