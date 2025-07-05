@@ -31,7 +31,7 @@ export default function Page() {
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const temporada = searchParams.get('temporada') || '2024'
+  const temporada = searchParams.get('temporada') || '2025'
 
   useEffect(() => {
     const currentPath = params.time?.toString() || ''

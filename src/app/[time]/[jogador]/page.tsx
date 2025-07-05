@@ -33,7 +33,7 @@ export default function Page() {
     const params = useParams()
     const router = useRouter()
     const searchParams = useSearchParams()
-    const temporada = searchParams.get('temporada') || '2024'
+    const temporada = searchParams.get('temporada') || '2025'
     const [selectedTemporada, setSelectedTemporada] = useState(temporada);
     const queryClient = useQueryClient();
 
