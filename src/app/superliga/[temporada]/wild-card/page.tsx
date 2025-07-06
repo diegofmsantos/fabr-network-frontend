@@ -2,7 +2,7 @@
 
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { usePlayoffBracket } from '@/hooks/useSuperliga'
+import { useWildCardData } from '@/hooks/usePlayoffData'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -35,25 +35,14 @@ function getSuperligaNavigation(currentPath: string, temporada: string) {
   }
 }
 
-// Função para obter a cor da conferência
-const getConferenciaColor = (conferenciaKey: string) => {
-  switch (conferenciaKey) {
-    case 'SUDESTE': return 'bg-red-600'
-    case 'SUL': return 'bg-cyan-500'
-    case 'NORDESTE': return 'bg-orange-500'
-    case 'CENTRO_NORTE': return 'bg-green-600'
-    default: return 'bg-gray-600'
-  }
-}
-
 export default function WildCardPage() {
   const params = useParams()
   const router = useRouter()
   const pathname = usePathname()
   const temporada = params.temporada as string
   
-  // Usar dados da API
-  const { data: bracket, isLoading } = usePlayoffBracket(temporada)
+  // ✅ NOVO: Usar hook intermediário simplificado
+  const { data: wildCardConferencias, isLoading, error } = useWildCardData(temporada)
   
   // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
@@ -64,31 +53,13 @@ export default function WildCardPage() {
     </div>
   }
 
-  if (!bracket) {
+  if (error) {
     return <div className="min-h-screen flex items-center justify-center">
-      <div className="text-white">Nenhum playoff configurado ainda</div>
+      <div className="text-red-400">Erro ao carregar dados: {error.message}</div>
     </div>
   }
 
-  // Filtrar apenas jogos de Wild Card e converter para o formato da página de referência
-  const bracketData = bracket as any
-  const wildCardConferencias = bracketData?.conferencias ? Object.entries(bracketData.conferencias)
-    .filter(([_, conferencia]: [string, any]) => conferencia.wildcards && conferencia.wildcards.length > 0)
-    .map(([conferenciaKey, conferencia]: [string, any]) => ({
-      key: conferenciaKey,
-      nome: `CONFERÊNCIA ${conferenciaKey}`,
-      cor: getConferenciaColor(conferenciaKey),
-      jogos: conferencia.wildcards.map((jogo: any) => ({
-        id: jogo.id,
-        time1: jogo.timeClassificado1?.nome || jogo.descricaoTime1 || 'A definir',
-        time2: jogo.timeClassificado2?.nome || jogo.descricaoTime2 || 'A definir',
-        descricao: jogo.nome || `${jogo.timeClassificado1?.nome || 'Time 1'} × ${jogo.timeClassificado2?.nome || 'Time 2'}`,
-        placar1: jogo.placarTime1,
-        placar2: jogo.placarTime2,
-        status: jogo.status,
-        dataJogo: jogo.dataJogo
-      }))
-    })) : []
+  // ✅ MANTÉM HEADER SEMPRE VISÍVEL
 
   return (
     <div>
@@ -122,73 +93,98 @@ export default function WildCardPage() {
 
         <div className="mt-44 h-full mb-24 ml-3">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
-            {wildCardConferencias.length === 0 ? (
+            {/* ✅ CORRIGIDO: Mantém estrutura sempre, apenas troca conteúdo */}
+            {(!wildCardConferencias || wildCardConferencias.length === 0) ? (
               <div className="text-center py-12">
                 <div className="text-gray-600 text-lg">
-                  Não há jogos de Wild Card configurados ainda.
+                  Nenhum jogo de Wild Card configurado ainda.
                 </div>
               </div>
             ) : (
               wildCardConferencias.map((conferencia) => (
-                <div key={conferencia.key} className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] 
-                lg:ml-10 xl:ml-20 overflow-hidden">
-                  <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
-                    <h2 className="text-lg font-bold">{conferencia.nome}</h2>
-                  </div>
+              <div key={conferencia.key} className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] 
+              lg:ml-10 xl:ml-20 overflow-hidden">
+                <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
+                  <h2 className="text-lg font-bold">{conferencia.nome}</h2>
+                </div>
 
-                  <div className="p-3 space-y-4">
-                    {conferencia.jogos.map((jogo) => (
-                      <div key={jogo.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                        <div className="flex items-center justify-center">
-                          <div className="flex items-center gap-2 text-[12px] md:text-xl">
-                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                              {jogo.time1}
-                              {jogo.placar1 !== undefined && (
-                                <div className="text-lg font-bold text-blue-600 mt-1">
-                                  {jogo.placar1}
-                                </div>
-                              )}
+                <div className="p-3 space-y-4">
+                  {conferencia.jogos.map((jogo) => (
+                    <div key={jogo.id} className="border rounded-lg p-4 hover:bg-gray-50">
+                      <div className="flex items-center justify-center">
+                        <div className="flex items-center gap-2 text-[12px] md:text-xl">
+                          <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
+                            {jogo.time1}
+                            {jogo.placar1 !== undefined && (
+                              <div className="text-lg font-bold text-blue-600 mt-1">
+                                {jogo.placar1}
+                              </div>
+                            )}
+                          </div>
+                          <span className="text-gray-400 font-bold mx-2">×</span>
+                          <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
+                            {jogo.time2}
+                            {jogo.placar2 !== undefined && (
+                              <div className="text-lg font-bold text-red-600 mt-1">
+                                {jogo.placar2}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
+                        {jogo.descricao}
+                      </div>
+                      
+                      {/* Status e Data */}
+                      <div className="flex items-center justify-center gap-4 mt-3">
+                        {jogo.status && (
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                            jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
+                            jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
+                            jogo.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
+                            'bg-gray-100 text-gray-800'
+                          }`}>
+                            {jogo.status === 'FINALIZADO' ? 'Finalizado' :
+                             jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
+                             jogo.status === 'AGUARDANDO' ? 'Aguardando' :
+                             jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}
+                          </span>
+                        )}
+                        
+                        {jogo.dataJogo && (
+                          <span className="text-xs text-gray-500">
+                            {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
+                              day: '2-digit',
+                              month: '2-digit',
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </span>
+                        )}
+                      </div>
+
+                      {/* Vencedor destacado */}
+                      {jogo.vencedor && (
+                        <div className="mt-3 p-2 bg-green-50 rounded border border-green-200">
+                          <div className="text-center">
+                            <span className="text-xs text-green-600">🏆 VENCEDOR</span>
+                            <div className="font-bold text-green-800 text-sm mt-1">
+                              {jogo.vencedor.nome}
                             </div>
-                            <span className="text-gray-400 font-bold mx-2">×</span>
-                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                              {jogo.time2}
-                              {jogo.placar2 !== undefined && (
-                                <div className="text-lg font-bold text-red-600 mt-1">
-                                  {jogo.placar2}
-                                </div>
-                              )}
+                            <div className="text-xs text-green-600 mt-1">
+                              Classificado para a Semifinal de Conferência
                             </div>
                           </div>
                         </div>
-                        <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
-                          {jogo.descricao}
-                        </div>
-                        
-                        {/* Status e Data */}
-                        <div className="flex items-center justify-center gap-4 mt-3">
-                          {jogo.status && (
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                              jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
-                              jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
-                              'bg-yellow-100 text-yellow-800'
-                            }`}>
-                              {jogo.status === 'FINALIZADO' ? 'Finalizado' :
-                               jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
-                               jogo.status === 'AGUARDANDO' ? 'Aguardando' : 'Agendado'}
-                            </span>
-                          )}
-                          
-                          {jogo.dataJogo && (
-                            <span className="text-xs text-gray-500">
-                              {new Date(jogo.dataJogo).toLocaleDateString('pt-BR')}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))
+              </div>
+            ))
             )}
           </div>
         </div>

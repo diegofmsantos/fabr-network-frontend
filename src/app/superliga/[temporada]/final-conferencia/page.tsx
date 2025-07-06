@@ -2,7 +2,7 @@
 
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { usePlayoffBracket } from '@/hooks/useSuperliga'
+import { useFinalConferenciaData } from '@/hooks/usePlayoffData'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -35,25 +35,14 @@ function getSuperligaNavigation(currentPath: string, temporada: string) {
   }
 }
 
-// Função para obter a cor da conferência
-const getConferenciaColor = (conferenciaKey: string) => {
-  switch (conferenciaKey) {
-    case 'SUDESTE': return 'bg-red-600'
-    case 'SUL': return 'bg-cyan-500'
-    case 'NORDESTE': return 'bg-orange-500'
-    case 'CENTRO_NORTE': return 'bg-green-600'
-    default: return 'bg-gray-600'
-  }
-}
-
 export default function FinalConferenciaPage() {
   const params = useParams()
   const router = useRouter()
   const pathname = usePathname()
   const temporada = params.temporada as string
   
-  // Usar dados da API
-  const { data: bracket, isLoading } = usePlayoffBracket(temporada)
+  // ✅ NOVO: Usar hook intermediário simplificado
+  const { data: finalConferencias, isLoading, error } = useFinalConferenciaData(temporada)
   
   // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
@@ -64,31 +53,11 @@ export default function FinalConferenciaPage() {
     </div>
   }
 
-  if (!bracket) {
+  if (error) {
     return <div className="min-h-screen flex items-center justify-center">
-      <div className="text-white">Nenhum playoff configurado ainda</div>
+      <div className="text-red-400">Erro ao carregar dados: {error.message}</div>
     </div>
   }
-
-  // Filtrar apenas jogos de Final de Conferência e converter para o formato da página de referência
-  const bracketData = bracket as any
-  const finalConferencias = bracketData?.conferencias ? Object.entries(bracketData.conferencias)
-    .filter(([_, conferencia]: [string, any]) => conferencia.final !== null)
-    .map(([conferenciaKey, conferencia]: [string, any]) => ({
-      nome: `CONFERÊNCIA ${conferenciaKey}`,
-      cor: getConferenciaColor(conferenciaKey),
-      jogo: {
-        id: conferencia.final.id,
-        time1: conferencia.final.timeClassificado1?.nome || conferencia.final.descricaoTime1 || 'Semifinal1',
-        time2: conferencia.final.timeClassificado2?.nome || conferencia.final.descricaoTime2 || 'Semifinal2',
-        descricao: conferencia.final.nome || `${conferencia.final.timeClassificado1?.nome || 'Semifinal1'} × ${conferencia.final.timeClassificado2?.nome || 'Semifinal2'}`,
-        placar1: conferencia.final.placarTime1,
-        placar2: conferencia.final.placarTime2,
-        status: conferencia.final.status,
-        dataJogo: conferencia.final.dataJogo,
-        vencedor: conferencia.final.timeVencedor
-      }
-    })) : []
 
   return (
     <div>
@@ -122,10 +91,11 @@ export default function FinalConferenciaPage() {
         
         <div className="mt-44 h-full mb-24 ml-3">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
-            {finalConferencias.length === 0 ? (
+            {/* ✅ CORRIGIDO: Mantém estrutura sempre, apenas troca conteúdo */}
+            {(!finalConferencias || finalConferencias.length === 0) ? (
               <div className="text-center py-12">
                 <div className="text-gray-600 text-lg">
-                  Não há jogos de Final de Conferência configurados ainda.
+                  Nenhuma Final de Conferência configurada ainda.
                 </div>
               </div>
             ) : (
@@ -134,10 +104,21 @@ export default function FinalConferenciaPage() {
                 lg:ml-10 xl:ml-20 overflow-hidden">
                   <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
                     <h2 className="text-lg font-bold">{conferencia.nome}</h2>
+                    <p className="text-sm opacity-90">Final para definir o campeão da conferência</p>
                   </div>
                   
                   <div className="p-3">
                     <div className="border rounded-lg p-4 hover:bg-gray-50">
+                      {/* Header da Final */}
+                      <div className="text-center mb-4">
+                        <h3 className="font-bold text-gray-800 text-lg flex items-center justify-center gap-2">
+                          🏆 FINAL DA CONFERÊNCIA
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          O vencedor se classifica para a Semifinal Nacional
+                        </p>
+                      </div>
+
                       <div className="flex items-center justify-center">
                         <div className="flex items-center gap-2 text-[12px] md:text-xl">
                           <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
@@ -159,6 +140,7 @@ export default function FinalConferenciaPage() {
                           </div>
                         </div>
                       </div>
+                      
                       <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
                         {conferencia.jogo.descricao}
                       </div>
@@ -170,31 +152,42 @@ export default function FinalConferenciaPage() {
                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                               conferencia.jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
                               conferencia.jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
-                              'bg-yellow-100 text-yellow-800'
+                              conferencia.jogo.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
+                              'bg-gray-100 text-gray-800'
                             }`}>
                               {conferencia.jogo.status === 'FINALIZADO' ? 'Finalizado' :
                                conferencia.jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
-                               conferencia.jogo.status === 'AGUARDANDO' ? 'Aguardando' : 'Agendado'}
+                               conferencia.jogo.status === 'AGUARDANDO' ? 'Aguardando' :
+                               conferencia.jogo.status === 'AGENDADO' ? 'Agendado' : conferencia.jogo.status}
                             </span>
                           )}
                           
                           {conferencia.jogo.dataJogo && (
                             <span className="text-xs text-gray-500">
-                              {new Date(conferencia.jogo.dataJogo).toLocaleDateString('pt-BR')}
+                              {new Date(conferencia.jogo.dataJogo).toLocaleDateString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
                             </span>
                           )}
                         </div>
                         
                         {/* Campeão da Conferência */}
                         {conferencia.jogo.vencedor && (
-                          <div className="w-full p-3 bg-yellow-50 rounded border border-yellow-200">
+                          <div className="w-full p-4 bg-gradient-to-r from-yellow-50 to-orange-50 rounded-lg border-2 border-yellow-300">
                             <div className="text-center">
-                              <span className="text-xs text-yellow-600">🏆 CAMPEÃO DA CONFERÊNCIA</span>
-                              <div className="font-bold text-yellow-800 text-sm mt-1">
+                              <div className="flex items-center justify-center gap-2 mb-2">
+                                <span className="text-2xl">🏆</span>
+                                <span className="font-bold text-yellow-800 text-lg">CAMPEÃO DA CONFERÊNCIA</span>
+                              </div>
+                              <div className="font-bold text-yellow-900 text-xl mb-2">
                                 {conferencia.jogo.vencedor.nome}
                               </div>
-                              <div className="text-xs text-yellow-600 mt-1">
-                                Classificado para a Semifinal Nacional
+                              <div className="text-sm text-yellow-700 bg-yellow-100 rounded-full px-3 py-1 inline-block">
+                                ✨ Classificado para a Semifinal Nacional
                               </div>
                             </div>
                           </div>
@@ -205,6 +198,27 @@ export default function FinalConferenciaPage() {
                 </div>
               ))
             )}
+
+            {/* Informações sobre as Finais - Sempre visível */}
+            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200 p-6 min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20">
+              <div className="text-center">
+                <h3 className="font-bold text-gray-800 mb-3">Sobre as Finais de Conferência</h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
+                  <div>
+                    <p className="font-medium text-gray-700 mb-1">🎯 Participantes</p>
+                    <p>Vencedores das semifinais de cada conferência</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-700 mb-1">🏆 Premiação</p>
+                    <p>Título de Campeão de Conferência</p>
+                  </div>
+                  <div>
+                    <p className="font-medium text-gray-700 mb-1">🚀 Classificação</p>
+                    <p>Semifinal Nacional (Final Four)</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
