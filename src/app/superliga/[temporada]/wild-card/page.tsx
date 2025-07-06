@@ -95,7 +95,7 @@ export default function WildCardPage() {
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
             {/* ✅ CORRIGIDO: Mantém estrutura sempre, apenas troca conteúdo */}
             {(!wildCardConferencias || wildCardConferencias.length === 0) ? (
-              <div className="text-center py-12">
+              <div className="text-center py-12 xl:ml-80">
                 <div className="text-gray-600 text-lg">
                   Nenhum jogo de Wild Card configurado ainda.
                 </div>
