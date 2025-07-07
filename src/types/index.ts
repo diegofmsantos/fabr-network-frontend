@@ -1400,6 +1400,7 @@ export const TIMES_SUPERLIGA: Record<TipoRegional, string[]> = {
 
 // COMPLETAR A CONFIGURAÇÃO SUPERLIGA_CONFIG
 export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
+  // ✅ CONFERÊNCIA SUDESTE (12 times, 3 regionais)
   {
     tipo: 'SUDESTE',
     nome: 'Conferência Sudeste',
@@ -1411,10 +1412,10 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
         nome: 'Regional Serramar',
         conferencia: 'SUDESTE',
         timesPorRegional: 4,
-        times: [] // Será preenchido dinamicamente
+        times: [] // Preenchido dinamicamente
       },
       {
-        tipo: 'CANASTRA', 
+        tipo: 'CANASTRA',
         nome: 'Regional Canastra',
         conferencia: 'SUDESTE',
         timesPorRegional: 4,
@@ -1422,7 +1423,7 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
       },
       {
         tipo: 'CANTAREIRA',
-        nome: 'Regional Cantareira', 
+        nome: 'Regional Cantareira',
         conferencia: 'SUDESTE',
         timesPorRegional: 4,
         times: []
@@ -1434,6 +1435,8 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
       estrutura: 'CONFERENCIA'
     }
   },
+
+  // ✅ CONFERÊNCIA SUL (8 times, 2 regionais)
   {
     tipo: 'SUL',
     nome: 'Conferência Sul',
@@ -1443,7 +1446,7 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
       {
         tipo: 'ARAUCARIA',
         nome: 'Regional Araucária',
-        conferencia: 'SUL', 
+        conferencia: 'SUL',
         timesPorRegional: 4,
         times: []
       },
@@ -1451,7 +1454,7 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
         tipo: 'PAMPA',
         nome: 'Regional Pampa',
         conferencia: 'SUL',
-        timesPorRegional: 4, 
+        timesPorRegional: 4,
         times: []
       }
     ],
@@ -1461,8 +1464,10 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
       estrutura: 'CONFERENCIA'
     }
   },
+
+  // ✅ CONFERÊNCIA NORDESTE (6 times, 1 regional) - ERA ISSO QUE ESTAVA FALTANDO!
   {
-    tipo: 'NORDESTE', 
+    tipo: 'NORDESTE',
     nome: 'Conferência Nordeste',
     icone: '🌵',
     totalTimes: 6,
@@ -1471,19 +1476,21 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
         tipo: 'ATLANTICO',
         nome: 'Regional Atlântico',
         conferencia: 'NORDESTE',
-        timesPorRegional: 6, 
+        timesPorRegional: 6,
         times: []
       }
     ],
     playoffConfig: {
-      semifinalDireta: 2, // 1º e 2º vão direto
-      wildcardVagas: 4,   // 3º, 4º, 5º, 6º disputam wild card
+      semifinalDireta: 2, // 1º e 2º lugar vão direto para semifinal
+      wildcardVagas: 2,   // 4º vs 5º (wild card)
       estrutura: 'CONFERENCIA'
     }
   },
+
+  // ✅ CONFERÊNCIA CENTRO-NORTE (6 times, 2 regionais)
   {
     tipo: 'CENTRO_NORTE',
-    nome: 'Conferência Centro-Norte', 
+    nome: 'Conferência Centro-Norte',
     icone: '🌲',
     totalTimes: 6,
     regionais: [
@@ -1497,13 +1504,13 @@ export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
       {
         tipo: 'AMAZONIA',
         nome: 'Regional Amazônia',
-        conferencia: 'CENTRO_NORTE', 
+        conferencia: 'CENTRO_NORTE',
         timesPorRegional: 3,
         times: []
       }
     ],
     playoffConfig: {
-      semifinalDireta: 2, // 1º de cada regional vai direto
+      semifinalDireta: 2, // 1º de cada regional vai direto para semifinal
       wildcardVagas: 2,   // 2º de cada regional
       estrutura: 'CONFERENCIA'
     }

@@ -155,7 +155,11 @@ export default function TemporadaRegularPage() {
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-baseline">
                             <div className="text-gray-600">{time.posicao}º</div>
                             <div className="col-span-2 flex items-center">
-                              <span className="text-sm hidden md:block md:-ml-8 md:mr-4">🏈</span>
+                              <img
+                                src={`/assets/times/logos/${time.time.logo}`}
+                                alt={time.time.sigla}
+                                className="w-10 h-10 hidden md:block md:-ml-8 md:mr-4"
+                              />
                               <span className="text-[12px] text-gray-900 text-wrap md:text-[15px]">{time.time.nome}</span>
                             </div>
                             <div className="text-center text-sm md:text-base">{time.vitorias}</div>
