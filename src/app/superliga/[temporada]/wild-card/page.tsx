@@ -16,12 +16,12 @@ const SUPERLIGA_PAGES = [
 
 function getSuperligaNavigation(currentPath: string, temporada: string) {
   const currentIndex = SUPERLIGA_PAGES.findIndex(page => currentPath.includes(page.path))
-  
+
   if (currentIndex === -1) return { prev: null, next: null, current: null }
-  
+
   const prevIndex = currentIndex - 1
   const nextIndex = currentIndex + 1
-  
+
   return {
     prev: prevIndex >= 0 ? {
       path: `/superliga/${temporada}/${SUPERLIGA_PAGES[prevIndex].path}`,
@@ -40,10 +40,10 @@ export default function WildCardPage() {
   const router = useRouter()
   const pathname = usePathname()
   const temporada = params.temporada as string
-  
+
   // ✅ NOVO: Usar hook intermediário simplificado
   const { data: wildCardConferencias, isLoading, error } = useWildCardData(temporada)
-  
+
   // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
@@ -66,10 +66,9 @@ export default function WildCardPage() {
       <div className="xl:ml-80 2xl:ml-[550px] absolute">
         <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[100px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-2">
-            <button 
-              className={`p-1 hover:bg-gray-100 rounded-md transition-colors ${
-                !navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-              }`}
+            <button
+              className={`p-1 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                }`}
               onClick={() => navigation.prev && router.push(navigation.prev.path)}
               disabled={!navigation.prev}
               title={navigation.prev?.title || 'Primeira página'}
@@ -78,10 +77,9 @@ export default function WildCardPage() {
             </button>
             <h1 className="text-[16px] min-[375px]:text-xl min-[375px]:h-16 min-[375px]:pt-4 min-[425px]:text-[23px] font-extrabold italic leading-[55px] 
             tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">WILD CARD DE CONFERÊNCIA</h1>
-            <button 
-              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${
-                !navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-              }`}
+            <button
+              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                }`}
               onClick={() => navigation.next && router.push(navigation.next.path)}
               disabled={!navigation.next}
               title={navigation.next?.title || 'Última página'}
@@ -102,89 +100,88 @@ export default function WildCardPage() {
               </div>
             ) : (
               wildCardConferencias.map((conferencia) => (
-              <div key={conferencia.key} className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] 
+                <div key={conferencia.key} className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] 
               lg:ml-10 xl:ml-20 overflow-hidden">
-                <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
-                  <h2 className="text-lg font-bold">{conferencia.nome}</h2>
-                </div>
+                  <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
+                    <h2 className="text-lg font-bold">{conferencia.nome || conferencia.tipo}</h2>
+                  </div>
 
-                <div className="p-3 space-y-4">
-                  {conferencia.jogos.map((jogo, index) => (
-                    <div key={jogo.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                      <div className="flex items-center justify-center">
-                        <div className="flex items-center gap-2 text-[12px] md:text-xl">
-                          <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                            {jogo.time1}
-                            {jogo.placar1 !== undefined && (
-                              <div className="text-lg font-bold text-blue-600 mt-1">
-                                {jogo.placar1}
-                              </div>
-                            )}
-                          </div>
-                          <span className="text-gray-400 font-bold mx-2">×</span>
-                          <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                            {jogo.time2}
-                            {jogo.placar2 !== undefined && (
-                              <div className="text-lg font-bold text-red-600 mt-1">
-                                {jogo.placar2}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
-                        {jogo.descricao}
-                      </div>
-                      
-                      {/* Status e Data */}
-                      <div className="flex items-center justify-center gap-4 mt-3">
-                        {jogo.status && (
-                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
-                            jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
-                            jogo.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
-                            'bg-gray-100 text-gray-800'
-                          }`}>
-                            {jogo.status === 'FINALIZADO' ? 'Finalizado' :
-                             jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
-                             jogo.status === 'AGUARDANDO' ? 'Aguardando' :
-                             jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}
-                          </span>
-                        )}
-                        
-                        {jogo.dataJogo && (
-                          <span className="text-xs text-gray-500">
-                            {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
-                              day: '2-digit',
-                              month: '2-digit',
-                              year: 'numeric',
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </span>
-                        )}
-                      </div>
-
-                      {/* Vencedor destacado */}
-                      {jogo.vencedor && (
-                        <div className="mt-3 p-2 bg-green-50 rounded border border-green-200">
-                          <div className="text-center">
-                            <span className="text-xs text-green-600">🏆 VENCEDOR</span>
-                            <div className="font-bold text-green-800 text-sm mt-1">
-                              {jogo.vencedor.nome}
+                  <div className="p-3 space-y-4">
+                    {conferencia.jogos.map((jogo: any, jogoIndex: number) => (
+                      <div key={`wild-card-jogo-${jogo.id || jogoIndex}`} className="border rounded-lg p-4 hover:bg-gray-50">
+                        <div className="flex items-center justify-center">
+                          <div className="flex items-center gap-2 text-[12px] md:text-xl">
+                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
+                              {jogo.time1}
+                              {jogo.placar1 !== undefined && (
+                                <div className="text-lg font-bold text-blue-600 mt-1">
+                                  {jogo.placar1}
+                                </div>
+                              )}
                             </div>
-                            <div className="text-xs text-green-600 mt-1">
-                              Classificado para a Semifinal de Conferência
+                            <span className="text-gray-400 font-bold mx-2">×</span>
+                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
+                              {jogo.time2}
+                              {jogo.placar2 !== undefined && (
+                                <div className="text-lg font-bold text-red-600 mt-1">
+                                  {jogo.placar2}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
-                      )}
-                    </div>
-                  ))}
+
+                        <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
+                          {jogo.descricao}
+                        </div>
+
+                        {/* Status e Data */}
+                        <div className="flex items-center justify-center gap-4 mt-3">
+                          {jogo.status && (
+                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
+                              jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
+                                jogo.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
+                                  'bg-gray-100 text-gray-800'
+                              }`}>
+                              {jogo.status === 'FINALIZADO' ? 'Finalizado' :
+                                jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
+                                  jogo.status === 'AGUARDANDO' ? 'Aguardando' :
+                                    jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}
+                            </span>
+                          )}
+
+                          {jogo.dataJogo && (
+                            <span className="text-xs text-gray-500">
+                              {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Vencedor destacado */}
+                        {jogo.vencedor && (
+                          <div className="mt-3 p-2 bg-green-50 rounded border border-green-200">
+                            <div className="text-center">
+                              <span className="text-xs text-green-600">🏆 VENCEDOR</span>
+                              <div className="font-bold text-green-800 text-sm mt-1">
+                                {jogo.vencedor.nome}
+                              </div>
+                              <div className="text-xs text-green-600 mt-1">
+                                Classificado para a Semifinal de Conferência
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))
+              ))
             )}
           </div>
         </div>
