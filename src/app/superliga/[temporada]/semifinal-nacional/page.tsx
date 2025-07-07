@@ -97,10 +97,10 @@ export default function SemifinalNacionalPage() {
             <div className="bg-gradient-to-r from-red-50 to-blue-50 rounded-lg border border-red-200 p-6 min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20">
               <div className="text-center">
                 <h2 className="text-2xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
-                  🏆 FINAL FOUR NACIONAL
+                  🏆 FINAL NACIONAL
                 </h2>
                 <p className="text-gray-600 mb-4">
-                  Os 4 campeões de conferência disputam as semifinais para definir a Grande Final Nacional
+                  Os 4 campeões de conferência disputam as semifinais para definir a Final Nacional
                 </p>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div className="bg-white rounded-lg p-3 border border-gray-200">
@@ -127,7 +127,7 @@ export default function SemifinalNacionalPage() {
               <div key={index} className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] 
               lg:ml-10 xl:ml-20 overflow-hidden">
                 {/* Header da Semifinal */}
-                <div className={`${index === 0 ? 'bg-gradient-to-r from-cyan-600 to-red-600' : 'bg-gradient-to-r from-orange-600 to-green-600'} text-white px-6 py-4`}>
+                <div className={`bg-[#272731] text-[#63E300] px-6 py-4`}>
                   <h2 className="text-lg font-bold">{semifinal.nome}</h2>
                   <p className="text-sm opacity-90">
                     {index === 0 ? 'Confronto Sul × Sudeste' : 'Confronto Nordeste × Centro-Norte'}

@@ -42,18 +42,23 @@ interface FinalNacional {
   local?: string
 }
 
-// ✅ HOOK PRINCIPAL
 export function usePlayoffData(temporada: string) {
   const { data: rawBracket, isLoading, error } = usePlayoffBracket(temporada)
 
-  // Função para obter cor da conferência
-  const getConferenciaColor = (conferencia: string) => {
-    switch (conferencia?.toUpperCase()) {
+  const getConferenciaColor = (conferencia: any) => {
+    if (!conferencia) return 'bg-gray-500'
+
+    const conferenciaStr = typeof conferencia === 'string'
+      ? conferencia
+      : conferencia.tipo || conferencia.nome || String(conferencia)
+
+    switch (conferenciaStr?.toUpperCase()) {
       case 'SUDESTE': return 'bg-red-600'
       case 'SUL': return 'bg-cyan-500'
       case 'NORDESTE': return 'bg-orange-500'
-      case 'CENTRO_NORTE': return 'bg-green-600'
-      default: return 'bg-gray-600'
+      case 'CENTRO_NORTE':
+      case 'CENTRO-NORTE': return 'bg-green-600'
+      default: return 'bg-gray-500'
     }
   }
 
@@ -62,13 +67,13 @@ export function usePlayoffData(temporada: string) {
     // ✅ WILD CARD
     wildCard: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
-      
-      const wildCardJogos = rawBracket.filter((jogo: any) => 
+
+      const wildCardJogos = rawBracket.filter((jogo: any) =>
         jogo.fase === 'WILD_CARD' || jogo.fase === 'WildCard'
       )
-      
+
       const conferenciasMap = new Map()
-      
+
       wildCardJogos.forEach((jogo: any) => {
         const conf = jogo.conferencia || 'INDEFINIDA'
         if (!conferenciasMap.has(conf)) {
@@ -79,7 +84,7 @@ export function usePlayoffData(temporada: string) {
             jogos: []
           })
         }
-        
+
         conferenciasMap.get(conf).jogos.push({
           id: jogo.id,
           time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'A definir',
@@ -92,20 +97,20 @@ export function usePlayoffData(temporada: string) {
           vencedor: jogo.timeVencedor
         })
       })
-      
+
       return Array.from(conferenciasMap.values())
     })(),
 
     // ✅ SEMIFINAL DE CONFERÊNCIA
     semifinalConferencia: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
-      
-      const semifinalJogos = rawBracket.filter((jogo: any) => 
+
+      const semifinalJogos = rawBracket.filter((jogo: any) =>
         jogo.fase === 'SEMIFINAL_CONFERENCIA' || jogo.fase === 'SemifinalConferencia'
       )
-      
+
       const conferenciasMap = new Map()
-      
+
       semifinalJogos.forEach((jogo: any) => {
         const conf = jogo.conferencia || 'INDEFINIDA'
         if (!conferenciasMap.has(conf)) {
@@ -116,7 +121,7 @@ export function usePlayoffData(temporada: string) {
             jogos: []
           })
         }
-        
+
         conferenciasMap.get(conf).jogos.push({
           id: jogo.id,
           time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'A definir',
@@ -129,18 +134,18 @@ export function usePlayoffData(temporada: string) {
           vencedor: jogo.timeVencedor
         })
       })
-      
+
       return Array.from(conferenciasMap.values())
     })(),
 
     // ✅ FINAL DE CONFERÊNCIA
     finalConferencia: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
-      
-      const finalJogos = rawBracket.filter((jogo: any) => 
+
+      const finalJogos = rawBracket.filter((jogo: any) =>
         jogo.fase === 'FINAL_CONFERENCIA' || jogo.fase === 'FinalConferencia'
       )
-      
+
       return finalJogos.map((jogo: any) => ({
         nome: `CONFERÊNCIA ${jogo.conferencia || 'INDEFINIDA'}`,
         cor: getConferenciaColor(jogo.conferencia),
@@ -161,11 +166,11 @@ export function usePlayoffData(temporada: string) {
     // ✅ SEMIFINAL NACIONAL
     semifinalNacional: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
-      
-      const semifinalNacionalJogos = rawBracket.filter((jogo: any) => 
+
+      const semifinalNacionalJogos = rawBracket.filter((jogo: any) =>
         jogo.fase === 'SEMIFINAL_NACIONAL' || jogo.fase === 'SemifinalNacional'
       )
-      
+
       return semifinalNacionalJogos.map((jogo: any, index: number) => ({
         nome: jogo.nome || `SEMIFINAL ${index + 1}`,
         time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || `Campeão Conferência ${index === 0 ? '1' : '3'}`,
@@ -181,13 +186,13 @@ export function usePlayoffData(temporada: string) {
     // ✅ FINAL NACIONAL
     finalNacional: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return null
-      
-      const finalJogo = rawBracket.find((jogo: any) => 
+
+      const finalJogo = rawBracket.find((jogo: any) =>
         jogo.fase === 'FINAL_NACIONAL' || jogo.fase === 'FinalNacional'
       )
-      
+
       if (!finalJogo) return null
-      
+
       return {
         time1: finalJogo.timeClassificado1?.nome || finalJogo.timeCasa?.nome || 'Vencedor Semifinal 1',
         time2: finalJogo.timeClassificado2?.nome || finalJogo.timeVisitante?.nome || 'Vencedor Semifinal 2',
@@ -211,7 +216,7 @@ export function usePlayoffData(temporada: string) {
     finalConferencia: convertedData?.finalConferencia || [],
     semifinalNacional: convertedData?.semifinalNacional || [],
     finalNacional: convertedData?.finalNacional || null,
-    
+
     // Dados brutos para debug
     rawData: rawBracket
   }

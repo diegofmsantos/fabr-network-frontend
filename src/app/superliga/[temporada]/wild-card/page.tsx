@@ -109,7 +109,7 @@ export default function WildCardPage() {
                 </div>
 
                 <div className="p-3 space-y-4">
-                  {conferencia.jogos.map((jogo) => (
+                  {conferencia.jogos.map((jogo, index) => (
                     <div key={jogo.id} className="border rounded-lg p-4 hover:bg-gray-50">
                       <div className="flex items-center justify-center">
                         <div className="flex items-center gap-2 text-[12px] md:text-xl">

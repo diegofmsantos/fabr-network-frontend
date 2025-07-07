@@ -17,12 +17,12 @@ const SUPERLIGA_PAGES = [
 
 function getSuperligaNavigation(currentPath: string, temporada: string) {
   const currentIndex = SUPERLIGA_PAGES.findIndex(page => currentPath.includes(page.path))
-  
+
   if (currentIndex === -1) return { prev: null, next: null, current: null }
-  
+
   const prevIndex = currentIndex - 1
   const nextIndex = currentIndex + 1
-  
+
   return {
     prev: prevIndex >= 0 ? {
       path: `/superliga/${temporada}/${SUPERLIGA_PAGES[prevIndex].path}`,
@@ -60,10 +60,10 @@ export default function TemporadaRegularPage() {
   const router = useRouter()
   const pathname = usePathname()
   const temporada = params.temporada as string
-  
+
   // Dados da API
   const { data: classificacao, isLoading: loadingClassificacao } = useClassificacaoSuperliga(temporada)
-  
+
   // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
@@ -101,10 +101,9 @@ export default function TemporadaRegularPage() {
       <div className="xl:ml-80 2xl:ml-[550px] absolute">
         <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[680px] md:h-14 md:pt-2 xl:ml-40 fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-4">
-            <button 
-              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${
-                !navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-              }`}
+            <button
+              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                }`}
               onClick={() => navigation.prev && router.push(navigation.prev.path)}
               disabled={!navigation.prev}
               title={navigation.prev?.title || 'Primeira página'}
@@ -114,10 +113,9 @@ export default function TemporadaRegularPage() {
             <h1 className="text-[22px] font-extrabold italic leading-[55px] tracking-[-2px] text-gray-900 md:text-3xl xl:text-4xl">
               TEMPORADA <span className='ml-2'>REGULAR</span>
             </h1>
-            <button 
-              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${
-                !navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-              }`}
+            <button
+              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+                }`}
               onClick={() => navigation.next && router.push(navigation.next.path)}
               disabled={!navigation.next}
               title={navigation.next?.title || 'Última página'}
@@ -153,6 +151,7 @@ export default function TemporadaRegularPage() {
 
                       <div className="space-y-4 mt-4">
                         {regional.times.map((time: any) => (
+
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-baseline">
                             <div className="text-gray-600">{time.posicao}º</div>
                             <div className="col-span-2 flex items-center">
