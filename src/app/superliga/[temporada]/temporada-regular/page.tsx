@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useClassificacaoSuperliga } from '@/hooks/useSuperliga'
+import { useJogosSuperliga } from '@/hooks/useJogos'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -47,13 +48,7 @@ const getConferenciaColor = (tipo: string) => {
   }
 }
 
-// Template para jogos (mock data - substituir pela API real quando disponível)
-const jogosTemplate = [
-  { time1: "LOC", placar1: 28, time2: "VAS", placar2: 12, status: "Finalizado" },
-  { time1: "LOC", placar1: 28, time2: "VAS", placar2: 12, status: "Finalizado" },
-  { time1: "LOC", placar1: 28, time2: "VAS", placar2: 12, status: "Finalizado" },
-  { time1: "LOC", placar1: 28, time2: "VAS", placar2: 12, status: "Finalizado" }
-]
+
 
 export default function TemporadaRegularPage() {
   const params = useParams()
@@ -63,6 +58,9 @@ export default function TemporadaRegularPage() {
 
   // Dados da API
   const { data: classificacao, isLoading: loadingClassificacao } = useClassificacaoSuperliga(temporada)
+  const { data: jogos = [], isLoading: loadingJogos } = useJogosSuperliga(temporada, {
+    fase: 'TEMPORADA_REGULAR'
+  })
 
   // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
@@ -81,7 +79,7 @@ export default function TemporadaRegularPage() {
     }))
   }
 
-  if (loadingClassificacao) {
+  if (loadingClassificacao || loadingJogos) {
     return <div className="min-h-screen flex items-center justify-center">
       <div className="text-white">Carregando...</div>
     </div>
@@ -95,6 +93,24 @@ export default function TemporadaRegularPage() {
 
   // Converter os dados da API para o formato esperado pelos componentes
   const conferencias = Object.entries(classificacao)
+
+  const getJogosRodada = (conferenciaKey: string, rodada: number) => {
+    return jogos
+      .filter(jogo =>
+        jogo.fase === 'TEMPORADA_REGULAR' &&
+        jogo.conferencia === conferenciaKey &&
+        jogo.rodada === rodada
+      )
+      .map(jogo => ({
+        time1: jogo.timeCasa?.sigla || jogo.timeCasa?.nome || 'TBD',
+        placar1: jogo.placarCasa,
+        time2: jogo.timeVisitante?.sigla || jogo.timeVisitante?.nome || 'TBD',
+        placar2: jogo.placarVisitante,
+        status: jogo.status === 'FINALIZADO' ? 'Finalizado' :
+          jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
+            jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status
+      }))
+  }
 
   return (
     <div className="min-h-screen">
@@ -195,7 +211,7 @@ export default function TemporadaRegularPage() {
                     </div>
 
                     <div className="space-y-3 mt-4">
-                      {jogosTemplate.map((jogo, index) => (
+                      {getJogosRodada(conferenciaKey, rodadasConferencias[conferenciaKey]).map((jogo, index) => (
                         <div key={index} className="flex flex-col items-center justify-between py-2 border-b">
                           <div className="flex items-center gap-2">
                             <span className="text-xl">⚡</span>
