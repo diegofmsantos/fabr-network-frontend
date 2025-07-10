@@ -64,8 +64,7 @@ export function usePlayoffData(temporada: string) {
       case 'SUDESTE': return 'bg-red-600'
       case 'SUL': return 'bg-cyan-500'
       case 'NORDESTE': return 'bg-orange-500'
-      case 'CENTRO_NORTE':
-      case 'CENTRO-NORTE': return 'bg-green-600'
+      case 'CENTRO NORTE': return 'bg-green-600'
       default: return 'bg-gray-500'
     }
   }
@@ -105,7 +104,7 @@ export function usePlayoffData(temporada: string) {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
       const wildCardJogos = rawBracket.filter((jogo: any) =>
-        jogo.fase === 'WILD_CARD' || jogo.fase === 'WildCard'
+        jogo.fase === 'WILD CARD' || jogo.fase === 'WildCard'
       )
 
       const conferenciasMap = new Map()
@@ -145,7 +144,7 @@ export function usePlayoffData(temporada: string) {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
       const semifinalJogos = rawBracket.filter((jogo: any) =>
-        jogo.fase === 'SEMIFINAL_CONFERENCIA' || jogo.fase === 'SemifinalConferencia'
+        jogo.fase === 'SEMIFINAL CONFERENCIA' || jogo.fase === 'SemifinalConferencia'
       )
 
       const conferenciasMap = new Map()
@@ -185,7 +184,7 @@ export function usePlayoffData(temporada: string) {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
       const finalJogos = rawBracket.filter((jogo: any) =>
-        jogo.fase === 'FINAL_CONFERENCIA' || jogo.fase === 'FinalConferencia'
+        jogo.fase === 'FINAL CONFERENCIA' || jogo.fase === 'FinalConferencia'
       )
 
       // ✅ CORREÇÃO: A página final-conferencia espera estrutura diferente
@@ -219,7 +218,7 @@ export function usePlayoffData(temporada: string) {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
       const semifinalJogos = rawBracket.filter((jogo: any) =>
-        jogo.fase === 'SEMIFINAL_NACIONAL' || jogo.fase === 'SemifinalNacional'
+        jogo.fase === 'SEMIFINAL NACIONAL' || jogo.fase === 'SemifinalNacional'
       )
 
       return semifinalJogos.map((jogo: any, index: number) => ({
@@ -239,7 +238,7 @@ export function usePlayoffData(temporada: string) {
       if (!rawBracket || !Array.isArray(rawBracket)) return null
 
       const finalJogo = rawBracket.find((jogo: any) =>
-        jogo.fase === 'FINAL_NACIONAL' || jogo.fase === 'FinalNacional'
+        jogo.fase === 'FINAL NACIONAL' || jogo.fase === 'FinalNacional'
       )
 
       if (!finalJogo) return null

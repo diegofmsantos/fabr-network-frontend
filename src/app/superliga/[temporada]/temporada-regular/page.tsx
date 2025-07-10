@@ -59,7 +59,7 @@ export default function TemporadaRegularPage() {
   // Dados da API
   const { data: classificacao, isLoading: loadingClassificacao } = useClassificacaoSuperliga(temporada)
   const { data: jogos = [], isLoading: loadingJogos } = useJogosSuperliga(temporada, {
-    fase: 'TEMPORADA_REGULAR'
+    fase: 'TEMPORADA REGULAR'
   })
 
   // Navegação
@@ -97,7 +97,7 @@ export default function TemporadaRegularPage() {
   const getJogosRodada = (conferenciaKey: string, rodada: number) => {
     return jogos
       .filter(jogo =>
-        jogo.fase === 'TEMPORADA_REGULAR' &&
+        jogo.fase === 'TEMPORADA REGULAR' &&
         jogo.conferencia === conferenciaKey &&
         jogo.rodada === rodada
       )
