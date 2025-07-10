@@ -16,7 +16,7 @@ export default function CompararTimesPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const [temporada, setTemporada] = useState(searchParams?.get('temporada') || '2024');
+    const [temporada, setTemporada] = useState(searchParams?.get('temporada') || '2025');
     const [selectedTeams, setSelectedTeams] = useState<{ time1Id?: number, time2Id?: number }>({});
     const [comparisonData, setComparisonData] = useState<any>(null);
     const [loadingComparison, setLoadingComparison] = useState(false);

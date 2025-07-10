@@ -19,7 +19,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     const [jogadoresFiltrados, setJogadoresFiltrados] = useState<JogadorType[]>([])
     const [loading, setLoading] = useState(true)
     const searchParams = useSearchParams()
-    const temporada = searchParams.get('temporada') || '2024'
+    const temporada = searchParams.get('temporada') || '2025'
 
     const { data: jogadores = [], isLoading } = useJogadores(temporada)
 

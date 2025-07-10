@@ -1,9 +1,9 @@
 import { BaseService } from './base.service'
 
 export class SuperligaService extends BaseService {
-  
+
   // ==================== CRUD BÁSICO ====================
-  
+
   static async getSuperliga(temporada: string) {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}`)
@@ -20,7 +20,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== STATUS E INFORMAÇÕES ====================
-  
+
   static async getStatus(temporada: string) {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}/status`)
@@ -37,7 +37,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== ESTRUTURA E CONFIGURAÇÃO ====================
-  
+
   static async getConferencias(temporada: string) {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}/conferencias`)
@@ -50,7 +50,7 @@ export class SuperligaService extends BaseService {
 
   static async getRegionais(temporada: string, conferencia?: string) {
     const service = new SuperligaService()
-    const url = conferencia 
+    const url = conferencia
       ? `/superliga/${temporada}/regionais?conferencia=${conferencia}`
       : `/superliga/${temporada}/regionais`
     return service.get(url)
@@ -62,7 +62,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== TIMES ====================
-  
+
   static async distribuirTimes(temporada: string) {
     const service = new SuperligaService()
     return service.post(`/superliga/${temporada}/distribuir-times`)
@@ -78,13 +78,13 @@ export class SuperligaService extends BaseService {
     const params = new URLSearchParams()
     if (conferencia) params.append('conferencia', conferencia)
     if (regional) params.append('regional', regional)
-    
+
     const url = `/superliga/${temporada}/times${params.toString() ? `?${params.toString()}` : ''}`
     return service.get(url)
   }
 
   // ==================== TEMPORADA REGULAR ====================
-  
+
   static async gerarJogosTemporada(temporada: string, config: { rodadas?: number }) {
     const service = new SuperligaService()
     return service.post(`/superliga/${temporada}/gerar-jogos-temporada`, config)
@@ -117,7 +117,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== CLASSIFICAÇÕES ====================
-  
+
   static async getClassificacaoGeral(temporada: string) {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}/classificacao-geral`)
@@ -144,7 +144,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== PLAYOFFS ====================
-  
+
   static async gerarPlayoffs(temporada: string) {
     const service = new SuperligaService()
     return service.post(`/superliga/${temporada}/gerar-playoffs`)
@@ -176,7 +176,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== JOGOS DE PLAYOFF ====================
-  
+
   static async atualizarResultadoPlayoff(jogoId: number, placarTime1: number, placarTime2: number) {
     const service = new SuperligaService()
     return service.put(`/superliga/playoff-jogos/${jogoId}/resultado`, {
@@ -191,7 +191,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== VALIDAÇÃO E INTEGRIDADE ====================
-  
+
   static async validarEstrutura(temporada: string) {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}/validar-estrutura`)
@@ -208,7 +208,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== SIMULAÇÃO E TESTES (ADMIN APENAS) ====================
-  
+
   static async simularPlayoffs(temporada: string) {
     const service = new SuperligaService()
     return service.post(`/superliga/${temporada}/simular-playoffs`)
@@ -229,11 +229,11 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== HISTÓRICO E ANÁLISES ====================
-  
+
   static async getHistorico(temporadas: string[]) {
     const service = new SuperligaService()
-    return service.get('/superliga/historico', { 
-      temporadas: temporadas.join(',') 
+    return service.get('/superliga/historico', {
+      temporadas: temporadas.join(',')
     })
   }
 
@@ -248,7 +248,7 @@ export class SuperligaService extends BaseService {
   }
 
   // ==================== UTILITÁRIOS ====================
-  
+
   static async listarTemporadas() {
     const service = new SuperligaService()
     return service.get('/superliga/temporadas')
@@ -265,13 +265,21 @@ export class SuperligaService extends BaseService {
   }
 
   // ✅ ADICIONAR estes métodos se não existirem
-static async getClassificacao(temporada: string) {
-  const service = new SuperligaService()
-  return service.get(`/superliga/${temporada}/classificacao`)
-}
+  static async getClassificacao(temporada: string) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/${temporada}/classificacao`)
+  }
 
-static async getPlayoffBracket(temporada: string) {
-  const service = new SuperligaService()
-  return service.get(`/superliga/${temporada}/bracket`)
-}
+  static async getPlayoffBracket(temporada: string) {
+    const service = new SuperligaService()
+    return service.get(`/superliga/${temporada}/bracket`)
+  }
+
+  static async getRodadas(temporada: string, conferencia?: string): Promise<any> {
+    const service = new SuperligaService()
+    const params: Record<string, string> = { temporada }
+    if (conferencia) params.conferencia = conferencia
+
+    return service.get<any>('/superliga/rodadas', params)
+  }
 }

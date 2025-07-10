@@ -69,7 +69,7 @@ export interface Jogo {
   local?: string
   rodada: number
   fase: string
-  status: 'AGENDADO' | 'AO_VIVO' | 'FINALIZADO' | 'ADIADO'
+  status: 'AGENDADO' | 'AO VIVO' | 'FINALIZADO' | 'ADIADO'
   placarCasa?: number
   placarVisitante?: number
   observacoes?: string
@@ -430,7 +430,7 @@ export function useEstatisticasJogos(filters?: JogosFilters) {
     totalJogos: jogos.length,
     jogosFinalizados: jogos.filter(j => j.status === 'FINALIZADO').length,
     jogosAgendados: jogos.filter(j => j.status === 'AGENDADO').length,
-    jogosAoVivo: jogos.filter(j => j.status === 'AO_VIVO').length,
+    jogosAoVivo: jogos.filter(j => j.status === 'AO VIVO').length,
     jogosAdiados: jogos.filter(j => j.status === 'ADIADO').length,
     proximoJogo: jogos
       .filter(j => j.status === 'AGENDADO' && new Date(j.dataJogo) > new Date())

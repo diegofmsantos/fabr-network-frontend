@@ -91,7 +91,6 @@ export default function WildCardPage() {
 
         <div className="mt-44 h-full mb-24 ml-3">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
-            {/* ✅ CORRIGIDO: Mantém estrutura sempre, apenas troca conteúdo */}
             {(!wildCardConferencias || wildCardConferencias.length === 0) ? (
               <div className="text-center py-12 xl:ml-80">
                 <div className="text-gray-600 text-lg">
@@ -112,6 +111,7 @@ export default function WildCardPage() {
                         <div className="flex items-center justify-center">
                           <div className="flex items-center gap-2 text-[12px] md:text-xl">
                             <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
+                              
                               {jogo.time1}
                               {jogo.placar1 !== undefined && (
                                 <div className="text-lg font-bold text-blue-600 mt-1">
