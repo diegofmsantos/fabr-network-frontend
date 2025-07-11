@@ -241,7 +241,7 @@ export default function TemporadaRegularPage() {
                         {regional.times.map((time: any) => (
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-baseline">
                             <div className="text-gray-600">{time.posicao}º</div>
-                            <div className="col-span-2 flex items-center">
+                            <div className="col-span-2  flex items-center">
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
                                 alt={`Logo ${time.time.nome}`}

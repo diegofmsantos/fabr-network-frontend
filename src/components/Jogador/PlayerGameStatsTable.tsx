@@ -1,4 +1,5 @@
-// src/components/Jogador/PlayerGameStatsTable.tsx - VERSÃO CORRIGIDA
+// SUBSTITUIR o conteúdo de src/components/Jogador/PlayerGameStatsTable.tsx
+
 'use client'
 
 import React, { useMemo } from 'react'
@@ -18,7 +19,7 @@ interface ColumnConfig {
   label: string
   category: keyof Estatisticas
   statKey: string
-  format?: (value: any) => string
+  format?: (stats: any) => string
 }
 
 interface GameStatsRow {
@@ -36,76 +37,13 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
 }) => {
   const { data: estatisticasJogo = [], isLoading, error } = useJogosJogador(jogadorId, '2025')
 
-  const activeColumns = useMemo(() => {
-    if (estatisticasJogo.length === 0) return []
-
-    const usedStats = new Set<string>()
-
-    estatisticasJogo.forEach((estatistica) => {
-      const stats = estatistica.estatisticas || {}
-
-      const categorias: (keyof Estatisticas)[] = ['passe', 'corrida', 'recepcao', 'retorno', 'defesa', 'kicker', 'punter']
-
-      categorias.forEach((category) => {
-        const categoryStats = stats[category]
-        if (categoryStats && typeof categoryStats === 'object') {
-          Object.keys(categoryStats).forEach((statKey) => {
-            const value = (categoryStats as any)[statKey]
-            if (value && value > 0) {
-              usedStats.add(`${category}.${statKey}`)
-            }
-          })
-        }
-      })
-    })
-
-    return allColumns.filter((col) =>
-      usedStats.has(`${col.category}.${col.statKey}`) ||
-      (col.format && usedStats.has(`${col.category}.passes_completos`))
-    )
-  }, [estatisticasJogo])
-
-  if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <Loading />
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <div className="text-center text-gray-600 py-8">
-          <p>Estatísticas de jogos ainda não disponíveis.</p>
-          <p className="text-sm mt-2">Os dados aparecerão após a importação dos resultados dos jogos.</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <div className="text-center text-gray-600 py-8">
-          <p>📊 Estatísticas de jogos ainda não disponíveis.</p>
-          <p className="text-sm mt-2">Os dados aparecerão após a importação dos resultados e estatísticas dos jogos.</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (isLoading) {
-    return (
-      <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <Loading />
-      </div>
-    )
-  }
+  console.log('🔍 [PlayerGameStatsTable] Debug:', {
+    jogadorId,
+    estatisticasJogo: estatisticasJogo.length,
+    primeiraEstatistica: estatisticasJogo[0],
+    isLoading,
+    error
+  })
 
   const allColumns: ColumnConfig[] = [
     // Passe
@@ -162,33 +100,65 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     { key: 'punt_yards', label: 'JDS PUNT', category: 'punter', statKey: 'jardas_de_punt' },
   ]
 
+  const activeColumns = useMemo(() => {
+    if (estatisticasJogo.length === 0) return []
 
+    const usedStats = new Set<string>()
 
-  const gameStatsRows: GameStatsRow[] = estatisticasJogo
-    .map((stat: any) => {
-      const jogo = stat.jogo
-      const timeId = stat.timeId
+    estatisticasJogo.forEach((estatistica) => {
+      const stats = estatistica.estatisticas || {}
 
-      if (!jogo) return null
+      const categorias: (keyof Estatisticas)[] = ['passe', 'corrida', 'recepcao', 'retorno', 'defesa', 'kicker', 'punter']
 
-      const isTimeCasa = jogo.timeCasaId === timeId
-      const adversario = isTimeCasa ? jogo.timeVisitante : jogo.timeCasa
-
-      return {
-        data: jogo.dataJogo ? new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
-          day: '2-digit',
-          month: '2-digit'
-        }) : '',
-        adversario: adversario?.nome || 'Adversário',
-        adversarioLogo: adversario?.nome ? ImageService.getTeamLogo(adversario.nome) : '',
-        local: isTimeCasa ? 'Casa' : 'Visitante',
-        resultado: jogo.status === 'FINALIZADO'
-          ? `${jogo.placarCasa || 0} - ${jogo.placarVisitante || 0}`
-          : 'N/A',
-        estatisticas: stat.estatisticas || {}
-      }
+      categorias.forEach((category) => {
+        const categoryStats = stats[category]
+        if (categoryStats && typeof categoryStats === 'object') {
+          Object.keys(categoryStats).forEach((statKey) => {
+            const value = (categoryStats as any)[statKey]
+            if (value && value > 0) {
+              usedStats.add(`${category}.${statKey}`)
+            }
+          })
+        }
+      })
     })
-    .filter((row): row is GameStatsRow => row !== null)
+
+    return allColumns.filter((col) =>
+      usedStats.has(`${col.category}.${col.statKey}`) ||
+      (col.format && usedStats.has(`${col.category}.passes_completos`))
+    )
+  }, [estatisticasJogo])
+
+  const gameStatsRows: GameStatsRow[] = useMemo(() => {
+    return estatisticasJogo
+      .map((stat: any) => {
+        const jogo = stat.jogo
+        const timeId = stat.timeId
+
+        if (!jogo) {
+          console.warn('🚨 Jogo não encontrado para estatística:', stat)
+          return null
+        }
+
+        const isTimeCasa = jogo.timeCasaId === timeId
+        const adversario = isTimeCasa ? jogo.timeVisitante : jogo.timeCasa
+
+        return {
+          data: jogo.dataJogo ? new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
+            day: '2-digit',
+            month: '2-digit'
+          }) : '',
+          adversario: adversario?.nome || 'Adversário',
+          adversarioLogo: adversario?.nome ? ImageService.getTeamLogo(adversario.nome) : '',
+          local: isTimeCasa ? 'Casa' : 'Visitante',
+          resultado: jogo.status === 'FINALIZADO'
+            ? `${jogo.placarCasa || 0} - ${jogo.placarVisitante || 0}`
+            : 'N/A',
+          estatisticas: stat.estatisticas || {}
+        }
+      })
+      .filter((row): row is GameStatsRow => row !== null)
+  }, [estatisticasJogo])
 
   const getStat = (stats: any, column: ColumnConfig) => {
     if (column.format) {
@@ -199,6 +169,29 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     if (!categoryStats) return '0'
 
     return categoryStats[column.statKey] || '0'
+  }
+
+  // Estados de loading e erro
+  if (isLoading) {
+    return (
+      <div className="bg-white rounded-lg p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
+        <Loading />
+      </div>
+    )
+  }
+
+  if (error) {
+    console.error('🚨 Erro ao carregar estatísticas do jogador:', error)
+    return (
+      <div className="bg-white rounded-lg p-6">
+        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
+        <div className="text-center text-gray-600 py-8">
+          <p>📊 Estatísticas de jogos ainda não disponíveis.</p>
+          <p className="text-sm mt-2">Os dados aparecerão após a importação dos resultados e estatísticas dos jogos.</p>
+        </div>
+      </div>
+    )
   }
 
   if (gameStatsRows.length === 0) {
@@ -228,13 +221,17 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
   return (
     <div className="bg-white rounded-lg p-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
+      <p className="text-gray-600 text-sm mb-4">
+        {gameStatsRows.length} {gameStatsRows.length === 1 ? 'jogo' : 'jogos'} com estatísticas registradas
+      </p>
+      
       <div className="overflow-x-auto">
         <table className="w-full text-base">
           <thead>
             <tr className="bg-gray-100 border-b border-gray-300">
               <th className="text-left py-3 px-3 text-gray-700 font-medium text-[14px] uppercase sticky left-0 bg-gray-100">DATA</th>
-              <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase sticky left-16 bg-gray-100">ADV.</th>
-              <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase sticky left-32 bg-gray-100">RESULTADO</th>
+              <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase">ADV.</th>
+              <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase">RESULTADO</th>
               {activeColumns.map((column) => (
                 <th key={column.key} className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase whitespace-nowrap">
                   {column.label}
@@ -244,13 +241,12 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           </thead>
           <tbody>
             {gameStatsRows.map((row, index) => (
-              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                <td className="py-3 px-3 text-gray-900 font-mono text-sm sticky left-0 bg-inherit">
+              <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+                <td className="py-3 px-3 text-gray-900 font-medium sticky left-0 bg-inherit">
                   {row.data}
                 </td>
-
-                <td className="py-3 px-3 text-center sticky left-16 bg-inherit">
-                  <div className="flex items-center justify-center gap-1">
+                <td className="py-3 px-3 text-center">
+                  <div className="flex items-center justify-center gap-2">
                     {row.adversarioLogo && (
                       <Image
                         src={row.adversarioLogo}
@@ -260,18 +256,19 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
                         className="rounded"
                       />
                     )}
-                    <span className="text-gray-900 font-mono text-xs">
-                      {row.adversario.substring(0, 8)}
-                    </span>
+                    <span className="text-sm text-gray-700">{row.adversario}</span>
                   </div>
                 </td>
-
-                <td className="py-3 px-3 text-center text-gray-900 font-mono text-sm sticky left-32 bg-inherit">
-                  {row.resultado}
+                <td className="py-3 px-3 text-center text-gray-700 text-sm">
+                  <span className={`inline-block px-2 py-1 rounded text-xs ${
+                    row.local === 'Casa' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800'
+                  }`}>
+                    {row.local}
+                  </span>
+                  <div className="mt-1">{row.resultado}</div>
                 </td>
-
                 {activeColumns.map((column) => (
-                  <td key={column.key} className="py-3 px-3 text-center text-gray-900 font-mono text-sm whitespace-nowrap">
+                  <td key={column.key} className="py-3 px-3 text-center text-gray-900">
                     {getStat(row.estatisticas, column)}
                   </td>
                 ))}
@@ -280,12 +277,6 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           </tbody>
         </table>
       </div>
-
-      {gameStatsRows.length > 0 && (
-        <div className="mt-4 text-xs text-gray-600 text-center">
-          Total de jogos: {gameStatsRows.length} | Categorias de estatísticas: {new Set(activeColumns.map(c => c.category)).size}
-        </div>
-      )}
     </div>
   )
 }
