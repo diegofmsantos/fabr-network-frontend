@@ -659,8 +659,8 @@ export default function Page() {
                     <div className='flex-1 justify-center'>
                         <div className="text-2xl md:text-xl mt-2 font-extrabold italic leading-[55px] tracking-[-2px] xl:mb-4 xl:text-3xl">ÚLTIMOS JOGOS</div>
                         <PlayerGameStatsTable
-                            jogadorId={currentJogador.id!}
-                            jogadorSetor={currentJogador.setor}
+                            jogadorId={currentJogador?.id || 0}
+                            jogadorSetor={currentJogador?.setor || ''}
                         />
                     </div>
                 </div>

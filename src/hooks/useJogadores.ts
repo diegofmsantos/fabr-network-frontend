@@ -102,3 +102,47 @@ export function useDeleteJogador() {
   })
 }
 
+export interface JogoJogador {
+  id: number
+  jogoId: number
+  temporada: string
+  estatisticas: any
+
+  // Dados do jogo
+  jogo: {
+    id: number
+    dataJogo: string
+    status: string
+    placarCasa?: number
+    placarVisitante?: number
+    rodada: number
+    fase: string
+    local?: string
+    timeCasa: {
+      id: number
+      nome: string
+      sigla: string
+      cor: string
+      logo: string
+    }
+    timeVisitante: {
+      id: number
+      nome: string
+      sigla: string
+      cor: string
+      logo: string
+    }
+  }
+}
+
+export function useJogosJogador(jogadorId: number, temporada: string) {
+  return useQuery({
+    queryKey: ['jogos-jogador', jogadorId, temporada],
+    queryFn: () => {
+      console.log(`🔍 [HOOK] Chamando service para jogador ${jogadorId}`)
+      return JogadoresService.getEstatisticasJogo(jogadorId, temporada)
+    },
+    enabled: !!jogadorId && !!temporada,
+    staleTime: 1000 * 60 * 5,
+  })
+}

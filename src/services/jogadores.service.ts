@@ -54,4 +54,11 @@ export class JogadoresService extends BaseService {
       temporada
     })
   }
+
+  static async getEstatisticasJogo(jogadorId: number, temporada: string = '2025'): Promise<EstatisticaJogo[]> {
+    console.log(`🔍 [SERVICE] Chamando: /jogadores/${jogadorId}/estatisticas-jogo?temporada=${temporada}`)
+
+    const service = new JogadoresService()
+    return service.get<EstatisticaJogo[]>(`/jogadores/${jogadorId}/estatisticas-jogo`, { temporada })
+  }
 }
