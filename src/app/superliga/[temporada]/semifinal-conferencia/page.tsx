@@ -3,6 +3,8 @@
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useSemifinalConferenciaData } from '@/hooks/usePlayoffData'
+import Image from 'next/image'
+import { ImageService } from '@/utils/services/ImageService'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -91,7 +93,6 @@ export default function SemifinalConferenciaPage() {
 
         <div className="mt-44 h-full mb-24 ml-3">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
-            {/* ✅ CORRIGIDO: Mantém estrutura sempre, apenas troca conteúdo */}
             {(!semifinalConferencias || semifinalConferencias.length === 0) ? (
               <div className="text-center py-12">
                 <div className="text-gray-600 text-lg">
@@ -104,44 +105,57 @@ export default function SemifinalConferenciaPage() {
               lg:ml-10 xl:ml-20 overflow-hidden">
                   <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
                     <h2 className="text-lg font-bold">{conferencia.nome || conferencia.tipo}</h2>
-                    <p className="text-sm opacity-90">Semifinais para definir o campeão da conferência</p>
                   </div>
 
                   <div className="p-3 space-y-4">
                     {conferencia.jogos.map((jogo: any, jogoIndex: number) => (
                       <div key={`semifinal-jogo-${jogo.id || jogoIndex}`} className="border rounded-lg p-4 hover:bg-gray-50">
-                        {/* Header do Jogo */}
-                        <div className="text-center mb-3">
-                          <h3 className="font-bold text-gray-800 text-sm">
-                            SEMIFINAL {jogoIndex + 1}
-                          </h3>
-                        </div>
-
                         <div className="flex items-center justify-center">
-                          <div className="flex items-center gap-2 text-[12px] md:text-xl">
-                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                              {jogo.time1}
-                              {jogo.placar1 !== undefined && (
-                                <div className="text-lg font-bold text-blue-600 mt-1">
-                                  {jogo.placar1}
+                          <div className="flex items-center gap-2 text-[12px] md:text-lg">
+                            <div className="flex flex-col bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                              <div className="flex flex-col items-center justify-center mb-1 lg:flex-row">
+                                <div className="flex flex-col-reverse items-center justify-center lg:flex-row-reverse">
+                                  <span>{jogo.time1}</span>
+                                  <Image
+                                    src={ImageService.getTeamLogo(jogo.time1)}
+                                    alt={`Logo ${jogo.time1}`}
+                                    width={40}
+                                    height={40}
+                                    className="rounded lg:mr-4"
+                                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.time1)}
+                                  />
                                 </div>
-                              )}
+                                {jogo.placar1 !== undefined && (
+                                  <div className="text-lg font-bold text-blue-600 mt-1 md:text-2xl lg:ml-4">
+                                    {jogo.placar1}
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                            <span className="text-gray-400 font-bold mx-2">×</span>
-                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                              {jogo.time2}
-                              {jogo.placar2 !== undefined && (
-                                <div className="text-lg font-bold text-red-600 mt-1">
-                                  {jogo.placar2}
+                            <span className="text-gray-400 text-3xl font-bold mx-2">×</span>
+                            <div className="flex-col  bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                              <div className="flex flex-col items-center justify-center mb-1 lg:flex-row-reverse">
+                                <div className="flex flex-col-reverse items-center justify-center lg:flex-row">
+                                  <span>{jogo.time2}</span>
+                                  <Image
+                                    src={ImageService.getTeamLogo(jogo.time2)}
+                                    alt={`Logo ${jogo.time2}`}
+                                    width={40}
+                                    height={40}
+                                    className="rounded lg:ml-4"
+                                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.time2)}
+                                  />
                                 </div>
-                              )}
+                                {jogo.placar2 !== undefined && (
+                                  <div className="text-lg font-bold text-red-600 mt-1 md:text-2xl lg:mr-4">
+                                    {jogo.placar2}
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
 
-                        <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
-                          {jogo.descricao}
-                        </div>
 
                         {/* Status e Data */}
                         <div className="flex items-center justify-center gap-4 mt-3">
@@ -171,57 +185,16 @@ export default function SemifinalConferenciaPage() {
                           )}
                         </div>
 
-                        {/* Vencedor destacado */}
-                        {jogo.vencedor && (
-                          <div className="mt-3 p-2 bg-blue-50 rounded border border-blue-200">
-                            <div className="text-center">
-                              <span className="text-xs text-blue-600">🏆 CLASSIFICADO PARA A FINAL</span>
-                              <div className="font-bold text-blue-800 text-sm mt-1">
-                                {jogo.vencedor.nome}
-                              </div>
-                              <div className="text-xs text-blue-600 mt-1">
-                                Disputará a Final de Conferência
-                              </div>
-                            </div>
-                          </div>
-                        )}
+
                       </div>
                     ))}
-
-                    {/* Informação sobre a próxima fase */}
-                    {conferencia.jogos.some(jogo => jogo.vencedor) && (
-                      <div className="mt-4 p-3 bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200">
-                        <div className="text-center">
-                          <h4 className="font-bold text-blue-800 text-sm mb-1">
-                            🏆 PRÓXIMA FASE
-                          </h4>
-                          <p className="text-xs text-blue-600">
-                            Os vencedores disputarão a Final da Conferência {conferencia.nome.replace('CONFERÊNCIA ', '')}
-                          </p>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
               ))
             )}
 
             {/* Informações Gerais - Mostrar sempre */}
-            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200 p-6 min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20">
-              <div className="text-center">
-                <h3 className="font-bold text-gray-800 mb-3">Sobre as Semifinais de Conferência</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-600">
-                  <div>
-                    <p className="font-medium text-gray-700 mb-1">🎯 Classificação</p>
-                    <p>1º e 2º colocados regionais + vencedores do Wild Card</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-700 mb-1">🏆 Premiação</p>
-                    <p>Vencedores disputam as Finais de Conferência</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+
           </div>
         </div>
       </div>

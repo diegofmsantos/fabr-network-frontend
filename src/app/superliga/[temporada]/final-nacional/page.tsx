@@ -3,6 +3,8 @@
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useFinalNacionalData } from '@/hooks/usePlayoffData'
+import Image from 'next/image'
+import { ImageService } from '@/utils/services/ImageService'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -108,35 +110,50 @@ export default function FinalNacionalPage() {
                   <div className="bg-[#272731] text-[#63E300] px-6 py-6">
                     <div className="text-center">
                       <h3 className="text-2xl font-bold mb-2">DECISÃO NACIONAL</h3>
-                      <p className="text-lg opacity-90">
-                        {finalNacional.local || 'Arena Nacional'} • {temporada}
-                      </p>
                     </div>
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-2">
                     {/* Confronto Principal */}
-                    <div className="mb-6">
+                    <div className="mb-6 border p-2">
                       <div className="flex items-center justify-center">
-                        <div className="flex items-center gap-4 text-lg md:text-2xl">
-                          <div className="bg-gradient-to-br from-blue-50 to-blue-100 px-6 py-4 rounded-xl border-2 border-blue-300 text-center min-w-[160px]">
-                            <div className="font-bold text-blue-800 mb-2">{finalNacional.time1}</div>
+                        <div className="flex items-center text-lg md:text-2xl">
+                          <div className="flex-1 flex-col justify-between h-full bg-gray-100 p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row md:min-h-12 md:px-4">
+                            <div className="flex h-full flex-col-reverse items-center justify-center gap-2 md:flex-row-reverse md:h-auto">
+                              <span className='text-sm md:ml-5'>{finalNacional.time1}</span>
+                              <Image
+                                src={ImageService.getTeamLogo(finalNacional.time1)}
+                                alt={`Logo ${finalNacional.time1}`}
+                                width={60}
+                                height={60}
+                                className="rounded"
+                                onError={(e) => ImageService.handleTeamLogoError(e, finalNacional.time1)}
+                              />
+                            </div>
                             {finalNacional.placar1 !== undefined && (
-                              <div className="text-3xl font-bold text-blue-600">
+                              <div className="text-2xl font-bold text-blue-600  md:text-2xl lg:ml-4 md:mt-4">
                                 {finalNacional.placar1}
                               </div>
                             )}
                           </div>
-
-                          <div className="mx-4 text-center">
-                            <span className="text-gray-400 font-bold text-2xl">×</span>
-                            <div className="text-xs text-gray-500 mt-1">VS</div>
+                          <div className="mx-4 text-center ">
+                            <span className="text-gray-400 font-bold text-3xl">×</span>
+                            <div className="text-sm text-gray-500 mt-1 ">VS</div>
                           </div>
-
-                          <div className="bg-gradient-to-br from-red-50 to-red-100 px-6 py-4 rounded-xl border-2 border-red-300 text-center min-w-[160px]">
-                            <div className="font-bold text-red-800 mb-2">{finalNacional.time2}</div>
+                          <div className="flex-1 flex-col justify-between h-full bg-gray-100 p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row-reverse md:min-h-12 md:px-4">
+                            <div className="flex flex-col-reverse h-full justify-between items-center gap-2 md:flex-row md:h-auto">
+                              <span className='text-sm md:ml-4'>{finalNacional.time2}</span>
+                              <Image
+                                src={ImageService.getTeamLogo(finalNacional.time2)}
+                                alt={`Logo ${finalNacional.time2}`}
+                                width={60}
+                                height={60}
+                                className="rounded lg:ml-4"
+                                onError={(e) => ImageService.handleTeamLogoError(e, finalNacional.time2)}
+                              />
+                            </div>
                             {finalNacional.placar2 !== undefined && (
-                              <div className="text-3xl font-bold text-red-600">
+                              <div className="text-2xl font-bold text-red-600  md:text-2xl lg:mr-4 md:mt-4">
                                 {finalNacional.placar2}
                               </div>
                             )}
@@ -161,157 +178,11 @@ export default function FinalNacionalPage() {
                           </span>
                         )}
                       </div>
-
-                      {finalNacional.dataJogo && (
-                        <div className="text-center">
-                          <p className="text-gray-600 text-sm mb-1">Data e horário:</p>
-                          <p className="font-bold text-gray-800 text-lg">
-                            {new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', {
-                              weekday: 'long',
-                              day: '2-digit',
-                              month: 'long',
-                              year: 'numeric'
-                            })}
-                          </p>
-                          <p className="text-gray-600">
-                            {new Date(finalNacional.dataJogo).toLocaleTimeString('pt-BR', {
-                              hour: '2-digit',
-                              minute: '2-digit'
-                            })}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Local do Jogo */}
-                    <div className="text-center mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                      <p className="text-gray-600 text-sm mb-1">Local:</p>
-                      <p className="font-bold text-gray-800 text-lg">
-                        {finalNacional.local || 'Arena Nacional'}
-                      </p>
                     </div>
                   </div>
                 </div>
-
-                {/* Campeão Nacional */}
-                {temCampeao && (
-                  <div className="bg-gradient-to-r from-yellow-100 via-orange-100 to-yellow-100 rounded-lg border-4 border-yellow-500 p-8 min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20">
-                    <div className="text-center">
-                      <div className="flex items-center justify-center gap-3 mb-6">
-                        <span className="text-6xl animate-bounce">🏆</span>
-                        <div>
-                          <h3 className="text-3xl font-bold text-yellow-800 mb-2">
-                            CAMPEÃO NACIONAL
-                          </h3>
-                          <p className="text-lg text-yellow-700">Superliga {temporada}</p>
-                        </div>
-                        <span className="text-6xl animate-bounce">🏆</span>
-                      </div>
-
-                      <div className="bg-white rounded-xl p-6 border-4 border-yellow-400 mb-6">
-                        <h4 className="text-4xl font-bold text-yellow-800 mb-2">
-                          {finalNacional.vencedor.nome}
-                        </h4>
-                        <div className="flex items-center justify-center gap-2 mb-4">
-                          <span className="text-2xl">👑</span>
-                          <span className="text-xl font-bold text-yellow-700">CAMPEÃO NACIONAL</span>
-                          <span className="text-2xl">👑</span>
-                        </div>
-                        <p className="text-yellow-600">
-                          Conquistou o título máximo do futebol americano brasileiro
-                        </p>
-                      </div>
-
-                      {/* Placar Final */}
-                      {finalNacional.placar1 !== undefined && finalNacional.placar2 !== undefined && (
-                        <div className="bg-yellow-50 rounded-lg p-4 border-2 border-yellow-300">
-                          <p className="text-yellow-700 font-bold text-lg mb-2">PLACAR FINAL</p>
-                          <div className="flex items-center justify-center gap-4">
-                            <span className="text-lg font-medium">
-                              {finalNacional.time1}: {finalNacional.placar1}
-                            </span>
-                            <span className="text-yellow-600">×</span>
-                            <span className="text-lg font-medium">
-                              {finalNacional.time2}: {finalNacional.placar2}
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
               </>
             )}
-
-            {/* Jornada até a Final - Sempre visível */}
-            <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg border border-blue-200 p-6 min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20">
-              <div className="text-center">
-                <h3 className="font-bold text-blue-800 mb-4 text-lg">🛣️ JORNADA ATÉ A FINAL</h3>
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm">
-                  <div className="bg-white rounded-lg p-3 border border-blue-200">
-                    <p className="font-bold text-blue-700 mb-1">1. TEMPORADA REGULAR</p>
-                    <p className="text-blue-600">128 jogos • 4 rodadas</p>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 border border-blue-200">
-                    <p className="font-bold text-blue-700 mb-1">2. PLAYOFFS</p>
-                    <p className="text-blue-600">Wild Card + Semifinais + Finais</p>
-                  </div>
-                  <div className="bg-white rounded-lg p-3 border border-blue-200">
-                    <p className="font-bold text-blue-700 mb-1">3. SEMIFINAL NACIONAL</p>
-                    <p className="text-blue-600">Final Four • 4 campeões</p>
-                  </div>
-                  <div className="bg-yellow-100 rounded-lg p-3 border-2 border-yellow-400">
-                    <p className="font-bold text-yellow-800 mb-1">4. FINAL NACIONAL</p>
-                    <p className="text-yellow-700">Grande Decisão</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Informações sobre a Final - Sempre visível */}
-            <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border border-gray-200 p-6 min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20">
-              <div className="text-center">
-                <h3 className="font-bold text-gray-800 mb-4">Sobre a Grande Final Nacional</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-600">
-                  <div>
-                    <p className="font-medium text-gray-700 mb-1">🏆 Prêmio</p>
-                    <p>Título de Campeão Nacional da Superliga</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-700 mb-1">🎯 Participantes</p>
-                    <p>Vencedores das Semifinais Nacionais</p>
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-700 mb-1">📍 Local</p>
-                    <p>{finalNacional?.local || 'Arena Nacional'}</p>
-                  </div>
-                </div>
-
-                {finalNacional && !isJogoFinalizado && (
-                  <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <p className="text-blue-800 font-medium">
-                      🔥 O maior jogo do futebol americano brasileiro está chegando!
-                    </p>
-                  </div>
-                )}
-
-                {finalNacional && isJogoFinalizado && temCampeao && (
-                  <div className="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
-                    <p className="text-green-800 font-medium">
-                      🎉 Parabéns ao {finalNacional.vencedor.nome} pelo título da Superliga {temporada}!
-                    </p>
-                  </div>
-                )}
-
-                {!finalNacional && (
-                  <div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <p className="text-yellow-800 font-medium">
-                      ⏳ Aguardando a definição dos finalistas nas Semifinais Nacionais
-                    </p>
-                  </div>
-                )}
-              </div>
-            </div>
           </div>
         </div>
       </div>

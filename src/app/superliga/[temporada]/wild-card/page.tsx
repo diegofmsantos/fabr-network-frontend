@@ -3,6 +3,8 @@
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useWildCardData } from '@/hooks/usePlayoffData'
+import { ImageService } from '@/utils/services/ImageService'
+import Image from 'next/image'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -109,31 +111,52 @@ export default function WildCardPage() {
                     {conferencia.jogos.map((jogo: any, jogoIndex: number) => (
                       <div key={`wild-card-jogo-${jogo.id || jogoIndex}`} className="border rounded-lg p-4 hover:bg-gray-50">
                         <div className="flex items-center justify-center">
-                          <div className="flex items-center gap-2 text-[12px] md:text-xl">
-                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                              
-                              {jogo.time1}
-                              {jogo.placar1 !== undefined && (
-                                <div className="text-lg font-bold text-blue-600 mt-1">
-                                  {jogo.placar1}
+                          <div className="flex items-center gap-2 text-[12px] md:text-lg">
+                            <div className="flex flex-col bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                              <div className="flex flex-col items-center justify-center mb-1 lg:flex-row">
+                                <div className="flex flex-col-reverse items-center justify-center lg:flex-row-reverse">
+                                  <span>{jogo.time1}</span>
+                                  <Image
+                                    src={ImageService.getTeamLogo(jogo.time1)}
+                                    alt={`Logo ${jogo.time1}`}
+                                    width={40}
+                                    height={40}
+                                    className="rounded lg:mr-4"
+                                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.time1)}
+                                  />
                                 </div>
-                              )}
+                                {jogo.placar1 !== undefined && (
+                                  <div className="text-lg font-bold text-blue-600 mt-1 md:text-2xl lg:ml-4">
+                                    {jogo.placar1}
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                            <span className="text-gray-400 font-bold mx-2">×</span>
-                            <div className="bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[120px]">
-                              {jogo.time2}
-                              {jogo.placar2 !== undefined && (
-                                <div className="text-lg font-bold text-red-600 mt-1">
-                                  {jogo.placar2}
+                            <span className="text-gray-400 text-3xl font-bold mx-2">×</span>
+                            <div className="flex-col  bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                              <div className="flex flex-col items-center justify-center mb-1 lg:flex-row-reverse">
+                                <div className="flex flex-col-reverse items-center justify-center lg:flex-row">
+                                  <span>{jogo.time2}</span>
+                                  <Image
+                                    src={ImageService.getTeamLogo(jogo.time2)}
+                                    alt={`Logo ${jogo.time2}`}
+                                    width={40}
+                                    height={40}
+                                    className="rounded lg:ml-4"
+                                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.time2)}
+                                  />
                                 </div>
-                              )}
+                                {jogo.placar2 !== undefined && (
+                                  <div className="text-lg font-bold text-red-600 mt-1 md:text-2xl lg:mr-4">
+                                    {jogo.placar2}
+                                  </div>
+                                )}
+                              </div>
                             </div>
                           </div>
                         </div>
 
-                        <div className="text-center mt-2 text-sm text-gray-600 md:text-md">
-                          {jogo.descricao}
-                        </div>
+
 
                         {/* Status e Data */}
                         <div className="flex items-center justify-center gap-4 mt-3">
@@ -163,20 +186,7 @@ export default function WildCardPage() {
                           )}
                         </div>
 
-                        {/* Vencedor destacado */}
-                        {jogo.vencedor && (
-                          <div className="mt-3 p-2 bg-green-50 rounded border border-green-200">
-                            <div className="text-center">
-                              <span className="text-xs text-green-600">🏆 VENCEDOR</span>
-                              <div className="font-bold text-green-800 text-sm mt-1">
-                                {jogo.vencedor.nome}
-                              </div>
-                              <div className="text-xs text-green-600 mt-1">
-                                Classificado para a Semifinal de Conferência
-                              </div>
-                            </div>
-                          </div>
-                        )}
+
                       </div>
                     ))}
                   </div>

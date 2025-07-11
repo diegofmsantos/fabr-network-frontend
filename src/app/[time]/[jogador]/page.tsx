@@ -23,6 +23,7 @@ import { useJogadores } from "@/hooks/useJogadores"
 import { useTimes } from "@/hooks/useTimes"
 import { usePlayerDetails } from "@/hooks/queries"
 import { PlayerGameStatsTable } from "@/components/Jogador/PlayerGameStatsTable"
+import { ImageService } from "@/utils/services/ImageService"
 
 interface DataNotFoundError extends Error {
     code: 'NOT_FOUND';
@@ -69,15 +70,6 @@ export default function Page() {
     const errorToShow = jogadorError || jogadoresError || timesError;
 
     useEffect(() => {
-        console.log('Dados do jogador:', jogadorData);
-        console.log('Temporada atual:', selectedTemporada);
-        console.log('Erro jogadores:', jogadoresError);
-        console.log('Erro times:', timesError);
-        console.log('Erro jogador:', jogadorError);
-        console.log('É erro não encontrado?', isNotFoundError);
-    }, [jogadorData, selectedTemporada, jogadoresError, timesError, jogadorError, isNotFoundError]);
-
-    useEffect(() => {
         if (!isNaN(Number(params.jogador)) && jogadores) {
             const jogador = jogadores.find(j => j.id === Number(params.jogador))
             if (jogador) {
@@ -107,23 +99,11 @@ export default function Page() {
     }, [jogadorData, router, selectedTemporada]);
 
     const getCamisaPath = (jogador: Jogador, currentTeam: Time): string => {
-        if (!currentTeam?.nome || !jogador?.camisa) {
-            return '/assets/times/camisas/camisa-default.png';
-        }
-
-        const timeNormalizado = currentTeam.nome.toLowerCase()
-            .replace(/\s+/g, '-')
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "");
-
-        return `/assets/times/camisas/${timeNormalizado}/${jogador.camisa}`;
+        return ImageService.getPlayerShirt(currentTeam?.nome || '', jogador?.camisa || '');
     }
 
     const getLogoPath = (time: Time | undefined): string => {
-        if (!time || !time.logo) {
-            return '/assets/times/logos/default-logo.png';
-        }
-        return `/assets/times/logos/${time.logo}`;
+        return ImageService.getTeamLogo(time?.nome || '');
     };
 
     if (isNotFoundError) {
@@ -675,9 +655,9 @@ export default function Page() {
                             </div>
                         )}
                 </motion.div>
-                <div className="border-b border-bg-[#D9D9D9] flex justify-center items-center">
+                <div className="border-b border-bg-[#D9D9D9] px-4 mb-6 lg:max-w-[800px] lg:min-w-[800px] lg:m-auto xl:min-w-[650px] 2xl:min-w-[1000px] 2xl:pl-[190px]">
                     <div className='flex-1 justify-center'>
-                        <div className="text-lg md:text-xl font-bold mb-4">ESTATÍSTICAS JOGO A JOGO</div>
+                        <div className="text-2xl md:text-xl mt-2 font-extrabold italic leading-[55px] tracking-[-2px] xl:mb-4 xl:text-3xl">ÚLTIMOS JOGOS</div>
                         <PlayerGameStatsTable
                             jogadorId={currentJogador.id!}
                             jogadorSetor={currentJogador.setor}

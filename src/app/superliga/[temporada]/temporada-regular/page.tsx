@@ -6,6 +6,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useClassificacaoSuperliga } from '@/hooks/useSuperliga'
 import { useJogosSuperliga } from '@/hooks/useJogos'
 import { useRodadas } from '@/hooks/useRodadas'
+import Image from 'next/image'
+import { ImageService } from '@/utils/services/ImageService'
 
 // Função de navegação
 const SUPERLIGA_PAGES = [
@@ -101,10 +103,13 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
             <div key={jogo.id} className="flex flex-col items-center justify-between p-3 bg-gray-50 rounded-lg">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
-                  <img
-                    src={`/assets/times/logos/${jogo.timeCasa.logo}`}
-                    alt={jogo.timeCasa.nome}
-                    className="w-8 h-8"
+                  <Image
+                    src={ImageService.getTeamLogo(jogo.timeCasa.nome)}
+                    alt={`Logo ${jogo.timeCasa.nome}`}
+                    width={32}
+                    height={32}
+                    className="rounded"
+                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeCasa.nome)}
                   />
                   <span className="font-medium text-sm">{jogo.timeCasa.sigla}</span>
                   <div className="text-right">
@@ -118,10 +123,13 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                       </div>
                     )}
                   </div>
-                  <img
-                    src={`/assets/times/logos/${jogo.timeVisitante.logo}`}
-                    alt={jogo.timeCasa.nome}
-                    className="w-8 h-8"
+                  <Image
+                    src={ImageService.getTeamLogo(jogo.timeVisitante.nome)}
+                    alt={`Logo ${jogo.timeVisitante.nome}`}
+                    width={32}
+                    height={32}
+                    className="rounded"
+                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeVisitante.nome)}
                   />
                   <span className="font-medium text-sm">{jogo.timeVisitante.sigla}</span>
                 </div>
@@ -212,7 +220,7 @@ export default function TemporadaRegularPage() {
                 {conferencia.regionais.map((regional: any) => (
                   <div key={regional.regionalId} className="">
                     <div className="text-white py-1 flex flex-col items-start gap-1">
-                      <span className={`${getConferenciaColor(conferencia.tipo)} text-xs font-medium bg-black px-2 py-1 rounded`}>
+                      <span className={`${getConferenciaColor(conferencia.tipo)} text-md font-medium bg-black px-2 py-1 rounded`}>
                         {conferencia.nome}
                       </span>
                       <h3 className="font-extrabold italic leading-[55px] tracking-[-2px] uppercase text-2xl text-black">{regional.nome}</h3>
@@ -234,10 +242,13 @@ export default function TemporadaRegularPage() {
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-baseline">
                             <div className="text-gray-600">{time.posicao}º</div>
                             <div className="col-span-2 flex items-center">
-                              <img
-                                src={`/assets/times/logos/${time.time.logo}`}
-                                alt={time.time.sigla}
-                                className="w-10 h-10 hidden md:block md:-ml-8 md:mr-4"
+                              <Image
+                                src={ImageService.getTeamLogo(time.time.nome)}
+                                alt={`Logo ${time.time.nome}`}
+                                width={40}
+                                height={40}
+                                className="hidden md:block md:-ml-8 md:mr-4 rounded"
+                                onError={(e) => ImageService.handleTeamLogoError(e, time.time.nome)}
                               />
                               <span className="text-[12px] text-gray-900 text-wrap md:text-[15px]">{time.time.nome}</span>
                             </div>
