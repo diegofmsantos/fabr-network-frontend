@@ -22,6 +22,7 @@ import { Jogador, Time } from "@/types"
 import { useJogadores } from "@/hooks/useJogadores"
 import { useTimes } from "@/hooks/useTimes"
 import { usePlayerDetails } from "@/hooks/queries"
+import { PlayerGameStatsTable } from "@/components/Jogador/PlayerGameStatsTable"
 
 interface DataNotFoundError extends Error {
     code: 'NOT_FOUND';
@@ -674,6 +675,15 @@ export default function Page() {
                             </div>
                         )}
                 </motion.div>
+                <div className="border-b border-bg-[#D9D9D9] flex justify-center items-center">
+                    <div className='flex-1 justify-center'>
+                        <div className="text-lg md:text-xl font-bold mb-4">ESTATÍSTICAS JOGO A JOGO</div>
+                        <PlayerGameStatsTable
+                            jogadorId={currentJogador.id!}
+                            jogadorSetor={currentJogador.setor}
+                        />
+                    </div>
+                </div>
             </motion.div>
         </AnimatePresence>
     )

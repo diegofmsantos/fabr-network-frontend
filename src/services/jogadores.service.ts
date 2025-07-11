@@ -1,4 +1,4 @@
-import { Jogador } from '@/types'
+import { EstatisticaJogo, Jogador } from '@/types'
 import { BaseService } from './base.service'
 
 export class JogadoresService extends BaseService {
@@ -37,6 +37,21 @@ export class JogadoresService extends BaseService {
     return service.upload('/admin/atualizar-estatisticas', arquivo, {
       id_jogo: idJogo,
       data_jogo: dataJogo
+    })
+  }
+
+  static async getJogadorEstatisticasJogo(jogadorId: number): Promise<EstatisticaJogo[]> {
+    const service = new JogadoresService()
+    return service.get<EstatisticaJogo[]>(`/jogadores/jogador/${jogadorId}/estatisticas-jogo`)
+  }
+
+  // Método para buscar jogador por slug (se necessário)
+  static async getJogadorBySlug(timeSlug: string, jogadorSlug: string, temporada: string = '2025'): Promise<Jogador | null> {
+    const service = new JogadoresService()
+    return service.get<Jogador | null>(`/jogadores/buscar-por-slug`, {
+      timeSlug,
+      jogadorSlug,
+      temporada
     })
   }
 }
