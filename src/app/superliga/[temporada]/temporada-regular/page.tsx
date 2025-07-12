@@ -66,8 +66,8 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
   const jogosRodada = rodadas?.[chaveBackend]?.[rodadaAtiva] || []
 
   console.log('🔍 QuadroRodadas debug:', {
-    conferenciaKey,      // Ex: "SUDESTE" 
-    chaveBackend,        // Ex: "Sudeste"
+    conferenciaKey,     
+    chaveBackend,        
     jogosRodada: jogosRodada.length
   })
 
@@ -75,20 +75,15 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
   return (
     <div className="bg-white rounded-lg p-4 min-w-[300px] w-full xl:max-w-[300px] xl:mt-24">
       <div className={`flex items-center justify-between mb-4 text-white px-4 py-2 rounded-t-lg ${getConferenciaColor(conferenciaKey)}`}>
-        {/* Seta Esquerda */}
         <button
           onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : 4)}
           className="p-1 hover:bg-black/20 rounded transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
         </button>
-
-        {/* Título Central */}
         <h3 className="font-bold text-lg">
           {rodadaAtiva}ª Rodada
         </h3>
-
-        {/* Seta Direita */}
         <button
           onClick={() => setRodadaAtiva(prev => prev < 4 ? prev + 1 : 1)}
           className="p-1 hover:bg-black/20 rounded transition-colors"
@@ -100,7 +95,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
       <div className="space-y-3">
         {jogosRodada.length > 0 ? (
           jogosRodada.map((jogo: any) => (
-            <div key={jogo.id} className="flex flex-col items-center justify-between p-3 bg-gray-50 rounded-lg">
+            <div key={jogo.id} className="flex flex-col items-center justify-between p-1 border bg-gray-50 rounded-lg">
               <div className="flex items-center gap-3">
                 <div className="flex items-center gap-2">
                   <Image
@@ -239,14 +234,14 @@ export default function TemporadaRegularPage() {
 
                       <div className="space-y-4 mt-4">
                         {regional.times.map((time: any) => (
-                          <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-baseline">
+                          <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-end border-b">
                             <div className="text-gray-600">{time.posicao}º</div>
-                            <div className="col-span-2  flex items-center">
+                            <div className="col-span-2  flex items-end">
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
                                 alt={`Logo ${time.time.nome}`}
-                                width={40}
-                                height={40}
+                                width={30}
+                                height={30}
                                 className="hidden md:block md:-ml-8 md:mr-4 rounded"
                                 onError={(e) => ImageService.handleTeamLogoError(e, time.time.nome)}
                               />
