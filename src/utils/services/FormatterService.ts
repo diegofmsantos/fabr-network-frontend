@@ -69,3 +69,12 @@ export const formatStatDisplay = (statResult: StatResult, stat: StatConfig): str
 
     return Math.round(statResult.value).toString()
 }
+
+export const formatJardas = (value: number | string | null): string => {
+    if (value === null || value === undefined) return '0'
+    
+    const numValue = typeof value === 'string' ? parseFloat(value) : value
+    if (isNaN(numValue)) return '0'
+    
+    return Math.round(numValue).toString()
+}

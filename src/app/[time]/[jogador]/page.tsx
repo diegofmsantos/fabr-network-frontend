@@ -24,6 +24,7 @@ import { useTimes } from "@/hooks/useTimes"
 import { usePlayerDetails } from "@/hooks/queries"
 import { PlayerGameStatsTable } from "@/components/Jogador/PlayerGameStatsTable"
 import { ImageService } from "@/utils/services/ImageService"
+import { formatJardas } from "@/utils/services/FormatterService"
 
 interface DataNotFoundError extends Error {
     code: 'NOT_FOUND';
@@ -418,7 +419,7 @@ export default function Page() {
                                     />
                                     <Stats
                                         label1='JARDAS (TOTAIS)'
-                                        label2={formatNumber(passeSafe.jardas_de_passe)}
+                                        label2={formatJardas(passeSafe.jardas_de_passe)}
                                         label3='JARDAS (AVG)'
                                         label4={passeSafe.passes_tentados > 0
                                             ? (passeSafe.jardas_de_passe / passeSafe.passes_tentados)
@@ -462,7 +463,7 @@ export default function Page() {
                                         label1='CORRIDAS'
                                         label2={`${corridaSafe.corridas}`}
                                         label3='JARDAS (TOTAIS)'
-                                        label4={`${corridaSafe.jardas_corridas}`}
+                                        label4={`${formatJardas(corridaSafe.jardas_corridas)}`}
                                     />
                                     <Stats
                                         label1='JARDAS (AVG)'
@@ -498,7 +499,7 @@ export default function Page() {
                                         label1='RECEPÇÕES'
                                         label2={`${recepcaoSafe.recepcoes}/${recepcaoSafe.alvo}`}
                                         label3='JARDAS (TOTAIS)'
-                                        label4={`${recepcaoSafe.jardas_recebidas}`}
+                                        label4={`${formatJardas(recepcaoSafe.jardas_recebidas)}`}
                                     />
                                     <Stats
                                         label1='JARDAS (AVG)'

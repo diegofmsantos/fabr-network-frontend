@@ -1,5 +1,3 @@
-// SUBSTITUIR o conteúdo de src/components/Jogador/PlayerGameStatsTable.tsx
-
 'use client'
 
 import React, { useMemo } from 'react'
@@ -8,6 +6,8 @@ import { ImageService } from '@/utils/services/ImageService'
 import { useJogosJogador } from '@/hooks/useJogadores'
 import { Loading } from '@/components/ui/Loading'
 import Image from 'next/image'
+import { formatJardas } from '@/utils/services/FormatterService'
+
 
 interface PlayerGameStatsTableProps {
   jogadorId: number
@@ -46,7 +46,6 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
   })
 
   const allColumns: ColumnConfig[] = [
-    // Passe
     {
       key: 'comp_tent', label: 'COMP/TENT', category: 'passe', statKey: 'passes_completos',
       format: (stats) => {
@@ -61,24 +60,20 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     { key: 'sacks_suf', label: 'SACKS SOF.', category: 'passe', statKey: 'sacks_sofridos' },
     { key: 'pass_fumbles', label: 'FMB PASSE', category: 'passe', statKey: 'fumble_de_passador' },
 
-    // Corrida
     { key: 'rush_yards', label: 'JDS CORRIDA', category: 'corrida', statKey: 'jardas_corridas' },
     { key: 'rushes', label: 'CORRIDAS', category: 'corrida', statKey: 'corridas' },
     { key: 'rush_tds', label: 'TD CORRIDA', category: 'corrida', statKey: 'tds_corridos' },
     { key: 'rush_fumbles', label: 'FMB CORRIDA', category: 'corrida', statKey: 'fumble_de_corredor' },
 
-    // Recepção
     { key: 'rec_yards', label: 'JDS REC.', category: 'recepcao', statKey: 'jardas_recebidas' },
     { key: 'receptions', label: 'RECEPÇÕES', category: 'recepcao', statKey: 'recepcoes' },
     { key: 'targets', label: 'ALVOS', category: 'recepcao', statKey: 'alvo' },
     { key: 'rec_tds', label: 'TD REC.', category: 'recepcao', statKey: 'tds_recebidos' },
 
-    // Retorno
     { key: 'ret_yards', label: 'JDS RET.', category: 'retorno', statKey: 'jardas_retornadas' },
     { key: 'returns', label: 'RETORNOS', category: 'retorno', statKey: 'retornos' },
     { key: 'ret_tds', label: 'TD RET.', category: 'retorno', statKey: 'td_retornados' },
 
-    // Defesa
     { key: 'tackles', label: 'TACKLES', category: 'defesa', statKey: 'tackles_totais' },
     { key: 'tfl', label: 'TFL', category: 'defesa', statKey: 'tackles_for_loss' },
     { key: 'sacks', label: 'SACKS', category: 'defesa', statKey: 'sacks_forcado' },
@@ -88,14 +83,12 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     { key: 'safety', label: 'SAFETY', category: 'defesa', statKey: 'safety' },
     { key: 'def_tds', label: 'TD DEF.', category: 'defesa', statKey: 'td_defensivo' },
 
-    // Kicker
     { key: 'fg_made', label: 'FG BONS', category: 'kicker', statKey: 'fg_bons' },
     { key: 'fg_att', label: 'FG TENT.', category: 'kicker', statKey: 'tentativas_de_fg' },
     { key: 'xp_made', label: 'XP BONS', category: 'kicker', statKey: 'xp_bons' },
     { key: 'xp_att', label: 'XP TENT.', category: 'kicker', statKey: 'tentativas_de_xp' },
     { key: 'fg_long', label: 'FG LONGO', category: 'kicker', statKey: 'fg_mais_longo' },
 
-    // Punter
     { key: 'punts', label: 'PUNTS', category: 'punter', statKey: 'punts' },
     { key: 'punt_yards', label: 'JDS PUNT', category: 'punter', statKey: 'jardas_de_punt' },
   ]
@@ -104,6 +97,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     if (estatisticasJogo.length === 0) return []
 
     const usedStats = new Set<string>()
+    const hasDataInCategory = new Set<string>()
 
     estatisticasJogo.forEach((estatistica) => {
       const stats = estatistica.estatisticas || {}
@@ -113,20 +107,28 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
       categorias.forEach((category) => {
         const categoryStats = stats[category]
         if (categoryStats && typeof categoryStats === 'object') {
+          let hasAnyDataInCategory = false
+
           Object.keys(categoryStats).forEach((statKey) => {
             const value = (categoryStats as any)[statKey]
             if (value && value > 0) {
               usedStats.add(`${category}.${statKey}`)
+              hasAnyDataInCategory = true
             }
           })
+
+          if (hasAnyDataInCategory) {
+            hasDataInCategory.add(category)
+          }
         }
       })
     })
 
-    return allColumns.filter((col) =>
-      usedStats.has(`${col.category}.${col.statKey}`) ||
-      (col.format && usedStats.has(`${col.category}.passes_completos`))
-    )
+    return allColumns.filter((col) => {
+      return usedStats.has(`${col.category}.${col.statKey}`) ||
+        hasDataInCategory.has(col.category) ||
+        (col.format && hasDataInCategory.has(col.category))
+    })
   }, [estatisticasJogo])
 
   const gameStatsRows: GameStatsRow[] = useMemo(() => {
@@ -168,7 +170,14 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     const categoryStats = stats[column.category]
     if (!categoryStats) return '0'
 
-    return categoryStats[column.statKey] || '0'
+    const value = categoryStats[column.statKey] || 0
+
+    // ✅ CORREÇÃO: Aplicar formatação de jardas para campos específicos
+    if (column.statKey.includes('jardas')) {
+      return formatJardas(value)
+    }
+
+    return value.toString()
   }
 
   // Estados de loading e erro
@@ -224,7 +233,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
       <p className="text-gray-600 text-sm mb-4">
         {gameStatsRows.length} {gameStatsRows.length === 1 ? 'jogo' : 'jogos'} com estatísticas registradas
       </p>
-      
+
       <div className="overflow-x-auto">
         <table className="w-full text-base">
           <thead>
@@ -260,9 +269,8 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
                   </div>
                 </td>
                 <td className="py-3 px-3 text-center text-gray-700 text-sm">
-                  <span className={`inline-block px-2 py-1 rounded text-xs ${
-                    row.local === 'Casa' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800'
-                  }`}>
+                  <span className={`inline-block px-2 py-1 rounded text-xs ${row.local === 'Casa' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800'
+                    }`}>
                     {row.local}
                   </span>
                   <div className="mt-1">{row.resultado}</div>

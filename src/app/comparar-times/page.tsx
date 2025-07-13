@@ -1,321 +1,579 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { ArrowLeft, BarChart2 } from 'lucide-react';
-import { SelectFilter } from '@/components/ui/SelectFilter';
-import { Loading } from '@/components/ui/Loading';
-import { TeamSelector } from '@/components/Comparar/TeamSelector';
-import { TeamComparisonHeader } from '@/components/Comparar/TeamComparisonHeader';
-import { StatisticsComparison } from '@/components/Comparar/StatisticsComparison';
-import { ChartsComparison } from '@/components/Comparar/ChartsComparison';
-import { useTimes } from '@/hooks/useTimes';
+import React, { useState, useMemo } from 'react'
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useJogadores } from '@/hooks/useJogadores'
+import { useTimes } from '@/hooks/useTimes'
+import { Jogador, Estatisticas } from '@/types'
+import { Loading } from '@/components/ui/Loading'
+import { ImageService } from '@/utils/services/ImageService'
+import { formatJardas } from '@/utils/services/FormatterService'
+import { getPlayerSlug, getTeamSlug } from '@/utils/helpers/formatUrl'
 
-export default function CompararTimesPage() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
+// Posições disponíveis para comparação
+const POSICOES = [
+    { key: 'QB', label: 'QB', setor: 'Ataque' },
+    { key: 'RB', label: 'RB', setor: 'Ataque' },
+    { key: 'WR', label: 'WR', setor: 'Ataque' },
+    { key: 'TE', label: 'TE', setor: 'Ataque' },
+    { key: 'OL', label: 'OL', setor: 'Ataque' },
+    { key: 'DL', label: 'DL', setor: 'Defesa' },
+    { key: 'LB', label: 'LB', setor: 'Defesa' },
+    { key: 'DB', label: 'DB', setor: 'Defesa' },
+    { key: 'K', label: 'K', setor: 'Special' },
+    { key: 'P', label: 'P', setor: 'Special' }
+]
 
-    const [temporada, setTemporada] = useState(searchParams?.get('temporada') || '2025');
-    const [selectedTeams, setSelectedTeams] = useState<{ time1Id?: number, time2Id?: number }>({});
-    const [comparisonData, setComparisonData] = useState<any>(null);
-    const [loadingComparison, setLoadingComparison] = useState(false);
-    const [activeTab, setActiveTab] = useState<'estatisticas' | 'graficos'>('estatisticas');
+interface JogadorSelecionado {
+    jogador: Jogador
+    time: string
+    teamLogo: string
+    teamColor?: string
+}
 
-    const { data: times = [], isLoading: loadingTimes } = useTimes(temporada);
+interface StatComparison {
+    label: string
+    categoria: keyof Estatisticas
+    statKey: string
+    format?: (value: number) => string
+}
 
-    const teamsSelected = !!(selectedTeams.time1Id && selectedTeams.time2Id);
+// Configuração das estatísticas para comparação
+const STATS_CONFIG: Record<string, StatComparison[]> = {
+    'QB': [
+        { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
+        { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
+        {
+            label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos', format: (value) => {
+                // Calcular percentual precisa do tentados também - será tratado na renderização
+                return value.toString()
+            }
+        },
+        { label: 'JARDAS (TOTAIS)', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
+        { label: 'JARDAS (AVG)', categoria: 'passe', statKey: 'jardas_de_passe', format: (value) => value.toFixed(1) },
+        { label: 'TOUCHDOWNS', categoria: 'passe', statKey: 'td_passados' },
+        { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+        { label: 'SACKS', categoria: 'passe', statKey: 'sacks_sofridos' },
+        { label: 'FUMBLES', categoria: 'passe', statKey: 'fumble_de_passador' }
+    ],
+    'RB': [
+        { label: 'CORRIDAS', categoria: 'corrida', statKey: 'corridas' },
+        { label: 'JARDAS (TOTAIS)', categoria: 'corrida', statKey: 'jardas_corridas', format: formatJardas },
+        { label: 'JARDAS (AVG)', categoria: 'corrida', statKey: 'jardas_corridas', format: (value) => value.toFixed(1) },
+        { label: 'TOUCHDOWNS', categoria: 'corrida', statKey: 'tds_corridos' },
+        { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+        { label: 'RECEPÇÕES', categoria: 'recepcao', statKey: 'recepcoes' },
+        { label: 'JARDAS REC.', categoria: 'recepcao', statKey: 'jardas_recebidas', format: formatJardas },
+        { label: 'TDS REC.', categoria: 'recepcao', statKey: 'tds_recebidos' }
+    ],
+    'WR': [
+        { label: 'RECEPÇÕES', categoria: 'recepcao', statKey: 'recepcoes' },
+        { label: 'ALVOS', categoria: 'recepcao', statKey: 'alvo' },
+        { label: 'JARDAS (TOTAIS)', categoria: 'recepcao', statKey: 'jardas_recebidas', format: formatJardas },
+        { label: 'JARDAS (AVG)', categoria: 'recepcao', statKey: 'jardas_recebidas', format: (value) => value.toFixed(1) },
+        { label: 'TOUCHDOWNS', categoria: 'recepcao', statKey: 'tds_recebidos' },
+        { label: 'RETORNOS', categoria: 'retorno', statKey: 'retornos' },
+        { label: 'JARDAS RET.', categoria: 'retorno', statKey: 'jardas_retornadas', format: formatJardas },
+        { label: 'TDS RET.', categoria: 'retorno', statKey: 'td_retornados' }
+    ],
+    'TE': [
+        { label: 'RECEPÇÕES', categoria: 'recepcao', statKey: 'recepcoes' },
+        { label: 'ALVOS', categoria: 'recepcao', statKey: 'alvo' },
+        { label: 'JARDAS (TOTAIS)', categoria: 'recepcao', statKey: 'jardas_recebidas', format: formatJardas },
+        { label: 'JARDAS (AVG)', categoria: 'recepcao', statKey: 'jardas_recebidas', format: (value) => value.toFixed(1) },
+        { label: 'TOUCHDOWNS', categoria: 'recepcao', statKey: 'tds_recebidos' }
+    ],
+    'DL': [
+        { label: 'TACKLES TOTAIS', categoria: 'defesa', statKey: 'tackles_totais' },
+        { label: 'TACKLES(LOSS)', categoria: 'defesa', statKey: 'tackles_for_loss' },
+        { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
+        { label: 'FUMBLE FORCADO', categoria: 'defesa', statKey: 'fumble_forcado' },
+        { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
+        { label: 'PASSES DESV.', categoria: 'defesa', statKey: 'passe_desviado' },
+        { label: 'TOUCHDOWNS', categoria: 'defesa', statKey: 'td_defensivo' },
+        { label: 'SAFETIES', categoria: 'defesa', statKey: 'safety' }
+    ],
+    'LB': [
+        { label: 'TACKLES TOTAIS', categoria: 'defesa', statKey: 'tackles_totais' },
+        { label: 'TACKLES(LOSS)', categoria: 'defesa', statKey: 'tackles_for_loss' },
+        { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
+        { label: 'FUMBLE FORCADO', categoria: 'defesa', statKey: 'fumble_forcado' },
+        { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
+        { label: 'PASSES DESV.', categoria: 'defesa', statKey: 'passe_desviado' },
+        { label: 'TOUCHDOWNS', categoria: 'defesa', statKey: 'td_defensivo' },
+        { label: 'SAFETIES', categoria: 'defesa', statKey: 'safety' }
+    ],
+    'DB': [
+        { label: 'TACKLES TOTAIS', categoria: 'defesa', statKey: 'tackles_totais' },
+        { label: 'TACKLES(LOSS)', categoria: 'defesa', statKey: 'tackles_for_loss' },
+        { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
+        { label: 'FUMBLE FORCADO', categoria: 'defesa', statKey: 'fumble_forcado' },
+        { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
+        { label: 'PASSES DESV.', categoria: 'defesa', statKey: 'passe_desviado' },
+        { label: 'TOUCHDOWNS', categoria: 'defesa', statKey: 'td_defensivo' },
+        { label: 'SAFETIES', categoria: 'defesa', statKey: 'safety' }
+    ],
+    'K': [
+        { label: 'FG BOM', categoria: 'kicker', statKey: 'fg_bons' },
+        { label: 'FG TENTADOS', categoria: 'kicker', statKey: 'tentativas_de_fg' },
+        { label: 'FG(%)', categoria: 'kicker', statKey: 'fg_bons', format: (value) => value.toString() },
+        { label: 'MAIS LONGO', categoria: 'kicker', statKey: 'fg_mais_longo' },
+        { label: 'XP BOM', categoria: 'kicker', statKey: 'xp_bons' },
+        { label: 'XP TENTADOS', categoria: 'kicker', statKey: 'tentativas_de_xp' },
+        { label: 'XP(%)', categoria: 'kicker', statKey: 'xp_bons', format: (value) => value.toString() }
+    ],
+    'P': [
+        { label: 'PUNTS', categoria: 'punter', statKey: 'punts' },
+        { label: 'JARDAS', categoria: 'punter', statKey: 'jardas_de_punt', format: formatJardas },
+        { label: 'JARDAS(AVG)', categoria: 'punter', statKey: 'jardas_de_punt', format: (value) => value.toFixed(1) }
+    ]
+}
 
-    useEffect(() => {
-        const time1Id = searchParams?.get('time1');
-        const time2Id = searchParams?.get('time2');
+export default function CompararJogadoresPage() {
+    const [posicaoSelecionada, setPosicaoSelecionada] = useState<string>('')
+    const [jogador1, setJogador1] = useState<JogadorSelecionado | null>(null)
+    const [jogador2, setJogador2] = useState<JogadorSelecionado | null>(null)
+    const [searchTerm1, setSearchTerm1] = useState('')
+    const [searchTerm2, setSearchTerm2] = useState('')
+    const [showDropdown1, setShowDropdown1] = useState(false)
+    const [showDropdown2, setShowDropdown2] = useState(false)
 
-        if (time1Id) selectTeam('time1Id', Number(time1Id));
-        if (time2Id) selectTeam('time2Id', Number(time2Id));
-    }, [searchParams]);
+    const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores('2025')
+    const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
 
-    useEffect(() => {
-        if (selectedTeams.time1Id && selectedTeams.time2Id) {
-            loadComparisonData();
-            updateURL();
+    // Filtrar jogadores pela posição selecionada
+    const jogadoresFiltrados = useMemo(() => {
+        if (!posicaoSelecionada) return []
+
+        return jogadores.filter(jogador =>
+            jogador.posicao === posicaoSelecionada
+        )
+    }, [jogadores, posicaoSelecionada])
+
+    // Filtrar jogadores para o dropdown 1
+    const jogadoresDropdown1 = useMemo(() => {
+        return jogadoresFiltrados.filter(jogador =>
+            jogador.nome.toLowerCase().includes(searchTerm1.toLowerCase()) &&
+            jogador.id !== jogador2?.jogador.id
+        ).slice(0, 10)
+    }, [jogadoresFiltrados, searchTerm1, jogador2])
+
+    // Filtrar jogadores para o dropdown 2
+    const jogadoresDropdown2 = useMemo(() => {
+        return jogadoresFiltrados.filter(jogador =>
+            jogador.nome.toLowerCase().includes(searchTerm2.toLowerCase()) &&
+            jogador.id !== jogador1?.jogador.id
+        ).slice(0, 10)
+    }, [jogadoresFiltrados, searchTerm2, jogador1])
+
+    const selecionarJogador = (jogador: Jogador, position: 1 | 2) => {
+        const time = times.find(t => t.id === jogador.timeId)
+        const jogadorSelecionado: JogadorSelecionado = {
+            jogador,
+            time: time?.nome || 'Time Desconhecido',
+            teamLogo: ImageService.getTeamLogo(time?.nome || ''),
+            teamColor: time?.cor
         }
-    }, [selectedTeams, temporada]);
 
-    const updateURL = () => {
-        if (!selectedTeams.time1Id || !selectedTeams.time2Id) return;
-
-        const params = new URLSearchParams();
-        params.set('time1', String(selectedTeams.time1Id));
-        params.set('time2', String(selectedTeams.time2Id));
-        params.set('temporada', temporada);
-
-        router.replace(`/comparar-times?${params.toString()}`, { scroll: false });
-    };
-
-    const loadComparisonData = async () => {
-        if (!selectedTeams.time1Id || !selectedTeams.time2Id) return;
-
-        try {
-            setLoadingComparison(true);
-            const USE_LOCAL_DATA = process.env.NEXT_PUBLIC_USE_LOCAL_DATA === 'true';
-
-            if (USE_LOCAL_DATA) {
-                await new Promise(resolve => setTimeout(resolve, 500));
-
-                const time1 = times.find(t => t.id === selectedTeams.time1Id);
-                const time2 = times.find(t => t.id === selectedTeams.time2Id);
-
-                if (!time1 || !time2) {
-                    throw new Error('Times não encontrados');
-                }
-
-                const estatisticasTime1 = agregarEstatisticas(time1.jogadores || []);
-                const estatisticasTime2 = agregarEstatisticas(time2.jogadores || []);
-
-                const destaquesTime1 = encontrarDestaques(time1.jogadores || []);
-                const destaquesTime2 = encontrarDestaques(time2.jogadores || []);
-
-                const comparisonData = {
-                    teams: {
-                        time1: {
-                            ...time1,
-                            temporada,
-                            estatisticas: estatisticasTime1,
-                            destaques: destaquesTime1
-                        },
-                        time2: {
-                            ...time2,
-                            temporada,
-                            estatisticas: estatisticasTime2,
-                            destaques: destaquesTime2
-                        }
-                    },
-                    metaData: {
-                        temporada,
-                        geradoEm: new Date().toISOString(),
-                        totalJogos: {
-                            time1: (time1.jogadores || []).length,
-                            time2: (time2.jogadores || []).length
-                        }
-                    }
-                };
-
-                setComparisonData(comparisonData);
-            } else {
-                const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:5000/api';
-                const url = `${apiBaseUrl}/comparar-times?time1Id=${selectedTeams.time1Id}&time2Id=${selectedTeams.time2Id}&temporada=${temporada}`;
-
-                const response = await fetch(url);
-
-                if (!response.ok) {
-                    throw new Error(`Erro ao carregar comparação: ${response.status}`);
-                }
-
-                const data = await response.json();
-                setComparisonData(data);
-            }
-        } catch (error) {
-            console.error('Erro ao carregar dados de comparação:', error);
-        } finally {
-            setLoadingComparison(false);
+        if (position === 1) {
+            setJogador1(jogadorSelecionado)
+            setSearchTerm1(jogador.nome)
+            setShowDropdown1(false)
+        } else {
+            setJogador2(jogadorSelecionado)
+            setSearchTerm2(jogador.nome)
+            setShowDropdown2(false)
         }
-    };
+    }
 
-    const agregarEstatisticas = (jogadores: any[]) => {
-        const stats = {
-            passe: {
-                jardas_de_passe: 0, passes_completos: 0, passes_tentados: 0,
-                td_passados: 0, interceptacoes_sofridas: 0, sacks_sofridos: 0, fumble_de_passador: 0
-            },
-            corrida: {
-                jardas_corridas: 0, corridas: 0, tds_corridos: 0, fumble_de_corredor: 0
-            },
-            recepcao: {
-                jardas_recebidas: 0, recepcoes: 0, alvo: 0, tds_recebidos: 0
-            },
-            retorno: {
-                jardas_retornadas: 0, retornos: 0, td_retornados: 0
-            },
-            defesa: {
-                tackles_totais: 0, tackles_for_loss: 0, sacks_forcado: 0, fumble_forcado: 0,
-                interceptacao_forcada: 0, passe_desviado: 0, safety: 0, td_defensivo: 0
-            },
-            kicker: {
-                fg_bons: 0, tentativas_de_fg: 0, fg_mais_longo: 0, xp_bons: 0, tentativas_de_xp: 0
-            },
-            punter: {
-                punts: 0, jardas_de_punt: 0
+    const resetComparacao = () => {
+        console.log('Reset comparação') // Debug
+        setJogador1(null)
+        setJogador2(null)
+        setSearchTerm1('')
+        setSearchTerm2('')
+        // NÃO resetar a posição aqui, só limpar os jogadores
+    }
+
+    const obterValorEstatistica = (jogador: Jogador, stat: StatComparison) => {
+        const categoria = jogador.estatisticas?.[stat.categoria]
+        if (!categoria) return 0
+
+        const valor = (categoria as any)[stat.statKey] || 0
+        return typeof valor === 'number' ? valor : 0
+    }
+
+    const formatarValor = (valor: number, stat: StatComparison, jogador?: Jogador) => {
+        // Tratamento especial para percentuais
+        if (stat.label.includes('(%)')) {
+            if (stat.categoria === 'passe' && stat.statKey === 'passes_completos') {
+                const tentativas = jogador?.estatisticas?.passe?.passes_tentados || 0
+                const completos = valor
+                return tentativas > 0 ? `${Math.round((completos / tentativas) * 100)}%` : '0%'
             }
-        };
-
-        jogadores.forEach(jogador => {
-            if (!jogador.estatisticas) return;
-
-            Object.entries(stats).forEach(([categoria, categoriaStats]) => {
-                const jogadorStats = jogador.estatisticas[categoria];
-                if (!jogadorStats) return;
-
-                Object.keys(categoriaStats).forEach(stat => {
-                    if (stat === 'fg_mais_longo') {
-                        if ((jogadorStats[stat] || 0) > stats.kicker.fg_mais_longo) {
-                            stats.kicker.fg_mais_longo = jogadorStats[stat] || 0;
-                        }
-                    } else {
-                        (categoriaStats as any)[stat] += jogadorStats[stat] || 0;
-                    }
-                });
-            });
-        });
-
-        return stats;
-    };
-
-    const encontrarDestaques = (jogadores: any[]) => {
-        return {
-            ataque: {
-                passador: melhorJogador(jogadores, 'passe', 'jardas_de_passe'),
-                corredor: melhorJogador(jogadores, 'corrida', 'jardas_corridas'),
-                recebedor: melhorJogador(jogadores, 'recepcao', 'jardas_recebidas'),
-                retornador: melhorJogador(jogadores, 'retorno', 'jardas_retornadas')
-            },
-            defesa: {
-                tackler: melhorJogador(jogadores, 'defesa', 'tackles_totais'),
-                rusher: melhorJogador(jogadores, 'defesa', 'sacks_forcado'),
-                interceptador: melhorJogador(jogadores, 'defesa', 'interceptacao_forcada'),
-                desviador: melhorJogador(jogadores, 'defesa', 'passe_desviado')
-            },
-            specialTeams: {
-                kicker: melhorJogador(jogadores, 'kicker', 'fg_bons'),
-                punter: melhorJogador(jogadores, 'punter', 'jardas_de_punt')
+            if (stat.categoria === 'kicker') {
+                if (stat.statKey === 'fg_bons') {
+                    const tentativas = jogador?.estatisticas?.kicker?.tentativas_de_fg || 0
+                    return tentativas > 0 ? `${Math.round((valor / tentativas) * 100)}%` : '0%'
+                }
+                if (stat.statKey === 'xp_bons') {
+                    const tentativas = jogador?.estatisticas?.kicker?.tentativas_de_xp || 0
+                    return tentativas > 0 ? `${Math.round((valor / tentativas) * 100)}%` : '0%'
+                }
             }
-        };
-    };
+        }
 
-    const melhorJogador = (jogadores: any[], categoria: string, estatistica: string) => {
-        let melhor = null;
-        let melhorValor = 0;
-
-        jogadores.forEach(jogador => {
-            if (!jogador.estatisticas || !jogador.estatisticas[categoria]) return;
-
-            const categoriaStats = jogador.estatisticas[categoria];
-            const valor = categoriaStats[estatistica] || 0;
-
-            if (typeof valor === 'number' && valor > melhorValor) {
-                melhorValor = valor;
-                melhor = {
-                    id: jogador.id,
-                    nome: jogador.nome,
-                    camisa: jogador.camisa,
-                    numero: jogador.numero,
-                    posicao: jogador.posicao,
-                    estatisticas: jogador.estatisticas
-                };
+        // Tratamento para médias
+        if (stat.label.includes('(AVG)')) {
+            if (stat.categoria === 'passe') {
+                const tentativas = jogador?.estatisticas?.passe?.passes_tentados || 0
+                return tentativas > 0 ? (valor / tentativas).toFixed(1) : '0.0'
             }
-        });
+            if (stat.categoria === 'corrida') {
+                const corridas = jogador?.estatisticas?.corrida?.corridas || 0
+                return corridas > 0 ? (valor / corridas).toFixed(1) : '0.0'
+            }
+            if (stat.categoria === 'recepcao') {
+                const recepcoes = jogador?.estatisticas?.recepcao?.recepcoes || 0
+                return recepcoes > 0 ? (valor / recepcoes).toFixed(1) : '0.0'
+            }
+            if (stat.categoria === 'punter') {
+                const punts = jogador?.estatisticas?.punter?.punts || 0
+                return punts > 0 ? (valor / punts).toFixed(1) : '0.0'
+            }
+        }
 
-        return melhor;
-    };
+        // Formatação customizada se definida
+        if (stat.format) {
+            return stat.format(valor)
+        }
 
-    const selectTeam = (position: 'time1Id' | 'time2Id', teamId: number) => {
-        setSelectedTeams(prev => ({
-            ...prev,
-            [position]: teamId
-        }));
-    };
+        return valor.toString()
+    }
 
-    const swapTeams = () => {
-        setSelectedTeams(prev => ({
-            time1Id: prev.time2Id,
-            time2Id: prev.time1Id
-        }));
-    };
+    const statsParaComparacao = useMemo(() => {
+        if (!posicaoSelecionada) return []
+        return STATS_CONFIG[posicaoSelecionada] || []
+    }, [posicaoSelecionada])
 
-    const handleTemporadaChange = (novaTemporada: string) => {
-        setTemporada(novaTemporada);
-        const params = new URLSearchParams(searchParams?.toString() || '');
-        params.set('temporada', novaTemporada);
-        router.replace(`/comparar-times?${params.toString()}`, { scroll: false });
-    };
-
-    if (loadingTimes) {
+    if (loadingJogadores || loadingTimes) {
         return <Loading />
     }
 
+    const getPlayerUrl = (jogador: Jogador, timeNome: string) => {
+        const teamSlug = getTeamSlug(timeNome)
+        const playerSlug = getPlayerSlug(jogador.nome)
+        return `/${teamSlug}/${playerSlug}`
+    }
+
     return (
-        <div className="min-h-screen bg-[#ECECEC] py-24 px-4 max-w-[1200px] mx-auto xl:pt-10 xl:ml-[600px]">
-            <div className="flex items-center mb-6">
-                <Link href="/" className="mr-4">
-                    <button className="rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-[#373740] hover:opacity-80 z-50">
+        <div className="min-h-screen bg-[#ECECEC]">
+            {/* Header */}
+            <div className="border-b border-gray-200 px-4 py-4 xl:ml-80 2xl:ml-[550px]">
+                <div className="mt-20 max-w-7xl mx-auto flex flex-col items-center gap-5 xl:mt-7">
+                    <Link href="/ranking" className="flex items-center gap-2 text-gray-600 hover:text-black">
                         <ArrowLeft size={20} />
-                    </button>
-                </Link>
-                <h1 className="text-4xl font-extrabold italic tracking-[-2px]">COMPARAR TIMES</h1>
-            </div>
-
-            <div className="w-full mt-4">
-                <SelectFilter
-                    label="TEMPORADA"
-                    value={temporada}
-                    onChange={handleTemporadaChange}
-                    options={[
-                        { label: '2024', value: '2024' },
-                        { label: '2025', value: '2025' }
-                    ]}
-                />
-            </div>
-
-            <TeamSelector
-                times={times}
-                selectedTeams={selectedTeams}
-                onSelectTeam={selectTeam}
-                onSwapTeams={swapTeams}
-            />
-
-            {loadingComparison && teamsSelected && (
-                <div className="mt-8 text-center">
-                    <div className="w-12 h-12 border-t-2 border-blue-500 border-solid rounded-full animate-spin mx-auto mb-4"></div>
-                    <p>Carregando comparação...</p>
+                        <span>Voltar</span>
+                    </Link>
+                    <h1 className="text-3xl font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl">COMPARAR JOGADORES</h1>
                 </div>
-            )}
+            </div>
 
-            {comparisonData && teamsSelected && !loadingComparison && (
-                <div className="mt-8">
-                    <TeamComparisonHeader
-                        time1={comparisonData.teams.time1}
-                        time2={comparisonData.teams.time2}
-                    />
-
-                    <div className="flex border-b border-gray-200 mt-8 mb-8">
-                        <button
-                            className={`py-2 px-4 font-bold text-lg ${activeTab === 'estatisticas' ? 'border-b-4 border-[#272731] text-[#272731]' : 'text-gray-500 hover:text-gray-700'}`}
-                            onClick={() => setActiveTab('estatisticas')}
-                        >
-                            Estatísticas
-                        </button>
-                        <button
-                            className={`py-2 px-4 font-bold text-lg flex items-center ${activeTab === 'graficos' ? 'border-b-4 border-[#272731] text-[#272731]' : 'text-gray-500 hover:text-gray-700'}`}
-                            onClick={() => setActiveTab('graficos')}
-                        >
-                            <BarChart2 size={16} className="mr-2" />
-                            Gráficos
-                        </button>
+            <div className="xl:ml-80 2xl:ml-[550px] px-4 py-8 md:py-5">
+                {/* Botões de Posição */}
+                <div className="mb-8">
+                    <h2 className="text-xl font-bold mb-4">Selecione a Posição</h2>
+                    <div className="flex flex-wrap gap-2 md:justify-around">
+                        {POSICOES.map((posicao) => (
+                            <button
+                                key={posicao.key}
+                                onClick={() => {
+                                    console.log('Clicou na posição:', posicao.key) // Debug
+                                    setPosicaoSelecionada(posicao.key)
+                                    resetComparacao()
+                                }}
+                                className={`px-4 py-2 rounded-lg bg-[#272731] font-medium lg:w-20 xl:text-lg transition-colors ${posicaoSelecionada === posicao.key
+                                    ? ' text-[#63E300]'
+                                    : '  text-white border border-gray-300 hover:opacity-70'
+                                    }`}
+                            >
+                                {posicao.label}
+                            </button>
+                        ))}
                     </div>
-
-                    {activeTab === 'estatisticas' ? (
-                        <StatisticsComparison comparisonData={comparisonData} />
-                    ) : (
-                        <ChartsComparison comparisonData={comparisonData} />
+                    {/* Debug info */}
+                    {posicaoSelecionada && (
+                        <div className="mt-2 text-sm text-gray-600">
+                            Posição selecionada: {posicaoSelecionada} | Jogadores disponíveis: {jogadoresFiltrados.length}
+                        </div>
                     )}
                 </div>
-            )}
 
-            {!teamsSelected && (
-                <div className="mt-8 bg-white p-8 rounded-lg text-center">
-                    <h2 className="text-xl font-bold mb-4">Selecione dois times para comparar</h2>
-                    <p className="text-gray-600">Escolha dois times diferentes nas caixas de seleção acima para ver uma comparação detalhada de estatísticas e jogadores.</p>
-                </div>
-            )}
+                {/* Seletores de Jogadores */}
+                {posicaoSelecionada && (
+                    <div className="mb-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Jogador 1 */}
+                            <div className="relative">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Primeiro Jogador
+                                </label>
+                                <input
+                                    type="text"
+                                    value={searchTerm1}
+                                    onChange={(e) => {
+                                        setSearchTerm1(e.target.value)
+                                        setShowDropdown1(true)
+                                    }}
+                                    onFocus={() => setShowDropdown1(true)}
+                                    placeholder={`Buscar ${posicaoSelecionada}...`}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+
+                                {showDropdown1 && searchTerm1 && jogadoresDropdown1.length > 0 && (
+                                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                        {jogadoresDropdown1.map((jogador) => {
+                                            const time = times.find(t => t.id === jogador.timeId)
+                                            return (
+                                                <button
+                                                    key={jogador.id}
+                                                    onClick={() => selecionarJogador(jogador, 1)}
+                                                    className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
+                                                >
+                                                    <Image
+                                                        src={ImageService.getTeamLogo(time?.nome || '')}
+                                                        alt={time?.nome || ''}
+                                                        width={24}
+                                                        height={24}
+                                                        className="rounded"
+                                                    />
+                                                    <div>
+                                                        <div className="font-medium">{jogador.nome}</div>
+                                                        <div className="text-sm text-gray-500">
+                                                            #{jogador.numero} • {time?.nome}
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Jogador 2 */}
+                            <div className="relative">
+                                <label className="block text-sm font-medium text-gray-700 mb-2">
+                                    Segundo Jogador
+                                </label>
+                                <input
+                                    type="text"
+                                    value={searchTerm2}
+                                    onChange={(e) => {
+                                        setSearchTerm2(e.target.value)
+                                        setShowDropdown2(true)
+                                    }}
+                                    onFocus={() => setShowDropdown2(true)}
+                                    placeholder={`Buscar ${posicaoSelecionada}...`}
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                />
+
+                                {showDropdown2 && searchTerm2 && jogadoresDropdown2.length > 0 && (
+                                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                        {jogadoresDropdown2.map((jogador) => {
+                                            const time = times.find(t => t.id === jogador.timeId)
+                                            return (
+                                                <button
+                                                    key={jogador.id}
+                                                    onClick={() => selecionarJogador(jogador, 2)}
+                                                    className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
+                                                >
+                                                    <Image
+                                                        src={ImageService.getTeamLogo(time?.nome || '')}
+                                                        alt={time?.nome || ''}
+                                                        width={24}
+                                                        height={24}
+                                                        className="rounded"
+                                                    />
+                                                    <div>
+                                                        <div className="font-medium">{jogador.nome}</div>
+                                                        <div className="text-sm text-gray-500">
+                                                            #{jogador.numero} • {time?.nome}
+                                                        </div>
+                                                    </div>
+                                                </button>
+                                            )
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Cards dos Jogadores Selecionados */}
+                {jogador1 && jogador2 && (
+                    <div className="mb-8">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {/* Card Jogador 1 */}
+                            <Link href={getPlayerUrl(jogador1.jogador, jogador1.time)}>
+                                <div
+                                    className="bg-white rounded-lg overflow-hidden shadow-lg relative"
+                                    style={{ backgroundColor: jogador1.teamColor || '#ffffff' }}
+                                >
+                                    <div className="p-3">
+                                        <div className="flex justify-between items-start">
+                                            <div className="text-white">
+                                                <h3 className="text-2xl font-extrabold italic leading-[35px] tracking-[-1px] mb-1 md:text-3xl">
+                                                    {jogador1.jogador.nome.split(' ')[0]}
+                                                </h3>
+                                                <h2 className="text-3xl font-extrabold italic leading-[35px] tracking-[-2px] uppercase md:text-4xl">
+                                                    {jogador1.jogador.nome.split(' ').slice(1).join(' ')}
+                                                </h2>
+                                                <div className="flex items-center gap-2 mt-3">
+                                                    <Image
+                                                        src={jogador1.teamLogo}
+                                                        alt={jogador1.time}
+                                                        width={32}
+                                                        height={32}
+                                                        className="rounded"
+                                                    />
+                                                    <span className="text-sm">{jogador1.time}</span>
+                                                </div>
+                                            </div>
+                                            <div className="relative w-40 h-40 ">
+                                                <Image
+                                                    src={ImageService.getPlayerShirt(jogador1.time, jogador1.jogador.camisa || '')}
+                                                    fill
+                                                    alt="Camisa"
+                                                    className="object-contain scale-150"
+                                                    style={{
+                                                        transform: 'scale(1.4) translateX(15px)'
+                                                    }}
+                                                    onError={(e) => ImageService.handlePlayerShirtError(e, jogador1.time, jogador1.jogador.camisa || '')}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+
+                            {/* Card Jogador 2 */}
+                            <Link href={getPlayerUrl(jogador2.jogador, jogador2.time)}>
+                                <div
+                                    className="bg-white rounded-lg overflow-hidden shadow-lg relative"
+                                    style={{ backgroundColor: jogador2.teamColor || '#ffffff' }}
+                                >
+                                    <div className="p-3">
+                                        <div className="flex justify-between items-start">
+                                            <div className="text-white">
+                                                <h3 className="text-2xl font-extrabold italic leading-[35px] tracking-[-1px] mb-1 md:text-3xl">
+                                                    {jogador2.jogador.nome.split(' ')[0]}
+                                                </h3>
+                                                <h2 className="text-3xl font-extrabold italic leading-[35px] tracking-[-2px] uppercase md:text-4xl">
+                                                    {jogador2.jogador.nome.split(' ').slice(1).join(' ')}
+                                                </h2>
+                                                <div className="flex items-center gap-2 mt-3">
+                                                    <Image
+                                                        src={jogador2.teamLogo}
+                                                        alt={jogador2.time}
+                                                        width={32}
+                                                        height={32}
+                                                        className="rounded"
+                                                    />
+                                                    <span className="text-sm">{jogador2.time}</span>
+                                                </div>
+                                            </div>
+                                            <div className="relative w-40 h-40 ">
+                                                <Image
+                                                    src={ImageService.getPlayerShirt(jogador2.time, jogador2.jogador.camisa || '')}
+                                                    fill
+                                                    alt="Camisa"
+                                                    className="object-contain scale-150"
+                                                    style={{
+                                                        transform: 'scale(1.4) translateX(15px) '
+                                                    }}
+                                                    onError={(e) => ImageService.handlePlayerShirtError(e, jogador2.time, jogador2.jogador.camisa || '')}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+                    </div>
+                )}
+
+                {/* Tabela de Comparação */}
+                {jogador1 && jogador2 && (
+                    <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20">
+                        <div className="overflow-x-auto">
+                            <table className="w-full">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
+                                            {jogador1.jogador.nome.split(' ')[0]}
+                                        </th>
+                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
+                                            ESTATÍSTICA
+                                        </th>
+                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
+                                            {jogador2.jogador.nome.split(' ')[0]}
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {statsParaComparacao.map((stat, index) => {
+                                        const valor1 = obterValorEstatistica(jogador1.jogador, stat)
+                                        const valor2 = obterValorEstatistica(jogador2.jogador, stat)
+                                        const formatado1 = formatarValor(valor1, stat, jogador1.jogador)
+                                        const formatado2 = formatarValor(valor2, stat, jogador2.jogador)
+
+                                        // Determinar melhor valor para destacar (verde)
+                                        const melhor1 = valor1 > valor2
+                                        const melhor2 = valor2 > valor1
+                                        const empate = valor1 === valor2
+
+                                        return (
+                                            <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold ${empate ? 'text-gray-900' : melhor1 ? 'text-green-600' : 'text-black'
+                                                    }`}>
+                                                    {formatado1}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-center text-[11px] font-medium text-gray-900 md:text-base">
+                                                    {stat.label}
+                                                </td>
+                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold ${empate ? 'text-gray-900' : melhor2 ? 'text-green-600' : 'text-black'
+                                                    }`}>
+                                                    {formatado2}
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+
+                {/* Estado vazio */}
+                {!posicaoSelecionada && (
+                    <div className="text-center py-12">
+                        <div className="text-gray-500 text-lg">
+                            Selecione uma posição para começar a comparação
+                        </div>
+                    </div>
+                )}
+
+                {posicaoSelecionada && (!jogador1 || !jogador2) && (
+                    <div className="text-center py-12">
+                        <div className="text-gray-500 text-lg">
+                            Selecione dois jogadores para compará-los
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
-    );
+    )
 }
