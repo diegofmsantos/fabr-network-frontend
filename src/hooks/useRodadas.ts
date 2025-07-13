@@ -6,7 +6,7 @@ export function useRodadas(temporada: string, conferencia?: string) {
     queryKey: ['rodadas', temporada, conferencia],
     queryFn: () => SuperligaService.getRodadas(temporada, conferencia),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5, 
     retry: 2,
     refetchOnWindowFocus: false,
   })

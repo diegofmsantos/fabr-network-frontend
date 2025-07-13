@@ -108,7 +108,6 @@ export interface JogoJogador {
   temporada: string
   estatisticas: any
 
-  // Dados do jogo
   jogo: {
     id: number
     dataJogo: string

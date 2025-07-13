@@ -7,14 +7,11 @@ export function useEstatisticasPorJogo(jogadorId: number, temporada: string) {
     queryKey: ['estatisticas-por-jogo', jogadorId, temporada],
     queryFn: () => EstatisticasService.getEstatisticasPorJogo(jogadorId, temporada),
     enabled: !!jogadorId && !!temporada,
-    staleTime: 1000 * 60 * 10, // 10 minutos
+    staleTime: 1000 * 60 * 10, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
 }
-
-// CRIAR novo arquivo: src/hooks/useEstatisticasJogador.ts
-
 
 interface EstatisticaJogoComJogo {
   id: number
@@ -50,7 +47,6 @@ class EstatisticasJogadorService extends BaseService {
     const service = new EstatisticasJogadorService()
     
     try {
-      // 🎯 BUSCAR ESTATÍSTICAS COM RELACIONAMENTOS DOS JOGOS
       const estatisticas = await service.get<EstatisticaJogoComJogo[]>(
         `/admin/jogadores/${jogadorId}/estatisticas-jogos`
       )
@@ -61,7 +57,6 @@ class EstatisticasJogadorService extends BaseService {
     } catch (error) {
       console.error('❌ Erro ao buscar estatísticas do jogador:', error)
       
-      // Se a rota não existir, tentar busca alternativa
       try {
         console.log('🔄 Tentando busca alternativa...')
         
@@ -83,9 +78,9 @@ export function useEstatisticasJogosJogador(jogadorId: number) {
     queryKey: ['estatisticas-jogos-jogador', jogadorId],
     queryFn: () => EstatisticasJogadorService.getEstatisticasJogosJogador(jogadorId),
     enabled: !!jogadorId && jogadorId > 0,
-    staleTime: 1000 * 60 * 5, // 5 minutos
-    retry: 1, // Tentar apenas 1 vez se falhar
+    staleTime: 1000 * 60 * 5, 
+    retry: 1, 
     refetchOnWindowFocus: false,
-    throwOnError: false, // Não quebrar a aplicação se der erro
+    throwOnError: false, 
   })
 }

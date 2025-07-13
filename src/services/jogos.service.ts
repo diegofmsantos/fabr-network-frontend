@@ -1,4 +1,3 @@
-// src/services/jogos.service.ts
 import { BaseService } from './base.service'
 import { Jogo } from '@/hooks/useJogos'
 
@@ -44,12 +43,10 @@ interface AtualizarResultadoData {
 
 export class JogosService extends BaseService {
   
-  // ==================== CONSULTAS ====================
   
   static async getJogos(filters?: JogosFilters): Promise<Jogo[]> {
     const service = new JogosService()
     
-    // Se tem temporada, usar rota da Superliga
     if (filters?.temporada) {
       const params = new URLSearchParams()
       if (filters.status) params.append('status', filters.status)
@@ -65,7 +62,6 @@ export class JogosService extends BaseService {
       return service.get<Jogo[]>(url)
     }
     
-    // Se tem campeonatoId, usar rota de campeonatos
     if (filters?.campeonatoId) {
       const params = new URLSearchParams()
       if (filters.status) params.append('status', filters.status)
@@ -80,7 +76,6 @@ export class JogosService extends BaseService {
       return service.get<Jogo[]>(url)
     }
     
-    // Busca geral - usar rota genérica de jogos
     const params = new URLSearchParams()
     if (filters?.status) params.append('status', filters.status)
     if (filters?.fase) params.append('fase', filters.fase)
@@ -113,8 +108,6 @@ export class JogosService extends BaseService {
     const service = new JogosService()
     return service.get<Jogo[]>(`/superliga/${temporada}/ultimos-resultados`, { limite })
   }
-
-  // ==================== CRIAÇÃO E EDIÇÃO ====================
   
   static async criarJogo(dados: CreateJogoData): Promise<Jogo> {
     const service = new JogosService()
@@ -131,8 +124,6 @@ export class JogosService extends BaseService {
     return service.delete(`/admin/jogos/${id}`)
   }
 
-  // ==================== RESULTADOS E STATUS ====================
-  
   static async atualizarResultado(
     id: number, 
     dados: AtualizarResultadoData
@@ -155,8 +146,6 @@ export class JogosService extends BaseService {
     const service = new JogosService()
     return service.put<Jogo>(`/admin/jogos/${id}/iniciar`, {})
   }
-
-  // ==================== ESTATÍSTICAS ====================
   
   static async getEstatisticasJogo(id: number): Promise<any[]> {
     const service = new JogosService()
@@ -174,8 +163,6 @@ export class JogosService extends BaseService {
       data_jogo: dataJogo
     })
   }
-
-  // ==================== UTILITÁRIOS ====================
   
   static async getEstatisticasGerais(filters?: JogosFilters): Promise<{
     totalJogos: number

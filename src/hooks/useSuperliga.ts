@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { SuperligaService } from '@/services/superliga.service'
 
-// ==================== QUERY KEYS SIMPLIFICADAS ====================
-
 export const superligaQueryKeys = {
   all: ['superliga'] as const,
   
@@ -15,16 +13,15 @@ export const superligaQueryKeys = {
   bracket: (temporada: string) => [...superligaQueryKeys.temporada(temporada), 'bracket'] as const,
 }
 
-// ==================== QUERIES PRINCIPAIS ====================
 
 export function useSuperliga(temporada: string) {
   return useQuery({
     queryKey: superligaQueryKeys.temporada(temporada),
     queryFn: () => SuperligaService.getSuperliga(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 10, // 10 minutos (cache mais longo para exibição)
+    staleTime: 1000 * 60 * 10, 
     retry: 3,
-    refetchOnWindowFocus: false, // Otimização para frontend público
+    refetchOnWindowFocus: false, 
   })
 }
 
@@ -33,7 +30,7 @@ export function useStatusSuperliga(temporada: string) {
     queryKey: superligaQueryKeys.status(temporada),
     queryFn: () => SuperligaService.getStatus(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -44,7 +41,7 @@ export function useConferencias(temporada: string) {
     queryKey: superligaQueryKeys.conferencias(temporada),
     queryFn: () => SuperligaService.getConferencias(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 30, // 30 minutos (estrutura não muda)
+    staleTime: 1000 * 60 * 30, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -55,13 +52,11 @@ export function useTimesPorConferencia(temporada: string) {
     queryKey: [...superligaQueryKeys.times(temporada), 'por-conferencia'],
     queryFn: () => SuperligaService.getTimesPorConferencia(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 15, // 15 minutos
+    staleTime: 1000 * 60 * 15,
     retry: 2,
     refetchOnWindowFocus: false,
   })
 }
-
-// ==================== QUERIES DE JOGOS (SOMENTE LEITURA) ====================
 
 export function useJogosSuperliga(temporada: string, filters?: {
   conferencia?: string
@@ -73,7 +68,7 @@ export function useJogosSuperliga(temporada: string, filters?: {
     queryKey: [...superligaQueryKeys.jogos(temporada), filters],
     queryFn: () => SuperligaService.getJogos(temporada, filters),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -84,10 +79,10 @@ export function useProximosJogos(temporada: string, limite: number = 5) {
     queryKey: [...superligaQueryKeys.jogos(temporada), 'proximos', limite],
     queryFn: () => SuperligaService.getProximosJogos(temporada, limite),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 3, // 3 minutos (próximos jogos são importantes)
+    staleTime: 1000 * 60 * 3,
     retry: 2,
-    refetchInterval: 1000 * 60 * 5, // Atualiza a cada 5 minutos
-    refetchOnWindowFocus: true, // Importante para jogos próximos
+    refetchInterval: 1000 * 60 * 5, 
+    refetchOnWindowFocus: true, 
   })
 }
 
@@ -96,7 +91,7 @@ export function useUltimosResultados(temporada: string, limite: number = 5) {
     queryKey: [...superligaQueryKeys.jogos(temporada), 'resultados', limite],
     queryFn: () => SuperligaService.getUltimosResultados(temporada, limite),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 10, // 10 minutos (resultados não mudam)
+    staleTime: 1000 * 60 * 10, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -113,14 +108,13 @@ export function useJogosPorRodada(temporada: string, rodada: number) {
   })
 }
 
-// ==================== QUERIES DE CLASSIFICAÇÃO ====================
 
 export function useClassificacaoGeral(temporada: string) {
   return useQuery({
     queryKey: [...superligaQueryKeys.classificacao(temporada), 'geral'],
     queryFn: () => SuperligaService.getClassificacaoGeral(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 10, // 10 minutos
+    staleTime: 1000 * 60 * 10, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -153,7 +147,7 @@ export function useRankingGeral(temporada: string) {
     queryKey: [...superligaQueryKeys.classificacao(temporada), 'ranking'],
     queryFn: () => SuperligaService.getRankingGeral(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 15, // 15 minutos
+    staleTime: 1000 * 60 * 15, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -170,14 +164,12 @@ export function useWildCardRanking(temporada: string, conferencia: string) {
   })
 }
 
-// ==================== QUERIES DE PLAYOFFS ====================
-
 export function usePlayoffBracket(temporada: string) {
   return useQuery({
     queryKey: superligaQueryKeys.bracket(temporada),
     queryFn: () => SuperligaService.getBracket(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, // 5 minutos (playoffs mudam)
+    staleTime: 1000 * 60 * 5, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -205,14 +197,13 @@ export function useFaseNacional(temporada: string) {
   })
 }
 
-// ==================== QUERIES DE ESTATÍSTICAS ====================
 
 export function useEstatisticasSuperliga(temporada: string) {
   return useQuery({
     queryKey: [...superligaQueryKeys.temporada(temporada), 'estatisticas'],
     queryFn: () => SuperligaService.getEstatisticas(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 15, // 15 minutos
+    staleTime: 1000 * 60 * 15, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -223,13 +214,11 @@ export function useHistoricoSuperliga(temporadas: string[]) {
     queryKey: [...superligaQueryKeys.all, 'historico', temporadas],
     queryFn: () => SuperligaService.getHistorico(temporadas),
     enabled: temporadas.length > 0,
-    staleTime: 1000 * 60 * 60, // 1 hora (histórico não muda)
+    staleTime: 1000 * 60 * 60, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
 }
-
-// ==================== HOOKS COMPOSTOS PARA PÁGINAS ====================
 
 export function useSuperligaCompleta(temporada: string) {
   const superliga = useSuperliga(temporada)
@@ -313,13 +302,11 @@ export function useConferenciaDetalhes(temporada: string, conferencia: string) {
   }
 }
 
-// ==================== HOOKS UTILITÁRIOS ====================
-
 export function useTemporadas() {
   return useQuery({
     queryKey: [...superligaQueryKeys.all, 'temporadas'],
     queryFn: () => SuperligaService.listarTemporadas(),
-    staleTime: 1000 * 60 * 60, // 1 hora
+    staleTime: 1000 * 60 * 60, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -329,13 +316,11 @@ export function useTemporadaAtual() {
   return useQuery({
     queryKey: [...superligaQueryKeys.all, 'atual'],
     queryFn: () => SuperligaService.getTemporadaAtual(),
-    staleTime: 1000 * 60 * 30, // 30 minutos
+    staleTime: 1000 * 60 * 30, 
     retry: 2,
     refetchOnWindowFocus: false,
   })
 }
-
-// ==================== HOOKS DE BUSCA E FILTROS ====================
 
 export function useBuscarJogos(temporada: string, filtros: {
   conferencia?: string

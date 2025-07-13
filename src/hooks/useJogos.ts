@@ -1,12 +1,9 @@
-// src/hooks/useJogos.ts
 "use client"
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { BaseService } from '@/services/base.service'
 import { queryKeys } from './queryKeys'
 import { useNotifications } from './useNotifications'
-
-// ==================== INTERFACES ====================
 
 interface JogosFilters {
   temporada?: string
@@ -75,29 +72,24 @@ export interface Jogo {
   observacoes?: string
   estatisticasProcessadas: boolean
 
-  // Novos campos do schema atualizado
   conferencia?: string
   regional?: string
   temporada?: string
   createdAt?: string
   updatedAt?: string
 
-  // Relacionamentos
   timeCasa: Time
   timeVisitante: Time
   campeonato: Campeonato
   estatisticas?: EstatisticaJogo[]
 }
 
-// ==================== SERVICE ====================
 
 class JogosService extends BaseService {
 
-  // Buscar jogos com filtros - usa diferentes endpoints baseado no contexto
   static async getJogos(filters?: JogosFilters): Promise<Jogo[]> {
     const service = new JogosService()
 
-    // Se tem temporada, usar rota da Superliga
     if (filters?.temporada) {
       const params = new URLSearchParams()
       if (filters.status) params.append('status', filters.status)
@@ -113,7 +105,6 @@ class JogosService extends BaseService {
       return service.get<Jogo[]>(url)
     }
 
-    // Se tem campeonatoId, usar rota de campeonatos
     if (filters?.campeonatoId) {
       const params = new URLSearchParams()
       if (filters.status) params.append('status', filters.status)
@@ -128,7 +119,6 @@ class JogosService extends BaseService {
       return service.get<Jogo[]>(url)
     }
 
-    // Busca geral (precisa implementar rota no backend se não existir)
     const params = new URLSearchParams()
     if (filters?.status) params.append('status', filters.status)
     if (filters?.fase) params.append('fase', filters.fase)
@@ -142,13 +132,11 @@ class JogosService extends BaseService {
     return service.get<Jogo[]>(url)
   }
 
-  // Buscar jogo específico
   static async getJogo(id: number): Promise<Jogo> {
     const service = new JogosService()
     return service.get<Jogo>(`/admin/jogos/${id}`)
   }
 
-  // Atualizar resultado do jogo
   static async atualizarResultado(id: number, dados: {
     placarCasa: number
     placarVisitante: number
@@ -159,38 +147,32 @@ class JogosService extends BaseService {
     return service.put(`/admin/jogos/${id}/resultado`, dados)
   }
 
-  // Finalizar jogo
   static async finalizarJogo(id: number): Promise<Jogo> {
     const service = new JogosService()
     return service.put(`/admin/jogos/${id}/finalizar`, {})
   }
 
-  // Adiar jogo
   static async adiarJogo(id: number, novaData?: string): Promise<Jogo> {
     const service = new JogosService()
     return service.put(`/admin/jogos/${id}/adiar`, { novaData })
   }
 
-  // Criar jogo
   static async criarJogo(dados: Partial<Jogo>): Promise<Jogo> {
     const service = new JogosService()
     return service.post('/admin/jogos', dados)
   }
 
-  // Atualizar jogo
   static async atualizarJogo(id: number, dados: Partial<Jogo>): Promise<Jogo> {
     const service = new JogosService()
     return service.put(`/admin/jogos/${id}`, dados)
   }
 
-  // Deletar jogo
   static async deletarJogo(id: number): Promise<void> {
     const service = new JogosService()
     return service.delete(`/admin/jogos/${id}`)
   }
 }
 
-// ==================== HOOKS DE CONSULTA ====================
 
 export function useJogos(filters?: JogosFilters) {
   return useQuery({
@@ -216,7 +198,6 @@ export function useJogo(id: number) {
   })
 }
 
-// Hook específico para jogos de um time
 export function useJogosTime(timeId: number, filters?: Omit<JogosFilters, 'timeId'>) {
   return useQuery({
     queryKey: [...queryKeys.jogos.all, 'jogos-time', timeId, filters],
@@ -228,7 +209,6 @@ export function useJogosTime(timeId: number, filters?: Omit<JogosFilters, 'timeI
   })
 }
 
-// Hook para jogos da Superliga (mais específico)
 export function useJogosSuperliga(temporada: string, filters?: Omit<JogosFilters, 'temporada'>) {
   return useQuery({
     queryKey: [...queryKeys.jogos.all, 'superliga', temporada, filters],
@@ -239,8 +219,6 @@ export function useJogosSuperliga(temporada: string, filters?: Omit<JogosFilters
     refetchOnWindowFocus: false
   })
 }
-
-// ==================== HOOKS DE MUTAÇÃO ====================
 
 export function useAtualizarResultadoJogo() {
   const queryClient = useQueryClient()
@@ -260,15 +238,12 @@ export function useAtualizarResultadoJogo() {
       }
     }) => JogosService.atualizarResultado(id, dados),
     onSuccess: (result, { id }) => {
-      // Atualizar cache do jogo específico
       queryClient.setQueryData(queryKeys.jogos.detail(id), result.jogo)
 
-      // Invalidar listas de jogos
       queryClient.invalidateQueries({
         queryKey: queryKeys.jogos.lists()
       })
 
-      // Invalidar dados da Superliga se aplicável
       if (result.jogo.temporada) {
         queryClient.invalidateQueries({
           queryKey: ['superliga', result.jogo.temporada]
@@ -420,9 +395,6 @@ export function useDeletarJogo() {
   })
 }
 
-// ==================== HOOKS COMPOSTOS ====================
-
-// Hook para estatísticas rápidas de jogos
 export function useEstatisticasJogos(filters?: JogosFilters) {
   const { data: jogos = [] } = useJogos(filters)
 
@@ -441,7 +413,6 @@ export function useEstatisticasJogos(filters?: JogosFilters) {
   }
 }
 
-// Legacy exports para compatibilidade (deprecados)
 export const useUpdateJogo = useAtualizarJogo
 export const useDeleteJogo = useDeletarJogo
 export const useCreateJogo = useCriarJogo

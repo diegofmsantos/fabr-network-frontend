@@ -6,7 +6,6 @@ import { useWildCardData } from '@/hooks/usePlayoffData'
 import { ImageService } from '@/utils/services/ImageService'
 import Image from 'next/image'
 
-// Função de navegação
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
   { path: 'wild-card', title: 'WILD CARD' },
@@ -43,10 +42,8 @@ export default function WildCardPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  // ✅ NOVO: Usar hook intermediário simplificado
   const { data: wildCardConferencias, isLoading, error } = useWildCardData(temporada)
 
-  // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (isLoading) {
@@ -60,8 +57,6 @@ export default function WildCardPage() {
       <div className="text-red-400">Erro ao carregar dados: {error.message}</div>
     </div>
   }
-
-  // ✅ MANTÉM HEADER SEMPRE VISÍVEL
 
   return (
     <div>
@@ -156,9 +151,6 @@ export default function WildCardPage() {
                           </div>
                         </div>
 
-
-
-                        {/* Status e Data */}
                         <div className="flex items-center justify-center gap-4 mt-3">
                           {jogo.status && (
                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
@@ -185,8 +177,6 @@ export default function WildCardPage() {
                             </span>
                           )}
                         </div>
-
-
                       </div>
                     ))}
                   </div>

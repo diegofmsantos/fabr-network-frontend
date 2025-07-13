@@ -6,7 +6,6 @@ import { useSemifinalNacionalData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 
-// Função de navegação
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
   { path: 'wild-card', title: 'WILD CARD' },
@@ -43,10 +42,8 @@ export default function SemifinalNacionalPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  // ✅ NOVO: Usar hook intermediário simplificado
   const { data: semifinais, isLoading, error } = useSemifinalNacionalData(temporada)
 
-  // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (isLoading) {
@@ -61,7 +58,6 @@ export default function SemifinalNacionalPage() {
     </div>
   }
 
-  // ✅ MANTÉM HEADER SEMPRE VISÍVEL
 
   return (
     <div>
@@ -158,7 +154,6 @@ export default function SemifinalNacionalPage() {
                         </div>
                       </div>
 
-                      {/* Status e Data */}
                       <div className="flex items-center justify-center gap-4 mb-4">
                         {semifinal.status && (
                           <span className={`px-3 py-1 rounded-full text-sm font-medium ${semifinal.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :

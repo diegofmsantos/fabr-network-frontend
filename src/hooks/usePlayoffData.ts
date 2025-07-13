@@ -1,47 +1,4 @@
-// src/hooks/usePlayoffData.ts - VERSÃO CORRIGIDA
 import { usePlayoffBracket } from '@/hooks/useSuperliga'
-
-// Tipos para as páginas
-interface PlayoffJogo {
-  id: number
-  time1: string
-  time2: string
-  descricao: string
-  placar1?: number
-  placar2?: number
-  status: string
-  dataJogo?: string
-  vencedor?: { nome: string }
-}
-
-interface ConferenciaPlayoff {
-  key: string
-  nome: string
-  cor: string
-  jogos: PlayoffJogo[]
-}
-
-interface SemifinalNacional {
-  nome: string
-  time1: string
-  time2: string
-  placar1?: number
-  placar2?: number
-  status: string
-  dataJogo?: string
-  vencedor?: { nome: string }
-}
-
-interface FinalNacional {
-  time1: string
-  time2: string
-  placar1?: number
-  placar2?: number
-  status: string
-  dataJogo?: string
-  vencedor?: { nome: string }
-  local?: string
-}
 
 export function usePlayoffData(temporada: string) {
   const { data: rawBracket, isLoading, error } = usePlayoffBracket(temporada)
@@ -49,7 +6,6 @@ export function usePlayoffData(temporada: string) {
   const getConferenciaColor = (conferencia: any) => {
     if (!conferencia) return 'bg-gray-500'
 
-    // ✅ CORREÇÃO: Tratar conferencia como objeto ou string
     let conferenciaStr = ''
     
     if (typeof conferencia === 'string') {
@@ -69,7 +25,6 @@ export function usePlayoffData(temporada: string) {
     }
   }
 
-  // ✅ FUNÇÃO PARA NORMALIZAR CONFERÊNCIA
   const getConferenciaNome = (conferencia: any): string => {
     if (!conferencia) return 'INDEFINIDA'
     
@@ -83,7 +38,6 @@ export function usePlayoffData(temporada: string) {
     return `CONFERÊNCIA ${String(conferencia).toUpperCase()}`
   }
 
-  // ✅ FUNÇÃO PARA GERAR CHAVE ÚNICA
   const getConferenciaKey = (conferencia: any, index: number): string => {
     if (!conferencia) return `conf-${index}`
     
@@ -97,9 +51,7 @@ export function usePlayoffData(temporada: string) {
     return `conf-${index}`
   }
 
-  // Converter dados brutos para formato das páginas
   const convertedData = rawBracket ? {
-    // ✅ WILD CARD - CORRIGIDO
     wildCard: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
@@ -110,15 +62,14 @@ export function usePlayoffData(temporada: string) {
       const conferenciasMap = new Map()
 
       wildCardJogos.forEach((jogo: any, index: number) => {
-        // ✅ CORREÇÃO: Tratar conferencia corretamente
         const conf = jogo.conferencia
         const confKey = getConferenciaKey(conf, index)
         
         if (!conferenciasMap.has(confKey)) {
           conferenciasMap.set(confKey, {
             key: confKey, // ✅ Chave única
-            nome: getConferenciaNome(conf), // ✅ Nome formatado
-            cor: getConferenciaColor(conf), // ✅ Cor correta
+            nome: getConferenciaNome(conf), 
+            cor: getConferenciaColor(conf), 
             jogos: []
           })
         }
@@ -139,7 +90,6 @@ export function usePlayoffData(temporada: string) {
       return Array.from(conferenciasMap.values())
     })(),
 
-    // ✅ SEMIFINAL DE CONFERÊNCIA - CORRIGIDO
     semifinalConferencia: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
@@ -150,15 +100,14 @@ export function usePlayoffData(temporada: string) {
       const conferenciasMap = new Map()
 
       semifinalJogos.forEach((jogo: any, index: number) => {
-        // ✅ CORREÇÃO: Mesmo tratamento para semifinais
         const conf = jogo.conferencia
         const confKey = getConferenciaKey(conf, index)
         
         if (!conferenciasMap.has(confKey)) {
           conferenciasMap.set(confKey, {
-            key: confKey, // ✅ Chave única
-            nome: getConferenciaNome(conf), // ✅ Nome formatado
-            cor: getConferenciaColor(conf), // ✅ Cor correta
+            key: confKey, 
+            nome: getConferenciaNome(conf),
+            cor: getConferenciaColor(conf), 
             jogos: []
           })
         }
@@ -179,7 +128,6 @@ export function usePlayoffData(temporada: string) {
       return Array.from(conferenciasMap.values())
     })(),
 
-    // ✅ FINAL DE CONFERÊNCIA
     finalConferencia: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
@@ -187,8 +135,6 @@ export function usePlayoffData(temporada: string) {
         jogo.fase === 'FINAL CONFERENCIA' || jogo.fase === 'FinalConferencia'
       )
 
-      // ✅ CORREÇÃO: A página final-conferencia espera estrutura diferente
-      // Cada conferência tem UM jogo (a final), então retornamos array de objetos com 'jogo' aninhado
       return finalJogos.map((jogo: any, index: number) => {
         const conf = jogo.conferencia
         const confKey = getConferenciaKey(conf, index)
@@ -197,7 +143,6 @@ export function usePlayoffData(temporada: string) {
           key: confKey,
           nome: getConferenciaNome(conf),
           cor: getConferenciaColor(conf),
-          // ✅ ESTRUTURA CORRETA: objeto 'jogo' aninhado (não array 'jogos')
           jogo: {
             id: jogo.id,
             time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'Vencedor Semifinal 1',
@@ -213,7 +158,6 @@ export function usePlayoffData(temporada: string) {
       })
     })(),
 
-    // ✅ SEMIFINAL NACIONAL
     semifinalNacional: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return []
 
@@ -233,7 +177,6 @@ export function usePlayoffData(temporada: string) {
       }))
     })(),
 
-    // ✅ FINAL NACIONAL
     finalNacional: (() => {
       if (!rawBracket || !Array.isArray(rawBracket)) return null
 
@@ -260,19 +203,16 @@ export function usePlayoffData(temporada: string) {
   return {
     isLoading,
     error,
-    // Dados convertidos para cada página
     wildCard: convertedData?.wildCard || [],
     semifinalConferencia: convertedData?.semifinalConferencia || [],
     finalConferencia: convertedData?.finalConferencia || [],
     semifinalNacional: convertedData?.semifinalNacional || [],
     finalNacional: convertedData?.finalNacional || null,
 
-    // Dados brutos para debug
     rawData: rawBracket
   }
 }
 
-// ✅ HOOKS ESPECÍFICOS PARA CADA PÁGINA
 export function useWildCardData(temporada: string) {
   const { wildCard, isLoading, error } = usePlayoffData(temporada)
   return { data: wildCard, isLoading, error }
@@ -286,7 +226,6 @@ export function useSemifinalConferenciaData(temporada: string) {
 export function useFinalConferenciaData(temporada: string) {
   const { finalConferencia, isLoading, error } = usePlayoffData(temporada)
   
-  // ✅ VERIFICAÇÃO DE SEGURANÇA: Garantir que os dados têm a estrutura esperada
   const safeData = finalConferencia?.map(conf => ({
     ...conf,
     jogo: conf.jogo || {

@@ -24,7 +24,7 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'AGENDADO': return 'bg-blue-100 text-blue-800'
-      case 'AO_VIVO': return 'bg-red-100 text-red-800'
+      case 'AO VIVO': return 'bg-red-100 text-red-800'
       case 'FINALIZADO': return 'bg-green-100 text-green-800'
       case 'ADIADO': return 'bg-yellow-100 text-yellow-800'
       default: return 'bg-gray-100 text-gray-800'
@@ -34,7 +34,7 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
   const getStatusText = (status: string) => {
     switch (status) {
       case 'AGENDADO': return 'Agendado'
-      case 'AO_VIVO': return 'Ao Vivo'
+      case 'AO VIVO': return 'Ao Vivo'
       case 'FINALIZADO': return 'Finalizado'
       case 'ADIADO': return 'Adiado'
       default: return status
@@ -150,7 +150,7 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
                 )}
                 {!isFinished && (
                   <p className="mt-2 text-sm text-gray-500">
-                    {jogo.status === 'AO_VIVO' ? 'Em andamento' : 'Aguardando início'}
+                    {jogo.status === 'AO VIVO' ? 'Em andamento' : 'Aguardando início'}
                   </p>
                 )}
               </div>

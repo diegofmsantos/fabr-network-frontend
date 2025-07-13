@@ -15,7 +15,6 @@ export const queryKeys = {
     list: (temporada: string) => [...queryKeys.jogadores.all, 'list', temporada] as const,
     details: () => [...queryKeys.jogadores.all, 'detail'] as const,
     detail: (id: number) => [...queryKeys.jogadores.all, 'detail', id] as const,
-    // ADICIONAR ESTA LINHA:
     gameStats: (jogadorId: number) => [...queryKeys.jogadores.all, 'gameStats', jogadorId] as const,
   },
 

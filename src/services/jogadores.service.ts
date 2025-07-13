@@ -45,7 +45,6 @@ export class JogadoresService extends BaseService {
     return service.get<EstatisticaJogo[]>(`/jogadores/jogador/${jogadorId}/estatisticas-jogo`)
   }
 
-  // Método para buscar jogador por slug (se necessário)
   static async getJogadorBySlug(timeSlug: string, jogadorSlug: string, temporada: string = '2025'): Promise<Jogador | null> {
     const service = new JogadoresService()
     return service.get<Jogador | null>(`/jogadores/buscar-por-slug`, {

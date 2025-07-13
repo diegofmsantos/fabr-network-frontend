@@ -9,7 +9,7 @@ export function useImportarTimes() {
 
   return useMutation({
     mutationFn: (arquivo: File) => ImportacaoService.importarTimes(arquivo),
-    onSuccess: (result: any) => { // Type assertion explícita
+    onSuccess: (result: any) => { 
       queryClient.invalidateQueries({
         queryKey: queryKeys.times.lists()
       })

@@ -6,7 +6,6 @@ import { useSemifinalConferenciaData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 
-// Função de navegação
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
   { path: 'wild-card', title: 'WILD CARD' },
@@ -43,10 +42,8 @@ export default function SemifinalConferenciaPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  // ✅ NOVO: Usar hook intermediário simplificado
   const { data: semifinalConferencias, isLoading, error } = useSemifinalConferenciaData(temporada)
 
-  // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (isLoading) {
@@ -60,8 +57,6 @@ export default function SemifinalConferenciaPage() {
       <div className="text-red-400">Erro ao carregar dados: {error.message}</div>
     </div>
   }
-
-  // ✅ MANTÉM HEADER SEMPRE VISÍVEL
 
   return (
     <div>

@@ -33,7 +33,7 @@ export const Lista = () => {
             console.log(`Parâmetro de temporada detectado: ${tempParam}`)
             setSelectedTemporada(tempParam)
         } else {
-            console.log('Nenhum parâmetro de temporada, usando padrão: 2024')
+            console.log('Nenhum parâmetro de temporada, usando padrão: 2025')
             setSelectedTemporada('2025')
         }
     }, [searchParams])

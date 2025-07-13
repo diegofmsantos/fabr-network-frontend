@@ -16,7 +16,7 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
   const isRankingRoute = pathname.startsWith('/ranking')
   const isNoticiasRoute = pathname.startsWith('/noticias')
   const isMercadoRoute = pathname.startsWith('/mercado')
-  const isCompararRoute = pathname.startsWith('/comparar-times')
+  const isCompararRoute = pathname.startsWith('/comparar')
   const isSuperligaRoute = pathname.startsWith('/superliga')
   const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isSuperligaRoute
   const [isAboutOpen, setIsAboutOpen] = useState(false)
@@ -58,7 +58,7 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
           </div>
         </Link>
 
-        <Link href="/comparar-times">
+        <Link href="/comparar">
           <div className={`flex flex-col items-center ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
             <Image
               src={isCompararRoute ? "/assets/compare-active.png" : "/assets/compare.png"}

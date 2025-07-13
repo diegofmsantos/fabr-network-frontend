@@ -9,7 +9,6 @@ import { useRodadas } from '@/hooks/useRodadas'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 
-// Função de navegação
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
   { path: 'wild-card', title: 'WILD CARD' },
@@ -40,7 +39,6 @@ function getSuperligaNavigation(currentPath: string, temporada: string) {
   }
 }
 
-// Função para obter a cor da conferência
 const getConferenciaColor = (tipo: string) => {
   switch (tipo) {
     case 'SUDESTE': return 'bg-red-600'
@@ -51,7 +49,6 @@ const getConferenciaColor = (tipo: string) => {
   }
 }
 
-// Componente do Quadro de Rodadas (baseado no Figma)
 const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaKey: string }) => {
   const [rodadaAtiva, setRodadaAtiva] = useState(1)
 
@@ -154,14 +151,12 @@ export default function TemporadaRegularPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  // Dados da API
   const { data: classificacao, isLoading: loadingClassificacao } = useClassificacaoSuperliga(temporada)
   const { data: jogos = [], isLoading: loadingJogos } = useJogosSuperliga(temporada, {
     fase: 'TEMPORADA REGULAR'
   })
   const { data: rodadas, isLoading: loadingRodadas } = useRodadas(temporada)
 
-  // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (loadingClassificacao || loadingJogos || loadingRodadas) {
@@ -176,7 +171,6 @@ export default function TemporadaRegularPage() {
     </div>
   }
 
-  // Converter os dados da API para o formato esperado pelos componentes
   const conferencias = Object.entries(classificacao)
 
   return (
@@ -260,7 +254,6 @@ export default function TemporadaRegularPage() {
                 ))}
               </div>
 
-              {/* Quadro de Rodadas Atualizado */}
               <QuadroRodadas rodadas={rodadas} conferenciaKey={conferenciaKey} />
             </div>
           ))}

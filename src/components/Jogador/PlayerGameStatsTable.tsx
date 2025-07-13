@@ -172,7 +172,6 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
 
     const value = categoryStats[column.statKey] || 0
 
-    // ✅ CORREÇÃO: Aplicar formatação de jardas para campos específicos
     if (column.statKey.includes('jardas')) {
       return formatJardas(value)
     }
@@ -180,7 +179,6 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     return value.toString()
   }
 
-  // Estados de loading e erro
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg p-6">

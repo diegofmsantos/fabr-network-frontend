@@ -6,7 +6,6 @@ import { useFinalNacionalData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 
-// Função de navegação
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
   { path: 'wild-card', title: 'WILD CARD' },
@@ -43,10 +42,8 @@ export default function FinalNacionalPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  // ✅ NOVO: Usar hook intermediário simplificado
   const { data: finalNacional, isLoading, error } = useFinalNacionalData(temporada)
 
-  // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (isLoading) {
@@ -60,8 +57,6 @@ export default function FinalNacionalPage() {
       <div className="text-red-400">Erro ao carregar dados: {error.message}</div>
     </div>
   }
-
-  // ✅ MANTÉM HEADER SEMPRE VISÍVEL
 
   const isJogoFinalizado = finalNacional?.status === 'FINALIZADO'
   const temCampeao = finalNacional?.vencedor
@@ -104,9 +99,7 @@ export default function FinalNacionalPage() {
               </div>
             ) : (
               <>
-                {/* Conteúdo da final aqui */}
                 <div className="bg-white rounded-lg shadow-lg min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20 overflow-hidden">
-                  {/* Header do Jogo */}
                   <div className="bg-[#272731] text-[#63E300] px-6 py-6">
                     <div className="text-center">
                       <h3 className="text-2xl font-bold mb-2">DECISÃO NACIONAL</h3>
@@ -114,7 +107,6 @@ export default function FinalNacionalPage() {
                   </div>
 
                   <div className="p-2">
-                    {/* Confronto Principal */}
                     <div className="mb-6 border p-2">
                       <div className="flex items-center justify-center">
                         <div className="flex items-center text-lg md:text-2xl">
@@ -162,7 +154,6 @@ export default function FinalNacionalPage() {
                       </div>
                     </div>
 
-                    {/* Status e Data */}
                     <div className="flex flex-col items-center gap-4 mb-6">
                       <div className="flex items-center gap-4">
                         {finalNacional.status && (

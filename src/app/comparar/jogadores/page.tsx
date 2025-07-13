@@ -12,7 +12,6 @@ import { ImageService } from '@/utils/services/ImageService'
 import { formatJardas } from '@/utils/services/FormatterService'
 import { getPlayerSlug, getTeamSlug } from '@/utils/helpers/formatUrl'
 
-// Posições disponíveis para comparação
 const POSICOES = [
     { key: 'QB', label: 'QB', setor: 'Ataque' },
     { key: 'RB', label: 'RB', setor: 'Ataque' },
@@ -40,14 +39,12 @@ interface StatComparison {
     format?: (value: number) => string
 }
 
-// Configuração das estatísticas para comparação
 const STATS_CONFIG: Record<string, StatComparison[]> = {
     'QB': [
         { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
         { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
         {
             label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos', format: (value) => {
-                // Calcular percentual precisa do tentados também - será tratado na renderização
                 return value.toString()
             }
         },
@@ -143,7 +140,6 @@ export default function CompararJogadoresPage() {
     const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores('2025')
     const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
 
-    // Filtrar jogadores pela posição selecionada
     const jogadoresFiltrados = useMemo(() => {
         if (!posicaoSelecionada) return []
 
@@ -152,7 +148,6 @@ export default function CompararJogadoresPage() {
         )
     }, [jogadores, posicaoSelecionada])
 
-    // Filtrar jogadores para o dropdown 1
     const jogadoresDropdown1 = useMemo(() => {
         return jogadoresFiltrados.filter(jogador =>
             jogador.nome.toLowerCase().includes(searchTerm1.toLowerCase()) &&
@@ -160,7 +155,6 @@ export default function CompararJogadoresPage() {
         ).slice(0, 10)
     }, [jogadoresFiltrados, searchTerm1, jogador2])
 
-    // Filtrar jogadores para o dropdown 2
     const jogadoresDropdown2 = useMemo(() => {
         return jogadoresFiltrados.filter(jogador =>
             jogador.nome.toLowerCase().includes(searchTerm2.toLowerCase()) &&
@@ -189,12 +183,11 @@ export default function CompararJogadoresPage() {
     }
 
     const resetComparacao = () => {
-        console.log('Reset comparação') // Debug
+        console.log('Reset comparação')
         setJogador1(null)
         setJogador2(null)
         setSearchTerm1('')
         setSearchTerm2('')
-        // NÃO resetar a posição aqui, só limpar os jogadores
     }
 
     const obterValorEstatistica = (jogador: Jogador, stat: StatComparison) => {
@@ -206,7 +199,6 @@ export default function CompararJogadoresPage() {
     }
 
     const formatarValor = (valor: number, stat: StatComparison, jogador?: Jogador) => {
-        // Tratamento especial para percentuais
         if (stat.label.includes('(%)')) {
             if (stat.categoria === 'passe' && stat.statKey === 'passes_completos') {
                 const tentativas = jogador?.estatisticas?.passe?.passes_tentados || 0
@@ -225,7 +217,6 @@ export default function CompararJogadoresPage() {
             }
         }
 
-        // Tratamento para médias
         if (stat.label.includes('(AVG)')) {
             if (stat.categoria === 'passe') {
                 const tentativas = jogador?.estatisticas?.passe?.passes_tentados || 0
@@ -245,7 +236,6 @@ export default function CompararJogadoresPage() {
             }
         }
 
-        // Formatação customizada se definida
         if (stat.format) {
             return stat.format(valor)
         }
@@ -270,19 +260,27 @@ export default function CompararJogadoresPage() {
 
     return (
         <div className="min-h-screen bg-[#ECECEC]">
-            {/* Header */}
             <div className="border-b border-gray-200 px-4 py-4 xl:ml-80 2xl:ml-[550px]">
                 <div className="mt-20 max-w-7xl mx-auto flex flex-col items-center gap-5 xl:mt-7">
-                    <Link href="/ranking" className="flex items-center gap-2 text-gray-600 hover:text-black">
+                    <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-black">
                         <ArrowLeft size={20} />
                         <span>Voltar</span>
                     </Link>
                     <h1 className="text-3xl font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl">COMPARAR JOGADORES</h1>
+                    <div className="flex gap-4 mt-4">
+                        <button className="px-4 py-2 bg-[#63E300] text-black rounded-lg font-medium hover:bg-[#50B800] transition-colors">
+                            JOGADORES
+                        </button>
+                        <Link href="/comparar/times">
+                            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors">
+                                TIMES
+                            </button>
+                        </Link>
+                    </div>
                 </div>
             </div>
 
             <div className="xl:ml-80 2xl:ml-[550px] px-4 py-8 md:py-5">
-                {/* Botões de Posição */}
                 <div className="mb-8">
                     <h2 className="text-xl font-bold mb-4">Selecione a Posição</h2>
                     <div className="flex flex-wrap gap-2 md:justify-around">
@@ -290,7 +288,7 @@ export default function CompararJogadoresPage() {
                             <button
                                 key={posicao.key}
                                 onClick={() => {
-                                    console.log('Clicou na posição:', posicao.key) // Debug
+                                    console.log('Clicou na posição:', posicao.key)
                                     setPosicaoSelecionada(posicao.key)
                                     resetComparacao()
                                 }}
@@ -303,7 +301,6 @@ export default function CompararJogadoresPage() {
                             </button>
                         ))}
                     </div>
-                    {/* Debug info */}
                     {posicaoSelecionada && (
                         <div className="mt-2 text-sm text-gray-600">
                             Posição selecionada: {posicaoSelecionada} | Jogadores disponíveis: {jogadoresFiltrados.length}
@@ -311,11 +308,9 @@ export default function CompararJogadoresPage() {
                     )}
                 </div>
 
-                {/* Seletores de Jogadores */}
                 {posicaoSelecionada && (
                     <div className="mb-8">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {/* Jogador 1 */}
                             <div className="relative">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Primeiro Jogador
@@ -329,7 +324,7 @@ export default function CompararJogadoresPage() {
                                     }}
                                     onFocus={() => setShowDropdown1(true)}
                                     placeholder={`Buscar ${posicaoSelecionada}...`}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
                                 />
 
                                 {showDropdown1 && searchTerm1 && jogadoresDropdown1.length > 0 && (
@@ -362,7 +357,6 @@ export default function CompararJogadoresPage() {
                                 )}
                             </div>
 
-                            {/* Jogador 2 */}
                             <div className="relative">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
                                     Segundo Jogador
@@ -376,7 +370,7 @@ export default function CompararJogadoresPage() {
                                     }}
                                     onFocus={() => setShowDropdown2(true)}
                                     placeholder={`Buscar ${posicaoSelecionada}...`}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
                                 />
 
                                 {showDropdown2 && searchTerm2 && jogadoresDropdown2.length > 0 && (
@@ -412,11 +406,9 @@ export default function CompararJogadoresPage() {
                     </div>
                 )}
 
-                {/* Cards dos Jogadores Selecionados */}
                 {jogador1 && jogador2 && (
                     <div className="mb-8">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            {/* Card Jogador 1 */}
                             <Link href={getPlayerUrl(jogador1.jogador, jogador1.time)}>
                                 <div
                                     className="bg-white rounded-lg overflow-hidden shadow-lg relative"
@@ -459,7 +451,6 @@ export default function CompararJogadoresPage() {
                                 </div>
                             </Link>
 
-                            {/* Card Jogador 2 */}
                             <Link href={getPlayerUrl(jogador2.jogador, jogador2.time)}>
                                 <div
                                     className="bg-white rounded-lg overflow-hidden shadow-lg relative"
@@ -505,7 +496,6 @@ export default function CompararJogadoresPage() {
                     </div>
                 )}
 
-                {/* Tabela de Comparação */}
                 {jogador1 && jogador2 && (
                     <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20">
                         <div className="overflow-x-auto">
@@ -530,7 +520,6 @@ export default function CompararJogadoresPage() {
                                         const formatado1 = formatarValor(valor1, stat, jogador1.jogador)
                                         const formatado2 = formatarValor(valor2, stat, jogador2.jogador)
 
-                                        // Determinar melhor valor para destacar (verde)
                                         const melhor1 = valor1 > valor2
                                         const melhor2 = valor2 > valor1
                                         const empate = valor1 === valor2
@@ -557,7 +546,6 @@ export default function CompararJogadoresPage() {
                     </div>
                 )}
 
-                {/* Estado vazio */}
                 {!posicaoSelecionada && (
                     <div className="text-center py-12">
                         <div className="text-gray-500 text-lg">

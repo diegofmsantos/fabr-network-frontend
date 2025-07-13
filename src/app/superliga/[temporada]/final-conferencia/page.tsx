@@ -6,7 +6,6 @@ import { useFinalConferenciaData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 
-// Função de navegação
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
   { path: 'wild-card', title: 'WILD CARD' },
@@ -43,10 +42,8 @@ export default function FinalConferenciaPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  // ✅ NOVO: Usar hook intermediário simplificado
   const { data: finalConferencias, isLoading, error } = useFinalConferenciaData(temporada)
 
-  // Navegação
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (isLoading) {
@@ -154,7 +151,6 @@ export default function FinalConferenciaPage() {
                         </div>
                       </div>
 
-                      {/* Status, Data e Campeão */}
                       <div className="flex flex-col items-center gap-3 mt-4">
                         <div className="flex items-center gap-4">
                           {conferencia.jogo.status && (
