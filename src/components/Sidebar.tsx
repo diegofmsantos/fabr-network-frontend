@@ -23,9 +23,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             setActiveItem('noticias');
         } else if (pathname?.includes('/mercado')) {
             setActiveItem('mercado');
-        } else if (pathname?.includes('/comparar')) {
+        } else if (pathname?.includes('/compare')) {
             setActiveItem('comparar');
-        } else if (pathname?.includes('/superliga')) {
+        } else if (pathname?.includes('/tabela')) {
             setActiveItem('superliga');
         } else {
             setActiveItem('equipes');
@@ -66,19 +66,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
 
                 <Link
-                    href={`/superliga/${temporadaAtual}/temporada-regular`}
+                    href={`/tabela/${temporadaAtual}/temporada-regular`}
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'superliga' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
-                    Superliga
+                    Tabela
                 </Link>
 
                 <Link
-                    href="/comparar"
+                    href="/compare"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'comparar' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
-                    Comparar
+                    Compare
                 </Link>
 
                 <Link

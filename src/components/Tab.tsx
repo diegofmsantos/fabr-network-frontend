@@ -16,8 +16,8 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
   const isRankingRoute = pathname.startsWith('/ranking')
   const isNoticiasRoute = pathname.startsWith('/noticias')
   const isMercadoRoute = pathname.startsWith('/mercado')
-  const isCompararRoute = pathname.startsWith('/comparar')
-  const isSuperligaRoute = pathname.startsWith('/superliga')
+  const isCompararRoute = pathname.startsWith('/compare')
+  const isSuperligaRoute = pathname.startsWith('/tabela')
   const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isSuperligaRoute
   const [isAboutOpen, setIsAboutOpen] = useState(false)
 
@@ -48,25 +48,25 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
           </div>
         </Link>
 
-        <Link href="/campeonato">
+        <Link href="/tabela">
           <div className={`flex flex-col items-center ${isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
             <Trophy 
               size={25} 
               className={isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}
             />
-            <span className="text-[12px]">Campeonatos</span>
+            <span className="text-[12px]">Tabela</span>
           </div>
         </Link>
 
-        <Link href="/comparar">
+        <Link href="/compare">
           <div className={`flex flex-col items-center ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
             <Image
-              src={isCompararRoute ? "/assets/compare-active.png" : "/assets/compare.png"}
+              src={isCompararRoute ? "/assets/compare-verde.png" : "/assets/compare-cinza.png"}
               alt=""
               width={25}
               height={25}
             />
-            <span className="text-[12px]">Comparar</span>
+            <span className="text-[12px]">Compare</span>
           </div>
         </Link>
 
