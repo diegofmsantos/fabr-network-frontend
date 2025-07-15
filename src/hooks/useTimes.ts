@@ -100,24 +100,3 @@ export function useDeleteTime() {
   })
 }
 
-export function useImportarTimes() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: TimesService.importarTimes,
-    onSuccess: (result) => {
-      queryClient.invalidateQueries({ 
-        queryKey: queryKeys.times.lists() 
-      })
-      
-      notifications.success(
-        'Importação concluída!', 
-        `${result.sucesso || 0} times importados com sucesso`
-      )
-    },
-    onError: (error: any) => {
-      notifications.error('Erro na importação', error.message)
-    },
-  })
-}
