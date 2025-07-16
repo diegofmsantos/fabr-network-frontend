@@ -71,7 +71,7 @@ export default function Page() {
     return (
         <RankingLayout initialFilter="jogadores">
             <div className="pb-12 bg-[#ECECEC]">
-                <div className="px-4 pt-8 lg:px-8 xl:px-12 xl:max-w-5xl max-w-7xl mx-auto xl:ml-20">
+                <div className="px-4 pt-2 lg:pt-10 lg:px-8 xl:px-12 xl:max-w-5xl max-w-7xl mx-auto xl:ml-20">
                     <StatCategoryButtons
                         selectedCategory={selectedCategory}
                         onSelectCategory={setSelectedCategory}

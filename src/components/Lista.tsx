@@ -64,27 +64,11 @@ export const Lista = () => {
 
     return (
         <div className="flex flex-col w-full">
-            <div className="fixed top-[210px] left-0 right-0 z-30 bg-[#ECECEC] py-4 md:top-[158px] lg:ml-9 xl:ml-72 xl:top-24">
-                <div className="max-w-[800px] mx-auto">
-                    <div className="flex flex-col items-center px-4 w-full xl:ml-8 2xl:ml-0">
-                        <label className="text-xs font-medium mb-1 text-gray-700">TEMPORADA</label>
-                        <select
-                            value={selectedTemporada}
-                            onChange={handleTemporadaChange}
-                            className="bg-white border border-gray-300 text-gray-900 text-sm rounded-md 
-                                       focus:ring-blue-500 focus:border-blue-500 block py-2 w-full text-center 
-                                       lg:max-w-[800px] 2xl:max-w-[800px]"
-                        >
-                            <option value="2024">2024</option>
-                            <option value="2025">2025</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+           
 
             <motion.div
-                className="max-w-[800px] grid grid-cols-3 gap-4 px-3 pt-[320px] pb-20 container bg-[#ECECEC] relative 
-                min-[400px]:grid-cols-4 md:grid-cols-5 md:pt-[260px] md:gap-5 lg:ml-32 xl:pt-[210px] xl:ml-64 2xl:ml-96"
+                className="max-w-[800px] grid grid-cols-3 gap-4 px-3 pt-[230px] pb-20 container bg-[#ECECEC] relative 
+                min-[400px]:grid-cols-4 md:grid-cols-5 md:pt-[180px] md:gap-5 lg:ml-32 xl:pt-[130px] xl:ml-64 2xl:ml-96"
                 initial="hidden"
                 animate="visible"
                 variants={{ visible: { transition: { staggerChildren: 0.1 } } }}

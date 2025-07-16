@@ -68,7 +68,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 <Link
                     href={`/tabela/${temporadaAtual}/temporada-regular`}
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
-                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'superliga' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
+                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'tabela' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Tabela
                 </Link>
@@ -76,7 +76,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 <Link
                     href="/compare"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
-                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'comparar' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
+                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'compare' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Compare
                 </Link>

@@ -56,12 +56,12 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
         if (!currentTeam?.nome || !jogador?.camisa) {
             return '/assets/times/camisas/camisa-default.png';
         }
-        
+
         const timeNormalizado = currentTeam.nome.toLowerCase()
             .replace(/\s+/g, '-')
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
-            
+
         return `/assets/times/camisas/${timeNormalizado}/${jogador.camisa}`;
     }
 
@@ -110,7 +110,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                 alt="Camisa"
                                 quality={100}
                                 className="w-16 h-20 md:w-20 md:h-24"
-                              
+
                             />
                         </div>
                         <div className="flex flex-col gap-3 md:flex-1">
@@ -119,22 +119,41 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                 <div className="text-base min-[375px]:text-[18px] font-extrabold italic md:text-xl">({jogador.posicao})</div>
                             </div>
                             <div className="flex justify-between gap-2 min-[400px]:gap-6 md:justify-start">
+                                {/* ✅ IDADE - Sempre exibe, com "-" se não tiver dados */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">IDADE</div>
-                                    <div className="text-xs min-[400px]:text-base font-bold">{jogador.idade}</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">
+                                        {jogador.idade && jogador.idade > 0 ? jogador.idade : '-'}
+                                    </div>
                                 </div>
+
+                                {/* ✅ ALTURA - Sempre exibe, com "-" se não tiver dados */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">ALTURA</div>
-                                    <div className="text-xs min-[400px]:text-base font-bold">{jogador.altura?.toFixed(2).replace('.', ',')}</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">
+                                        {jogador.altura && jogador.altura > 0
+                                            ? jogador.altura.toFixed(2).replace('.', ',')
+                                            : '-'
+                                        }
+                                    </div>
                                 </div>
+
+                                {/* ✅ PESO - Sempre exibe, com "-" se não tiver dados */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">PESO</div>
-                                    <div className="text-xs min-[400px]:text-base font-bold">{jogador.peso}</div>
+                                    <div className="text-xs min-[400px]:text-base font-bold">
+                                        {jogador.peso && jogador.peso > 0 ? jogador.peso : '-'}
+                                    </div>
                                 </div>
+
+                                {/* ✅ EXPERIÊNCIA - Sempre exibe, com "-" se for 0 */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">EXPERIÊNCIA</div>
                                     <div className="text-xs min-[400px]:text-base font-bold">
-                                        {experienciaAnos} ANO{experienciaAnos > 1 ? "S" : ""}
+                                        {experienciaAnos > 0
+                                            ? `${experienciaAnos} ANO${experienciaAnos > 1 ? "S" : ""}`
+                                            : "-"
+                                        }
                                     </div>
                                 </div>
                             </div>

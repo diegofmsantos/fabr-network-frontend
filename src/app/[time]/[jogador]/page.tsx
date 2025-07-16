@@ -315,82 +315,97 @@ export default function Page() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <div className="w-full bg-[#ECECEC] flex flex-col justify-center items-center">
-                        <div className="w-full flex justify-center">
-                            <SelectFilter
-                                label="TEMPORADA"
-                                value={selectedTemporada}
-                                onChange={(novaTemporada) => {
-                                    queryClient.invalidateQueries({ queryKey: queryKeys.jogadores.list(selectedTemporada) });
-                                    queryClient.invalidateQueries({ queryKey: queryKeys.times.list(selectedTemporada) });
-
-                                    console.log(`Alterando temporada para: ${novaTemporada}`);
-                                    setSelectedTemporada(novaTemporada);
-
-                                    const timeSlug = getTeamSlug(currentTime.nome || '');
-                                    const jogadorSlug = getPlayerSlug(currentJogador.nome || '');
-
-                                    router.replace(`/${timeSlug}/${jogadorSlug}?temporada=${novaTemporada}`);
-                                }}
-                                options={[
-                                    { label: '2024', value: '2024' },
-                                    { label: '2025', value: '2025' }
-                                ]}
-                            />
-                        </div>
-                    </div>
-                    <div className='-mt-4 lg:max-w-[800px] lg:min-w-[800px] lg:m-auto xl:min-w-[650px] 2xl:min-w-[800px]'>
+                  
+                    <div className='mt-8 lg:max-w-[800px] lg:min-w-[800px] lg:m-auto xl:min-w-[650px] 2xl:min-w-[800px]'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
                         <div className="bg-white flex flex-col justify-center gap-4 p-4 rounded-lg">
                             <div className="border-b border-bg-[#D9D9D9] flex justify-between">
+                                {/* ✅ IDADE - Sempre exibe, com "-" se não tiver dados */}
                                 <div className='flex flex-col justify-center items-center'>
-                                    <div className="text-sm md:text-lg">IDADE</div>
-                                    <div className="text-[34px] font-extrabold italic mb-1">{currentJogador.idade || 0}</div>
+                                    <div className="text-sm md:text-xl">IDADE</div>
+                                    <div className="text-lg md:text-[30px] font-extrabold italic my-1">
+                                        {currentJogador.idade && currentJogador.idade > 0 ? currentJogador.idade : '-'}
+                                    </div>
                                 </div>
+
+                                {/* ✅ PESO - Sempre exibe, com "-" se não tiver dados */}
                                 <div className='flex flex-col justify-center items-center'>
-                                    <div className="text-sm md:text-lg">PESO</div>
-                                    <div className="text-[34px] font-extrabold italic mb-1">{currentJogador.peso || 0}</div>
+                                    <div className="text-sm md:text-xl">PESO</div>
+                                    <div className="text-lg md:text-[30px] font-extrabold italic my-1">
+                                        {currentJogador.peso && currentJogador.peso > 0 ? currentJogador.peso : '-'}
+                                    </div>
                                 </div>
+
+                                {/* ✅ ALTURA - Sempre exibe, com "-" se não tiver dados */}
                                 <div className='flex flex-col justify-center items-center'>
-                                    <div className="text-sm md:text-lg">ALTURA</div>
-                                    <div className="text-[34px] font-extrabold italic mb-1">
-                                        {(currentJogador.altura || 0).toFixed(2).replace('.', ',')}
+                                    <div className="text-sm md:text-xl">ALTURA</div>
+                                    <div className="text-lg md:text-[30px] font-extrabold italic my-1">
+                                        {currentJogador.altura && currentJogador.altura > 0
+                                            ? currentJogador.altura.toFixed(2).replace('.', ',')
+                                            : '-'
+                                        }
+                                    </div>
+                                </div>
+
+                                {/* ✅ EXPERIÊNCIA - Sempre exibe, com "-" se for 0 */}
+                                <div className='flex flex-col justify-center items-center'>
+                                    <div className="text-sm md:text-xl">EXPERIÊNCIA</div>
+                                    <div className="text-lg md:text-[30px] font-extrabold italic my-1">
+                                        {experienciaAnos > 0
+                                            ? `${experienciaAnos} ANO${experienciaAnos !== 1 ? 'S' : ''}`
+                                            : '-'
+                                        }
                                     </div>
                                 </div>
                             </div>
-                            <div className="border-b border-bg-[#D9D9D9] flex justify-start">
-                                <div className='flex-1 justify-start'>
-                                    <div className="text-sm md:text-lg">CIDADE NATAL</div>
-                                    <div className="text-xl font-extrabold italic mb-1">
-                                        {(currentJogador?.cidade || '').toLocaleUpperCase()}
+
+                            {/* ✅ INSTAGRAM - Só exibe se tiver dados válidos */}
+                            {currentJogador.instagram && currentJogador.instagram.trim() !== '' && (
+                                <div className='flex justify-start border-b border-bg-[#D9D9D9]'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-sm md:text-lg">INSTAGRAM</div>
+                                        <div className="text-lg font-extrabold italic underline text-blue-800">
+                                            <Link
+                                                href={currentJogador.instagram.startsWith('http')
+                                                    ? currentJogador.instagram
+                                                    : `https://instagram.com/${currentJogador.instagram.replace('@', '')}`
+                                                }
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                {currentJogador.instagram2
+                                                    ? currentJogador.instagram2.toUpperCase()
+                                                    : `@${currentJogador.instagram.replace('@', '')}`
+                                                }
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='border-b border-bg-[#D9D9D9] flex-1 justify-start'>
-                                <div className="text-sm md:text-lg">TIME FORMADOR</div>
-                                <div className='flex items-center'>
-                                    <div className="text-xl font-extrabold italic">
-                                        {(currentJogador.timeFormador || '').toLocaleUpperCase()}
+                            )}
+
+                            {/* ✅ Outros campos condicionais (só aparecem se tiverem conteúdo) */}
+                            {currentJogador.cidade && currentJogador.cidade.trim() !== '' && (
+                                <div className='flex justify-start border-b border-bg-[#D9D9D9]'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-sm md:text-lg">CIDADE NATAL</div>
+                                        <div className="text-lg font-extrabold italic mb-1">
+                                            {currentJogador.cidade.toUpperCase()}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div className='border-b border-bg-[#D9D9D9] flex justify-start'>
-                                <div className='flex-1 justify-start'>
-                                    <div className="text-sm md:text-lg">EXPERIÊNCIA</div>
-                                    <div className="text-xl font-extrabold italic md:text-lg">{experienciaAnos} ANO{experienciaAnos > 1 ? 'S' : ''}</div>
-                                </div>
-                            </div>
-                            <div className='flex justify-start'>
-                                <div className='flex-1 justify-start'>
-                                    <div className="text-sm md:text-lg">INSTAGRAM</div>
-                                    <div className="text-lg font-extrabold italic underline text-blue-800">
-                                        <Link href={currentJogador.instagram || '#'} target='blank'>
-                                            {(currentJogador.instagram2 || '').toLocaleUpperCase()}
-                                        </Link>
+                            )}
+
+                            {currentJogador.timeFormador && currentJogador.timeFormador.trim() !== '' && (
+                                <div className='flex justify-start border-b border-bg-[#D9D9D9]'>
+                                    <div className='flex-1 justify-start'>
+                                        <div className="text-sm md:text-lg">TIME FORMADOR</div>
+                                        <div className="text-lg font-extrabold italic mb-1">
+                                            {currentJogador.timeFormador.toUpperCase()}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     </div>
 

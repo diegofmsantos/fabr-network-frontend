@@ -174,25 +174,13 @@ export default function Page() {
             <ButtonTime label="JOGADORES" onClick={handleShowJogadores} isSelected={selectedButton === "jogadores"} />
           </motion.div>
         </motion.div>
-        <div className="my-4 2xl:my-8">
-          <SelectFilter
-            label="TEMPORADA"
-            value={temporada}
-            onChange={(novaTemporada) => {
-              router.replace(`/${params.time}?show=${selectedButton}&setor=${selectedSetor}&temporada=${novaTemporada}`);
-            }}
-            options={[
-              { label: '2024', value: '2024' },
-              { label: '2025', value: '2025' }
-            ]}
-          />
-        </div>
+      
       </motion.div>
 
 
       {selectedButton === "jogadores" && (
         <motion.div
-          className="flex flex-col mx-auto pt-[400px] xl:mb-8 2xl:pt-[430px] 2xl:pl-[125px]"
+          className="flex flex-col mx-auto pt-[340px] xl:mb-8 2xl:pt-[350px] 2xl:pl-[125px]"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
@@ -213,7 +201,7 @@ export default function Page() {
 
       {selectedButton === "bio" && (
         <motion.div
-          className="flex flex-col max-w-[800px] mx-auto w-full pt-[410px] lg:pt-[350px] xl:w-[650px] xl:pl-12 xl:pt-[420px] 2xl:pt-[450px] 2xl:w-[800px] 2xl:pl-0"
+          className="flex flex-col max-w-[800px] mx-auto w-full pt-[350px] lg:pt-[280px] xl:w-[650px] xl:pl-12 xl:pt-[360px]  2xl:w-[800px] 2xl:pl-0"
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -50 }}
