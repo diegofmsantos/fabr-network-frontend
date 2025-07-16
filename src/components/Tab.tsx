@@ -20,6 +20,8 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
   const isSuperligaRoute = pathname.startsWith('/tabela')
   const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isSuperligaRoute
   const [isAboutOpen, setIsAboutOpen] = useState(false)
+  const getCurrentYear = () => new Date().getFullYear();
+  const temporadaAtual = getCurrentYear().toString();
 
   return (
     <>
@@ -48,10 +50,10 @@ export const Tab: React.FC<TabProps> = ({ className = '' }) => {
           </div>
         </Link>
 
-        <Link href="/tabela">
+        <Link href={`/tabela/${temporadaAtual}/temporada-regular`}>
           <div className={`flex flex-col items-center ${isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Trophy 
-              size={25} 
+            <Trophy
+              size={25}
               className={isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}
             />
             <span className="text-[12px]">Tabela</span>
