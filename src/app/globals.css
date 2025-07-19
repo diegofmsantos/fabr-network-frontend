@@ -69,4 +69,20 @@ body {
   .min-h-screen {
     min-height: -webkit-fill-available
   }
+
+  
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Safari e Chrome */
+}
+
+/* Melhorar o scroll em dispositivos touch */
+.scrollbar-hide {
+  -webkit-overflow-scrolling: touch;
 }

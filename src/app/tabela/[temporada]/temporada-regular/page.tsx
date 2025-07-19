@@ -202,12 +202,12 @@ export default function TemporadaRegularPage() {
           </div>
         </div>
 
-        <div className="p-6 space-y-8 pt-44 md:ml-8 lg:ml-36">
+        <div className="space-y-8 pt-44 md:ml-8 lg:ml-36">
           {conferencias.map(([conferenciaKey, conferencia]: [string, any]) => (
-            <div key={conferenciaKey} className="flex flex-col items-center gap-8 xl:flex-row xl:items-start xl:mb-16">
+            <div key={conferenciaKey} className="ml-4 w-full flex flex-col items-center gap-8 xl:flex-row xl:items-start xl:mb-16">
               <div className="max-w-2xl space-y-10">
                 {conferencia.regionais.map((regional: any) => (
-                  <div key={regional.regionalId} className="">
+                  <div key={regional.regionalId} className="w-full">
                     <div className="text-white py-1 flex flex-col items-start gap-1">
                       <span className={`${getConferenciaColor(conferencia.tipo)} text-md font-medium bg-black px-2 py-1 rounded`}>
                         {conferencia.nome}
@@ -215,7 +215,7 @@ export default function TemporadaRegularPage() {
                       <h3 className="font-extrabold italic leading-[55px] tracking-[-2px] uppercase text-2xl text-black">{regional.nome}</h3>
                     </div>
 
-                    <div className="bg-white rounded-lg shadow-sm border overflow-hidden p-6">
+                    <div className="bg-white w-full rounded-lg shadow-sm border overflow-hidden p-6 min-w-[320px]">
                       <div className="grid grid-cols-8 gap-3 pb-4 border-b text-gray-500">
                         <div>#</div>
                         <div className="col-span-2 font-bold">TIME</div>
@@ -229,17 +229,17 @@ export default function TemporadaRegularPage() {
                       <div className="space-y-4 mt-4">
                         {regional.times.map((time: any) => (
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-end border-b">
-                            <div className="text-gray-600">{time.posicao}º</div>
-                            <div className="col-span-2  flex items-end">
+                            <div className="text-gray-600 text-sm">{time.posicao}º</div>
+                            <div className="col-span-2 -ml-2 -mt-2  flex items-end">
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
                                 alt={`Logo ${time.time.nome}`}
                                 width={30}
                                 height={30}
-                                className="hidden md:block md:-ml-8 md:mr-4 rounded"
+                                className="md:-ml-8 md:mr-4 rounded"
                                 onError={(e) => ImageService.handleTeamLogoError(e, time.time.nome)}
                               />
-                              <span className="text-[12px] text-gray-900 text-wrap md:text-[15px]">{time.time.nome}</span>
+                              <span className="text-[14px] font-bold ml-2 text-gray-900">{time.time.sigla}</span>
                             </div>
                             <div className="text-center text-sm md:text-base">{time.vitorias}</div>
                             <div className="text-center text-sm md:text-base">{time.derrotas || (time.jogos - time.vitorias)}</div>

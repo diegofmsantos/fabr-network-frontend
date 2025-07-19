@@ -1,110 +1,135 @@
+// Substitua o conteúdo do componente Tab.tsx por este código atualizado:
+
 "use client"
 
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { Menu } from "lucide-react"
 import { useState } from "react"
-import { Menu, Trophy } from "lucide-react"
 import { Sobre } from "./Sobre"
 
-interface TabProps {
-  className?: string;
-}
-
-export const Tab: React.FC<TabProps> = ({ className = '' }) => {
+export const Tab = () => {
   const pathname = usePathname()
-  const isRankingRoute = pathname.startsWith('/ranking')
-  const isNoticiasRoute = pathname.startsWith('/noticias')
-  const isMercadoRoute = pathname.startsWith('/mercado')
-  const isCompararRoute = pathname.startsWith('/compare')
-  const isSuperligaRoute = pathname.startsWith('/tabela')
-  const isTimesRoute = !isRankingRoute && !isNoticiasRoute && !isMercadoRoute && !isCompararRoute && !isSuperligaRoute
   const [isAboutOpen, setIsAboutOpen] = useState(false)
-  const getCurrentYear = () => new Date().getFullYear();
-  const temporadaAtual = getCurrentYear().toString();
+
+  // Verificações de rota
+  const isHomeRoute = pathname === "/"
+  const isRankingRoute = pathname.includes("/ranking")
+  const isTabelaRoute = pathname.includes("/tabela")
+  const isCompararRoute = pathname.includes("/comparar")
+  const isMercadoRoute = pathname.includes("/mercado")
+  const isNoticiasRoute = pathname.includes("/noticias")
 
   return (
     <>
-      <div className={`fixed bottom-0 w-full bg-[#272731] shadow-md border-t flex justify-around items-center py-2 z-50 ${className} xl:hidden`}>
-        <Link href="/">
-          <div className={`flex flex-col items-center ${isTimesRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Image
-              src={isTimesRoute ? "/assets/logo-capacete-verde.png" : "/assets/logo-capacete-branco.png"}
-              alt="capacete"
-              width={25}
-              height={25}
-            />
-            <span className="text-[12px]">Times</span>
-          </div>
-        </Link>
+      {/* Container com scroll horizontal */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#272731] border-t border-gray-600 z-50 xl:hidden">
+        {/* Scroll horizontal para telas pequenas */}
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex min-w-max px-2">
+            {/* Home */}
+            <Link href="/" className="flex-none">
+              <div className={`flex flex-col items-center px-3 py-3 ${isHomeRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                <Image
+                  src={isHomeRoute ? "/assets/times.png" : "/assets/times-2.png"}
+                  alt="home"
+                  width={25}
+                  height={25}
+                />
+                <span className="text-[12px] whitespace-nowrap">Home</span>
+              </div>
+            </Link>
 
-        <Link href="/ranking">
-          <div className={`flex flex-col items-center ${isRankingRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Image
-              src={isRankingRoute ? "/assets/ranking2.png" : "/assets/ranking.png"}
-              alt="ranking"
-              width={25}
-              height={25}
-            />
-            <span className="text-[12px]">Ranking</span>
-          </div>
-        </Link>
+            {/* Ranking */}
+            <Link href="/ranking" className="flex-none">
+              <div className={`flex flex-col items-center px-3 py-3 ${isRankingRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                <Image
+                  src={isRankingRoute ? "/assets/rankings.png" : "/assets/rankings-2.png"}
+                  alt="ranking"
+                  width={25}
+                  height={25}
+                />
+                <span className="text-[12px] whitespace-nowrap">Ranking</span>
+              </div>
+            </Link>
 
-        <Link href={`/tabela/${temporadaAtual}/temporada-regular`}>
-          <div className={`flex flex-col items-center ${isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Trophy
-              size={25}
-              className={isSuperligaRoute ? "text-[#63E300]" : "text-gray-400"}
-            />
-            <span className="text-[12px]">Tabela</span>
-          </div>
-        </Link>
+            {/* Tabela */}
+            <Link href="/tabela/2025/temporada-regular" className="flex-none">
+              <div className={`flex flex-col items-center px-3 py-3 ${isTabelaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                <Image
+                  src={isTabelaRoute ? "/assets/tabela.png" : "/assets/tabela-2.png"}
+                  alt="tabela"
+                  width={25}
+                  height={25}
+                />
+                <span className="text-[12px] whitespace-nowrap">Tabela</span>
+              </div>
+            </Link>
 
-        <Link href="/compare">
-          <div className={`flex flex-col items-center ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Image
-              src={isCompararRoute ? "/assets/compare-verde.png" : "/assets/compare-cinza.png"}
-              alt=""
-              width={25}
-              height={25}
-            />
-            <span className="text-[12px]">Compare</span>
-          </div>
-        </Link>
+            {/* Compare */}
+            <Link href="/comparar" className="flex-none">
+              <div className={`flex flex-col items-center px-3 py-3 ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                <Image
+                  src={isCompararRoute ? "/assets/compare.png" : "/assets/compare-2.png"}
+                  alt="compare"
+                  width={25}
+                  height={25}
+                />
+                <span className="text-[12px] whitespace-nowrap">Compare</span>
+              </div>
+            </Link>
 
-        <Link href="/mercado">
-          <div className={`flex flex-col items-center ${isMercadoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Image
-              src={isMercadoRoute ? "/assets/transfer.png" : "/assets/transfer.png"}
-              alt="mercado"
-              width={25}
-              height={25}
-            />
-            <span className="text-[12px]">Mercado</span>
-          </div>
-        </Link>
+            {/* Mercado */}
+            <Link href="/mercado" className="flex-none">
+              <div className={`flex flex-col items-center px-3 py-3 ${isMercadoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                <Image
+                  src={isMercadoRoute ? "/assets/mercado.png" : "/assets/mercado-2.png"}
+                  alt="mercado"
+                  width={25}
+                  height={25}
+                />
+                <span className="text-[12px] whitespace-nowrap">Mercado</span>
+              </div>
+            </Link>
 
-        <Link href="/noticias">
-          <div className={`flex flex-col items-center ${isNoticiasRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-            <Image
-              src={isNoticiasRoute ? "/assets/news2.png" : "/assets/news.png"}
-              alt="noticias"
-              width={25}
-              height={25}
-            />
-            <span className="text-[12px]">Notícias</span>
-          </div>
-        </Link>
+            {/* Notícias */}
+            <Link href="/noticias" className="flex-none">
+              <div className={`flex flex-col items-center px-3 py-3 ${isNoticiasRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                <Image
+                  src={isNoticiasRoute ? "/assets/noticias.png" : "/assets/noticias-2.png"}
+                  alt="noticias"
+                  width={25}
+                  height={25}
+                />
+                <span className="text-[12px] whitespace-nowrap">Notícias</span>
+              </div>
+            </Link>
 
-        <button
-          onClick={() => setIsAboutOpen(true)}
-          className="flex flex-col items-center text-gray-400 hover:text-[#63E300] transition-colors"
-        >
-          <Menu size={30} />
-        </button>
+            {/* Menu */}
+            <button
+              onClick={() => setIsAboutOpen(true)}
+              className="flex-none flex flex-col items-center px-3 py-3 text-gray-400 hover:text-[#63E300] transition-colors"
+            >
+              <Menu size={25} />
+              <span className="text-[12px] whitespace-nowrap">Menu</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       <Sobre isOpen={isAboutOpen} onClose={() => setIsAboutOpen(false)} />
+
+      {/* CSS para esconder scrollbar */}
+      <style jsx>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `}</style>
     </>
   )
 }
