@@ -88,11 +88,15 @@ export default function NoticiaDetalhes() {
           <div className="relative w-full max-w-4xl mx-auto mb-8">
             <div className="relative w-full">
               <Image
-                src={noticia.imagem}
+                src={noticia.imagem || '/placeholder-avatar.png'}
                 alt={noticia.titulo}
                 width={1200}
                 height={800}
                 className="w-full rounded-lg"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/placeholder-avatar.png';
+                }}
                 loading="lazy"
                 placeholder="blur"
                 blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVigAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx0fHRsdHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/2wBDAR0XFyAeIB4dHiAeHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR0dHR3/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
@@ -109,10 +113,14 @@ export default function NoticiaDetalhes() {
             <div className='flex items-center gap-3'>
               <div className="relative w-10 h-10">
                 <Image
-                  src={noticia.autorImage}
+                  src={noticia.autorImage || '/placeholder-avatar.png'}
                   alt={noticia.autor}
                   fill
                   className="rounded-full object-cover"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = '/placeholder-avatar.png';
+                  }}
                 />
               </div>
               <span className="text-xs text-gray-500">Por {noticia.autor}</span>
@@ -181,11 +189,15 @@ export default function NoticiaDetalhes() {
                       <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                         <div className="relative h-48 w-full">
                           <Image
-                            src={newsItem.imagem}
+                            src={newsItem.imagem || '/placeholder-news.png'}
                             alt={newsItem.titulo}
                             fill
                             className="object-cover rounded-t-lg"
                             loading="lazy"
+                            onError={(e) => {
+                              const target = e.target as HTMLImageElement;
+                              target.src = '/placeholder-avatar.png';
+                            }}
                           />
                         </div>
 
@@ -201,10 +213,14 @@ export default function NoticiaDetalhes() {
                             <div className="flex items-center space-x-2">
                               <div className="relative w-8 h-8">
                                 <Image
-                                  src={newsItem.autorImage}
+                                  src={newsItem.autorImage || '/placeholder-news.png'}
                                   alt={newsItem.autor}
                                   fill
                                   className="rounded-full object-cover"
+                                  onError={(e) => {
+                                    const target = e.target as HTMLImageElement;
+                                    target.src = '/placeholder-avatar.png';
+                                  }}
                                 />
                               </div>
                               <span className="text-[10px] text-gray-500">

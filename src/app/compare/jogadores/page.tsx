@@ -271,7 +271,7 @@ export default function CompararJogadoresPage() {
                         <button className="px-4 py-2 bg-[#63E300] text-black rounded-lg font-medium hover:bg-[#50B800] transition-colors">
                             JOGADORES
                         </button>
-                        <Link href="/comparar/times">
+                        <Link href="/compare/times">
                             <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors">
                                 TIMES
                             </button>

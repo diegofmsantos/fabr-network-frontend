@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useWildCardData } from '@/hooks/usePlayoffData'
 import { ImageService } from '@/utils/services/ImageService'
 import Image from 'next/image'
+import { Loading } from '@/components/ui/Loading'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -46,11 +47,7 @@ export default function WildCardPage() {
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
-  if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <div className="text-white">Carregando...</div>
-    </div>
-  }
+  if (isLoading) return <Loading />
 
   if (error) {
     return <div className="min-h-screen flex items-center justify-center">
@@ -61,7 +58,7 @@ export default function WildCardPage() {
   return (
     <div>
       <div className="xl:ml-80 2xl:ml-[550px] absolute">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[100px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-2">
             <button
               className={`p-1 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
@@ -89,7 +86,7 @@ export default function WildCardPage() {
         <div className="mt-44 h-full mb-24 ml-3">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
             {(!wildCardConferencias || wildCardConferencias.length === 0) ? (
-              <div className="text-center py-12 xl:ml-80">
+              <div className="text-center py-1 md:ml-40 xl:ml-96">
                 <div className="text-gray-600 text-lg">
                   Nenhum jogo de Wild Card configurado ainda.
                 </div>

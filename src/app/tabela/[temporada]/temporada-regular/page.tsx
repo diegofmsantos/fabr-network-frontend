@@ -8,6 +8,7 @@ import { useJogosSuperliga } from '@/hooks/useJogos'
 import { useRodadas } from '@/hooks/useRodadas'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
+import { Loading } from '@/components/ui/Loading'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -63,14 +64,14 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
   const jogosRodada = rodadas?.[chaveBackend]?.[rodadaAtiva] || []
 
   console.log('🔍 QuadroRodadas debug:', {
-    conferenciaKey,     
-    chaveBackend,        
+    conferenciaKey,
+    chaveBackend,
     jogosRodada: jogosRodada.length
   })
 
 
   return (
-    <div className="bg-white rounded-lg p-4 min-w-[300px] w-full xl:max-w-[300px] xl:mt-24">
+    <div className="bg-white rounded-lg p-3 min-w-[280px] w-full md:max-w-[660px] xl:mt-24 2xl:w-60">
       <div className={`flex items-center justify-between mb-4 text-white px-4 py-2 rounded-t-lg ${getConferenciaColor(conferenciaKey)}`}>
         <button
           onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : 4)}
@@ -89,7 +90,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
         </button>
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-3 ">
         {jogosRodada.length > 0 ? (
           jogosRodada.map((jogo: any) => (
             <div key={jogo.id} className="flex flex-col items-center justify-between p-1 border bg-gray-50 rounded-lg">
@@ -159,11 +160,7 @@ export default function TemporadaRegularPage() {
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
-  if (loadingClassificacao || loadingJogos || loadingRodadas) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <div className="text-white">Carregando...</div>
-    </div>
-  }
+  if (loadingClassificacao || loadingJogos || loadingRodadas) return <Loading />
 
   if (!classificacao) {
     return <div className="min-h-screen flex items-center justify-center">
@@ -175,8 +172,8 @@ export default function TemporadaRegularPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="xl:ml-80 2xl:ml-[550px] absolute">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[680px] md:h-14 md:pt-2 xl:ml-40 fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
+      <div className="xl:ml-80 w-full max-w-5xl 2xl:ml-[550px] absolute">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[665px] md:h-14 md:pt-2 xl:ml-36 fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-4">
             <button
               className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
@@ -202,50 +199,55 @@ export default function TemporadaRegularPage() {
           </div>
         </div>
 
-        <div className="space-y-8 pt-44 md:ml-8 lg:ml-36">
+        <div className="space-y-8 mb-24 pt-44 w-full md:ml-8 lg:ml-36">
           {conferencias.map(([conferenciaKey, conferencia]: [string, any]) => (
-            <div key={conferenciaKey} className="ml-4 w-full flex flex-col items-center gap-8 xl:flex-row xl:items-start xl:mb-16">
-              <div className="max-w-2xl space-y-10">
+            <div key={conferenciaKey} className="ml-3 w-full flex flex-col justify-between items-center gap-8 pr-4 xl:flex-row xl:items-start xl:mb-16 max-w-5xl overflow-x-hidden">
+              <div className="max-w-2xl  space-y-10 w-full">
                 {conferencia.regionais.map((regional: any) => (
                   <div key={regional.regionalId} className="w-full">
                     <div className="text-white py-1 flex flex-col items-start gap-1">
-                      <span className={`${getConferenciaColor(conferencia.tipo)} text-md font-medium bg-black px-2 py-1 rounded`}>
+                      <span className={`${getConferenciaColor(conferencia.tipo)} text-md font-medium px-2 py-1 rounded`}>
                         {conferencia.nome}
                       </span>
                       <h3 className="font-extrabold italic leading-[55px] tracking-[-2px] uppercase text-2xl text-black">{regional.nome}</h3>
                     </div>
 
-                    <div className="bg-white w-full rounded-lg shadow-sm border overflow-hidden p-6 min-w-[320px]">
+                    <div className="bg-white w-full rounded-lg shadow-sm border overflow-hidden p-6 min-w-[320px] max-w-[650px]">
                       <div className="grid grid-cols-8 gap-3 pb-4 border-b text-gray-500">
                         <div>#</div>
                         <div className="col-span-2 font-bold">TIME</div>
-                        <div className="text-center font-bold">V</div>
-                        <div className="text-center font-bold">D</div>
-                        <div className="text-center font-bold">P+</div>
-                        <div className="text-center font-bold">P-</div>
-                        <div className="text-center font-bold">S</div>
+                        <div className="col-span-5 flex justify-between md:justify-evenly md:gap-1">
+                          <div className="text-center font-bold">V</div>
+                          <div className="text-center font-bold">D</div>
+                          <div className="text-center font-bold">P+</div>
+                          <div className="text-center font-bold">P-</div>
+                          <div className="text-center font-bold">S</div>
+                        </div>
                       </div>
 
                       <div className="space-y-4 mt-4">
                         {regional.times.map((time: any) => (
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-end border-b">
                             <div className="text-gray-600 text-sm">{time.posicao}º</div>
-                            <div className="col-span-2 -ml-2 -mt-2  flex items-end">
+                            <div className="col-span-2 -ml-3 -mt-2  flex items-end">
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
                                 alt={`Logo ${time.time.nome}`}
                                 width={30}
                                 height={30}
-                                className="md:-ml-8 md:mr-4 rounded"
+                                className="mr-3 md:-ml-10 md:mr-2 rounded"
                                 onError={(e) => ImageService.handleTeamLogoError(e, time.time.nome)}
                               />
-                              <span className="text-[14px] font-bold ml-2 text-gray-900">{time.time.sigla}</span>
+                              <span className="text-[14px] font-bold text-gray-900 text-wrap md:text-[15px] md:hidden">{time.time.sigla}</span>
+                              <span className="hidden md:block text-[15px] text-gray-900 whitespace-nowrap">{time.time.nome}</span>
                             </div>
-                            <div className="text-center text-sm md:text-base">{time.vitorias}</div>
-                            <div className="text-center text-sm md:text-base">{time.derrotas || (time.jogos - time.vitorias)}</div>
-                            <div className="text-center text-sm md:text-base">{time.pontosPro}</div>
-                            <div className="text-center text-sm md:text-base">{time.pontosContra}</div>
-                            <div className="text-center text-sm md:text-base">{time.saldo > 0 ? '+' : ''}{time.saldo}</div>
+                            <div className="col-span-5 flex justify-between md:justify-evenly md:gap-1">
+                              <div className="text-center text-sm md:text-base">{time.vitorias}</div>
+                              <div className="text-center text-sm md:text-base">{time.derrotas || (time.jogos - time.vitorias)}</div>
+                              <div className="text-center text-sm md:text-base">{time.pontosPro}</div>
+                              <div className="text-center text-sm md:text-base">{time.pontosContra}</div>
+                              <div className="text-center text-sm md:text-base">{time.saldo > 0 ? '+' : ''}{time.saldo}</div>
+                            </div>
                           </div>
                         ))}
                       </div>

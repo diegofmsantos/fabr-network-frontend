@@ -5,6 +5,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useSemifinalNacionalData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
+import { Loading } from '@/components/ui/Loading'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -46,11 +47,7 @@ export default function SemifinalNacionalPage() {
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
-  if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <div className="text-white">Carregando...</div>
-    </div>
-  }
+  if (isLoading) return <Loading />
 
   if (error) {
     return <div className="min-h-screen flex items-center justify-center">
@@ -58,11 +55,10 @@ export default function SemifinalNacionalPage() {
     </div>
   }
 
-
   return (
     <div>
       <div className="xl:ml-80 2xl:ml-[550px] absolute">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[100px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-2">
             <button
               className={`p-1 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'

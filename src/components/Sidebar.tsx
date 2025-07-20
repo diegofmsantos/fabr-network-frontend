@@ -24,9 +24,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
         } else if (pathname?.includes('/mercado')) {
             setActiveItem('mercado');
         } else if (pathname?.includes('/compare')) {
-            setActiveItem('comparar');
+            setActiveItem('compare');
         } else if (pathname?.includes('/tabela')) {
-            setActiveItem('superliga');
+            setActiveItem('tabela');
         } else {
             setActiveItem('equipes');
         }

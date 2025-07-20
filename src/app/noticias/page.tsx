@@ -49,10 +49,14 @@ export default function NoticiasPage() {
                                         <div className="flex items-center gap-3">
                                             <div className="relative w-10 h-10">
                                                 <Image
-                                                    src={noticia.autorImage}
+                                                    src={noticia.autorImage || '/placeholder-avatar.png'}
                                                     alt={noticia.autor}
                                                     fill
                                                     className="rounded-full object-cover"
+                                                    onError={(e) => {
+                                                        const target = e.target as HTMLImageElement;
+                                                        target.src = '/placeholder-avatar.png';
+                                                    }}
                                                 />
                                             </div>
                                             <span className="font-medium">Por {noticia.autor}</span>
