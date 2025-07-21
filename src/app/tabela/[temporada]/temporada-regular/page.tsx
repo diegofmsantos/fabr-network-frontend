@@ -2,11 +2,12 @@
 
 import { useState } from 'react'
 import { useParams, useRouter, usePathname } from 'next/navigation'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react'
 import { useClassificacaoSuperliga } from '@/hooks/useSuperliga'
 import { useJogosSuperliga } from '@/hooks/useJogos'
 import { useRodadas } from '@/hooks/useRodadas'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ImageService } from '@/utils/services/ImageService'
 import { Loading } from '@/components/ui/Loading'
 
@@ -69,9 +70,8 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
     jogosRodada: jogosRodada.length
   })
 
-
   return (
-    <div className="bg-white rounded-lg p-3 min-w-[280px] w-full md:max-w-[660px] xl:mt-24 2xl:w-60">
+    <div className="bg-white rounded-lg p-3 mr-2 min-w-[280px] w-full md:max-w-[660px] xl:mt-24 2xl:w-60">
       <div className={`flex items-center justify-between mb-4 text-white px-4 py-2 rounded-t-lg ${getConferenciaColor(conferenciaKey)}`}>
         <button
           onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : 4)}
@@ -110,6 +110,10 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                       <div className="text-sm font-bold">
                         {jogo.placarCasa} x {jogo.placarVisitante}
                       </div>
+                    ) : jogo.status === 'ADIADO' ? (
+                      <div className="text-xs text-yellow-600 font-medium">
+                        ADIADO
+                      </div>
                     ) : (
                       <div className="text-xs text-gray-600">
                         {new Date(jogo.dataJogo).toLocaleDateString('pt-BR')}
@@ -128,10 +132,13 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                 </div>
               </div>
 
-
-              <div className="text-xs text-gray-500">
+              <div className={`text-xs ${jogo.status === 'FINALIZADO' ? 'text-green-600' :
+                jogo.status === 'AO VIVO' ? 'text-red-600' :
+                  jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
+                }`}>
                 {jogo.status === 'FINALIZADO' ? 'Finalizado' :
-                  jogo.status === 'AO VIVO' ? 'Ao Vivo' : 'Agendado'}
+                  jogo.status === 'AO VIVO' ? 'Ao Vivo' :
+                    jogo.status === 'ADIADO' ? 'Adiado' : 'Agendado'}
               </div>
             </div>
           ))
@@ -152,32 +159,59 @@ export default function TemporadaRegularPage() {
   const pathname = usePathname()
   const temporada = params.temporada as string
 
-  const { data: classificacao, isLoading: loadingClassificacao } = useClassificacaoSuperliga(temporada)
-  const { data: jogos = [], isLoading: loadingJogos } = useJogosSuperliga(temporada, {
-    fase: 'TEMPORADA REGULAR'
-  })
-  const { data: rodadas, isLoading: loadingRodadas } = useRodadas(temporada)
+  const {
+    data: classificacao,
+    isLoading: loadingClassificacao,
+    error: errorClassificacao
+  } = useClassificacaoSuperliga(temporada)
+
+  const {
+    data: jogos = [],
+    isLoading: loadingJogos,
+    error: errorJogos
+  } = useJogosSuperliga(temporada, { fase: 'TEMPORADA REGULAR' })
+
+  const {
+    data: rodadas,
+    isLoading: loadingRodadas,
+    error: errorRodadas
+  } = useRodadas(temporada)
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (loadingClassificacao || loadingJogos || loadingRodadas) return <Loading />
 
-  if (!classificacao) {
-    return <div className="min-h-screen flex items-center justify-center">
-      <div className="text-white">Erro ao carregar dados</div>
-    </div>
+  if (errorClassificacao || errorJogos || errorRodadas || !classificacao) {
+    return (
+      <div className="min-h-screen bg-[#ECECEC] flex items-center justify-center">
+        <div className="text-center p-8">
+          <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-white mb-2">
+            Superliga não encontrada
+          </h3>
+          <p className="text-gray-400 mb-6">
+            A Superliga {temporada} ainda não foi criada ou não há dados disponíveis.
+          </p>
+          <Link
+            href="/"
+            className="bg-[#63E300] text-black px-4 py-2 rounded-md font-semibold hover:bg-[#50B800] transition-colors"
+          >
+            Voltar para Times
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   const conferencias = Object.entries(classificacao)
 
   return (
-    <div className="min-h-screen">
-      <div className="xl:ml-80 w-full max-w-5xl 2xl:ml-[550px] absolute">
+    <div className="min-h-screen overflow-x-hidden">
+      <div className="xl:ml-80 w-full max-w-5xl 2xl:ml-[550px] absolute overflow-x-hidden 2xl:overflow-x-visible">
         <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[665px] md:h-14 md:pt-2 xl:ml-36 fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-4">
             <button
-              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                }`}
+              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.prev && router.push(navigation.prev.path)}
               disabled={!navigation.prev}
               title={navigation.prev?.title || 'Primeira página'}
@@ -188,8 +222,7 @@ export default function TemporadaRegularPage() {
               TEMPORADA <span className='ml-2'>REGULAR</span>
             </h1>
             <button
-              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-                }`}
+              className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.next && router.push(navigation.next.path)}
               disabled={!navigation.next}
               title={navigation.next?.title || 'Última página'}
@@ -202,8 +235,8 @@ export default function TemporadaRegularPage() {
         <div className="space-y-8 mb-24 pt-44 w-full md:ml-8 lg:ml-36">
           {conferencias.map(([conferenciaKey, conferencia]: [string, any]) => (
             <div key={conferenciaKey} className="ml-3 w-full flex flex-col justify-between items-center gap-8 pr-4 xl:flex-row xl:items-start xl:mb-16 max-w-5xl overflow-x-hidden">
-              <div className="max-w-2xl  space-y-10 w-full">
-                {conferencia.regionais.map((regional: any) => (
+              <div className="max-w-2xl space-y-10 w-full pr-2">
+                {conferencia?.regionais && Array.isArray(conferencia.regionais) ? conferencia.regionais.map((regional: any) => (
                   <div key={regional.regionalId} className="w-full">
                     <div className="text-white py-1 flex flex-col items-start gap-1">
                       <span className={`${getConferenciaColor(conferencia.tipo)} text-md font-medium px-2 py-1 rounded`}>
@@ -226,10 +259,10 @@ export default function TemporadaRegularPage() {
                       </div>
 
                       <div className="space-y-4 mt-4">
-                        {regional.times.map((time: any) => (
+                        {regional?.times && Array.isArray(regional.times) ? regional.times.map((time: any) => (
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-end border-b">
                             <div className="text-gray-600 text-sm">{time.posicao}º</div>
-                            <div className="col-span-2 -ml-3 -mt-2  flex items-end">
+                            <div className="col-span-2 -ml-3 -mt-2 flex items-end">
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
                                 alt={`Logo ${time.time.nome}`}
@@ -249,11 +282,19 @@ export default function TemporadaRegularPage() {
                               <div className="text-center text-sm md:text-base">{time.saldo > 0 ? '+' : ''}{time.saldo}</div>
                             </div>
                           </div>
-                        ))}
+                        )) : (
+                          <div className="text-center py-4 text-gray-500">
+                            Nenhum time encontrado neste regional
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
-                ))}
+                )) : (
+                  <div className="text-center py-8 text-gray-500">
+                    Dados da conferência não disponíveis
+                  </div>
+                )}
               </div>
 
               <QuadroRodadas rodadas={rodadas} conferenciaKey={conferenciaKey} />
