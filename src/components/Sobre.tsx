@@ -54,10 +54,6 @@ export const Sobre = ({ isOpen, onClose }: SobreProps) => {
                             <Share size={16} className="text-gray-400" />
                         </Link>
                     </div>
-                    <div className="flex justify-between items-center mb-4 py-3 border-b border-gray-700">
-                        <span>Versão do App</span>
-                        <span className="text-gray-400">1.0.0</span>
-                    </div>
 
                     <div className="mb-8">
                         <h2 className="text-xl font-bold text-center mb-4">Contato FABR-Network</h2>

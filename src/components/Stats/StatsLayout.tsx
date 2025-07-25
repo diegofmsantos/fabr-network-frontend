@@ -30,17 +30,6 @@ export function StatsLayout({ children, initialFilter, statType }: StatsLayoutPr
         <div className="min-h-screen bg-[#ECECEC] max-w-[1200px] mx-auto">
             <div className="w-full pt-20 xl:pt-0 xl:ml-40">
                 <RankingFilters currentFilter={initialFilter} onFilterChange={handleFilterChange} isStatsPage={true} />
-                <div className="w-full mt-8 flex justify-center">
-                    <SelectFilter
-                        label="TEMPORADA"
-                        value={season}
-                        onChange={setSeason}
-                        options={[
-                            { label: '2024', value: '2024' },
-                            { label: '2025', value: '2025' }
-                        ]}
-                    />
-                </div>
                 {children}
             </div>
         </div>

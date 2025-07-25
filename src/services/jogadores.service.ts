@@ -40,11 +40,6 @@ export class JogadoresService extends BaseService {
     })
   }
 
-  static async getJogadorEstatisticasJogo(jogadorId: number): Promise<EstatisticaJogo[]> {
-    const service = new JogadoresService()
-    return service.get<EstatisticaJogo[]>(`/jogadores/jogador/${jogadorId}/estatisticas-jogo`)
-  }
-
   static async getJogadorBySlug(timeSlug: string, jogadorSlug: string, temporada: string = '2025'): Promise<Jogador | null> {
     const service = new JogadoresService()
     return service.get<Jogador | null>(`/jogadores/buscar-por-slug`, {
@@ -53,11 +48,15 @@ export class JogadoresService extends BaseService {
       temporada
     })
   }
-
   static async getEstatisticasJogo(jogadorId: number, temporada: string = '2025'): Promise<EstatisticaJogo[]> {
-    console.log(`🔍 [SERVICE] Chamando: /jogadores/${jogadorId}/estatisticas-jogo?temporada=${temporada}`)
+    console.log(`🔍 [SERVICE] Chamando rota corrigida: /jogadores/${jogadorId}/estatisticas-jogo?temporada=${temporada}`)
 
     const service = new JogadoresService()
     return service.get<EstatisticaJogo[]>(`/jogadores/${jogadorId}/estatisticas-jogo`, { temporada })
+  }
+
+  static async getJogadorEstatisticasJogo(jogadorId: number, temporada: string = '2025'): Promise<EstatisticaJogo[]> {
+    console.log(`🔍 [SERVICE] Redirecionando para método correto...`)
+    return this.getEstatisticasJogo(jogadorId, temporada)
   }
 }

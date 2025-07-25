@@ -1,9 +1,13 @@
+// ================================
+// ARQUIVO: src/hooks/useJogadores.ts  
+// CORREÇÃO: Hook para estatísticas do jogador
+// ================================
+
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { JogadoresService } from '@/services/jogadores.service'
 import { queryKeys } from './queryKeys'
 import { useNotifications } from './useNotifications'
 import { Jogador } from '@/types'
-
 
 export function useJogadores(temporada: string = '2025') {
   return useQuery({
@@ -102,6 +106,7 @@ export function useDeleteJogador() {
   })
 }
 
+// ✅ INTERFACE PARA ESTATÍSTICAS JOGO A JOGO
 export interface JogoJogador {
   id: number
   jogoId: number
@@ -134,14 +139,26 @@ export interface JogoJogador {
   }
 }
 
-export function useJogosJogador(jogadorId: number, temporada: string) {
+export function useJogosJogador(jogadorId: number, temporada: string = '2025') {
   return useQuery({
     queryKey: ['jogos-jogador', jogadorId, temporada],
     queryFn: () => {
-      console.log(`🔍 [HOOK] Chamando service para jogador ${jogadorId}`)
+      console.log(`🔍 [HOOK] Chamando service para jogador ${jogadorId}, temporada ${temporada}`)
+      // ✅ USAR O MÉTODO CORRETO DO SERVICE
       return JogadoresService.getEstatisticasJogo(jogadorId, temporada)
     },
-    enabled: !!jogadorId && !!temporada,
-    staleTime: 1000 * 60 * 5,
+    enabled: !!jogadorId && !!temporada && jogadorId > 0,
+    staleTime: 1000 * 60 * 5, // 5 minutos
+    retry: (failureCount, error: any) => {
+      // ✅ RETRY INTELIGENTE
+      if (error?.response?.status === 404) {
+        console.log('🔍 Jogador não tem estatísticas ainda, parando retry')
+        return false
+      }
+      return failureCount < 2
+    },
+    meta: {
+      errorMessage: 'Erro ao carregar estatísticas do jogador'
+    }
   })
 }

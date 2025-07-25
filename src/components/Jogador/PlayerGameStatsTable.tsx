@@ -142,6 +142,12 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           return null
         }
 
+        // ✅ FILTRO: Só exibir jogos FINALIZADOS
+        if (jogo.status !== 'FINALIZADO') {
+          console.log(`🔍 [DEBUG] Ignorando jogo ${jogo.id} - Status: ${jogo.status}`)
+          return null
+        }
+
         const isTimeCasa = jogo.timeCasaId === timeId
         const adversario = isTimeCasa ? jogo.timeVisitante : jogo.timeCasa
 
@@ -153,14 +159,23 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           adversario: adversario?.nome || 'Adversário',
           adversarioLogo: adversario?.nome ? ImageService.getTeamLogo(adversario.nome) : '',
           local: isTimeCasa ? 'Casa' : 'Visitante',
-          resultado: jogo.status === 'FINALIZADO'
-            ? `${jogo.placarCasa || 0} - ${jogo.placarVisitante || 0}`
-            : 'N/A',
+          resultado: `${jogo.placarCasa || 0} - ${jogo.placarVisitante || 0}`,
           estatisticas: stat.estatisticas || {}
         }
       })
       .filter((row): row is GameStatsRow => row !== null)
   }, [estatisticasJogo])
+
+  console.log('🔍 [PlayerGameStatsTable] Debug detalhado:', {
+    jogadorId,
+    totalEstatisticas: estatisticasJogo.length,
+    estatisticasComJogo: estatisticasJogo.filter(stat => stat.jogo).length,
+    jogosFinalizados: estatisticasJogo.filter(stat => stat.jogo?.status === 'FINALIZADO').length,
+    jogosAdiados: estatisticasJogo.filter(stat => stat.jogo?.status === 'ADIADO').length,
+    statusDiversos: [...new Set(estatisticasJogo.map(stat => stat.jogo?.status))],
+    gameStatsRows: gameStatsRows.length,
+    primeiraEstatistica: estatisticasJogo[0]
+  })
 
   const getStat = (stats: any, column: ColumnConfig) => {
     if (column.format) {

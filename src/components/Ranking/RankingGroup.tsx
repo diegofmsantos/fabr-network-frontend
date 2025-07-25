@@ -73,7 +73,7 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
 
   return (
     <div className="pl-4 pb-8 mb-10 overflow-x-hidden overflow-y-hidden mx-auto xl:px-12 xl:overflow-x xl:overflow-y">
-      <h2 className="text-4xl pl-2 font-extrabold italic mb-4 leading-[30px] tracking-[-2px] lg:pl-16 xl:pl-20">{title}</h2>
+      <h2 className="text-4xl mt-8 pl-2 font-extrabold italic mb-4 leading-[30px] tracking-[-2px] lg:pl-16 xl:pl-20">{title}</h2>
       <Slider {...SLIDER_SETTINGS}>
         {stats.map((stat, index) => {
           const filteredPlayers = players
