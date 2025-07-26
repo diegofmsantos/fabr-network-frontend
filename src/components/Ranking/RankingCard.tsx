@@ -22,6 +22,16 @@ interface RankingCardProps {
   players: PlayerCardProps[]
 }
 
+const formatValueForDisplay = (value: string, title: string): string => {
+  if (title.includes('(AVG)') || title.includes('JARDAS(AVG)')) {
+    const numValue = parseFloat(value);
+    if (!isNaN(numValue)) {
+      return numValue.toFixed(1).replace('.', ',');
+    }
+  }
+  return value;
+}
+
 export const RankingCard: React.FC<RankingCardProps> = ({ title, category, players, stat }) => {
 
   const getStatsUrl = (): string => {
@@ -35,6 +45,8 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
 
     return UrlService.getPlayerStatsUrl(category, title);
   }
+
+  
 
   return (
     <div className="ranking-card-container px-3">
@@ -68,7 +80,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         <p className="text-[10px] xl:text-xs">{player.team}</p>
                       </div>
                       <span className="font-extrabold italic text-[40px] max-[374px]:mt-4">
-                        {formatValue(player.value, title)}
+                        {formatValueForDisplay(player.value, title)}
                       </span>
                     </div>
                     <div className="relative w-[200px] h-[200px]">
@@ -97,7 +109,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                       </div>
                     </div>
                     <span className="font-bold text-sm min-[375px]:text-lg">
-                      {formatValue(player.value, title)}
+                      {formatValueForDisplay(player.value, title)}
                     </span>
                   </div>
                 )}

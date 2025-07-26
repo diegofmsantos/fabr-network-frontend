@@ -6,7 +6,6 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { NoStats } from '../ui/NoStats'
 import { formatValue } from '@/utils/services/FormatterService'
 import { ImageService } from '@/utils/services/ImageService'
-import { getCategoryFromKey } from '@/utils/helpers/categoryHelpers'
 import { Jogador, StatConfig, Time } from '@/types'
 
 interface TeamStatsListProps {
@@ -35,7 +34,6 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
       let total = 0
       let divisor = 0
 
-      // Casos especiais primeiro
       if (statMapping.key === 'fumble_de_passador') {
         teamPlayers.forEach(player => {
           total += player.estatisticas?.passe?.fumble_de_passador || 0
@@ -51,7 +49,6 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         return divisor > 0 ? total / divisor : null
       }
 
-      // Estatísticas calculadas
       if (statMapping.isCalculated) {
         switch (statMapping.key) {
           case 'passes_percentual':
@@ -105,11 +102,9 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         }
       }
 
-      // Estatísticas diretas - CORREÇÃO ESPECÍFICA
       teamPlayers.forEach(player => {
         if (!player.estatisticas) return
 
-        // Type-safe access baseado na categoria
         switch (statMapping.category) {
           case 'passe': {
             const value = (player.estatisticas.passe as any)[statMapping.key]
@@ -180,7 +175,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
       <div className="bg-[#ECECEC] max-w-[1200px] mx-auto">
         <Link
           href={`/ranking/times`}
-          className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-400/40 z-50 xl:left-96 2xl:left-[500px]'
+          className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-400/40 z-50 xl:left-96 2xl:left-[650px]'
         >
           <FontAwesomeIcon icon={faAngleLeft} />
         </Link>

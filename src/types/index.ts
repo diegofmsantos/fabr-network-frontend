@@ -1,4 +1,7 @@
 // ==================== BASE TYPES ====================
+
+export type CategoryKey = 'passe' | 'corrida' | 'recepcao' | 'retorno' | 'defesa' | 'kicker' | 'punter'
+
 export interface Conferencia {
   id: number
   nome: string

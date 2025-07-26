@@ -86,7 +86,7 @@ if (isLoading) return <Loading />
           </div>
         </div>
 
-        <div className="mt-44 h-full mb-24 ml-3">
+        <div className="mt-44 h-full mb-24 ml-3 xl:ml-20">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
             {!finalNacional ? (
               <div className="text-center py-12 md:py-0 md:ml-40 xl:ml-96">

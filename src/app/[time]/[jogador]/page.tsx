@@ -10,13 +10,11 @@ import { Stats } from "@/components/Stats/Stats"
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Loading } from "@/components/ui/Loading"
-import { SelectFilter } from "@/components/ui/SelectFilter"
 import PlayerNameHeader from "@/components/Jogador/PlayerNameHeader"
 import { SemJogador } from "@/components/ui/SemJogador"
 import { getPlayerSlug, getTeamSlug } from "@/utils/helpers/formatUrl"
 import ShareButton from "@/components/ui/buttonShare"
 import { useQueryClient } from "@tanstack/react-query"
-import { queryKeys } from "@/hooks/queryKeys"
 import { NoDataFound } from "@/components/ui/NoDataFound"
 import { Jogador, Time } from "@/types"
 import { useJogadores } from "@/hooks/useJogadores"
@@ -321,7 +319,6 @@ export default function Page() {
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>
                         <div className="bg-white flex flex-col justify-center gap-4 p-4 rounded-lg">
                             <div className="border-b border-bg-[#D9D9D9] flex justify-between">
-                                {/* ✅ IDADE - Sempre exibe, com "-" se não tiver dados */}
                                 <div className='flex flex-col justify-center items-center'>
                                     <div className="text-sm md:text-xl">IDADE</div>
                                     <div className="text-lg md:text-[30px] font-extrabold italic my-1">
@@ -329,7 +326,6 @@ export default function Page() {
                                     </div>
                                 </div>
 
-                                {/* ✅ PESO - Sempre exibe, com "-" se não tiver dados */}
                                 <div className='flex flex-col justify-center items-center'>
                                     <div className="text-sm md:text-xl">PESO</div>
                                     <div className="text-lg md:text-[30px] font-extrabold italic my-1">
@@ -337,7 +333,6 @@ export default function Page() {
                                     </div>
                                 </div>
 
-                                {/* ✅ ALTURA - Sempre exibe, com "-" se não tiver dados */}
                                 <div className='flex flex-col justify-center items-center'>
                                     <div className="text-sm md:text-xl">ALTURA</div>
                                     <div className="text-lg md:text-[30px] font-extrabold italic my-1">
@@ -348,7 +343,6 @@ export default function Page() {
                                     </div>
                                 </div>
 
-                                {/* ✅ EXPERIÊNCIA - Sempre exibe, com "-" se for 0 */}
                                 <div className='flex flex-col justify-center items-center'>
                                     <div className="text-sm md:text-xl">EXPERIÊNCIA</div>
                                     <div className="text-lg md:text-[30px] font-extrabold italic my-1">
@@ -360,7 +354,6 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            {/* ✅ INSTAGRAM - Só exibe se tiver dados válidos */}
                             {currentJogador.instagram && currentJogador.instagram.trim() !== '' && (
                                 <div className='flex justify-start border-b border-bg-[#D9D9D9]'>
                                     <div className='flex-1 justify-start'>
@@ -384,7 +377,6 @@ export default function Page() {
                                 </div>
                             )}
 
-                            {/* ✅ Outros campos condicionais (só aparecem se tiverem conteúdo) */}
                             {currentJogador.cidade && currentJogador.cidade.trim() !== '' && (
                                 <div className='flex justify-start border-b border-bg-[#D9D9D9]'>
                                     <div className='flex-1 justify-start'>

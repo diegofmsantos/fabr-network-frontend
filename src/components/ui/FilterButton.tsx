@@ -34,7 +34,7 @@ export const RankingFilters: React.FC<RankingFiltersProps> = ({ currentFilter, o
     const timesUrl = isStatsPage ? `/ranking/times/stats?stat=${statParam}` : "/ranking/times";
 
     return (
-        <div className="w-full flex justify-around mt-4 xl:mt-6">
+        <div className="w-full flex justify-around mt-4 xl:mt-6 xl:hidden">
             <Link href={jogadoresUrl} className=''>
                 <FilterButton isSelected={currentFilter === 'jogadores'} onClick={() => onFilterChange('jogadores')} label="Jogadores" />
             </Link>

@@ -83,7 +83,7 @@ export default function SemifinalConferenciaPage() {
           </div>
         </div>
 
-        <div className="mt-44 h-full mb-24 ml-3">
+        <div className="mt-44 h-full mb-24 ml-3 xl:ml-20">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
             {(!semifinalConferencias || semifinalConferencias.length === 0) ? (
               <div className="text-center py-1 md:ml-40 xl:ml-96">

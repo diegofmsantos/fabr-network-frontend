@@ -1,5 +1,4 @@
-import { CorridaStats, DefesaStats, Jogador, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatConfig, StatKey, StatResult, StatsBase } from "@/types";
-import { CATEGORY_THRESHOLDS, CategoryKey, getTierForValue } from "../categoryThresholds";
+import { CategoryKey, CorridaStats, DefesaStats, Jogador, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatConfig, StatKey, StatResult, StatsBase } from "@/types";
 
 import { getStatCategory } from "../constants/statMappings";
 import { getCategoryFromKey } from "../helpers/categoryHelpers";
@@ -153,63 +152,7 @@ export const calculateStat = (player: Jogador, key: StatKey): string | number | 
     }
 }
 
-export const calculateStatValue = (player: Jogador, mapping: StatConfig): StatResult => {
-    try {
-        if (!player.estatisticas) {
-            return { value: null, tier: 3 }
-        }
 
-        let stats: any
-        switch (mapping.category) {
-            case 'passe':
-                stats = player.estatisticas.passe
-                break
-            case 'corrida':
-                stats = player.estatisticas.corrida
-                break
-            case 'recepcao':
-                stats = player.estatisticas.recepcao
-                break
-            case 'retorno':
-                stats = player.estatisticas.retorno
-                break
-            case 'defesa':
-                stats = player.estatisticas.defesa
-                break
-            case 'kicker':
-                stats = player.estatisticas.kicker
-                break
-            case 'punter':
-                stats = player.estatisticas.punter
-                break
-            default:
-                return { value: null, tier: 3 }
-        }
-
-        if (!stats || !checkCategoryMinimum(mapping.category as CategoryKey, stats)) {
-            return { value: null, tier: 3 }
-        }
-
-        let value: number | null
-
-        if (mapping.isCalculated) {
-            value = calculateDerivedStat(stats, mapping.key)
-        } else {
-            value = stats[mapping.key as keyof typeof stats] as number
-        }
-
-        if (value === null || value === undefined) {
-            return { value: null, tier: 3 }
-        }
-
-        const tier = getTierForValue(value, mapping.category as CategoryKey)
-
-        return { value, tier }
-    } catch (error) {
-        console.error('Error calculating stat value:', error)
-        return { value: null, tier: 3 }
-    }
-}
 
 const calculateDerivedStat = (stats: any, key: string): number | null => {
     switch (key) {
@@ -250,27 +193,7 @@ const calculateDerivedStat = (stats: any, key: string): number | null => {
     }
 }
 
-const checkCategoryMinimum = (category: CategoryKey, stats: any): boolean => {
-    const thresholds = CATEGORY_THRESHOLDS[category];
-    if (!thresholds) return false;
 
-    switch (category) {
-        case 'passe':
-            return (stats as PasseStats).passes_tentados >= thresholds.tier3;
-        case 'corrida':
-            return (stats as CorridaStats).corridas >= thresholds.tier3;
-        case 'recepcao':
-            return (stats as RecepcaoStats).alvo >= thresholds.tier3;
-        case 'retorno':
-            return (stats as RetornoStats).retornos >= thresholds.tier3;
-        case 'defesa':
-            return calculateDefenseTotal(stats as DefesaStats) >= thresholds.tier3;
-        case 'kicker':
-            return (stats as KickerStats).tentativas_de_fg >= thresholds.tier3;
-        case 'punter':
-            return (stats as PunterStats).punts >= thresholds.tier3;
-    }
-}
 
 export class BaseStatCalculator {
     static calculate(stats: StatsBase[keyof StatsBase], category: CategoryKey): number {

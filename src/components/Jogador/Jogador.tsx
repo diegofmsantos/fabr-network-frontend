@@ -119,7 +119,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                 <div className="text-base min-[375px]:text-[18px] font-extrabold italic md:text-xl">({jogador.posicao})</div>
                             </div>
                             <div className="flex justify-between gap-2 min-[400px]:gap-6 md:justify-start">
-                                {/* ✅ IDADE - Sempre exibe, com "-" se não tiver dados */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">IDADE</div>
                                     <div className="text-xs min-[400px]:text-base font-bold">
@@ -127,7 +126,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                     </div>
                                 </div>
 
-                                {/* ✅ ALTURA - Sempre exibe, com "-" se não tiver dados */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">ALTURA</div>
                                     <div className="text-xs min-[400px]:text-base font-bold">
@@ -138,7 +136,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                     </div>
                                 </div>
 
-                                {/* ✅ PESO - Sempre exibe, com "-" se não tiver dados */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">PESO</div>
                                     <div className="text-xs min-[400px]:text-base font-bold">
@@ -146,7 +143,6 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                     </div>
                                 </div>
 
-                                {/* ✅ EXPERIÊNCIA - Sempre exibe, com "-" se for 0 */}
                                 <div className="flex flex-col items-center">
                                     <div className="text-[10px] min-[375px]:text-xs">EXPERIÊNCIA</div>
                                     <div className="text-xs min-[400px]:text-base font-bold">
