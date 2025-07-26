@@ -119,14 +119,10 @@ export default function MercadoPage() {
           </div>
         ) : (
           <div className="space-y-6">
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <h2 className="text-xl font-bold mb-2">Resumo de Transferências</h2>
-              <p className="text-lg"><span className="font-bold">{transferencias.length}</span> jogadores transferidos</p>
-              <p className="text-lg"><span className="font-bold">{Object.keys(transferenciasAgrupadas).length}</span> times envolvidos</p>
-            </div>
+         
 
             {timesOrdenados.map(([timeDestino, jogadoresTransferidos]) => (
-              <div key={timeDestino} className="bg-white p-4 rounded-lg shadow-md">
+              <div key={timeDestino} className="bg-white p-4 rounded-lg shadow-md xl:mt-8">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 relative">
                     {jogadoresTransferidos[0]?.timeDestinoSigla && (

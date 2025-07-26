@@ -75,7 +75,7 @@ export const Tab = () => {
               </Link>
 
               {/* Compare */}
-              <Link href="/comparar" className="flex-none">
+              <Link href="/compare" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
                     src={isCompararRoute ? "/assets/compare.png" : "/assets/compare-2.png"}

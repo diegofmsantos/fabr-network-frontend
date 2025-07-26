@@ -228,25 +228,9 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     )
   }
 
-  if (activeColumns.length === 0) {
-    return (
-      <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <div className="text-center text-gray-600 py-8">
-          <p>Este jogador ainda não possui estatísticas registradas.</p>
-          <p className="text-sm mt-2">As estatísticas aparecerão conforme o jogador participar dos jogos.</p>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="bg-white rounded-lg p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-      <p className="text-gray-600 text-sm mb-4">
-        {gameStatsRows.length} {gameStatsRows.length === 1 ? 'jogo' : 'jogos'} com estatísticas registradas
-      </p>
-
       <div className="overflow-x-auto">
         <table className="w-full text-base">
           <thead>

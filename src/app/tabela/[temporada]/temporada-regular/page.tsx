@@ -279,7 +279,7 @@ export default function TemporadaRegularPage() {
                               <div className="text-center text-sm md:text-base">{time.derrotas || (time.jogos - time.vitorias)}</div>
                               <div className="text-center text-sm md:text-base">{time.pontosPro}</div>
                               <div className="text-center text-sm md:text-base">{time.pontosContra}</div>
-                              <div className="text-center text-sm md:text-base">{time.saldo > 0 ? '+' : ''}{time.saldo}</div>
+                              <div className="text-center text-sm md:text-base">{time.saldo}</div>
                             </div>
                           </div>
                         )) : (
