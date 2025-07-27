@@ -2,10 +2,10 @@
 
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useWildCardData } from '@/hooks/usePlayoffData'
 import { ImageService } from '@/utils/services/ImageService'
 import Image from 'next/image'
 import { Loading } from '@/components/ui/Loading'
+import { useWildCardData } from '@/hooks/usePlayoffData'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },

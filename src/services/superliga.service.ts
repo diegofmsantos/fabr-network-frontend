@@ -141,9 +141,31 @@ export class SuperligaService extends BaseService {
     return service.post(`/superliga/${temporada}/resetar-playoffs`)
   }
 
-  static async getBracket(temporada: string) {
+  static async getBracket(temporada: string): Promise<any[]> {
     const service = new SuperligaService()
-    return service.get(`/superliga/${temporada}/bracket`)
+
+    try {
+      // Buscar playoffs da agenda (tabela Jogo) - IDs 65-84
+      const jogosPlayoffs = await service.get<any>(`/superliga/${temporada}/jogos`, {
+        fase: 'WILD CARD,SEMIFINAL DE CONFERÊNCIA,FINAL DE CONFERÊNCIA,SEMIFINAL NACIONAL,FINAL NACIONAL'
+      })
+
+      if (jogosPlayoffs &&
+        typeof jogosPlayoffs === 'object' &&
+        'jogos' in jogosPlayoffs &&
+        Array.isArray((jogosPlayoffs as any).jogos)) {
+
+        console.log('🎯 Usando playoffs da agenda (tabela Jogo)')
+        return (jogosPlayoffs as any).jogos
+      }
+
+      console.log('🎯 Nenhum playoff encontrado na agenda')
+      return []
+
+    } catch (error) {
+      console.error('❌ Erro ao buscar bracket:', error)
+      return []
+    }
   }
 
   static async getPlayoffsConferencia(temporada: string, conferencia: string) {
@@ -256,5 +278,57 @@ export class SuperligaService extends BaseService {
     if (conferencia) params.conferencia = conferencia
 
     return service.get<any>('/superliga/rodadas', params)
+  }
+
+  static async getBracketCompleto(temporada: string): Promise<any[]> {
+    const service = new SuperligaService()
+
+    try {
+      // Buscar tanto da tabela PlayoffJogo quanto da tabela Jogo
+      const [playoffJogosResponse, jogosAgendaResponse] = await Promise.allSettled([
+        service.get<any[]>(`/superliga/${temporada}/bracket-playoffjogo`),
+        service.get<any>(`/superliga/${temporada}/jogos`, {
+          fase: 'WILD CARD,SEMIFINAL DE CONFERÊNCIA,FINAL DE CONFERÊNCIA,SEMIFINAL NACIONAL,FINAL NACIONAL'
+        })
+      ])
+
+      // Processar resultado dos jogos da agenda
+      let jogosAgenda: any[] = []
+      if (jogosAgendaResponse.status === 'fulfilled' &&
+        jogosAgendaResponse.value &&
+        typeof jogosAgendaResponse.value === 'object' &&
+        'jogos' in jogosAgendaResponse.value &&
+        Array.isArray((jogosAgendaResponse.value as any).jogos)) {
+
+        jogosAgenda = (jogosAgendaResponse.value as any).jogos
+      }
+
+      // Processar resultado dos PlayoffJogos
+      let playoffJogos: any[] = []
+      if (playoffJogosResponse.status === 'fulfilled' &&
+        Array.isArray(playoffJogosResponse.value)) {
+
+        playoffJogos = playoffJogosResponse.value
+      }
+
+      console.log('🎯 Jogos da agenda:', jogosAgenda.length)
+      console.log('🎯 PlayoffJogos:', playoffJogos.length)
+
+      // Priorizar jogos da agenda se existirem
+      if (jogosAgenda.length > 0) {
+        console.log('🎯 Usando playoffs da agenda (tabela Jogo)')
+        return jogosAgenda
+      } else if (playoffJogos.length > 0) {
+        console.log('🎯 Usando playoffs gerados (tabela PlayoffJogo)')
+        return playoffJogos
+      } else {
+        console.log('🎯 Nenhum playoff encontrado')
+        return []
+      }
+
+    } catch (error) {
+      console.error('❌ Erro ao buscar bracket completo:', error)
+      return []
+    }
   }
 }
