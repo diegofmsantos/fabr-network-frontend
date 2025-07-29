@@ -1,11 +1,12 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+
+import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { SuperligaService } from '@/services/superliga.service'
 
 function getConferenciaColor(tipo?: string) {
   switch (tipo?.toUpperCase()) {
     case 'SUDESTE': return 'bg-red-600'
-    case 'SUL': return 'bg-cyan-500' 
+    case 'SUL': return 'bg-cyan-500'
     case 'NORDESTE': return 'bg-orange-500'
     case 'CENTRO NORTE': return 'bg-green-600'
     default: return 'bg-gray-600'
@@ -23,15 +24,15 @@ function getConferenciaKey(conf: any, index: number) {
 }
 
 export function usePlayoffData(temporada: string) {
-  const { 
-    data: rawBracket, 
-    isLoading, 
-    error 
+  const {
+    data: rawBracket,
+    isLoading,
+    error
   } = useQuery({
     queryKey: ['superliga', temporada, 'bracket'],
     queryFn: () => SuperligaService.getBracket(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 30, 
+    staleTime: 1000 * 30,
     retry: 3,
     refetchOnWindowFocus: true,
   })
@@ -64,21 +65,23 @@ export function usePlayoffData(temporada: string) {
         wildCardJogos.forEach((jogo: any, index: number) => {
           const conf = jogo.conferencia
           const confKey = getConferenciaKey(conf, index)
-          
+
           if (!conferenciasMap.has(confKey)) {
             conferenciasMap.set(confKey, {
               key: confKey,
-              nome: getConferenciaNome(conf), 
-              cor: getConferenciaColor(conf?.tipo || conf?.nome), 
+              nome: getConferenciaNome(conf),
+              cor: getConferenciaColor(conf?.tipo || conf?.nome),
               jogos: []
             })
           }
 
           conferenciasMap.get(confKey).jogos.push({
             id: jogo.id,
+            // 🔧 CORREÇÃO: Compatibilidade com ambas as tabelas
             time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'A definir',
             time2: jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || 'A definir',
-            descricao: jogo.nome || `${jogo.timeClassificado1?.nome || 'Time 1'} × ${jogo.timeClassificado2?.nome || 'Time 2'}`,
+            descricao: jogo.nome || `${jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'Time 1'} × ${jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || 'Time 2'}`,
+            // 🔧 CORREÇÃO: Compatibilidade com ambas as estruturas de placar
             placar1: jogo.placarTime1 !== null ? jogo.placarTime1 : jogo.placarCasa,
             placar2: jogo.placarTime2 !== null ? jogo.placarTime2 : jogo.placarVisitante,
             status: jogo.status,
@@ -105,12 +108,12 @@ export function usePlayoffData(temporada: string) {
         semifinalJogos.forEach((jogo: any, index: number) => {
           const conf = jogo.conferencia
           const confKey = getConferenciaKey(conf, index)
-          
+
           if (!conferenciasMap.has(confKey)) {
             conferenciasMap.set(confKey, {
-              key: confKey, 
+              key: confKey,
               nome: getConferenciaNome(conf),
-              cor: getConferenciaColor(conf?.tipo || conf?.nome), 
+              cor: getConferenciaColor(conf?.tipo || conf?.nome),
               jogos: []
             })
           }
@@ -146,7 +149,7 @@ export function usePlayoffData(temporada: string) {
         finalJogos.forEach((jogo: any, index: number) => {
           const conf = jogo.conferencia
           const confKey = getConferenciaKey(conf, index)
-          
+
           if (!conferenciasMap.has(confKey)) {
             conferenciasMap.set(confKey, {
               key: confKey,
@@ -161,7 +164,6 @@ export function usePlayoffData(temporada: string) {
             time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'A definir',
             time2: jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || 'A definir',
             descricao: jogo.nome || 'Final de Conferência',
-            // ✅ CORREÇÃO PRINCIPAL
             placar1: jogo.placarTime1 !== null ? jogo.placarTime1 : jogo.placarCasa,
             placar2: jogo.placarTime2 !== null ? jogo.placarTime2 : jogo.placarVisitante,
             status: jogo.status,
@@ -187,7 +189,6 @@ export function usePlayoffData(temporada: string) {
           nome: jogo.nome || `Semifinal Nacional ${index + 1}`,
           time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || `Campeão Conferência ${index === 0 ? '1' : '3'}`,
           time2: jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || `Campeão Conferência ${index === 0 ? '2' : '4'}`,
-          // ✅ CORREÇÃO PRINCIPAL
           placar1: jogo.placarTime1 !== null ? jogo.placarTime1 : jogo.placarCasa,
           placar2: jogo.placarTime2 !== null ? jogo.placarTime2 : jogo.placarVisitante,
           status: jogo.status,
@@ -200,22 +201,16 @@ export function usePlayoffData(temporada: string) {
         if (!rawBracket || !Array.isArray(rawBracket)) return null
 
         const finalJogo = rawBracket.find((jogo: any) =>
-          jogo.fase === 'FINAL NACIONAL' || jogo.fase === 'FinalNacional'
+          jogo.fase === 'FINAL NACIONAL'
         )
 
         if (!finalJogo) return null
 
-        console.log('🎯 Final Nacional:', {
-          id: finalJogo.id,
-          placarTime1: finalJogo.placarTime1,
-          placarTime2: finalJogo.placarTime2,
-          status: finalJogo.status
-        })
-
         return {
-          time1: finalJogo.timeClassificado1?.nome || finalJogo.timeCasa?.nome || 'Vencedor Semifinal 1',
-          time2: finalJogo.timeClassificado2?.nome || finalJogo.timeVisitante?.nome || 'Vencedor Semifinal 2',
-          // ✅ CORREÇÃO PRINCIPAL
+          id: finalJogo.id,
+          nome: finalJogo.nome || 'FINAL NACIONAL',
+          time1: finalJogo.timeClassificado1?.nome || finalJogo.timeCasa?.nome || 'Finalista 1',
+          time2: finalJogo.timeClassificado2?.nome || finalJogo.timeVisitante?.nome || 'Finalista 2',
           placar1: finalJogo.placarTime1 !== null ? finalJogo.placarTime1 : finalJogo.placarCasa,
           placar2: finalJogo.placarTime2 !== null ? finalJogo.placarTime2 : finalJogo.placarVisitante,
           status: finalJogo.status,
@@ -252,18 +247,18 @@ export function useSemifinalConferenciaData(temporada: string) {
 
 export function useFinalConferenciaData(temporada: string) {
   const { finalConferencia, isLoading, error } = usePlayoffData(temporada)
-  
+
   const safeData = finalConferencia?.map(conf => ({
     ...conf,
     jogo: conf.jogo || {
       id: 0,
       time1: 'A definir',
-      time2: 'A definir', 
+      time2: 'A definir',
       descricao: 'Aguardando definição',
       status: 'AGUARDANDO'
     }
   })) || []
-  
+
   return { data: safeData, isLoading, error }
 }
 

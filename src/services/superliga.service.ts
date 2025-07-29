@@ -142,31 +142,37 @@ export class SuperligaService extends BaseService {
   }
 
   static async getBracket(temporada: string): Promise<any[]> {
-    const service = new SuperligaService()
+  const service = new SuperligaService()
 
-    try {
-      // Buscar playoffs da agenda (tabela Jogo) - IDs 65-84
-      const jogosPlayoffs = await service.get<any>(`/superliga/${temporada}/jogos`, {
-        fase: 'WILD CARD,SEMIFINAL DE CONFERÊNCIA,FINAL DE CONFERÊNCIA,SEMIFINAL NACIONAL,FINAL NACIONAL'
-      })
+  try {
+    // ✅ BUSCA ÚNICA NA TABELA JOGO - APENAS PLAYOFFS
+    const jogosPlayoffs = await service.get<any>(`/superliga/${temporada}/jogos`, {
+      fase: 'WILD CARD,SEMIFINAL DE CONFERÊNCIA,FINAL DE CONFERÊNCIA,SEMIFINAL NACIONAL,FINAL NACIONAL'
+    })
 
-      if (jogosPlayoffs &&
-        typeof jogosPlayoffs === 'object' &&
-        'jogos' in jogosPlayoffs &&
-        Array.isArray((jogosPlayoffs as any).jogos)) {
-
-        console.log('🎯 Usando playoffs da agenda (tabela Jogo)')
-        return (jogosPlayoffs as any).jogos
-      }
-
-      console.log('🎯 Nenhum playoff encontrado na agenda')
-      return []
-
-    } catch (error) {
-      console.error('❌ Erro ao buscar bracket:', error)
-      return []
+    if (jogosPlayoffs && Array.isArray(jogosPlayoffs)) {
+      console.log('🎯 Usando playoffs da tabela única Jogo:', jogosPlayoffs.length)
+      return jogosPlayoffs
     }
+
+    // Verificar se está no formato com wrapper
+    if (jogosPlayoffs &&
+      typeof jogosPlayoffs === 'object' &&
+      'jogos' in jogosPlayoffs &&
+      Array.isArray((jogosPlayoffs as any).jogos)) {
+
+      console.log('🎯 Usando playoffs da tabela única Jogo (wrapped):', (jogosPlayoffs as any).jogos.length)
+      return (jogosPlayoffs as any).jogos
+    }
+
+    console.log('🎯 Nenhum playoff encontrado')
+    return []
+
+  } catch (error) {
+    console.error('❌ Erro ao buscar bracket:', error)
+    return []
   }
+}
 
   static async getPlayoffsConferencia(temporada: string, conferencia: string) {
     const service = new SuperligaService()
