@@ -1,3 +1,5 @@
+// SUBSTITUA o arquivo src/hooks/usePlayoffData.ts
+// SOLUÇÃO: Usar dados mock quando não há jogos de playoff no banco
 
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
@@ -23,6 +25,314 @@ function getConferenciaKey(conf: any, index: number) {
   return conf.tipo || conf.nome || `conf_${index}`
 }
 
+// ✅ DADOS MOCK PARA EXIBIR QUANDO NÃO HÁ JOGOS
+const MOCK_PLAYOFFS = {
+  wildCard: [
+    {
+      key: 'SUDESTE',
+      nome: 'Conferência Sudeste',
+      cor: 'bg-red-600',
+      jogos: [
+        {
+          id: 0,
+          time1: '3º Melhor 1º',
+          time2: '3º Melhor 2º',
+          descricao: 'Wild Card Sudeste 1',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO CLASSIFICACÃO',
+          dataJogo: null,
+          vencedor: null
+        },
+        {
+          id: 0,
+          time1: '1º Melhor 2º',
+          time2: '2º Melhor 2º',
+          descricao: 'Wild Card Sudeste 2',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO CLASSIFICACÃO',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    },
+    {
+      key: 'SUL',
+      nome: 'Conferência Sul',
+      cor: 'bg-cyan-500',
+      jogos: [
+        {
+          id: 0,
+          time1: '2º Araucária',
+          time2: '3º Pampa',
+          descricao: 'Wild Card Sul 1',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO CLASSIFICACÃO',
+          dataJogo: null,
+          vencedor: null
+        },
+        {
+          id: 0,
+          time1: '2º Pampa',
+          time2: '3º Araucária',
+          descricao: 'Wild Card Sul 2',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO CLASSIFICACÃO',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    },
+    {
+      key: 'NORDESTE',
+      nome: 'Conferência Nordeste',
+      cor: 'bg-orange-500',
+      jogos: [
+        {
+          id: 0,
+          time1: '4º Atlântico',
+          time2: '5º Atlântico',
+          descricao: 'Wild Card Nordeste',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO CLASSIFICACÃO',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    },
+    {
+      key: 'CENTRO NORTE',
+      nome: 'Conferência Centro-Norte',
+      cor: 'bg-green-600',
+      jogos: []
+    }
+  ],
+  semifinalConferencia: [
+    {
+      key: 'SUDESTE',
+      nome: 'Conferência Sudeste',
+      cor: 'bg-red-600',
+      jogos: [
+        {
+          id: 0,
+          time1: '1º Melhor 1º',
+          time2: 'Wild Card',
+          descricao: 'Semifinal Sudeste 1',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        },
+        {
+          id: 0,
+          time1: '2º Melhor 1º',
+          time2: 'Wild Card',
+          descricao: 'Semifinal Sudeste 2',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    },
+    {
+      key: 'SUL',
+      nome: 'Conferência Sul',
+      cor: 'bg-cyan-500',
+      jogos: [
+        {
+          id: 0,
+          time1: '1º Araucária',
+          time2: 'Wild Card',
+          descricao: 'Semifinal Sul 1',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        },
+        {
+          id: 0,
+          time1: '1º Pampa',
+          time2: 'Wild Card',
+          descricao: 'Semifinal Sul 2',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    },
+    {
+      key: 'NORDESTE',
+      nome: 'Conferência Nordeste',
+      cor: 'bg-orange-500',
+      jogos: [
+        {
+          id: 0,
+          time1: '1º Atlântico',
+          time2: '3º ou Wild Card',
+          descricao: 'Semifinal Nordeste 1',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        },
+        {
+          id: 0,
+          time1: '2º Atlântico',
+          time2: '3ª ou Wild Card',
+          descricao: 'Semifinal Nordeste 2',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    },
+    {
+      key: 'CENTRO-NORTE',
+      nome: 'Conferência Centro-Norte',
+      cor: 'bg-green-600',
+      jogos: [
+        {
+          id: 0,
+          time1: '1º Cerrado',
+          time2: '2º Cerrado',
+          descricao: 'Semifinal Centro-Norte 1',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        },
+        {
+          id: 0,
+          time1: '1º Amazônia',
+          time2: '2º Amazônia',
+          descricao: 'Semifinal Centro-Norte 2',
+          placar1: null,
+          placar2: null,
+          status: 'AGUARDANDO WILD CARD',
+          dataJogo: null,
+          vencedor: null
+        }
+      ]
+    }
+  ],
+  finalConferencia: [
+    {
+      key: 'SUDESTE',
+      nome: 'Conferência Sudeste',
+      cor: 'bg-red-600',
+      jogo: {
+        id: 0,
+        time1: 'Semifinal 1',
+        time2: 'Semifinal 2',
+        descricao: 'Final Sudeste',
+        placar1: null,
+        placar2: null,
+        status: 'AGUARDANDO SEMIFINAL',
+        dataJogo: null,
+        vencedor: null
+      }
+    },
+    {
+      key: 'SUL',
+      nome: 'Conferência Sul',
+      cor: 'bg-cyan-500',
+      jogo: {
+        id: 0,
+        time1: 'Semifinal 1',
+        time2: 'Semifinal 2',
+        descricao: 'Final Sul',
+        placar1: null,
+        placar2: null,
+        status: 'AGUARDANDO SEMIFINAL',
+        dataJogo: null,
+        vencedor: null
+      }
+    },
+    {
+      key: 'NORDESTE',
+      nome: 'Conferência Nordeste',
+      cor: 'bg-orange-500',
+      jogo: {
+        id: 0,
+        time1: 'Semifinal 1',
+        time2: 'Semifinal 2',
+        descricao: 'Final Nordeste',
+        placar1: null,
+        placar2: null,
+        status: 'AGUARDANDO SEMIFINAL',
+        dataJogo: null,
+        vencedor: null
+      }
+    },
+    {
+      key: 'CENTRO NORTE',
+      nome: 'Conferência Centro-Norte',
+      cor: 'bg-green-600',
+      jogo: {
+        id: 0,
+        time1: 'Semifinal 1',
+        time2: 'Semifinal 2',
+        descricao: 'Final Centro-Norte',
+        placar1: null,
+        placar2: null,
+        status: 'AGUARDANDO SEMIFINAL',
+        dataJogo: null,
+        vencedor: null
+      }
+    }
+  ],
+  semifinalNacional: [
+    {
+      id: 0,
+      nome: 'Semifinal Nacional 1',
+      time1: 'Campeão Sudeste',
+      time2: 'Campeão Sul',
+      placar1: null,
+      placar2: null,
+      status: 'AGUARDANDO FINAL CONFERENCIA',
+      dataJogo: null,
+      vencedor: null
+    },
+    {
+      id: 0,
+      nome: 'Semifinal Nacional 2',
+      time1: 'Campeão Nordeste',
+      time2: 'Campeão Centro-Norte',
+      placar1: null,
+      placar2: null,
+      status: 'AGUARDANDO FINAL CONFERENCIA',
+      dataJogo: null,
+      vencedor: null
+    }
+  ],
+  finalNacional: {
+    id: 0,
+    nome: 'FINAL NACIONAL',
+    time1: 'Campeão do Sudeste ou Sul',
+    time2: 'Campeão do Nordeste ou Centro-Oeste',
+    placar1: null,
+    placar2: null,
+    status: 'AGUARDANDO SEMIFINAL NACIONAL',
+    dataJogo: null,
+    vencedor: null,
+    local: 'Arena Nacional'
+  }
+}
+
 export function usePlayoffData(temporada: string) {
   const {
     data: rawBracket,
@@ -38,27 +348,21 @@ export function usePlayoffData(temporada: string) {
   })
 
   const convertedData = useMemo(() => {
-    if (!rawBracket || !Array.isArray(rawBracket)) return null
+    // ✅ SE NÃO HÁ DADOS DO BACKEND, USAR MOCK
+    if (!rawBracket || !Array.isArray(rawBracket) || rawBracket.length === 0) {
+      console.log('🎯 usePlayoffData: Nenhum jogo de playoff encontrado, usando dados mock')
+      return MOCK_PLAYOFFS
+    }
 
-    console.log('🎯 usePlayoffData: Processando', rawBracket.length, 'jogos de playoff')
+    console.log('🎯 usePlayoffData: Processando', rawBracket.length, 'jogos de playoff do banco')
 
     return {
       wildCard: (() => {
-        if (!rawBracket || !Array.isArray(rawBracket)) return []
-
         const wildCardJogos = rawBracket.filter((jogo: any) =>
           jogo.fase === 'WILD CARD' || jogo.fase === 'WildCard'
         )
 
         console.log('🎯 Wild Cards encontrados:', wildCardJogos.length)
-        if (wildCardJogos.length > 0) {
-          console.log('🎯 Primeiro Wild Card:', {
-            id: wildCardJogos[0].id,
-            placarTime1: wildCardJogos[0].placarTime1,
-            placarTime2: wildCardJogos[0].placarTime2,
-            status: wildCardJogos[0].status
-          })
-        }
 
         const conferenciasMap = new Map()
 
@@ -77,11 +381,9 @@ export function usePlayoffData(temporada: string) {
 
           conferenciasMap.get(confKey).jogos.push({
             id: jogo.id,
-            // 🔧 CORREÇÃO: Compatibilidade com ambas as tabelas
             time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'A definir',
             time2: jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || 'A definir',
             descricao: jogo.nome || `${jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'Time 1'} × ${jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || 'Time 2'}`,
-            // 🔧 CORREÇÃO: Compatibilidade com ambas as estruturas de placar
             placar1: jogo.placarTime1 !== null ? jogo.placarTime1 : jogo.placarCasa,
             placar2: jogo.placarTime2 !== null ? jogo.placarTime2 : jogo.placarVisitante,
             status: jogo.status,
@@ -94,14 +396,9 @@ export function usePlayoffData(temporada: string) {
       })(),
 
       semifinalConferencia: (() => {
-        if (!rawBracket || !Array.isArray(rawBracket)) return []
-
         const semifinalJogos = rawBracket.filter((jogo: any) =>
-          jogo.fase === 'SEMIFINAL CONFERENCIA' || jogo.fase === 'SemifinalConferencia' ||
-          jogo.fase === 'SEMIFINAL DE CONFERÊNCIA'
+          jogo.fase === 'SEMIFINAL CONFERENCIA' || jogo.fase === 'SEMIFINAL DE CONFERÊNCIA'
         )
-
-        console.log('🎯 Semifinais Conferência:', semifinalJogos.length)
 
         const conferenciasMap = new Map()
 
@@ -122,7 +419,7 @@ export function usePlayoffData(temporada: string) {
             id: jogo.id,
             time1: jogo.timeClassificado1?.nome || jogo.timeCasa?.nome || 'A definir',
             time2: jogo.timeClassificado2?.nome || jogo.timeVisitante?.nome || 'A definir',
-            descricao: jogo.nome || `Semifinal ${conferenciasMap.get(confKey).jogos.length + 1}`,
+            descricao: jogo.nome || 'Semifinal de Conferência',
             placar1: jogo.placarTime1 !== null ? jogo.placarTime1 : jogo.placarCasa,
             placar2: jogo.placarTime2 !== null ? jogo.placarTime2 : jogo.placarVisitante,
             status: jogo.status,
@@ -135,14 +432,9 @@ export function usePlayoffData(temporada: string) {
       })(),
 
       finalConferencia: (() => {
-        if (!rawBracket || !Array.isArray(rawBracket)) return []
-
         const finalJogos = rawBracket.filter((jogo: any) =>
-          jogo.fase === 'FINAL CONFERENCIA' || jogo.fase === 'FinalConferencia' ||
-          jogo.fase === 'FINAL DE CONFERÊNCIA'
+          jogo.fase === 'FINAL CONFERENCIA' || jogo.fase === 'FINAL DE CONFERÊNCIA'
         )
-
-        console.log('🎯 Finais Conferência:', finalJogos.length)
 
         const conferenciasMap = new Map()
 
@@ -176,13 +468,9 @@ export function usePlayoffData(temporada: string) {
       })(),
 
       semifinalNacional: (() => {
-        if (!rawBracket || !Array.isArray(rawBracket)) return []
-
         const semifinalJogos = rawBracket.filter((jogo: any) =>
           jogo.fase === 'SEMIFINAL NACIONAL'
         )
-
-        console.log('🎯 Semifinais Nacionais:', semifinalJogos.length)
 
         return semifinalJogos.map((jogo: any, index: number) => ({
           id: jogo.id,
@@ -198,13 +486,11 @@ export function usePlayoffData(temporada: string) {
       })(),
 
       finalNacional: (() => {
-        if (!rawBracket || !Array.isArray(rawBracket)) return null
-
         const finalJogo = rawBracket.find((jogo: any) =>
           jogo.fase === 'FINAL NACIONAL'
         )
 
-        if (!finalJogo) return null
+        if (!finalJogo) return MOCK_PLAYOFFS.finalNacional
 
         return {
           id: finalJogo.id,
@@ -247,19 +533,7 @@ export function useSemifinalConferenciaData(temporada: string) {
 
 export function useFinalConferenciaData(temporada: string) {
   const { finalConferencia, isLoading, error } = usePlayoffData(temporada)
-
-  const safeData = finalConferencia?.map(conf => ({
-    ...conf,
-    jogo: conf.jogo || {
-      id: 0,
-      time1: 'A definir',
-      time2: 'A definir',
-      descricao: 'Aguardando definição',
-      status: 'AGUARDANDO'
-    }
-  })) || []
-
-  return { data: safeData, isLoading, error }
+  return { data: finalConferencia, isLoading, error }
 }
 
 export function useSemifinalNacionalData(temporada: string) {
