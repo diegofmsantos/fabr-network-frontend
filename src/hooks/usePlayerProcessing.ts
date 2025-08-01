@@ -1,8 +1,6 @@
-
-import { CategoryKey } from '@/utils/categoryThresholds'
 import { BaseStatCalculator, StatsCalculator } from '@/utils/services/StatsServices'
 import { StatsFormatter } from '@/utils/services/FormatterService'
-import { Jogador, ProcessedPlayer, StatConfig, TeamInfo } from '@/types'
+import { CategoryKey, Jogador, ProcessedPlayer, StatConfig, TeamInfo } from '@/types'
 
 export const usePlayerProcessing = (statMapping: StatConfig, getTeamInfo: (timeId: number) => TeamInfo) => {
 

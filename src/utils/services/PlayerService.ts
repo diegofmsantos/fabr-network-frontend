@@ -1,8 +1,7 @@
 import { TeamInfo } from "@/hooks/useTeamInfo"
 import { BaseStatCalculator, calculateStat, compareValues, shouldIncludePlayer, StatsCalculator } from "./StatsServices"
-import { CategoryKey } from "../categoryThresholds"
 import { StatsFormatter } from "./FormatterService"
-import { Jogador, ProcessedPlayer, StatConfig, StatKey, StatResult, Time } from "@/types"
+import { CategoryKey, Jogador, ProcessedPlayer, StatConfig, StatKey, StatResult, Time } from "@/types"
 import { normalizeForFilePath } from "./ImageService"
 
 export function createProcessedPlayer(
