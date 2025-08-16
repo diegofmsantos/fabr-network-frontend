@@ -10,11 +10,17 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   const queryClient = new QueryClient()
-
-  await queryClient.prefetchQuery({
-    queryKey: queryKeys.times.list('2024'),
-    queryFn: () => TimesService.getTimes('2024')
-  })
+  
+  if (process.env.NEXT_PUBLIC_API_BASE_URL) {
+    try {
+      await queryClient.prefetchQuery({
+        queryKey: queryKeys.times.list('2025'),
+        queryFn: () => TimesService.getTimes('2025')
+      })
+    } catch (error) {
+      console.log('Prefetch falhou, dados serão carregados no cliente')
+    }
+  }
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
