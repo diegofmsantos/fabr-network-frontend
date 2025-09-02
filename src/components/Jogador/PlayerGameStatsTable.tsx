@@ -142,7 +142,6 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           return null
         }
 
-        // ✅ FILTRO: Só exibir jogos FINALIZADOS
         if (jogo.status !== 'FINALIZADO') {
           console.log(`🔍 [DEBUG] Ignorando jogo ${jogo.id} - Status: ${jogo.status}`)
           return null
@@ -154,7 +153,8 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
         return {
           data: jogo.dataJogo ? new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
             day: '2-digit',
-            month: '2-digit'
+            month: '2-digit',
+            timeZone: 'UTC'
           }) : '',
           adversario: adversario?.nome || 'Adversário',
           adversarioLogo: adversario?.nome ? ImageService.getTeamLogo(adversario.nome) : '',

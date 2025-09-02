@@ -116,7 +116,12 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                       </div>
                     ) : (
                       <div className="text-xs text-gray-600">
-                        {new Date(jogo.dataJogo).toLocaleDateString('pt-BR')}
+                        {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
+                          day: '2-digit',
+                          month: '2-digit',
+                          year: 'numeric',
+                          timeZone: 'UTC'
+                        })}
                       </div>
                     )}
                   </div>
