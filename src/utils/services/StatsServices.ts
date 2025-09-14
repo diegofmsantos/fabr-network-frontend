@@ -1,19 +1,7 @@
-import { CategoryKey, CorridaStats, DefesaStats, Jogador, KickerStats, PasseStats, PunterStats, RecepcaoStats, RetornoStats, StatConfig, StatKey, StatResult, StatsBase } from "@/types";
+import { CategoryKey, DefesaStats, Jogador, StatKey, StatsBase } from "@/types";
 
 import { getStatCategory } from "../constants/statMappings";
 import { getCategoryFromKey } from "../helpers/categoryHelpers";
-
-
-const calculateDefenseTotal = (stats: DefesaStats): number => {
-    return stats.tackles_totais +
-        stats.tackles_for_loss +
-        stats.sacks_forcado +
-        stats.fumble_forcado +
-        stats.interceptacao_forcada +
-        stats.passe_desviado +
-        stats.safety +
-        stats.td_defensivo;
-}
 
 export class StatsCalculator {
     private static calculateAverage(numerator: number, denominator: number): number | null {
@@ -140,6 +128,15 @@ export const calculateStat = (player: Jogador, key: StatKey): string | number | 
                 return player.estatisticas.punter.punts > 0
                     ? Number((player.estatisticas.punter.jardas_de_punt / player.estatisticas.punter.punts))
                     : null
+                    
+            // CORREÇÃO: Adicionar cases específicos para as 3 estatísticas de defesa
+            case 'sacks_forcado':
+                return player.estatisticas.defesa.sacks_forcado || 0
+            case 'tackles_for_loss':
+                return player.estatisticas.defesa.tackles_for_loss || 0
+            case 'tackles_totais':
+                return player.estatisticas.defesa.tackles_totais || 0
+                
             default: {
                 const category = getStatCategory(key)
                 const stats = player.estatisticas[category]
@@ -151,48 +148,6 @@ export const calculateStat = (player: Jogador, key: StatKey): string | number | 
         return null
     }
 }
-
-
-
-const calculateDerivedStat = (stats: any, key: string): number | null => {
-    switch (key) {
-        case 'passes_percentual':
-            return stats.passes_tentados > 0
-                ? (stats.passes_completos / stats.passes_tentados) * 100
-                : null
-        case 'jardas_media':
-            return stats.passes_tentados > 0
-                ? stats.jardas_de_passe / stats.passes_tentados
-                : null
-        case 'jardas_corridas_media':
-            return stats.corridas > 0
-                ? stats.jardas_corridas / stats.corridas
-                : null
-        case 'jardas_recebidas_media':
-            return stats.alvo > 0
-                ? stats.jardas_recebidas / stats.alvo
-                : null
-        case 'jardas_retornadas_media':
-            return stats.retornos > 0
-                ? stats.jardas_retornadas / stats.retornos
-                : null
-        case 'extra_points':
-            return stats.tentativas_de_xp > 0
-                ? (stats.xp_bons / stats.tentativas_de_xp) * 100
-                : null
-        case 'field_goals':
-            return stats.tentativas_de_fg > 0
-                ? (stats.fg_bons / stats.tentativas_de_fg) * 100
-                : null
-        case 'jardas_punt_media':
-            return stats.punts > 0
-                ? stats.jardas_de_punt / stats.punts
-                : null
-        default:
-            return null
-    }
-}
-
 
 
 export class BaseStatCalculator {

@@ -39,7 +39,7 @@ export const PlayerStatsList: React.FC<PlayerStatsListProps> = ({ players, times
     return ImageService.getTeamLogo(teamName)
   }
 
-  const formatStatValue = (value: number | null): string => {
+const formatStatValue = (value: number | null): string => {
     if (value === null) return 'N/A'
 
     if (statMapping.key.includes('percentual') || statMapping.key === 'field_goals' || statMapping.key === 'extra_points') {
@@ -50,8 +50,15 @@ export const PlayerStatsList: React.FC<PlayerStatsListProps> = ({ players, times
       return value.toFixed(1).replace('.', ',')
     }
 
+    if (statMapping.key === 'sacks_forcado' || statMapping.key === 'tackles_for_loss' || statMapping.key === 'tackles_totais') {
+      if (value % 1 !== 0) {
+        return value.toFixed(1).replace('.', ',')
+      }
+      return value.toString()
+    }
+
     return Math.round(value).toLocaleString('pt-BR')
-  }
+}
 
   const rankedPlayers: RankedPlayer[] = players
     .filter(player => shouldIncludePlayer(player, statMapping.key as StatKey, statMapping.category))
