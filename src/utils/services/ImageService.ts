@@ -7,10 +7,10 @@ export class ImageService {
     return input
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, '-')  
-      .normalize('NFD')      
-      .replace(/[\u0300-\u036f]/g, '') 
-      .replace(/[^a-z0-9-]/g, '');   
+      .replace(/\s+/g, '-')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9-]/g, '');
   }
 
   static getTeamLogo(teamName: string): string {
@@ -18,19 +18,29 @@ export class ImageService {
     return `/assets/times/logos/${normalized}.png`;
   }
 
-   static getTeamHelmet(teamName: string, customHelmet?: string): string {
+  static getTeamHelmet(teamName: string, customHelmet?: string): string {
     if (customHelmet) {
       return `/assets/times/capacetes/${customHelmet}`;
     }
+
+    const specialCases: { [key: string]: string } = {
+      'Bravos FA': 'capacete-bravos.png',
+      'Istepôs FA': 'capacete-istepos.png',
+    }
+
+    if (specialCases[teamName]) {
+      return `/assets/times/capacetes/${specialCases[teamName]}`;
+    }
+
     const normalized = this.normalizeForFilePath(teamName);
     return `/assets/times/capacetes/capacete-${normalized}.png`;
   }
 
-   static getPlayerShirt(teamName: string, shirtCode: string): string {
+  static getPlayerShirt(teamName: string, shirtCode: string): string {
     if (!teamName || !shirtCode) {
       return '/assets/times/camisas/camisa-default.png';
     }
-    
+
     const normalizedTeam = this.normalizeForFilePath(teamName);
     return `/assets/times/camisas/${normalizedTeam}/${shirtCode}`;
   }
@@ -40,28 +50,28 @@ export class ImageService {
     return `/assets/bandeiras/${bannerCode}`;
   }
 
-   static getNationalityFlag(flagCode: string): string {
+  static getNationalityFlag(flagCode: string): string {
     if (!flagCode) return '';
     return `/assets/bandeiras/${flagCode}`;
   }
 
-   static handleImageError(
+  static handleImageError(
     event: React.SyntheticEvent<HTMLImageElement>,
     fallbackSrc: string,
     debugInfo?: string
   ): void {
     const target = event.currentTarget;
-    
+
     if (target.src === fallbackSrc) return;
-    
+
     if (debugInfo && process.env.NODE_ENV === 'development') {
       console.warn(`Failed to load image: ${debugInfo}`);
     }
-    
+
     target.src = fallbackSrc;
   }
 
-    static handleTeamLogoError = (
+  static handleTeamLogoError = (
     event: React.SyntheticEvent<HTMLImageElement>,
     teamName: string
   ) => {
@@ -101,12 +111,12 @@ export class UrlService {
   static getTeamUrl(teamName: string, params?: Record<string, string>): string {
     const normalized = ImageService.normalizeForFilePath(teamName);
     let url = `/${normalized}`;
-    
+
     if (params) {
       const searchParams = new URLSearchParams(params);
       url += `?${searchParams.toString()}`;
     }
-    
+
     return url;
   }
 
@@ -116,7 +126,7 @@ export class UrlService {
     return `/ranking/stats?stat=${categoryLower}-${normalizedTitle}`;
   }
 
-    static getTeamStatsUrl(category: string, statTitle: string): string {
+  static getTeamStatsUrl(category: string, statTitle: string): string {
     const categoryLower = category ? category.toLowerCase() : '';
     const normalizedTitle = ImageService.normalizeForFilePath(statTitle);
     return `/ranking/times/stats?stat=${categoryLower}-${normalizedTitle}`;
@@ -126,12 +136,12 @@ export class UrlService {
     const normalizedTeam = ImageService.normalizeForFilePath(teamName);
     const normalizedPlayer = ImageService.normalizeForFilePath(playerName);
     let url = `/${normalizedTeam}/${normalizedPlayer}`;
-    
+
     if (params) {
       const searchParams = new URLSearchParams(params);
       url += `?${searchParams.toString()}`;
     }
-    
+
     return url;
   }
 }

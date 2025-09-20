@@ -20,13 +20,6 @@ export const Lista = () => {
         visible: { opacity: 1, x: 0, transition: { duration: 0.2 } },
     }
 
-    // No início do componente Lista, adicione:
-    useEffect(() => {
-        console.log('🔧 API Base URL:', process.env.NEXT_PUBLIC_API_BASE_URL)
-        console.log('🌍 Ambiente:', process.env.NODE_ENV)
-        console.log('🌍 Fazendo request para:', `${process.env.NEXT_PUBLIC_API_BASE_URL}/times?temporada=2025`)
-    }, [])
-
     useEffect(() => {
         const stored = localStorage.getItem('lastClickedTeam')
         if (stored) {

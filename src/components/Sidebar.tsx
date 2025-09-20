@@ -50,7 +50,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const isRankingTimes = pathname?.includes('/ranking/times');
 
     return (
-        <aside className={`hidden xl:flex flex-col w-80 h-[780px] bg-[#272731] fixed left-32 top-20 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
+        <aside className={`hidden xl:flex flex-col w-80 h-[700px] bg-[#272731] fixed left-32 top-20 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
             <div className="flex justify-center items-center pt-2">
                 <Link href="/">
                     <Image

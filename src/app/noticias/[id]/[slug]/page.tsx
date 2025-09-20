@@ -11,6 +11,7 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { Noticia } from '@/types'
 import { useNoticiaDetalhes } from '@/hooks/queries'
+import { createSlug } from '@/utils/helpers/formatUrl'
 
 function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
   return allNews
@@ -66,20 +67,20 @@ export default function NoticiaDetalhes() {
   if (!noticia) {
     return (
       <div className="min-h-screen bg-[#ECECEC] flex justify-center items-center">
-        <p>Notícia não encontrada</p>
+        <Loading />
       </div>
     )
   }
 
-
   return (
-    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:mr-44 2xl:mr-96">
+    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:mr-44 2xl:mr-60">
       <Link
         href={`/noticias`}
-        className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-400/40 z-50 xl:left-96 '
+        className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-400/40 z-50 xl:left-[650px] '
       >
         <FontAwesomeIcon icon={faAngleLeft} />
       </Link>
+      
       <div className="max-w-4xl mx-auto p-4 mr-1 bg-white">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-4">{noticia.titulo}</h1>
@@ -148,6 +149,7 @@ export default function NoticiaDetalhes() {
               </span>
             </div>
           </div>
+          
           <div
             className="prose max-w-none flex flex-col gap-1 [&_a]:text-[#0066cc] [&_a]:underline hover:[&_a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
             dangerouslySetInnerHTML={{
@@ -178,14 +180,14 @@ export default function NoticiaDetalhes() {
           />
 
           <div className="border-t">
-
             <h3 className="text-2xl font-bold my-6 border-b-4 border-b-[#63E300]">Mais notícias</h3>
 
             <div className="mb-6 pl-4 pr-4 overflow-x-hidden overflow-y-hidden">
               <Slider {...SLIDER_SETTINGS}>
                 {shuffleAndFilterNews(noticias, noticia.id).map((newsItem) => (
                   <div key={newsItem.id} className="px-2">
-                    <Link href={`/noticias/${newsItem.id}`}>
+                    {/* 🔧 CORREÇÃO: Adicionar createSlug ao href */}
+                    <Link href={`/noticias/${newsItem.id}/${createSlug(newsItem.titulo)}`}>
                       <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
                         <div className="relative h-48 w-full">
                           <Image

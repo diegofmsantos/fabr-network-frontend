@@ -61,12 +61,31 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
     'CENTRO NORTE': 'Centro-Norte'
   }
 
+  // 🔧 CORREÇÃO: Definir número máximo de rodadas por conferência
+  const getMaxRodadas = (conferencia: string): number => {
+    switch (conferencia) {
+      case 'CENTRO NORTE':
+        return 6  // Centro-Norte tem 6 rodadas
+      case 'NORDESTE':
+        return 4  // Nordeste tem 4 rodadas  
+      case 'SUDESTE':
+        return 4  // Sudeste tem 4 rodadas
+      case 'SUL':
+        return 4  // Sul tem 4 rodadas
+      default:
+        return 4  // Padrão
+    }
+  }
+
+  const maxRodadas = getMaxRodadas(conferenciaKey)
   const chaveBackend = mapeamentoConferencias[conferenciaKey] || conferenciaKey
   const jogosRodada = rodadas?.[chaveBackend]?.[rodadaAtiva] || []
 
   console.log('🔍 QuadroRodadas debug:', {
     conferenciaKey,
     chaveBackend,
+    maxRodadas,
+    rodadaAtiva,
     jogosRodada: jogosRodada.length
   })
 
@@ -74,7 +93,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
     <div className="bg-white rounded-lg p-3 mr-2 min-w-[280px] w-full md:max-w-[660px] xl:mt-24 2xl:w-60">
       <div className={`flex items-center justify-between mb-4 text-white px-4 py-2 rounded-t-lg ${getConferenciaColor(conferenciaKey)}`}>
         <button
-          onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : 4)}
+          onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : maxRodadas)} // 🔧 Usar maxRodadas
           className="p-1 hover:bg-black/20 rounded transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -83,7 +102,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
           {rodadaAtiva}ª Rodada
         </h3>
         <button
-          onClick={() => setRodadaAtiva(prev => prev < 4 ? prev + 1 : 1)}
+          onClick={() => setRodadaAtiva(prev => prev < maxRodadas ? prev + 1 : 1)} // 🔧 Usar maxRodadas
           className="p-1 hover:bg-black/20 rounded transition-colors"
         >
           <ChevronRight className="w-5 h-5" />
@@ -111,20 +130,12 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                         {jogo.placarCasa} x {jogo.placarVisitante}
                       </div>
                     ) : jogo.status === 'ADIADO' ? (
-                      <div className="text-xs text-yellow-600 font-medium">
-                        ADIADO
-                      </div>
+                      <div className="text-sm text-yellow-600">ADIADO</div>
                     ) : (
-                      <div className="text-xs text-gray-600">
-                        {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric',
-                          timeZone: 'UTC'
-                        })}
-                      </div>
+                      <div className="text-sm">-</div>
                     )}
                   </div>
+                  <span className="font-medium text-sm">{jogo.timeVisitante.sigla}</span>
                   <Image
                     src={ImageService.getTeamLogo(jogo.timeVisitante.nome)}
                     alt={`Logo ${jogo.timeVisitante.nome}`}
@@ -133,11 +144,10 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                     className="rounded"
                     onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeVisitante.nome)}
                   />
-                  <span className="font-medium text-sm">{jogo.timeVisitante.sigla}</span>
                 </div>
               </div>
-
-              <div className={`text-xs ${jogo.status === 'FINALIZADO' ? 'text-green-600' :
+              <div className={`text-xs mt-1 ${
+                jogo.status === 'FINALIZADO' ? 'text-green-600' :
                 jogo.status === 'AO VIVO' ? 'text-red-600' :
                   jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
                 }`}>

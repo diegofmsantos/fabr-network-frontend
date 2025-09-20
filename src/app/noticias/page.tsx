@@ -21,7 +21,7 @@ export default function NoticiasPage() {
     }
 
     return (
-        <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-44 2xl:mr-80 xl:pt-0">
+        <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-44 2xl:mr-40 xl:pt-0">
             <h1 className="w-full text-[40px] bg-[#ECECEC] fixed mt-16 z-50 text-black max-w-7xl p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] 
             uppercase lg:static lg:mt-16 lg:flex lg:justify-center">
                 Últimas Notícias
