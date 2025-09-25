@@ -50,7 +50,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const isRankingTimes = pathname?.includes('/ranking/times');
 
     return (
-        <aside className={`hidden xl:flex flex-col w-80 h-[700px] bg-[#272731] fixed left-32 top-20 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
+        <aside className={`hidden xl:flex flex-col w-80 h-[720px] bg-[#272731] fixed left-32 top-16 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
             <div className="flex justify-center items-center pt-2">
                 <Link href="/">
                     <Image
@@ -65,7 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </Link>
             </div>
 
-            <nav className="flex flex-col px-6 gap-6">
+            <nav className="flex flex-col px-6 gap-4">
                 <Link
                     href="/"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
