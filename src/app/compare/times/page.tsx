@@ -105,16 +105,15 @@ export default function CompararTimesPage() {
         
         let total = 0
         
-        time.jogadores.forEach(jogadorTime => {
-            const jogador = jogadorTime.jogador
-            if (jogador?.estatisticas) {
-                const categoria = jogador.estatisticas[stat.categoria as keyof typeof jogador.estatisticas]
-                if (categoria) {
-                    const valor = (categoria as any)[stat.statKey] || 0
-                    total += typeof valor === 'number' ? valor : 0
-                }
+       time.jogadores.forEach(jogador => {  
+        if (jogador?.estatisticas) {  
+            const categoria = jogador.estatisticas[stat.categoria as keyof typeof jogador.estatisticas]
+            if (categoria) {
+                const valor = (categoria as any)[stat.statKey] || 0
+                total += typeof valor === 'number' ? valor : 0
             }
-        })
+        }
+    })
         
         if (stat.statKey === 'passes_percentual') {
             const jogadoresComPasses = time.jogadores.filter(jt => 
