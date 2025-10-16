@@ -7,7 +7,6 @@ export default function CompararPage() {
   const router = useRouter()
   
   useEffect(() => {
-    // Redireciona automaticamente para comparar jogadores
     router.replace('/compare/jogadores')
   }, [router])
 

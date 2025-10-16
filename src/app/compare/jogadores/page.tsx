@@ -266,17 +266,7 @@ export default function CompararJogadoresPage() {
                         <ArrowLeft size={20} />
                         <span>Voltar</span>
                     </Link>
-                    <h1 className="text-3xl font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl">COMPARAR JOGADORES</h1>
-                    <div className="flex gap-4 mt-4">
-                        <button className="px-4 py-2 bg-[#63E300] text-black rounded-lg font-medium hover:bg-[#50B800] transition-colors">
-                            JOGADORES
-                        </button>
-                        <Link href="/compare/times">
-                            <button className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg font-medium hover:bg-gray-300 transition-colors">
-                                TIMES
-                            </button>
-                        </Link>
-                    </div>
+                 
                 </div>
             </div>
 

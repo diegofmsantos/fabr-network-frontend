@@ -11,7 +11,6 @@ export const Tab = () => {
   const pathname = usePathname()
   const [isAboutOpen, setIsAboutOpen] = useState(false)
 
-  // Verificações de rota
   const isHomeRoute = pathname === "/"
   const isRankingRoute = pathname.includes("/ranking")
   const isTabelaRoute = pathname.includes("/tabela")
@@ -21,21 +20,15 @@ export const Tab = () => {
 
   return (
     <>
-      {/* Container com scroll horizontal */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#272731] border-t border-gray-600 z-50 xl:hidden">
         
-        {/* Container relativo para posicionar os gradientes */}
         <div className="relative">
-          {/* Gradiente fade à esquerda */}
           <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#272731] via-[#272731]/90 to-transparent z-10 pointer-events-none"></div>
           
-          {/* Gradiente fade à direita */}
           <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#272731] via-[#272731]/90 to-transparent z-10 pointer-events-none"></div>
           
-          {/* Scroll horizontal para telas pequenas */}
           <div className="overflow-x-auto scrollbar-hide">
             <div className="flex min-w-max px-2">
-              {/* Home */}
               <Link href="/" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isHomeRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
@@ -47,8 +40,6 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Home</span>
                 </div>
               </Link>
-
-              {/* Ranking */}
               <Link href="/ranking" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isRankingRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
@@ -60,8 +51,6 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Ranking</span>
                 </div>
               </Link>
-
-              {/* Tabela */}
               <Link href="/tabela/2025/temporada-regular" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isTabelaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
@@ -73,8 +62,6 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Tabela</span>
                 </div>
               </Link>
-
-              {/* Compare */}
               <Link href="/compare" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
@@ -86,21 +73,7 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Compare</span>
                 </div>
               </Link>
-
-              {/* Mercado */}
-              <Link href="/mercado" className="flex-none">
-                <div className={`flex flex-col items-center px-3 py-3 ${isMercadoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-                  <Image
-                    src={isMercadoRoute ? "/assets/mercado.png" : "/assets/mercado-2.png"}
-                    alt="mercado"
-                    width={25}
-                    height={25}
-                  />
-                  <span className="text-[12px] whitespace-nowrap">Mercado</span>
-                </div>
-              </Link>
-
-              {/* Notícias */}
+              
               <Link href="/noticias" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isNoticiasRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
@@ -112,8 +85,17 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Notícias</span>
                 </div>
               </Link>
-
-              {/* Menu */}
+              <Link href="/mercado" className="flex-none">
+                <div className={`flex flex-col items-center px-3 py-3 ${isMercadoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                  <Image
+                    src={isMercadoRoute ? "/assets/mercado.png" : "/assets/mercado-2.png"}
+                    alt="mercado"
+                    width={25}
+                    height={25}
+                  />
+                  <span className="text-[12px] whitespace-nowrap">Mercado</span>
+                </div>
+              </Link>
               <button
                 onClick={() => setIsAboutOpen(true)}
                 className="flex-none flex flex-col items-center px-3 py-3 text-gray-400 hover:text-[#63E300] transition-colors"

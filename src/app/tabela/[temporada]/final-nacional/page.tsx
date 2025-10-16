@@ -99,7 +99,7 @@ if (isLoading) return <Loading />
                 <div className="bg-white rounded-lg shadow-lg min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20 overflow-hidden">
                   <div className="bg-[#272731] text-[#63E300] px-6 py-6">
                     <div className="text-center">
-                      <h3 className="text-2xl font-bold mb-2">DECISÃO NACIONAL</h3>
+                      <h3 className="text-2xl font-bold mb-2">FINAL NACIONAL</h3>
                     </div>
                   </div>
 
@@ -107,7 +107,7 @@ if (isLoading) return <Loading />
                     <div className="mb-6 border p-2">
                       <div className="flex items-center justify-center">
                         <div className="flex items-center text-lg md:text-2xl">
-                          <div className="flex-1 flex-col justify-between h-full bg-gray-100 p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row md:min-h-12 md:px-4">
+                          <div className="flex-1 flex-col justify-between h-full p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row md:min-h-12 md:px-4">
                             <div className="flex h-full flex-col-reverse items-center justify-center gap-2 md:flex-row-reverse md:h-auto">
                               <span className='text-sm md:ml-5'>{finalNacional.time1}</span>
                               <Image
@@ -120,7 +120,7 @@ if (isLoading) return <Loading />
                               />
                             </div>
                             {finalNacional.placar1 !== undefined && (
-                              <div className="text-2xl font-bold text-blue-600  md:text-2xl lg:ml-4 md:mt-4">
+                              <div className="text-2xl font-bold  md:text-2xl lg:ml-4 md:mt-4">
                                 {finalNacional.placar1}
                               </div>
                             )}
@@ -129,7 +129,7 @@ if (isLoading) return <Loading />
                             <span className="text-gray-400 font-bold text-3xl">×</span>
                             <div className="text-sm text-gray-500 mt-1 ">VS</div>
                           </div>
-                          <div className="flex-1 flex-col justify-between h-full bg-gray-100 p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row-reverse md:min-h-12 md:px-4">
+                          <div className="flex-1 flex-col justify-between h-full p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row-reverse md:min-h-12 md:px-4">
                             <div className="flex flex-col-reverse h-full justify-between items-center gap-2 md:flex-row md:h-auto">
                               <span className='text-sm md:ml-4'>{finalNacional.time2}</span>
                               <Image
@@ -142,7 +142,7 @@ if (isLoading) return <Loading />
                               />
                             </div>
                             {finalNacional.placar2 !== undefined && (
-                              <div className="text-2xl font-bold text-red-600  md:text-2xl lg:mr-4 md:mt-4">
+                              <div className="text-2xl font-bold  md:text-2xl lg:mr-4 md:mt-4">
                                 {finalNacional.placar2}
                               </div>
                             )}

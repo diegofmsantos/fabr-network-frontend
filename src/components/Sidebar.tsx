@@ -24,12 +24,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             if (!expandedItems.includes('ranking')) {
                 setExpandedItems(prev => [...prev, 'ranking']);
             }
+        } else if (pathname?.includes('/compare')) {
+            setActiveItem('compare');
+            if (!expandedItems.includes('compare')) {
+                setExpandedItems(prev => [...prev, 'compare']);
+            }
         } else if (pathname?.includes('/noticia')) {
             setActiveItem('noticias');
         } else if (pathname?.includes('/mercado')) {
             setActiveItem('mercado');
-        } else if (pathname?.includes('/compare')) {
-            setActiveItem('compare');
         } else if (pathname?.includes('/tabela')) {
             setActiveItem('tabela');
         } else {
@@ -49,8 +52,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const isRankingJogadores = pathname === '/ranking';
     const isRankingTimes = pathname?.includes('/ranking/times');
 
+    const isCompareExpanded = expandedItems.includes('compare');
+    const isCompareJogadores = pathname === '/compare/jogadores';
+    const isCompareTimes = pathname?.includes('/compare/times');
+
     return (
-        <aside className={`hidden xl:flex flex-col w-80 h-[720px] bg-[#272731] fixed left-32 top-16 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
+        <aside className={`hidden xl:flex flex-col w-80 h-[850px] bg-[#272731] fixed left-32 top-16 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
             <div className="flex justify-center items-center pt-2">
                 <Link href="/">
                     <Image
@@ -116,12 +123,46 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                     Tabela
                 </Link>
 
+                <div>
+                    <button
+                        onClick={() => toggleExpanded('compare')}
+                        className={`w-full text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center justify-between
+                            transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'compare' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
+                    >
+                        <span>Compare</span>
+                        {isCompareExpanded ? (
+                            <ChevronDown className="w-4 h-4 " />
+                        ) : (
+                            <ChevronRight className="w-4 h-4" />
+                        )}
+                    </button>
+
+                    {isCompareExpanded && (
+                        <div className="ml-6 mt-2 space-y-2">
+                            <Link
+                                href="/compare"
+                                className={`block text-lg uppercase font-extrabold italic tracking-[-1px] py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#373740]
+                                    ${isCompareJogadores ? 'bg-[#373740] text-[#63E300]' : 'text-gray-300 hover:text-[#63E300]'}`}
+                            >
+                                Jogadores
+                            </Link>
+                            <Link
+                                href="/compare/times"
+                                className={`block text-lg uppercase font-extrabold italic tracking-[-1px] py-2 px-4 rounded-lg transition-colors duration-300 hover:bg-[#373740]
+                                    ${isCompareTimes ? 'bg-[#373740] text-[#63E300]' : 'text-gray-300 hover:text-[#63E300]'}`}
+                            >
+                                Times
+                            </Link>
+                        </div>
+                    )}
+                </div>
+
                 <Link
-                    href="/compare"
+                    href="/noticias"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
-                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'compare' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
+                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'noticias' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
-                    Compare
+                    Notícias
                 </Link>
 
                 <Link
@@ -130,14 +171,6 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'mercado' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Mercado
-                </Link>
-
-                <Link
-                    href="/noticias"
-                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
-                        transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'noticias' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
-                >
-                    Notícias
                 </Link>
             </nav>
 

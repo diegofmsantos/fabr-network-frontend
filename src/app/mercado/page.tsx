@@ -72,12 +72,8 @@ export default function MercadoPage() {
     )
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-44 xl:pt-0">
-      <h1 className="w-full text-[40px] bg-[#ECECEC] fixed mt-16 z-50 text-black max-w-7xl p-4 px-2 font-extrabold italic leading-[55px] tracking-[-5px] uppercase lg:static lg:mt-16 lg:flex lg:justify-center">
-        Mercado {temporadaOrigem}/{temporadaDestino}
-      </h1>
-
-      <div className="mt-40 lg:mt-4 flex flex-col gap-4 max-w-7xl mx-auto px-4">
+    <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-64 xl:pt-0">
+      <div className="mt-24 flex flex-col gap-4 max-w-7xl mx-auto px-4 lg:mt-24">
         {loading ? (
           <div className="flex justify-center items-center my-12">
             <Loading />
@@ -121,12 +117,12 @@ export default function MercadoPage() {
                         key={`${transferencia.jogador}-${index}`}
                         className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border hover:bg-gray-100 transition-colors"
                       >
-                        <div className="flex justify-between w-full items-center">
-                          <div className="ml-4">
-                            <div className="font-semibold text-gray-900">
+                        <div className="flex gap-5 justify-between w-full items-center">
+                          <div className="ml-4 flex flex-col gap-3">
+                            <div className="text-sm font-semibold text-gray-900 md:text-lg">
                               {transferencia.jogador} ({transferencia.posicao})
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className="text-[14px] text-gray-600 text-wrap">
                               {transferencia.timeOrigem} → {transferencia.timeDestino}
                             </div>
                           </div>
@@ -139,7 +135,7 @@ export default function MercadoPage() {
                                 height={32}
                                 className="rounded-full"
                               />
-                              <span className="text-xs text-gray-500 mt-1">
+                              <span className="text-xs text-gray-500 mt-1 md:text-sm">
                                 {transferencia.timeOrigem}
                               </span>
                             </div>
@@ -152,7 +148,7 @@ export default function MercadoPage() {
                                 height={32}
                                 className="rounded-full"
                               />
-                              <span className="text-xs text-gray-500 mt-1">
+                              <span className="text-xs text-gray-500 mt-1 md:text-sm">
                                 {transferencia.timeDestino}
                               </span>
                             </div>

@@ -104,7 +104,7 @@ export default function FinalConferenciaPage() {
 
                       <div className="flex items-center justify-center">
                         <div className="flex items-center gap-2 text-[12px] md:text-lg">
-                          <div className="flex flex-col bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                          <div className="flex flex-col px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
                             <div className="flex flex-col items-center justify-center mb-1 lg:flex-row">
                               <div className="flex flex-col-reverse items-center justify-center lg:flex-row-reverse">
                                 <span>{conferencia.jogo.time1}</span>
@@ -118,14 +118,14 @@ export default function FinalConferenciaPage() {
                                 />
                               </div>
                               {conferencia.jogo.placar1 !== undefined && (
-                                <div className="text-lg font-bold text-blue-600 mt-1 md:text-2xl lg:ml-4">
+                                <div className="text-lg font-bold mt-1 md:text-2xl lg:ml-4">
                                   {conferencia.jogo.placar1}
                                 </div>
                               )}
                             </div>
                           </div>
                           <span className="text-gray-400 text-3xl font-bold mx-2">×</span>
-                          <div className="flex-col  bg-gray-100 px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                          <div className="flex-col px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
                             <div className="flex flex-col items-center justify-center mb-1 lg:flex-row-reverse">
                               <div className="flex flex-col-reverse items-center justify-center lg:flex-row">
                                 <span>{conferencia.jogo.time2}</span>
@@ -139,7 +139,7 @@ export default function FinalConferenciaPage() {
                                 />
                               </div>
                               {conferencia.jogo.placar2 !== undefined && (
-                                <div className="text-lg font-bold text-red-600 mt-1 md:text-2xl lg:mr-4">
+                                <div className="text-lg font-bold mt-1 md:text-2xl lg:mr-4">
                                   {conferencia.jogo.placar2}
                                 </div>
                               )}
@@ -169,8 +169,6 @@ export default function FinalConferenciaPage() {
                                 day: '2-digit',
                                 month: '2-digit',
                                 year: 'numeric',
-                                hour: '2-digit',
-                                minute: '2-digit'
                               })}
                             </span>
                           )}
