@@ -183,8 +183,6 @@ export default function SemifinalConferenciaPage() {
               ))
             )}
 
-            {/* Informações Gerais - Mostrar sempre */}
-
           </div>
         </div>
       </div>

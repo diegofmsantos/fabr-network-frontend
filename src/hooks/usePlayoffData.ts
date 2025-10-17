@@ -1,4 +1,4 @@
-// src/hooks/usePlayoffData.ts - CORRIGIDO PARA TABELA JOGO ÚNICA
+// src/hooks/usePlayoffData.ts - COM MOCK DE SEMIFINAL DE CONFERÊNCIA
 
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
@@ -15,7 +15,6 @@ function getConferenciaColor(tipo?: string) {
 }
 
 function getConferenciaNome(conf: any) {
-  // ✅ CORRIGIDO: conferencia agora é string
   if (typeof conf === 'string') return conf
   if (conf?.nome) return conf.nome
   if (conf?.tipo) return conf.tipo
@@ -23,35 +22,112 @@ function getConferenciaNome(conf: any) {
 }
 
 function getConferenciaKey(conf: any, index: number) {
-  // ✅ CORRIGIDO: conferencia agora é string
   if (typeof conf === 'string') return conf.toUpperCase().replace(/\s+/g, '_')
   if (conf?.tipo) return conf.tipo
   if (conf?.nome) return conf.nome
   return `conf_${index}`
 }
 
-// ✅ DADOS MOCK PARA EXIBIR QUANDO NÃO HÁ JOGOS
+// ✅ MOCK de Semifinais de Conferência
+const MOCK_SEMIFINAL_CONFERENCIA = [
+  {
+    key: 'NORDESTE',
+    nome: 'Nordeste',
+    cor: 'bg-orange-500',
+    jogos: [
+      {
+        id: 'mock-sf-1',
+        time1: 'Recife Mariners',
+        time2: 'Caruaru Wolves',
+        descricao: 'Semifinal Nordeste 1',
+        placar1: null,
+        placar2: null,
+        status: 'AGENDADO',
+        dataJogo: '2025-10-19T00:00:00.000Z',
+        vencedor: null,
+        local: 'A definir'
+      },
+      {
+        id: 'mock-sf-2',
+        time1: 'Cavalaria 2 de Julho',
+        time2: 'Fortaleza Tritões',
+        descricao: 'Semifinal Nordeste 2',
+        placar1: null,
+        placar2: null,
+        status: 'AGENDADO',
+        dataJogo: '2025-10-19T00:00:00.000Z',
+        vencedor: null,
+        local: 'A definir'
+      }
+    ]
+  },
+  {
+    key: 'SUDESTE',
+    nome: 'Sudeste',
+    cor: 'bg-red-600',
+    jogos: [
+      {
+        id: 'mock-sf-3',
+        time1: 'Spartans FA',
+        time2: 'Guarulhos Rhynos',
+        descricao: 'Semifinal Sudeste 1',
+        placar1: null,
+        placar2: null,
+        status: 'AGENDADO',
+        dataJogo: '2025-10-19T00:00:00.000Z',
+        vencedor: null,
+        local: 'A definir'
+      },
+      {
+        id: 'mock-sf-4',
+        time1: 'Locomotiva FA',
+        time2: 'Vasco Almirantes',
+        descricao: 'Semifinal Sudeste 2',
+        placar1: null,
+        placar2: null,
+        status: 'AGENDADO',
+        dataJogo: '2025-10-19T00:00:00.000Z',
+        vencedor: null,
+        local: 'A definir'
+      }
+    ]
+  },
+  {
+    key: 'SUL',
+    nome: 'Sul',
+    cor: 'bg-cyan-500',
+    jogos: [
+      {
+        id: 'mock-sf-5',
+        time1: 'Coritiba Crocodiles',
+        time2: 'Brown Spiders',
+        descricao: 'Semifinal Sul 1',
+        placar1: null,
+        placar2: null,
+        status: 'AGENDADO',
+        dataJogo: '2025-10-19T00:00:00.000Z',
+        vencedor: null,
+        local: 'A definir'
+      },
+      {
+        id: 'mock-sf-6',
+        time1: 'Istepôs FA',
+        time2: 'Timbó Rex',
+        descricao: 'Semifinal Sul 2',
+        placar1: null,
+        placar2: null,
+        status: 'AGENDADO',
+        dataJogo: '2025-10-19T00:00:00.000Z',
+        vencedor: null,
+        local: 'A definir'
+      }
+    ]
+  }
+]
+
+// MOCK geral (usado quando não há nenhum dado)
 const MOCK_PLAYOFFS = {
-  wildCard: [
-    {
-      key: 'SUDESTE',
-      nome: 'Conferência Sudeste',
-      cor: 'bg-red-600',
-      jogos: [
-        {
-          id: 0,
-          time1: '3º Melhor 1º',
-          time2: '3º Melhor 2º',
-          descricao: 'Wild Card Sudeste 1',
-          placar1: null,
-          placar2: null,
-          status: 'AGUARDANDO CLASSIFICAÇÃO',
-          dataJogo: null,
-          vencedor: null
-        }
-      ]
-    }
-  ],
+  wildCard: [],
   semifinalConferencia: [],
   finalConferencia: [],
   semifinalNacional: [],
@@ -73,13 +149,19 @@ export function usePlayoffData(temporada: string) {
   })
 
   const convertedData = useMemo(() => {
-    // ✅ SE NÃO HÁ DADOS DO BACKEND, USAR MOCK
     if (!rawBracket || !Array.isArray(rawBracket) || rawBracket.length === 0) {
-      console.log('🎯 usePlayoffData: Nenhum jogo de playoff encontrado, usando dados mock')
+      console.log('🎯 usePlayoffData: Nenhum jogo de playoff encontrado')
       return MOCK_PLAYOFFS
     }
 
     console.log('🎯 usePlayoffData: Processando', rawBracket.length, 'jogos de playoff do banco')
+    console.log('🎯 Todos os jogos:', rawBracket.map((j: any) => ({ 
+      id: j.id, 
+      fase: j.fase, 
+      timeCasa: j.timeCasa?.nome || 'NULL', 
+      timeVisitante: j.timeVisitante?.nome || 'NULL',
+      status: j.status 
+    })))
 
     return {
       wildCard: (() => {
@@ -92,7 +174,6 @@ export function usePlayoffData(temporada: string) {
         const conferenciasMap = new Map()
 
         wildCardJogos.forEach((jogo: any, index: number) => {
-          // ✅ CORRIGIDO: jogo.conferencia é string
           const conf = jogo.conferencia
           const confKey = getConferenciaKey(conf, index)
 
@@ -107,17 +188,15 @@ export function usePlayoffData(temporada: string) {
 
           conferenciasMap.get(confKey).jogos.push({
             id: jogo.id,
-            // ✅ CORRIGIDO: usar apenas timeCasa e timeVisitante
             time1: jogo.timeCasa?.nome || 'A definir',
             time2: jogo.timeVisitante?.nome || 'A definir',
             descricao: jogo.nome || `${jogo.timeCasa?.nome || 'Time 1'} × ${jogo.timeVisitante?.nome || 'Time 2'}`,
-            // ✅ CORRIGIDO: usar apenas placarCasa e placarVisitante
             placar1: jogo.placarCasa,
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome : 
-                     jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
+              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
@@ -130,11 +209,24 @@ export function usePlayoffData(temporada: string) {
           jogo.fase === 'SEMIFINAL DE CONFERÊNCIA' || jogo.fase === 'SEMIFINAL CONFERENCIA'
         )
 
-        console.log('🎯 Semifinais de conferência encontradas:', semifinalJogos.length)
+        console.log('🎯 Semifinais de conferência encontradas no banco:', semifinalJogos.length)
 
+        // ✅ CONTAR jogos com times definidos vs null
+        const jogosComTimes = semifinalJogos.filter((jogo: any) =>
+          jogo.timeCasa?.nome && jogo.timeVisitante?.nome
+        )
+        const jogosSemTimes = semifinalJogos.filter((jogo: any) =>
+          !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
+        )
+
+        console.log('🎯 Jogos COM times:', jogosComTimes.length)
+        console.log('🎯 Jogos SEM times (null):', jogosSemTimes.length)
+
+        // ✅ ESTRATÉGIA: Mesclar jogos reais + mock
         const conferenciasMap = new Map()
 
-        semifinalJogos.forEach((jogo: any, index: number) => {
+        // 1️⃣ Adicionar jogos REAIS (que têm times definidos)
+        jogosComTimes.forEach((jogo: any, index: number) => {
           const conf = jogo.conferencia
           const confKey = getConferenciaKey(conf, index)
 
@@ -149,20 +241,48 @@ export function usePlayoffData(temporada: string) {
 
           conferenciasMap.get(confKey).jogos.push({
             id: jogo.id,
-            time1: jogo.timeCasa?.nome || 'A definir',
-            time2: jogo.timeVisitante?.nome || 'A definir',
-            descricao: jogo.nome || `${jogo.timeCasa?.nome || 'Time 1'} × ${jogo.timeVisitante?.nome || 'Time 2'}`,
+            time1: jogo.timeCasa.nome,
+            time2: jogo.timeVisitante.nome,
+            descricao: jogo.nome || `${jogo.timeCasa.nome} × ${jogo.timeVisitante.nome}`,
             placar1: jogo.placarCasa,
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome : 
-                     jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa.nome :
+              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
 
-        return Array.from(conferenciasMap.values())
+        // 2️⃣ Se há jogos SEM times, complementar com o MOCK
+        if (jogosSemTimes.length > 0) {
+          console.log('⚠️ Complementando com jogos do MOCK')
+          
+          MOCK_SEMIFINAL_CONFERENCIA.forEach((mockConf) => {
+            const confKey = mockConf.key
+            
+            if (!conferenciasMap.has(confKey)) {
+              conferenciasMap.set(confKey, mockConf)
+            } else {
+              // Adicionar jogos mock na conferência existente
+              const existingConf = conferenciasMap.get(confKey)
+              mockConf.jogos.forEach((mockJogo) => {
+                existingConf.jogos.push(mockJogo)
+              })
+            }
+          })
+        }
+
+        // 3️⃣ Se não há NENHUM jogo (nem real nem null), usar mock completo
+        if (semifinalJogos.length === 0) {
+          console.log('⚠️ Nenhum jogo no banco, usando MOCK completo')
+          return MOCK_SEMIFINAL_CONFERENCIA
+        }
+
+        const resultado = Array.from(conferenciasMap.values())
+        console.log('✅ Resultado final:', resultado.length, 'conferências')
+        
+        return resultado
       })(),
 
       finalConferencia: (() => {
@@ -196,8 +316,8 @@ export function usePlayoffData(temporada: string) {
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome : 
-                     jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
+              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
           }
         })
@@ -221,8 +341,8 @@ export function usePlayoffData(temporada: string) {
           placar2: jogo.placarVisitante,
           status: jogo.status,
           dataJogo: jogo.dataJogo,
-          vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome : 
-                   jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+          vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
+            jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
           local: jogo.local || 'Arena Nacional'
         }))
       })(),
@@ -245,8 +365,8 @@ export function usePlayoffData(temporada: string) {
           placar2: finalJogo.placarVisitante,
           status: finalJogo.status,
           dataJogo: finalJogo.dataJogo,
-          vencedor: finalJogo.timeVencedorId === finalJogo.timeCasaId ? finalJogo.timeCasa?.nome : 
-                   finalJogo.timeVencedorId === finalJogo.timeVisitanteId ? finalJogo.timeVisitante?.nome : null,
+          vencedor: finalJogo.timeVencedorId === finalJogo.timeCasaId ? finalJogo.timeCasa?.nome :
+            finalJogo.timeVencedorId === finalJogo.timeVisitanteId ? finalJogo.timeVisitante?.nome : null,
           local: finalJogo.local || 'Arena Nacional'
         }
       })()
@@ -265,7 +385,7 @@ export function usePlayoffData(temporada: string) {
   }
 }
 
-// ✅ Manter todas as funções existentes que as páginas usam
+// Hooks específicos por fase
 export function useWildCardData(temporada: string) {
   const { wildCard, isLoading, error } = usePlayoffData(temporada)
   return { data: wildCard, isLoading, error }
