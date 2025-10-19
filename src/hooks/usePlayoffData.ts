@@ -1,4 +1,4 @@
-// src/hooks/usePlayoffData.ts - COM MOCK DE SEMIFINAL DE CONFERÊNCIA
+// src/hooks/usePlayoffData.ts - SEM MOCK
 
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
@@ -28,104 +28,78 @@ function getConferenciaKey(conf: any, index: number) {
   return `conf_${index}`
 }
 
-// ✅ MOCK de Semifinais de Conferência
-const MOCK_SEMIFINAL_CONFERENCIA = [
+// ✅ MOCK de Finais de Conferência (baseado nos vencedores corretos das semifinais)
+const MOCK_FINAL_CONFERENCIA = [
+  {
+    key: 'CENTRO_NORTE',
+    nome: 'Centro-Norte',
+    cor: 'bg-green-600',
+    jogo: {
+      id: 'mock-fc-1',
+      time1: 'Manaus Cavaliers',
+      time2: 'Rondonópolis Hawks',
+      descricao: 'Final Centro-Norte',
+      placar1: null,
+      placar2: null,
+      status: 'AGENDADO',
+      dataJogo: '2025-11-02T00:00:00.000Z',
+      vencedor: null,
+      local: 'A definir'
+    }
+  },
   {
     key: 'NORDESTE',
     nome: 'Nordeste',
     cor: 'bg-orange-500',
-    jogos: [
-      {
-        id: 'mock-sf-1',
-        time1: 'Recife Mariners',
-        time2: 'Caruaru Wolves',
-        descricao: 'Semifinal Nordeste 1',
-        placar1: null,
-        placar2: null,
-        status: 'AGENDADO',
-        dataJogo: '2025-10-19T00:00:00.000Z',
-        vencedor: null,
-        local: 'A definir'
-      },
-      {
-        id: 'mock-sf-2',
-        time1: 'Cavalaria 2 de Julho',
-        time2: 'Fortaleza Tritões',
-        descricao: 'Semifinal Nordeste 2',
-        placar1: null,
-        placar2: null,
-        status: 'AGENDADO',
-        dataJogo: '2025-10-19T00:00:00.000Z',
-        vencedor: null,
-        local: 'A definir'
-      }
-    ]
+    jogo: {
+      id: 'mock-fc-2',
+      time1: 'Recife Mariners',
+      time2: 'Fortaleza Tritões',
+      descricao: 'Final Nordeste',
+      placar1: null,
+      placar2: null,
+      status: 'AGENDADO',
+      dataJogo: '2025-11-02T00:00:00.000Z',
+      vencedor: null,
+      local: 'A definir'
+    }
   },
   {
     key: 'SUDESTE',
     nome: 'Sudeste',
     cor: 'bg-red-600',
-    jogos: [
-      {
-        id: 'mock-sf-3',
-        time1: 'Spartans FA',
-        time2: 'Guarulhos Rhynos',
-        descricao: 'Semifinal Sudeste 1',
-        placar1: null,
-        placar2: null,
-        status: 'AGENDADO',
-        dataJogo: '2025-10-19T00:00:00.000Z',
-        vencedor: null,
-        local: 'A definir'
-      },
-      {
-        id: 'mock-sf-4',
-        time1: 'Locomotiva FA',
-        time2: 'Vasco Almirantes',
-        descricao: 'Semifinal Sudeste 2',
-        placar1: null,
-        placar2: null,
-        status: 'AGENDADO',
-        dataJogo: '2025-10-19T00:00:00.000Z',
-        vencedor: null,
-        local: 'A definir'
-      }
-    ]
+    jogo: {
+      id: 'mock-fc-3',
+      time1: 'Spartans FA',
+      time2: 'Vasco Almirantes',
+      descricao: 'Final Sudeste',
+      placar1: null,
+      placar2: null,
+      status: 'AGENDADO',
+      dataJogo: '2025-11-02T00:00:00.000Z',
+      vencedor: null,
+      local: 'A definir'
+    }
   },
   {
     key: 'SUL',
     nome: 'Sul',
     cor: 'bg-cyan-500',
-    jogos: [
-      {
-        id: 'mock-sf-5',
-        time1: 'Coritiba Crocodiles',
-        time2: 'Brown Spiders',
-        descricao: 'Semifinal Sul 1',
-        placar1: null,
-        placar2: null,
-        status: 'AGENDADO',
-        dataJogo: '2025-10-19T00:00:00.000Z',
-        vencedor: null,
-        local: 'A definir'
-      },
-      {
-        id: 'mock-sf-6',
-        time1: 'Istepôs FA',
-        time2: 'Timbó Rex',
-        descricao: 'Semifinal Sul 2',
-        placar1: null,
-        placar2: null,
-        status: 'AGENDADO',
-        dataJogo: '2025-10-19T00:00:00.000Z',
-        vencedor: null,
-        local: 'A definir'
-      }
-    ]
+    jogo: {
+      id: 'mock-fc-4',
+      time1: 'Coritiba Crocodiles',
+      time2: 'Timbó Rex',
+      descricao: 'Final Sul',
+      placar1: null,
+      placar2: null,
+      status: 'AGENDADO',
+      dataJogo: '2025-11-02T00:00:00.000Z',
+      vencedor: null,
+      local: 'A definir'
+    }
   }
 ]
 
-// MOCK geral (usado quando não há nenhum dado)
 const MOCK_PLAYOFFS = {
   wildCard: [],
   semifinalConferencia: [],
@@ -155,13 +129,6 @@ export function usePlayoffData(temporada: string) {
     }
 
     console.log('🎯 usePlayoffData: Processando', rawBracket.length, 'jogos de playoff do banco')
-    console.log('🎯 Todos os jogos:', rawBracket.map((j: any) => ({ 
-      id: j.id, 
-      fase: j.fase, 
-      timeCasa: j.timeCasa?.nome || 'NULL', 
-      timeVisitante: j.timeVisitante?.nome || 'NULL',
-      status: j.status 
-    })))
 
     return {
       wildCard: (() => {
@@ -209,24 +176,11 @@ export function usePlayoffData(temporada: string) {
           jogo.fase === 'SEMIFINAL DE CONFERÊNCIA' || jogo.fase === 'SEMIFINAL CONFERENCIA'
         )
 
-        console.log('🎯 Semifinais de conferência encontradas no banco:', semifinalJogos.length)
+        console.log('🎯 Semifinais de conferência encontradas:', semifinalJogos.length)
 
-        // ✅ CONTAR jogos com times definidos vs null
-        const jogosComTimes = semifinalJogos.filter((jogo: any) =>
-          jogo.timeCasa?.nome && jogo.timeVisitante?.nome
-        )
-        const jogosSemTimes = semifinalJogos.filter((jogo: any) =>
-          !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
-        )
-
-        console.log('🎯 Jogos COM times:', jogosComTimes.length)
-        console.log('🎯 Jogos SEM times (null):', jogosSemTimes.length)
-
-        // ✅ ESTRATÉGIA: Mesclar jogos reais + mock
         const conferenciasMap = new Map()
 
-        // 1️⃣ Adicionar jogos REAIS (que têm times definidos)
-        jogosComTimes.forEach((jogo: any, index: number) => {
+        semifinalJogos.forEach((jogo: any, index: number) => {
           const conf = jogo.conferencia
           const confKey = getConferenciaKey(conf, index)
 
@@ -241,48 +195,20 @@ export function usePlayoffData(temporada: string) {
 
           conferenciasMap.get(confKey).jogos.push({
             id: jogo.id,
-            time1: jogo.timeCasa.nome,
-            time2: jogo.timeVisitante.nome,
-            descricao: jogo.nome || `${jogo.timeCasa.nome} × ${jogo.timeVisitante.nome}`,
+            time1: jogo.timeCasa?.nome || 'A definir',
+            time2: jogo.timeVisitante?.nome || 'A definir',
+            descricao: jogo.nome || `${jogo.timeCasa?.nome || 'Time 1'} × ${jogo.timeVisitante?.nome || 'Time 2'}`,
             placar1: jogo.placarCasa,
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa.nome :
-              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
+              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
 
-        // 2️⃣ Se há jogos SEM times, complementar com o MOCK
-        if (jogosSemTimes.length > 0) {
-          console.log('⚠️ Complementando com jogos do MOCK')
-          
-          MOCK_SEMIFINAL_CONFERENCIA.forEach((mockConf) => {
-            const confKey = mockConf.key
-            
-            if (!conferenciasMap.has(confKey)) {
-              conferenciasMap.set(confKey, mockConf)
-            } else {
-              // Adicionar jogos mock na conferência existente
-              const existingConf = conferenciasMap.get(confKey)
-              mockConf.jogos.forEach((mockJogo) => {
-                existingConf.jogos.push(mockJogo)
-              })
-            }
-          })
-        }
-
-        // 3️⃣ Se não há NENHUM jogo (nem real nem null), usar mock completo
-        if (semifinalJogos.length === 0) {
-          console.log('⚠️ Nenhum jogo no banco, usando MOCK completo')
-          return MOCK_SEMIFINAL_CONFERENCIA
-        }
-
-        const resultado = Array.from(conferenciasMap.values())
-        console.log('✅ Resultado final:', resultado.length, 'conferências')
-        
-        return resultado
+        return Array.from(conferenciasMap.values())
       })(),
 
       finalConferencia: (() => {
@@ -292,6 +218,24 @@ export function usePlayoffData(temporada: string) {
 
         console.log('🎯 Finais de conferência encontradas:', finalJogos.length)
 
+        // ✅ CONTAR jogos com times definidos vs null
+        const jogosComTimes = finalJogos.filter((jogo: any) =>
+          jogo.timeCasa?.nome && jogo.timeVisitante?.nome
+        )
+        const jogosSemTimes = finalJogos.filter((jogo: any) =>
+          !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
+        )
+
+        console.log('🎯 Finais COM times:', jogosComTimes.length)
+        console.log('🎯 Finais SEM times (null):', jogosSemTimes.length)
+
+        // ✅ Se há jogos SEM times, usar MOCK
+        if (jogosSemTimes.length > 0 && jogosComTimes.length === 0) {
+          console.log('⚠️ Usando MOCK de finais de conferência (times ainda não definidos)')
+          return MOCK_FINAL_CONFERENCIA
+        }
+
+        // ✅ Processar jogos reais do banco
         const conferenciasMap = new Map()
 
         finalJogos.forEach((jogo: any, index: number) => {
