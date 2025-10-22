@@ -116,7 +116,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </div>
 
                 <Link
-                    href={`/tabela/${temporadaAtual}/temporada-regular`}
+                    href={`/tabela/${temporadaAtual}/final-conferencia`}
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'tabela' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >

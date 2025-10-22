@@ -174,15 +174,12 @@ export default function SemifinalConferenciaPage() {
                             </span>
                           )}
                         </div>
-
-
                       </div>
                     ))}
                   </div>
                 </div>
               ))
             )}
-
           </div>
         </div>
       </div>

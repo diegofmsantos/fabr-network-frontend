@@ -1,5 +1,3 @@
-// src/hooks/usePlayoffData.ts - SEM MOCK
-
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { SuperligaService } from '@/services/superliga.service'
@@ -9,7 +7,7 @@ function getConferenciaColor(tipo?: string) {
     case 'SUDESTE': return 'bg-red-600'
     case 'SUL': return 'bg-cyan-500'
     case 'NORDESTE': return 'bg-orange-500'
-    case 'CENTRO NORTE': return 'bg-green-600'
+    case 'CENTRO-NORTE': return 'bg-green-600'
     default: return 'bg-gray-600'
   }
 }
@@ -28,7 +26,6 @@ function getConferenciaKey(conf: any, index: number) {
   return `conf_${index}`
 }
 
-// ✅ MOCK de Finais de Conferência (baseado nos vencedores corretos das semifinais)
 const MOCK_FINAL_CONFERENCIA = [
   {
     key: 'CENTRO_NORTE',
@@ -218,7 +215,6 @@ export function usePlayoffData(temporada: string) {
 
         console.log('🎯 Finais de conferência encontradas:', finalJogos.length)
 
-        // ✅ CONTAR jogos com times definidos vs null
         const jogosComTimes = finalJogos.filter((jogo: any) =>
           jogo.timeCasa?.nome && jogo.timeVisitante?.nome
         )
@@ -229,13 +225,11 @@ export function usePlayoffData(temporada: string) {
         console.log('🎯 Finais COM times:', jogosComTimes.length)
         console.log('🎯 Finais SEM times (null):', jogosSemTimes.length)
 
-        // ✅ Se há jogos SEM times, usar MOCK
         if (jogosSemTimes.length > 0 && jogosComTimes.length === 0) {
           console.log('⚠️ Usando MOCK de finais de conferência (times ainda não definidos)')
           return MOCK_FINAL_CONFERENCIA
         }
 
-        // ✅ Processar jogos reais do banco
         const conferenciasMap = new Map()
 
         finalJogos.forEach((jogo: any, index: number) => {
