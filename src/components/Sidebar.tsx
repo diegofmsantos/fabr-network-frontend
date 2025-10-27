@@ -57,8 +57,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const isCompareTimes = pathname?.includes('/compare/times');
 
     return (
-        <aside className={`hidden xl:flex flex-col w-80 h-[850px] bg-[#272731] fixed left-32 top-16 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
-            <div className="flex justify-center items-center pt-2">
+        <aside className={`hidden xl:flex flex-col w-80 h-[800px] bg-[#272731] fixed left-32 top-10 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
+            <div className="flex justify-center items-center">
                 <Link href="/">
                     <Image
                         src="/assets/logo-fabr-color.png"
@@ -75,7 +75,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             <nav className="flex flex-col px-6 gap-4">
                 <Link
                     href="/"
-                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
+                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'equipes' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Equipes
@@ -84,7 +84,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 <div>
                     <button
                         onClick={() => toggleExpanded('ranking')}
-                        className={`w-full text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center justify-between
+                        className={`w-full text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center justify-between
                             transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'ranking' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                     >
                         <span>Rankings</span>
@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
 
                 <Link
                     href={`/tabela/${temporadaAtual}/final-conferencia`}
-                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
+                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'tabela' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Tabela
@@ -126,7 +126,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 <div>
                     <button
                         onClick={() => toggleExpanded('compare')}
-                        className={`w-full text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center justify-between
+                        className={`w-full text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center justify-between
                             transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'compare' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                     >
                         <span>Compare</span>
@@ -159,7 +159,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
 
                 <Link
                     href="/noticias"
-                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
+                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'noticias' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Notícias
@@ -167,7 +167,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
 
                 <Link
                     href="/mercado"
-                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-3 px-6 rounded-lg flex items-center 
+                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'mercado' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Mercado

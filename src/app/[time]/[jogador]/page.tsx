@@ -307,7 +307,7 @@ export default function Page() {
                 </motion.div>
 
                 <motion.div
-                    className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[450px] z-10 relative xl:pt-[370px] xl:ml-44'
+                    className='p-4 flex flex-col gap-8 pt-[440px] md:pt-[450px] z-10 relative xl:pt-[370px] xl:ml-48'
                     initial={{ opacity: 0, x: 50 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -50 }}
@@ -663,8 +663,8 @@ export default function Page() {
                             </div>
                         )}
                 </motion.div>
-                <div className="border-b border-bg-[#D9D9D9] px-4 mb-6 lg:max-w-[800px] lg:min-w-[800px] lg:m-auto xl:min-w-[650px] 2xl:min-w-[1000px] 2xl:pl-[190px]">
-                    <div className='flex-1 justify-center'>
+                <div className="border-b border-bg-[#D9D9D9] px-4 mb-6 lg:max-w-[800px] lg:min-w-[800px] lg:m-auto xl:px-0 xl:min-w-[700px] 2xl:min-w-[980px] ">
+                    <div className='flex-1 justify-center xl:ml-44'>
                         <div className="text-2xl md:text-xl mt-2 font-extrabold italic leading-[55px] tracking-[-2px] xl:mb-4 xl:text-3xl">ÚLTIMOS JOGOS</div>
                         <PlayerGameStatsTable
                             jogadorId={currentJogador?.id || 0}

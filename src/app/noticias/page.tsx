@@ -21,7 +21,7 @@ export default function NoticiasPage() {
     }
 
     return (
-        <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-28 2xl:mr-60 xl:pt-0">
+        <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-12 2xl:mr-60 xl:pt-0">
             <div className="mx-auto max-w-7xl px-4 mt-20 mb-10">
                 <div className="grid grid-cols-1 gap-6">
                     {noticias.map((noticia) => (

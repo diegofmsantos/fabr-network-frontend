@@ -39,8 +39,8 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     }
 
     return (
-        <div className="min-h-screen max-w-[1200px] mx-auto bg-[#ECECEC]">
-            <div className="w-full pt-20 xl:pt-0 xl:ml-40">
+        <div className="min-h-screen max-w-[1100px] mx-auto bg-[#ECECEC] 2xl:max-w-[1200px]">
+            <div className="w-full pt-20 xl:pt-0 xl:ml-32 2xl:ml-40">
                 <div className=''>
                     <RankingFilters
                         currentFilter={initialFilter}

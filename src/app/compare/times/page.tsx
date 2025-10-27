@@ -102,36 +102,36 @@ export default function CompararTimesPage() {
 
     const obterValorEstatistica = (time: Time, stat: StatComparison) => {
         if (!time.jogadores || time.jogadores.length === 0) return 0
-        
+
         let total = 0
-        
-       time.jogadores.forEach(jogador => {  
-        if (jogador?.estatisticas) {  
-            const categoria = jogador.estatisticas[stat.categoria as keyof typeof jogador.estatisticas]
-            if (categoria) {
-                const valor = (categoria as any)[stat.statKey] || 0
-                total += typeof valor === 'number' ? valor : 0
+
+        time.jogadores.forEach(jogador => {
+            if (jogador?.estatisticas) {
+                const categoria = jogador.estatisticas[stat.categoria as keyof typeof jogador.estatisticas]
+                if (categoria) {
+                    const valor = (categoria as any)[stat.statKey] || 0
+                    total += typeof valor === 'number' ? valor : 0
+                }
             }
-        }
-    })
-        
+        })
+
         if (stat.statKey === 'passes_percentual') {
-            const jogadoresComPasses = time.jogadores.filter(jt => 
-                jt.jogador?.estatisticas?.passe?.passes_tentados && 
+            const jogadoresComPasses = time.jogadores.filter(jt =>
+                jt.jogador?.estatisticas?.passe?.passes_tentados &&
                 jt.jogador.estatisticas.passe.passes_tentados > 0
             )
-            
+
             if (jogadoresComPasses.length === 0) return 0
-            
+
             const somaPercentuais = jogadoresComPasses.reduce((acc, jt) => {
                 const passe = jt.jogador!.estatisticas!.passe
                 const percentual = (passe.passes_completos / passe.passes_tentados) * 100
                 return acc + percentual
             }, 0)
-            
+
             return Math.round(somaPercentuais / jogadoresComPasses.length)
         }
-        
+
         return total
     }
 
@@ -164,103 +164,102 @@ export default function CompararTimesPage() {
                         <ArrowLeft size={20} />
                         <span>Voltar</span>
                     </Link>
-                    <h1 className="text-3xl font-extrabold italic leading-[35px] tracking-[-3px] md:text-5xl">COMPARAR TIMES</h1>
                 </div>
             </div>
 
-            <div className="xl:ml-80 2xl:ml-[550px] px-4 py-8 md:py-5">
-                <div className="mb-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                            <div className="relative">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Primeiro Time
-                                </label>
-                                <input
-                                    type="text"
-                                    value={searchTerm1}
-                                    onChange={(e) => {
-                                        setSearchTerm1(e.target.value)
-                                        setShowDropdown1(true)
-                                    }}
-                                    onFocus={() => setShowDropdown1(true)}
-                                    placeholder={`Buscar time...`}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
-                                />
+            <div className="px-4 py-8 md:py-5 xl:ml-80 2xl:ml-[480px]">
+                <div className="mb-8 xl:ml-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div className="relative">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Primeiro Time
+                            </label>
+                            <input
+                                type="text"
+                                value={searchTerm1}
+                                onChange={(e) => {
+                                    setSearchTerm1(e.target.value)
+                                    setShowDropdown1(true)
+                                }}
+                                onFocus={() => setShowDropdown1(true)}
+                                placeholder={`Buscar time...`}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
+                            />
 
-                                {showDropdown1 && searchTerm1 && timesDropdown1.length > 0 && (
-                                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                                        {timesDropdown1.map((time) => (
-                                            <button
-                                                key={time.id}
-                                                onClick={() => selecionarTime(time, 1)}
-                                                className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
-                                            >
-                                                <Image
-                                                    src={ImageService.getTeamLogo(time.nome || '')}
-                                                    alt={time.nome || ''}
-                                                    width={24}
-                                                    height={24}
-                                                    className="rounded"
-                                                />
-                                                <div>
-                                                    <div className="font-medium">{time.nome}</div>
-                                                    <div className="text-sm text-gray-500">
-                                                        {time.cidade} • {time.sigla}
-                                                    </div>
+                            {showDropdown1 && searchTerm1 && timesDropdown1.length > 0 && (
+                                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                    {timesDropdown1.map((time) => (
+                                        <button
+                                            key={time.id}
+                                            onClick={() => selecionarTime(time, 1)}
+                                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
+                                        >
+                                            <Image
+                                                src={ImageService.getTeamLogo(time.nome || '')}
+                                                alt={time.nome || ''}
+                                                width={24}
+                                                height={24}
+                                                className="rounded"
+                                            />
+                                            <div>
+                                                <div className="font-medium">{time.nome}</div>
+                                                <div className="text-sm text-gray-500">
+                                                    {time.cidade} • {time.sigla}
                                                 </div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
 
-                            <div className="relative">
-                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                    Segundo Time
-                                </label>
-                                <input
-                                    type="text"
-                                    value={searchTerm2}
-                                    onChange={(e) => {
-                                        setSearchTerm2(e.target.value)
-                                        setShowDropdown2(true)
-                                    }}
-                                    onFocus={() => setShowDropdown2(true)}
-                                    placeholder={`Buscar time...`}
-                                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
-                                />
+                        <div className="relative">
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                                Segundo Time
+                            </label>
+                            <input
+                                type="text"
+                                value={searchTerm2}
+                                onChange={(e) => {
+                                    setSearchTerm2(e.target.value)
+                                    setShowDropdown2(true)
+                                }}
+                                onFocus={() => setShowDropdown2(true)}
+                                placeholder={`Buscar time...`}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
+                            />
 
-                                {showDropdown2 && searchTerm2 && timesDropdown2.length > 0 && (
-                                    <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
-                                        {timesDropdown2.map((time) => (
-                                            <button
-                                                key={time.id}
-                                                onClick={() => selecionarTime(time, 2)}
-                                                className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
-                                            >
-                                                <Image
-                                                    src={ImageService.getTeamLogo(time.nome || '')}
-                                                    alt={time.nome || ''}
-                                                    width={24}
-                                                    height={24}
-                                                    className="rounded"
-                                                />
-                                                <div>
-                                                    <div className="font-medium">{time.nome}</div>
-                                                    <div className="text-sm text-gray-500">
-                                                        {time.cidade} • {time.sigla}
-                                                    </div>
+                            {showDropdown2 && searchTerm2 && timesDropdown2.length > 0 && (
+                                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                    {timesDropdown2.map((time) => (
+                                        <button
+                                            key={time.id}
+                                            onClick={() => selecionarTime(time, 2)}
+                                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3"
+                                        >
+                                            <Image
+                                                src={ImageService.getTeamLogo(time.nome || '')}
+                                                alt={time.nome || ''}
+                                                width={24}
+                                                height={24}
+                                                className="rounded"
+                                            />
+                                            <div>
+                                                <div className="font-medium">{time.nome}</div>
+                                                <div className="text-sm text-gray-500">
+                                                    {time.cidade} • {time.sigla}
                                                 </div>
-                                            </button>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
+                                            </div>
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
-                
+                </div>
+
                 {time1 && time2 && (
-                    <div className="mb-8">
+                    <div className="mb-8 xl:ml-10">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <Link href={getTeamUrl(time1.time)}>
                                 <div
@@ -338,7 +337,7 @@ export default function CompararTimesPage() {
                 )}
 
                 {time1 && time2 && (
-                    <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20 xl:ml-10">
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead className="bg-gray-50">

@@ -60,7 +60,7 @@ if (isLoading) return <Loading />
 
   return (
     <div>
-      <div className="xl:ml-80 2xl:ml-[550px] absolute">
+      <div className="xl:ml-60 2xl:ml-[550px] absolute">
         <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-2">
             <button

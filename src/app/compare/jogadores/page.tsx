@@ -270,15 +270,14 @@ export default function CompararJogadoresPage() {
                 </div>
             </div>
 
-            <div className="xl:ml-80 2xl:ml-[550px] px-4 py-8 md:py-5">
-                <div className="mb-8">
+            <div className="px-4 py-8 md:py-5 xl:ml-60 2xl:ml-[400px] ">
+                <div className="mb-8 xl:ml-32">
                     <h2 className="text-xl font-bold mb-4">Selecione a Posição</h2>
                     <div className="flex flex-wrap gap-2 md:justify-around">
                         {POSICOES.map((posicao) => (
                             <button
                                 key={posicao.key}
                                 onClick={() => {
-                                    console.log('Clicou na posição:', posicao.key)
                                     setPosicaoSelecionada(posicao.key)
                                     resetComparacao()
                                 }}
@@ -299,7 +298,7 @@ export default function CompararJogadoresPage() {
                 </div>
 
                 {posicaoSelecionada && (
-                    <div className="mb-8">
+                    <div className="mb-8 xl:ml-32">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <div className="relative">
                                 <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -397,7 +396,7 @@ export default function CompararJogadoresPage() {
                 )}
 
                 {jogador1 && jogador2 && (
-                    <div className="mb-8">
+                    <div className="mb-8 xl:ml-32">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <Link href={getPlayerUrl(jogador1.jogador, jogador1.time)}>
                                 <div
@@ -487,7 +486,7 @@ export default function CompararJogadoresPage() {
                 )}
 
                 {jogador1 && jogador2 && (
-                    <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20 xl:ml-32">
                         <div className="overflow-x-auto">
                             <table className="w-full">
                                 <thead className="bg-gray-50">

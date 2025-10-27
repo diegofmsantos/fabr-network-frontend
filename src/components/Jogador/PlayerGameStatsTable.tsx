@@ -166,16 +166,6 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
       .filter((row): row is GameStatsRow => row !== null)
   }, [estatisticasJogo])
 
-  console.log('🔍 [PlayerGameStatsTable] Debug detalhado:', {
-    jogadorId,
-    totalEstatisticas: estatisticasJogo.length,
-    estatisticasComJogo: estatisticasJogo.filter(stat => stat.jogo).length,
-    jogosFinalizados: estatisticasJogo.filter(stat => stat.jogo?.status === 'FINALIZADO').length,
-    jogosAdiados: estatisticasJogo.filter(stat => stat.jogo?.status === 'ADIADO').length,
-    statusDiversos: [...new Set(estatisticasJogo.map(stat => stat.jogo?.status))],
-    gameStatsRows: gameStatsRows.length,
-    primeiraEstatistica: estatisticasJogo[0]
-  })
 
   const getStat = (stats: any, column: ColumnConfig) => {
     if (column.format) {
@@ -230,12 +220,12 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
 
 
   return (
-    <div className="bg-white rounded-lg p-6">
+    <div className="bg-white rounded-lg p-3">
       <div className="overflow-x-auto">
         <table className="w-full text-base">
           <thead>
-            <tr className="bg-gray-100 border-b border-gray-300">
-              <th className="text-left py-3 px-3 text-gray-700 font-medium text-[14px] uppercase sticky left-0 bg-gray-100">DATA</th>
+            <tr className=" border-b border-gray-300">
+              <th className="text-left py-3 px-3 text-gray-700 font-medium text-[14px] uppercase sticky left-0 ">DATA</th>
               <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase">ADV.</th>
               <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase">RESULTADO</th>
               {activeColumns.map((column) => (
@@ -247,7 +237,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           </thead>
           <tbody>
             {gameStatsRows.map((row, index) => (
-              <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
+              <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-white'}>
                 <td className="py-3 px-3 text-gray-900 font-medium sticky left-0 bg-inherit">
                   {row.data}
                 </td>

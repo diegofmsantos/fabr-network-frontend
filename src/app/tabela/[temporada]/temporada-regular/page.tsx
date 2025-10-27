@@ -61,19 +61,18 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
     'CENTRO NORTE': 'Centro-Norte'
   }
 
-  // 🔧 CORREÇÃO: Definir número máximo de rodadas por conferência
   const getMaxRodadas = (conferencia: string): number => {
     switch (conferencia) {
       case 'CENTRO NORTE':
-        return 6  // Centro-Norte tem 6 rodadas
+        return 6
       case 'NORDESTE':
-        return 4  // Nordeste tem 4 rodadas  
+        return 4
       case 'SUDESTE':
-        return 4  // Sudeste tem 4 rodadas
+        return 4
       case 'SUL':
-        return 4  // Sul tem 4 rodadas
+        return 4
       default:
-        return 4  // Padrão
+        return 4
     }
   }
 
@@ -90,10 +89,10 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
   })
 
   return (
-    <div className="bg-white rounded-lg p-3 mr-2 min-w-[280px] w-full md:max-w-[660px] xl:mt-24 2xl:w-60">
+    <div className="bg-white rounded-lg p-3 mr-2 min-w-[300px] md:min-w-[650px] md:mr-4 xl:min-w-[280px] 2xl:pr-3 xl:mt-24">
       <div className={`flex items-center justify-between mb-4 text-white px-4 py-2 rounded-t-lg ${getConferenciaColor(conferenciaKey)}`}>
         <button
-          onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : maxRodadas)} // 🔧 Usar maxRodadas
+          onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : maxRodadas)}
           className="p-1 hover:bg-black/20 rounded transition-colors"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -102,7 +101,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
           {rodadaAtiva}ª Rodada
         </h3>
         <button
-          onClick={() => setRodadaAtiva(prev => prev < maxRodadas ? prev + 1 : 1)} // 🔧 Usar maxRodadas
+          onClick={() => setRodadaAtiva(prev => prev < maxRodadas ? prev + 1 : 1)}
           className="p-1 hover:bg-black/20 rounded transition-colors"
         >
           <ChevronRight className="w-5 h-5" />
@@ -146,10 +145,9 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                   />
                 </div>
               </div>
-              <div className={`text-xs mt-1 ${
-                jogo.status === 'FINALIZADO' ? 'text-green-600' :
-                jogo.status === 'AO VIVO' ? 'text-red-600' :
-                  jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
+              <div className={`text-xs mt-1 ${jogo.status === 'FINALIZADO' ? 'text-green-600' :
+                  jogo.status === 'AO VIVO' ? 'text-red-600' :
+                    jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
                 }`}>
                 {jogo.status === 'FINALIZADO' ? 'Finalizado' :
                   jogo.status === 'AO VIVO' ? 'Ao Vivo' :
@@ -223,7 +221,7 @@ export default function TemporadaRegularPage() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <div className="xl:ml-80 w-full max-w-5xl 2xl:ml-[550px] absolute overflow-x-hidden 2xl:overflow-x-visible">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[665px] md:h-14 md:pt-2 xl:ml-36 fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 fixed z-50 md:h-14 md:pt-2 xl:ml-20 xl:w-[610px] xl:h-28 xl:pt-12 xl:mt-0 2xl:w-[680px]">
           <div className="flex items-center justify-between gap-4">
             <button
               className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
@@ -247,7 +245,7 @@ export default function TemporadaRegularPage() {
           </div>
         </div>
 
-        <div className="space-y-8 mb-24 pt-44 w-full md:ml-8 lg:ml-36">
+        <div className="space-y-8 mb-24 pt-44 md:ml-8 xl:ml-20 2xl:w-full ">
           {conferencias.map(([conferenciaKey, conferencia]: [string, any]) => (
             <div key={conferenciaKey} className="ml-3 w-full flex flex-col justify-between items-center gap-8 pr-4 xl:flex-row xl:items-start xl:mb-16 max-w-5xl overflow-x-hidden">
               <div className="max-w-2xl space-y-10 w-full pr-2">

@@ -72,7 +72,7 @@ export default function MercadoPage() {
     )
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-64 xl:pt-0">
+    <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-10 xl:pt-0 2xl:mr-64">
       <div className="mt-24 flex flex-col gap-4 max-w-7xl mx-auto px-4 lg:mt-24">
         {loading ? (
           <div className="flex justify-center items-center my-12">
