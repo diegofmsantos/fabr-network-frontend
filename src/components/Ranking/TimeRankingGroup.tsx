@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import { NoStats } from '../ui/NoStats'
 import { TeamRankingCard } from './TimeRankingCard'
 import { calculateTeamStat } from '@/utils/services/StatsServices'
+import { formatStatValue } from '@/utils/helpers/formatUrl'
 
 interface TeamRankingGroupProps {
     title: string
@@ -39,21 +40,6 @@ const SLIDER_SETTINGS = {
 
 export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats, teamStats }) => {
     const { data: times = [], isLoading } = useTimes('2025')
-
-    const normalizeValue = (value: number | null, key: string, title: string): string => {
-        if (value === null) return 'N/A';
-        
-        if (key.includes('percentual') || key === 'field_goals' || key === 'extra_points' || 
-            title.includes('(%)') || title === 'FG(%)' || title === 'XP(%)') {
-            return `${Math.round(value)}%`;
-        }
-        
-        if (key.includes('media') || title.includes('(AVG)')) {
-            return value.toFixed(1).replace('.', ',');
-        }
-        
-        return Math.round(value).toLocaleString('pt-BR');
-    }
 
     const getTeamInfo = (timeId: number) => {
         const team = times.find((t) => t.id === timeId)
@@ -107,7 +93,7 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
                                     return {
                                         id: team.teamId,
                                         name: teamInfo.nome,
-                                        value: normalizeValue(team.value, stat.key, stat.title),
+                                        value: formatStatValue(team.value, stat.key, stat.title),
                                         teamColor: teamIndex === 0 ? teamInfo.cor : undefined,
                                         isFirst: teamIndex === 0,
                                     }

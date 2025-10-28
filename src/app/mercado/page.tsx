@@ -1,10 +1,8 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import { Loading } from '@/components/ui/Loading'
-import { SelectFilter } from '@/components/ui/SelectFilter'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import transferenciasData from '@/data/transferencia-2025-2026'
@@ -19,7 +17,6 @@ interface Transferencia {
 }
 
 export default function MercadoPage() {
-  const searchParams = useSearchParams()
   const [temporadaOrigem, setTemporadaOrigem] = useState('2025')
   const [temporadaDestino, setTemporadaDestino] = useState('2026')
   const [transferencias, setTransferencias] = useState<Transferencia[]>([])

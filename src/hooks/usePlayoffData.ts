@@ -41,7 +41,7 @@ const MOCK_FINAL_CONFERENCIA = [
       status: 'AGENDADO',
       dataJogo: '2025-11-02T00:00:00.000Z',
       vencedor: null,
-      local: 'A definir'
+      local: 'Colina'
     }
   },
   {
@@ -58,7 +58,7 @@ const MOCK_FINAL_CONFERENCIA = [
       status: 'AGENDADO',
       dataJogo: '2025-11-02T00:00:00.000Z',
       vencedor: null,
-      local: 'A definir'
+      local: 'Arruda'
     }
   },
   {
@@ -75,7 +75,7 @@ const MOCK_FINAL_CONFERENCIA = [
       status: 'AGENDADO',
       dataJogo: '2025-11-02T00:00:00.000Z',
       vencedor: null,
-      local: 'A definir'
+      local: 'CTT'
     }
   },
   {
@@ -92,7 +92,7 @@ const MOCK_FINAL_CONFERENCIA = [
       status: 'AGENDADO',
       dataJogo: '2025-11-02T00:00:00.000Z',
       vencedor: null,
-      local: 'A definir'
+      local: 'Croco Stadium'
     }
   }
 ]

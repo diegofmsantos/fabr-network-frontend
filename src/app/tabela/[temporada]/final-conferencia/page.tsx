@@ -149,7 +149,7 @@ export default function FinalConferenciaPage() {
                       </div>
 
                       <div className="flex flex-col items-center gap-3 mt-4">
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2">
                           {conferencia.jogo.status && (
                             <span className={`px-2 py-1 rounded-full text-xs font-medium ${conferencia.jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
                               conferencia.jogo.status === 'AO VIVO' ? 'bg-red-100 text-red-800' :
@@ -173,8 +173,7 @@ export default function FinalConferenciaPage() {
                             </span>
                           )}
                         </div>
-
-
+                        <div className='text-xs text-gray-500'>{conferencia.jogo.local}</div>
                       </div>
                     </div>
                   </div>

@@ -313,7 +313,7 @@ export default function Page() {
                     exit={{ opacity: 0, x: -50 }}
                     transition={{ duration: 0.5 }}
                 >
-                  
+
                     <div className='mt-8 lg:max-w-[800px] lg:min-w-[800px] lg:m-auto xl:min-w-[650px] 2xl:min-w-[800px]'>
                         <div className="border py-2 px-3 font-extrabold text-white text-xs w-16 flex justify-center items-center rounded-md mb-3"
                             style={{ backgroundColor: currentTime?.cor }}>BIO</div>

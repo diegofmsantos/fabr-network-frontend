@@ -1,5 +1,4 @@
 import { statMappings } from "@/utils/constants/statMappings"
-import { formatValue } from "@/utils/services/FormatterService"
 import { ImageService, UrlService } from "@/utils/services/ImageService"
 import Image from "next/image"
 import Link from "next/link"
@@ -23,12 +22,27 @@ interface RankingCardProps {
 }
 
 const formatValueForDisplay = (value: string, title: string): string => {
+  if (title.includes('PASSES(%)')) {
+    const numValue = parseFloat(value);
+    if (!isNaN(numValue)) {
+      return numValue.toFixed(0) + '%';
+    }
+  }
+
+  if (title.includes('FG(%)') || title.includes('XP(%)')) {
+    const numValue = parseFloat(value);
+    if (!isNaN(numValue)) {
+      return numValue.toFixed(0) + '%';
+    }
+  }
+
   if (title.includes('(AVG)') || title.includes('JARDAS(AVG)')) {
     const numValue = parseFloat(value);
     if (!isNaN(numValue)) {
       return numValue.toFixed(1).replace('.', ',');
     }
   }
+  
   return value;
 }
 

@@ -11,6 +11,15 @@ import { StatCategoryButtons } from '@/components/ui/StatCategoryButtons'
 import { getCategoryTitle, getStatsByCategory } from '@/utils/helpers/categoryHelpers'
 import { Jogador, TeamStats } from '@/types'
 
+const toNumber = (value: any): number => {
+    if (typeof value === 'number') return value;
+    if (typeof value === 'string') {
+        const parsed = parseFloat(value);
+        return isNaN(parsed) ? 0 : parsed;
+    }
+    return 0;
+}
+
 const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
     const teamStatsMap = new Map<number, TeamStats>()
     const timeIds = [...new Set(players.map(player => player.timeId))];
@@ -79,60 +88,61 @@ const calculateTeamStats = (players: Jogador[]): TeamStats[] => {
         }
 
         if (player.estatisticas?.passe) {
-            teamStats.passe.passes_completos += player.estatisticas.passe.passes_completos || 0;
-            teamStats.passe.passes_tentados += player.estatisticas.passe.passes_tentados || 0;
-            teamStats.passe.jardas_de_passe += player.estatisticas.passe.jardas_de_passe || 0;
-            teamStats.passe.td_passados += player.estatisticas.passe.td_passados || 0;
-            teamStats.passe.interceptacoes_sofridas += player.estatisticas.passe.interceptacoes_sofridas || 0;
-            teamStats.passe.sacks_sofridos += player.estatisticas.passe.sacks_sofridos || 0;
-            teamStats.passe.fumble_de_passador += player.estatisticas.passe.fumble_de_passador || 0;
+            teamStats.passe.passes_completos += toNumber(player.estatisticas.passe.passes_completos);
+            teamStats.passe.passes_tentados += toNumber(player.estatisticas.passe.passes_tentados);
+            teamStats.passe.jardas_de_passe += toNumber(player.estatisticas.passe.jardas_de_passe);
+            teamStats.passe.td_passados += toNumber(player.estatisticas.passe.td_passados);
+            teamStats.passe.interceptacoes_sofridas += toNumber(player.estatisticas.passe.interceptacoes_sofridas);
+            teamStats.passe.sacks_sofridos += toNumber(player.estatisticas.passe.sacks_sofridos);
+            teamStats.passe.fumble_de_passador += toNumber(player.estatisticas.passe.fumble_de_passador);
         }
 
         if (player.estatisticas?.corrida) {
-            teamStats.corrida.corridas += player.estatisticas.corrida.corridas || 0;
-            teamStats.corrida.jardas_corridas += player.estatisticas.corrida.jardas_corridas || 0;
-            teamStats.corrida.tds_corridos += player.estatisticas.corrida.tds_corridos || 0;
-            teamStats.corrida.fumble_de_corredor += player.estatisticas.corrida.fumble_de_corredor || 0;
+            teamStats.corrida.corridas += toNumber(player.estatisticas.corrida.corridas);
+            teamStats.corrida.jardas_corridas += toNumber(player.estatisticas.corrida.jardas_corridas);
+            teamStats.corrida.tds_corridos += toNumber(player.estatisticas.corrida.tds_corridos);
+            teamStats.corrida.fumble_de_corredor += toNumber(player.estatisticas.corrida.fumble_de_corredor);
         }
 
         if (player.estatisticas?.recepcao) {
-            teamStats.recepcao.recepcoes += player.estatisticas.recepcao.recepcoes || 0;
-            teamStats.recepcao.alvo += player.estatisticas.recepcao.alvo || 0;
-            teamStats.recepcao.jardas_recebidas += player.estatisticas.recepcao.jardas_recebidas || 0;
-            teamStats.recepcao.tds_recebidos += player.estatisticas.recepcao.tds_recebidos || 0;
+            teamStats.recepcao.recepcoes += toNumber(player.estatisticas.recepcao.recepcoes);
+            teamStats.recepcao.alvo += toNumber(player.estatisticas.recepcao.alvo);
+            teamStats.recepcao.jardas_recebidas += toNumber(player.estatisticas.recepcao.jardas_recebidas);
+            teamStats.recepcao.tds_recebidos += toNumber(player.estatisticas.recepcao.tds_recebidos);
         }
 
         if (player.estatisticas?.retorno) {
-            teamStats.retorno.retornos += player.estatisticas.retorno.retornos || 0;
-            teamStats.retorno.jardas_retornadas += player.estatisticas.retorno.jardas_retornadas || 0;
-            teamStats.retorno.td_retornados += player.estatisticas.retorno.td_retornados || 0;
+            teamStats.retorno.retornos += toNumber(player.estatisticas.retorno.retornos);
+            teamStats.retorno.jardas_retornadas += toNumber(player.estatisticas.retorno.jardas_retornadas);
+            teamStats.retorno.td_retornados += toNumber(player.estatisticas.retorno.td_retornados);
         }
 
         if (player.estatisticas?.defesa) {
-            teamStats.defesa.tackles_totais += player.estatisticas.defesa.tackles_totais || 0;
-            teamStats.defesa.tackles_for_loss += player.estatisticas.defesa.tackles_for_loss || 0;
-            teamStats.defesa.sacks_forcado += player.estatisticas.defesa.sacks_forcado || 0;
-            teamStats.defesa.fumble_forcado += player.estatisticas.defesa.fumble_forcado || 0;
-            teamStats.defesa.interceptacao_forcada += player.estatisticas.defesa.interceptacao_forcada || 0;
-            teamStats.defesa.passe_desviado += player.estatisticas.defesa.passe_desviado || 0;
-            teamStats.defesa.safety += player.estatisticas.defesa.safety || 0;
-            teamStats.defesa.td_defensivo += player.estatisticas.defesa.td_defensivo || 0;
+            teamStats.defesa.tackles_totais += toNumber(player.estatisticas.defesa.tackles_totais);
+            teamStats.defesa.tackles_for_loss += toNumber(player.estatisticas.defesa.tackles_for_loss);
+            teamStats.defesa.sacks_forcado += toNumber(player.estatisticas.defesa.sacks_forcado);
+            teamStats.defesa.fumble_forcado += toNumber(player.estatisticas.defesa.fumble_forcado);
+            teamStats.defesa.interceptacao_forcada += toNumber(player.estatisticas.defesa.interceptacao_forcada);
+            teamStats.defesa.passe_desviado += toNumber(player.estatisticas.defesa.passe_desviado);
+            teamStats.defesa.safety += toNumber(player.estatisticas.defesa.safety);
+            teamStats.defesa.td_defensivo += toNumber(player.estatisticas.defesa.td_defensivo);
         }
 
         if (player.estatisticas?.kicker) {
-            teamStats.kicker.xp_bons += player.estatisticas.kicker.xp_bons || 0;
-            teamStats.kicker.tentativas_de_xp += player.estatisticas.kicker.tentativas_de_xp || 0;
-            teamStats.kicker.fg_bons += player.estatisticas.kicker.fg_bons || 0;
-            teamStats.kicker.tentativas_de_fg += player.estatisticas.kicker.tentativas_de_fg || 0;
+            teamStats.kicker.xp_bons += toNumber(player.estatisticas.kicker.xp_bons);
+            teamStats.kicker.tentativas_de_xp += toNumber(player.estatisticas.kicker.tentativas_de_xp);
+            teamStats.kicker.fg_bons += toNumber(player.estatisticas.kicker.fg_bons);
+            teamStats.kicker.tentativas_de_fg += toNumber(player.estatisticas.kicker.tentativas_de_fg);
 
-            if ((player.estatisticas?.kicker.fg_mais_longo || 0) > teamStats.kicker.fg_mais_longo) {
-                teamStats.kicker.fg_mais_longo = player.estatisticas.kicker.fg_mais_longo || 0;
+            const fgMaisLongo = toNumber(player.estatisticas.kicker.fg_mais_longo);
+            if (fgMaisLongo > teamStats.kicker.fg_mais_longo) {
+                teamStats.kicker.fg_mais_longo = fgMaisLongo;
             }
         }
 
         if (player.estatisticas?.punter) {
-            teamStats.punter.punts += player.estatisticas.punter.punts || 0;
-            teamStats.punter.jardas_de_punt += player.estatisticas.punter.jardas_de_punt || 0;
+            teamStats.punter.punts += toNumber(player.estatisticas.punter.punts);
+            teamStats.punter.jardas_de_punt += toNumber(player.estatisticas.punter.jardas_de_punt);
         }
     });
 

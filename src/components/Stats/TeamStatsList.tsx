@@ -24,6 +24,15 @@ interface RankedTeam {
   value: number
 }
 
+const toNumber = (value: any): number => {
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string') {
+    const parsed = parseFloat(value);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+  return 0;
+}
+
 export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, statMapping }) => {
 
   const calculateTeamStat = (timeId: number): number | null => {
@@ -36,15 +45,15 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
 
       if (statMapping.key === 'fumble_de_passador') {
         teamPlayers.forEach(player => {
-          total += player.estatisticas?.passe?.fumble_de_passador || 0
+          total += toNumber(player.estatisticas?.passe?.fumble_de_passador)
         })
         return total > 0 ? total : null
       }
 
       if (statMapping.key === 'jardas_punt_media') {
         teamPlayers.forEach(player => {
-          total += player.estatisticas?.punter?.jardas_de_punt || 0
-          divisor += player.estatisticas?.punter?.punts || 0
+          total += toNumber(player.estatisticas?.punter?.jardas_de_punt)
+          divisor += toNumber(player.estatisticas?.punter?.punts)
         })
         return divisor > 0 ? total / divisor : null
       }
@@ -53,98 +62,100 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         switch (statMapping.key) {
           case 'passes_percentual':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.passe?.passes_completos || 0
-              divisor += player.estatisticas?.passe?.passes_tentados || 0
+              total += toNumber(player.estatisticas?.passe?.passes_completos)
+              divisor += toNumber(player.estatisticas?.passe?.passes_tentados)
             })
             return divisor > 0 ? (total / divisor) * 100 : null
 
           case 'jardas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.passe?.jardas_de_passe || 0
-              divisor += player.estatisticas?.passe?.passes_tentados || 0
+              total += toNumber(player.estatisticas?.passe?.jardas_de_passe)
+              divisor += toNumber(player.estatisticas?.passe?.passes_tentados)
             })
             return divisor > 0 ? total / divisor : null
 
           case 'jardas_corridas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.corrida?.jardas_corridas || 0
-              divisor += player.estatisticas?.corrida?.corridas || 0
+              total += toNumber(player.estatisticas?.corrida?.jardas_corridas)
+              divisor += toNumber(player.estatisticas?.corrida?.corridas)
             })
             return divisor > 0 ? total / divisor : null
 
           case 'jardas_recebidas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.recepcao?.jardas_recebidas || 0
-              divisor += player.estatisticas?.recepcao?.alvo || 0
+              total += toNumber(player.estatisticas?.recepcao?.jardas_recebidas)
+              divisor += toNumber(player.estatisticas?.recepcao?.alvo)
             })
             return divisor > 0 ? total / divisor : null
 
           case 'jardas_retornadas_media':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.retorno?.jardas_retornadas || 0
-              divisor += player.estatisticas?.retorno?.retornos || 0
+              total += toNumber(player.estatisticas?.retorno?.jardas_retornadas)
+              divisor += toNumber(player.estatisticas?.retorno?.retornos)
             })
             return divisor > 0 ? total / divisor : null
 
-          case 'field_goals':
+          case 'extra_points':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.kicker?.fg_bons || 0
-              divisor += player.estatisticas?.kicker?.tentativas_de_fg || 0
+              total += toNumber(player.estatisticas?.kicker?.xp_bons)
+              divisor += toNumber(player.estatisticas?.kicker?.tentativas_de_xp)
             })
             return divisor > 0 ? (total / divisor) * 100 : null
 
-          case 'extra_points':
+          case 'field_goals':
             teamPlayers.forEach(player => {
-              total += player.estatisticas?.kicker?.xp_bons || 0
-              divisor += player.estatisticas?.kicker?.tentativas_de_xp || 0
+              total += toNumber(player.estatisticas?.kicker?.fg_bons)
+              divisor += toNumber(player.estatisticas?.kicker?.tentativas_de_fg)
             })
             return divisor > 0 ? (total / divisor) * 100 : null
+
+          default:
+            return null
         }
       }
 
+      // ✅ SOMA SIMPLES COM CONVERSÃO PARA NÚMERO
       teamPlayers.forEach(player => {
-        if (!player.estatisticas) return
-
         switch (statMapping.category) {
           case 'passe': {
-            const value = (player.estatisticas.passe as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.passe as any)?.[statMapping.key])
+            total += value
             break
           }
           case 'corrida': {
-            const value = (player.estatisticas.corrida as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.corrida as any)?.[statMapping.key])
+            total += value
             break
           }
           case 'recepcao': {
-            const value = (player.estatisticas.recepcao as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.recepcao as any)?.[statMapping.key])
+            total += value
             break
           }
           case 'retorno': {
-            const value = (player.estatisticas.retorno as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.retorno as any)?.[statMapping.key])
+            total += value
             break
           }
           case 'defesa': {
-            const value = (player.estatisticas.defesa as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.defesa as any)?.[statMapping.key])
+            total += value
             break
           }
           case 'kicker': {
-            const value = (player.estatisticas.kicker as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.kicker as any)?.[statMapping.key])
+            total += value
             break
           }
           case 'punter': {
-            const value = (player.estatisticas.punter as any)[statMapping.key]
-            if (typeof value === 'number') total += value
+            const value = toNumber((player.estatisticas?.punter as any)?.[statMapping.key])
+            total += value
             break
           }
         }
       })
 
-      return total || null
+      return total > 0 ? total : null
     } catch (error) {
       console.error(`Erro ao calcular estatística:`, error)
       return null

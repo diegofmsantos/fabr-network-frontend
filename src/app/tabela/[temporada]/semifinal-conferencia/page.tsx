@@ -148,31 +148,31 @@ export default function SemifinalConferenciaPage() {
                           </div>
                         </div>
 
-
-                        {/* Status e Data */}
-                        <div className="flex items-center justify-center gap-4 mt-3">
-                          {jogo.status && (
-                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
-                              jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
-                                jogo.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
-                                  'bg-gray-100 text-gray-800'
-                              }`}>
-                              {jogo.status === 'FINALIZADO' ? 'Finalizado' :
-                                jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
-                                  jogo.status === 'AGUARDANDO' ? 'Aguardando' :
-                                    jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}
-                            </span>
-                          )}
-
-                          {jogo.dataJogo && (
-                            <span className="text-xs text-gray-500">
-                              {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
-                                day: '2-digit',
-                                month: '2-digit',
-                                year: 'numeric',
-                              })}
-                            </span>
-                          )}
+                        <div className="flex flex-col items-center justify-center gap-4 mt-3">
+                          <div>
+                            {jogo.status && (
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium mr-3 ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
+                                jogo.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
+                                  jogo.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-gray-100 text-gray-800'
+                                }`}>
+                                {jogo.status === 'FINALIZADO' ? 'Finalizado' :
+                                  jogo.status === 'AO_VIVO' ? 'Ao Vivo' :
+                                    jogo.status === 'AGUARDANDO' ? 'Aguardando' :
+                                      jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}
+                              </span>
+                            )}
+                            {jogo.dataJogo && (
+                              <span className="text-xs text-gray-500">
+                                {new Date(jogo.dataJogo).toLocaleDateString('pt-BR', {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric',
+                                })}
+                              </span>
+                            )}
+                          </div>
+                          <div className='text-xs text-gray-500'>{jogo.local}</div>
                         </div>
                       </div>
                     ))}
