@@ -65,7 +65,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
             <h3 className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">
                 {title}
             </h3>
-            
+
             <ul className="flex flex-col text-white h-full">
                 {sortedTeams.map((team, index) => (
                     <li
@@ -88,7 +88,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                             <h4 className="font-extrabold italic leading-4 text-xl uppercase">
                                                 {team.name}
                                             </h4>
-                                            
+
                                             <Image
                                                 src={ImageService.getTeamLogo(team.name)}
                                                 width={60}
@@ -96,18 +96,18 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                                 alt={`Logo do time ${team.name}`}
                                                 onError={(e) => ImageService.handleTeamLogoError(e, team.name)}
                                             />
-                                            
+
                                             <span className="font-extrabold italic text-4xl mt-2">
                                                 {team.value}
                                             </span>
                                         </div>
                                     </div>
-                                    
-                                    <div className="relative w-[200px] h-[200px]">
+
+                                    <div className="relative w-[120px] h-[120px] sm:w-[150px] sm:h-[150px] md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px] flex-shrink-0">
                                         <Image
                                             src={ImageService.getTeamHelmet(team.name)}
                                             fill
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                            sizes="(max-width: 640px) 120px, (max-width: 768px) 150px, (max-width: 1024px) 180px, 200px"
                                             alt={`Capacete do ${team.name}`}
                                             className="object-contain"
                                             priority
@@ -120,7 +120,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                 <div className="w-full h-auto flex justify-between items-center gap-2 px-2 md:px-10 lg:px-10">
                                     <div className="flex items-center gap-2 max-[374px]:gap-1">
                                         <span className="font-bold text-[14px]">{index + 1}</span>
-                                        
+
                                         <Image
                                             src={ImageService.getTeamLogo(team.name)}
                                             width={40}
@@ -128,10 +128,10 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                             alt={`Logo do time ${team.name}`}
                                             onError={(e) => ImageService.handleTeamLogoError(e, team.name)}
                                         />
-                                        
+
                                         <div className="text-sm">{team.name}</div>
                                     </div>
-                                    
+
                                     <span className="font-bold text-lg">
                                         {formatValue(team.value, title)}
                                     </span>
@@ -141,7 +141,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                     </li>
                 ))}
             </ul>
-            
+
             <Link
                 href={getViewMoreUrl(category, title)}
                 className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3] xl:mr-6"

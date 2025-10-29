@@ -42,6 +42,11 @@ const formatValueForDisplay = (value: string, title: string): string => {
       return numValue.toFixed(1).replace('.', ',');
     }
   }
+
+   const numValue = parseFloat(value);
+  if (!isNaN(numValue) && numValue >= 1000) {
+    return numValue.toLocaleString('pt-BR');
+  }
   
   return value;
 }
