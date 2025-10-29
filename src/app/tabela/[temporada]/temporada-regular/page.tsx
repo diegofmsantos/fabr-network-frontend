@@ -221,7 +221,7 @@ export default function TemporadaRegularPage() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <div className="xl:ml-80 w-full max-w-5xl 2xl:ml-[550px] absolute overflow-x-hidden 2xl:overflow-x-visible">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 fixed z-50 md:h-14 md:pt-2 xl:ml-20 xl:w-[610px] xl:h-28 xl:pt-12 xl:mt-0 2xl:w-[680px]">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 fixed z-50 md:h-14 md:pt-2 xl:ml-20 xl:w-[950px] xl:h-28 xl:pt-12 xl:mt-0 2xl:w-[1050px]">
           <div className="flex items-center justify-between gap-4">
             <button
               className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
