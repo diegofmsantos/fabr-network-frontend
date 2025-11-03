@@ -73,7 +73,7 @@ export default function NoticiaDetalhes() {
   }
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:mr-28 2xl:mr-80 2xl:max-w-[1000px]">
+    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:mr-48 2xl:mr-80 2xl:max-w-[1000px]">
       <Link
         href={`/noticias`}
         className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-300/40 z-50 xl:left-[380px] 2xl:left-[550px]'
