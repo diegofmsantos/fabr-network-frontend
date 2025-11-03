@@ -98,7 +98,7 @@ export default function SemifinalNacionalPage() {
                   <div className={`bg-[#272731] text-[#63E300] px-6 py-4`}>
                     <h2 className="text-lg font-bold">{semifinal.nome}</h2>
                     <p className="text-sm opacity-90">
-                      {index === 0 ? 'Confronto Sul × Sudeste' : 'Confronto Nordeste × Centro-Norte'}
+                      {index === 0 ? 'Confronto Nordeste × Centro-Norte' : 'Confronto Sul × Sudeste'}
                     </p>
                   </div>
 
@@ -163,6 +163,11 @@ export default function SemifinalNacionalPage() {
                                   semifinal.status === 'AGENDADO' ? 'Agendado' : semifinal.status}
                           </span>
                         )}
+                        <div>{new Date(semifinal.dataJogo).toLocaleDateString('pt-BR', {
+                                day: '2-digit',
+                                month: '2-digit',
+                                year: 'numeric',
+                              })}</div>
                       </div>
                     </div>
                   </div>

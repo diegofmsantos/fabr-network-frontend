@@ -26,74 +26,30 @@ function getConferenciaKey(conf: any, index: number) {
   return `conf_${index}`
 }
 
-const MOCK_FINAL_CONFERENCIA = [
+const MOCK_SEMIFINAL_NACIONAL = [
   {
-    key: 'CENTRO_NORTE',
-    nome: 'Centro-Norte',
-    cor: 'bg-green-600',
-    jogo: {
-      id: 'mock-fc-1',
-      time1: 'Manaus Cavaliers',
-      time2: 'Rondonópolis Hawks',
-      descricao: 'Final Centro-Norte',
-      placar1: null,
-      placar2: null,
-      status: 'AGENDADO',
-      dataJogo: '2025-11-02T00:00:00.000Z',
-      vencedor: null,
-      local: 'Colina'
-    }
+    id: 'mock-sn-1',
+    nome: 'Semifinal Nacional 1',
+    time1: 'Rondonópolis Hawks',
+    time2: 'Recife Mariners',
+    placar1: null,
+    placar2: null,
+    status: 'AGENDADO',
+    dataJogo: '2025-11-17T00:00:00.000Z',
+    vencedor: null,
+    local: 'A definir'
   },
   {
-    key: 'NORDESTE',
-    nome: 'Nordeste',
-    cor: 'bg-orange-500',
-    jogo: {
-      id: 'mock-fc-2',
-      time1: 'Recife Mariners',
-      time2: 'Fortaleza Tritões',
-      descricao: 'Final Nordeste',
-      placar1: null,
-      placar2: null,
-      status: 'AGENDADO',
-      dataJogo: '2025-11-02T00:00:00.000Z',
-      vencedor: null,
-      local: 'Arruda'
-    }
-  },
-  {
-    key: 'SUDESTE',
-    nome: 'Sudeste',
-    cor: 'bg-red-600',
-    jogo: {
-      id: 'mock-fc-3',
-      time1: 'Spartans FA',
-      time2: 'Vasco Almirantes',
-      descricao: 'Final Sudeste',
-      placar1: null,
-      placar2: null,
-      status: 'AGENDADO',
-      dataJogo: '2025-11-02T00:00:00.000Z',
-      vencedor: null,
-      local: 'CTT'
-    }
-  },
-  {
-    key: 'SUL',
-    nome: 'Sul',
-    cor: 'bg-cyan-500',
-    jogo: {
-      id: 'mock-fc-4',
-      time1: 'Coritiba Crocodiles',
-      time2: 'Timbó Rex',
-      descricao: 'Final Sul',
-      placar1: null,
-      placar2: null,
-      status: 'AGENDADO',
-      dataJogo: '2025-11-02T00:00:00.000Z',
-      vencedor: null,
-      local: 'Croco Stadium'
-    }
+    id: 'mock-sn-2',
+    nome: 'Semifinal Nacional 2',
+    time1: 'Spartans FA',
+    time2: 'Coritiba Crocodiles',
+    placar1: null,
+    placar2: null,
+    status: 'AGENDADO',
+    dataJogo: '2025-11-16T00:00:00.000Z',
+    vencedor: null,
+    local: 'A definir'
   }
 ]
 
@@ -200,7 +156,7 @@ export function usePlayoffData(temporada: string) {
             status: jogo.status,
             dataJogo: jogo.dataJogo,
             vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
-              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeCasa?.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
@@ -214,21 +170,6 @@ export function usePlayoffData(temporada: string) {
         )
 
         console.log('🎯 Finais de conferência encontradas:', finalJogos.length)
-
-        const jogosComTimes = finalJogos.filter((jogo: any) =>
-          jogo.timeCasa?.nome && jogo.timeVisitante?.nome
-        )
-        const jogosSemTimes = finalJogos.filter((jogo: any) =>
-          !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
-        )
-
-        console.log('🎯 Finais COM times:', jogosComTimes.length)
-        console.log('🎯 Finais SEM times (null):', jogosSemTimes.length)
-
-        if (jogosSemTimes.length > 0 && jogosComTimes.length === 0) {
-          console.log('⚠️ Usando MOCK de finais de conferência (times ainda não definidos)')
-          return MOCK_FINAL_CONFERENCIA
-        }
 
         const conferenciasMap = new Map()
 
@@ -269,6 +210,21 @@ export function usePlayoffData(temporada: string) {
         )
 
         console.log('🎯 Semifinais nacionais encontradas:', semifinalJogos.length)
+
+        const jogosComTimes = semifinalJogos.filter((jogo: any) =>
+          jogo.timeCasa?.nome && jogo.timeVisitante?.nome
+        )
+        const jogosSemTimes = semifinalJogos.filter((jogo: any) =>
+          !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
+        )
+
+        console.log('🎯 Semifinais COM times:', jogosComTimes.length)
+        console.log('🎯 Semifinais SEM times (null):', jogosSemTimes.length)
+
+        if (jogosSemTimes.length > 0 && jogosComTimes.length === 0) {
+          console.log('⚠️ Usando MOCK de semifinais nacionais (times ainda não definidos)')
+          return MOCK_SEMIFINAL_NACIONAL
+        }
 
         return semifinalJogos.map((jogo: any) => ({
           id: jogo.id,
@@ -323,7 +279,6 @@ export function usePlayoffData(temporada: string) {
   }
 }
 
-// Hooks específicos por fase
 export function useWildCardData(temporada: string) {
   const { wildCard, isLoading, error } = usePlayoffData(temporada)
   return { data: wildCard, isLoading, error }
