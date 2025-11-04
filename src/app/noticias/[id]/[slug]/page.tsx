@@ -151,7 +151,7 @@ export default function NoticiaDetalhes() {
           </div>
           
           <div
-            className="prose max-w-none flex flex-col gap-1 [&_a]:text-[#0066cc] [&_a]:underline hover:[&_a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
+            className="materia-content prose max-w-none flex flex-col gap-1 [&_a]:text-[#0066cc] [&_a]:underline hover:[&_a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
             dangerouslySetInnerHTML={{
               __html: noticia.texto
                 .replace(/<p>&nbsp;<\/p>/g, '')

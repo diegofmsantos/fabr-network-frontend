@@ -69,8 +69,6 @@ body {
   .min-h-screen {
     min-height: -webkit-fill-available
   }
-
-  
 }
 
 .scrollbar-hide {
@@ -85,4 +83,28 @@ body {
 /* Melhorar o scroll em dispositivos touch */
 .scrollbar-hide {
   -webkit-overflow-scrolling: touch;
+}
+
+/* Wrapper responsivo para iframes de vídeo */
+.materia-content iframe {
+  max-width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Alternativa para navegadores que não suportam aspect-ratio */
+@supports not (aspect-ratio: 16 / 9) {
+  .materia-content iframe[src*="youtube"],
+  .materia-content iframe[src*="vimeo"] {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 */
+  }
+}
+
+/* Garante que o iframe não quebre em mobile */
+.materia-content iframe {
+  display: block;
+  margin: 1rem auto;
 }
