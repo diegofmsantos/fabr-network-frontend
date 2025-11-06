@@ -3,7 +3,7 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowLeft,Trophy } from 'lucide-react'
+import { ArrowLeft, Trophy } from 'lucide-react'
 import { useJogoDetalhes } from '@/hooks/useJogoDetalhes'
 import { Loading } from '@/components/ui/Loading'
 import { ImageService } from '@/utils/services/ImageService'
@@ -208,31 +208,28 @@ export default function JogoDetalhesPage() {
           <div className="flex border-b border-gray-200">
             <button
               onClick={() => setActiveTab('ESTATISTICAS')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${
-                activeTab === 'ESTATISTICAS'
-                  ? 'bg-[#63E300] text-black'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${activeTab === 'ESTATISTICAS'
+                ? 'bg-[#63E300] text-black'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
             >
               ESTATÍSTICAS
             </button>
             <button
               onClick={() => setActiveTab('PLAYBYPLAY')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${
-                activeTab === 'PLAYBYPLAY'
-                  ? 'bg-[#63E300] text-black'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${activeTab === 'PLAYBYPLAY'
+                ? 'bg-[#63E300] text-black'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
             >
               PLAY-BY-PLAY
             </button>
             <button
               onClick={() => setActiveTab('MELHORES_MOMENTOS')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${
-                activeTab === 'MELHORES_MOMENTOS'
-                  ? 'bg-[#63E300] text-black'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${activeTab === 'MELHORES_MOMENTOS'
+                ? 'bg-[#63E300] text-black'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                }`}
             >
               MELHORES MOMENTOS
             </button>
@@ -244,7 +241,7 @@ export default function JogoDetalhesPage() {
             {activeTab === 'ESTATISTICAS' && (
               <div className="space-y-6">
                 <h3 className="text-xl font-bold text-gray-800 uppercase">Estatísticas do Jogo</h3>
-                
+
                 {/* SEÇÃO PASSE */}
                 <div>
                   <div className="bg-black text-white py-2 px-4 font-bold uppercase mb-2">
@@ -323,7 +320,7 @@ export default function JogoDetalhesPage() {
             {activeTab === 'PLAYBYPLAY' && (
               <div>
                 <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Play-by-Play</h3>
-                {jogo.playByPlay ? (
+                {jogo.playByPlay && jogo.playByPlay.trim() !== '' ? (
                   <div className="bg-gray-50 rounded-lg p-6 max-h-[600px] overflow-y-auto">
                     <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono leading-relaxed">
                       {jogo.playByPlay}
@@ -342,7 +339,7 @@ export default function JogoDetalhesPage() {
             {activeTab === 'MELHORES_MOMENTOS' && (
               <div>
                 <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Melhores Momentos</h3>
-                {jogo.videoUrl ? (
+                {jogo.videoUrl && jogo.videoUrl.trim() !== '' ? (
                   <div className="aspect-video rounded-lg overflow-hidden bg-black">
                     <iframe
                       width="100%"

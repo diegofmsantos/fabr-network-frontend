@@ -42,11 +42,11 @@ interface AtualizarResultadoData {
 }
 
 export class JogosService extends BaseService {
-  
-  
+
+
   static async getJogos(filters?: JogosFilters): Promise<Jogo[]> {
     const service = new JogosService()
-    
+
     if (filters?.temporada) {
       const params = new URLSearchParams()
       if (filters.status) params.append('status', filters.status)
@@ -58,10 +58,10 @@ export class JogosService extends BaseService {
 
       const queryString = params.toString()
       const url = `/superliga/${filters.temporada}/jogos${queryString ? `?${queryString}` : ''}`
-      
+
       return service.get<Jogo[]>(url)
     }
-    
+
     if (filters?.campeonatoId) {
       const params = new URLSearchParams()
       if (filters.status) params.append('status', filters.status)
@@ -72,10 +72,10 @@ export class JogosService extends BaseService {
 
       const queryString = params.toString()
       const url = `/admin/campeonatos/${filters.campeonatoId}/jogos${queryString ? `?${queryString}` : ''}`
-      
+
       return service.get<Jogo[]>(url)
     }
-    
+
     const params = new URLSearchParams()
     if (filters?.status) params.append('status', filters.status)
     if (filters?.fase) params.append('fase', filters.fase)
@@ -85,7 +85,7 @@ export class JogosService extends BaseService {
 
     const queryString = params.toString()
     const url = `/admin/jogos${queryString ? `?${queryString}` : ''}`
-    
+
     return service.get<Jogo[]>(url)
   }
 
@@ -108,7 +108,7 @@ export class JogosService extends BaseService {
     const service = new JogosService()
     return service.get<Jogo[]>(`/superliga/${temporada}/ultimos-resultados`, { limite })
   }
-  
+
   static async criarJogo(dados: CreateJogoData): Promise<Jogo> {
     const service = new JogosService()
     return service.post<Jogo>('/admin/jogos', dados)
@@ -125,7 +125,7 @@ export class JogosService extends BaseService {
   }
 
   static async atualizarResultado(
-    id: number, 
+    id: number,
     dados: AtualizarResultadoData
   ): Promise<{ message: string; jogo: Jogo }> {
     const service = new JogosService()
@@ -146,15 +146,15 @@ export class JogosService extends BaseService {
     const service = new JogosService()
     return service.put<Jogo>(`/admin/jogos/${id}/iniciar`, {})
   }
-  
+
   static async getEstatisticasJogo(id: number): Promise<any[]> {
     const service = new JogosService()
     return service.get(`/admin/jogos/${id}/estatisticas`)
   }
 
   static async importarEstatisticas(
-    jogoId: number, 
-    arquivo: File, 
+    jogoId: number,
+    arquivo: File,
     dataJogo: string
   ): Promise<any> {
     const service = new JogosService()
@@ -163,7 +163,7 @@ export class JogosService extends BaseService {
       data_jogo: dataJogo
     })
   }
-  
+
   static async getEstatisticasGerais(filters?: JogosFilters): Promise<{
     totalJogos: number
     jogosFinalizados: number

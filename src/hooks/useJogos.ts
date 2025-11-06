@@ -71,6 +71,8 @@ export interface Jogo {
   placarVisitante?: number
   observacoes?: string
   estatisticasProcessadas: boolean
+  videoUrl?: string
+  playByPlay?: string
 
   conferencia?: string
   regional?: string
