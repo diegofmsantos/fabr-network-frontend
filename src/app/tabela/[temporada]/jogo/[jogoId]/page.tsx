@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
-import { ArrowLeft, Calendar, MapPin, Trophy, Users } from 'lucide-react'
+import { ArrowLeft,Trophy } from 'lucide-react'
 import { useJogoDetalhes } from '@/hooks/useJogoDetalhes'
 import { Loading } from '@/components/ui/Loading'
 import { ImageService } from '@/utils/services/ImageService'
@@ -19,28 +19,35 @@ interface StatComparison {
 }
 
 const STATS_CONFIG: StatComparison[] = [
+  { label: 'JARDAS PASSADAS', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
   { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
   { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
-  { label: 'JARDAS DE PASSE', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
-  { label: 'TD PASSADOS', categoria: 'passe', statKey: 'td_passados' },
+  { label: 'JARDAS (AVG)', categoria: 'passe', statKey: 'jardas_de_passe', format: (val) => val.toString() },
+  { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos', format: (val) => val.toString() },
+  { label: 'TOUCHDOWNS PASSADOS', categoria: 'passe', statKey: 'td_passados' },
   { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
-  { label: 'CORRIDAS', categoria: 'corrida', statKey: 'corridas' },
-  { label: 'JARDAS CORRIDAS', categoria: 'corrida', statKey: 'jardas_corridas', format: formatJardas },
-  { label: 'TD CORRIDOS', categoria: 'corrida', statKey: 'tds_corridos' },
-  { label: 'RECEPÇÕES', categoria: 'recepcao', statKey: 'recepcoes' },
-  { label: 'JARDAS RECEBIDAS', categoria: 'recepcao', statKey: 'jardas_recebidas', format: formatJardas },
-  { label: 'TD RECEBIDOS', categoria: 'recepcao', statKey: 'tds_recebidos' },
-  { label: 'TACKLES TOTAIS', categoria: 'defesa', statKey: 'tackles_totais' },
   { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
-  { label: 'INTERCEPTAÇÕES FORÇADAS', categoria: 'defesa', statKey: 'interceptacao_forcada' },
-  { label: 'FUMBLES FORÇADOS', categoria: 'defesa', statKey: 'fumble_forcado' },
+  { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+  { label: 'JARDAS PASSADAS', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
+  { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
+  { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
+  { label: 'JARDAS (AVG)', categoria: 'corrida', statKey: 'jardas_corridas', format: (val) => val.toString() },
+  { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos', format: (val) => val.toString() },
+  { label: 'TOUCHDOWNS PASSADOS', categoria: 'passe', statKey: 'td_passados' },
+  { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+  { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
+  { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
 ]
+
+type TabType = 'ESTATISTICAS' | 'PLAYBYPLAY' | 'MELHORES_MOMENTOS'
 
 export default function JogoDetalhesPage() {
   const params = useParams()
   const router = useRouter()
   const jogoId = parseInt(params.jogoId as string)
   const temporada = params.temporada as string
+
+  const [activeTab, setActiveTab] = useState<TabType>('ESTATISTICAS')
 
   const { data: jogo, isLoading, error } = useJogoDetalhes(jogoId)
 
@@ -136,12 +143,14 @@ export default function JogoDetalhesPage() {
           </button>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
+        {/* CABEÇALHO DO JOGO */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-4">
           <div className="bg-white p-8">
             <div className="flex flex-col">
-              <div className='flex items-center justify-center'>
+              <div className='flex items-center justify-center gap-8'>
+                {/* TIME CASA */}
                 <div className="flex flex-col items-center justify-center text-center">
-                  <div className=" flex-1 md:w-32 md:h-32 mx-auto mb-4">
+                  <div className="flex-1 md:w-32 md:h-32 mx-auto mb-4">
                     <Image
                       src={ImageService.getTeamLogo(jogo.timeCasa.nome)}
                       alt={jogo.timeCasa.nome}
@@ -154,27 +163,29 @@ export default function JogoDetalhesPage() {
                     {jogo.timeCasa.nome}
                   </h2>
                 </div>
-                <div className='flex flex-col'>
-                  <div className="text-4xl font-bold italic tracking-[-2px]">
-                    {jogo.placarCasa !== null && jogo.placarVisitante !== null ? (
-                      <div className="flex items-center justify-center gap-3">
-                        <span>
-                          {jogo.placarCasa}
-                        </span>
-                        <span className='text-xl'>X</span>
-                        <span>
-                          {jogo.placarVisitante}
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="text-2xl font-bold text-gray-400">
-                        - × -
-                      </div>
-                    )}
+
+                {/* PLACAR */}
+                <div className='flex flex-col items-center'>
+                  <div className="text-6xl font-bold italic tracking-[-2px] flex items-center gap-4">
+                    <span className={jogo.placarCasa! > jogo.placarVisitante! ? 'text-[#63E300]' : 'text-gray-800'}>
+                      {jogo.placarCasa !== null ? jogo.placarCasa : '-'}
+                    </span>
+                    <span className="text-4xl text-gray-400">X</span>
+                    <span className={jogo.placarVisitante! > jogo.placarCasa! ? 'text-[#63E300]' : 'text-gray-800'}>
+                      {jogo.placarVisitante !== null ? jogo.placarVisitante : '-'}
+                    </span>
+                  </div>
+                  <div className="text-sm text-gray-500 mt-2 uppercase font-semibold">
+                    {jogo.status === 'FINALIZADO' ? 'FINAL' : jogo.status}
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1">
+                    {dataJogoFormatada} • {jogo.local || 'Local não definido'}
                   </div>
                 </div>
+
+                {/* TIME VISITANTE */}
                 <div className="flex flex-col items-center justify-center text-center">
-                  <div className=" flex-1 md:w-32 md:h-32 mx-auto mb-4">
+                  <div className="flex-1 md:w-32 md:h-32 mx-auto mb-4">
                     <Image
                       src={ImageService.getTeamLogo(jogo.timeVisitante.nome)}
                       alt={jogo.timeVisitante.nome}
@@ -188,103 +199,172 @@ export default function JogoDetalhesPage() {
                   </h2>
                 </div>
               </div>
-              <div className="flex flex-col gap-1 items-center mt-3 text-xs border-t pt-2">
-                <div>
-                  <span className="uppercase">
-                    {jogo.fase} • Rodada {jogo.rodada}
-                  </span>
-                </div>
-                <div className="flex items-center justify-between ">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5" />
-                    <span>{dataJogoFormatada}</span>
-                  </div>
-
-                </div>
-                {jogo.local && (
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
-                    <span>{jogo.local}</span>
-                  </div>
-                )}
-
-                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${jogo.status === 'FINALIZADO' ? 'bg-green-600' :
-                  jogo.status === 'AO VIVO' ? 'bg-red-600' :
-                    jogo.status === 'ADIADO' ? 'bg-yellow-600' : 'bg-blue-600'
-                  }`}>
-                  {jogo.status === 'FINALIZADO' ? 'FINALIZADO' :
-                    jogo.status === 'AO VIVO' ? 'AO VIVO' :
-                      jogo.status === 'ADIADO' ? 'ADIADO' : 'AGENDADO'}
-                </span>
-              </div>
             </div>
           </div>
         </div>
 
-        {jogo.status === 'FINALIZADO' && jogo.estatisticas && jogo.estatisticas.length > 0 ? (
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-20 p-2">
-            <div className="bg-[#272731] p-4 rounded-md">
-              <h3 className="text-xl font-bold text-white flex items-center gap-2">
-                <Users className="w-6 h-6" />
-                Estatísticas do Jogo
-              </h3>
-            </div>
+        {/* TABS */}
+        <div className="bg-white rounded-lg shadow-lg mb-6">
+          <div className="flex border-b border-gray-200">
+            <button
+              onClick={() => setActiveTab('ESTATISTICAS')}
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${
+                activeTab === 'ESTATISTICAS'
+                  ? 'bg-[#63E300] text-black'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              ESTATÍSTICAS
+            </button>
+            <button
+              onClick={() => setActiveTab('PLAYBYPLAY')}
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${
+                activeTab === 'PLAYBYPLAY'
+                  ? 'bg-[#63E300] text-black'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              PLAY-BY-PLAY
+            </button>
+            <button
+              onClick={() => setActiveTab('MELHORES_MOMENTOS')}
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${
+                activeTab === 'MELHORES_MOMENTOS'
+                  ? 'bg-[#63E300] text-black'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              MELHORES MOMENTOS
+            </button>
+          </div>
 
-            <div className="px-6 pt-2">
-              <div className="space-y-1">
-                {STATS_CONFIG.map((stat, index) => {
-                  const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
-                  const valorVisitante = getStatValue(estatisticasConsolidadas.timeVisitante, stat.categoria, stat.statKey)
-                  const winner = getWinner(stat)
+          {/* CONTEÚDO DAS TABS */}
+          <div className="p-6">
+            {/* TAB ESTATÍSTICAS */}
+            {activeTab === 'ESTATISTICAS' && (
+              <div className="space-y-6">
+                <h3 className="text-xl font-bold text-gray-800 uppercase">Estatísticas do Jogo</h3>
+                
+                {/* SEÇÃO PASSE */}
+                <div>
+                  <div className="bg-black text-white py-2 px-4 font-bold uppercase mb-2">
+                    PASSE
+                  </div>
+                  {[
+                    { label: 'JARDAS PASSADAS', categoria: 'passe', statKey: 'jardas_de_passe' },
+                    { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
+                    { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
+                    { label: 'JARDAS (AVG)', categoria: 'passe', statKey: 'jardas_de_passe' },
+                    { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos' },
+                    { label: 'TOUCHDOWNS PASSADOS', categoria: 'passe', statKey: 'td_passados' },
+                    { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+                    { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
+                    { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+                  ].map((stat, idx) => {
+                    const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
+                    const valorVisitante = getStatValue(estatisticasConsolidadas.timeVisitante, stat.categoria, stat.statKey)
+                    const winner = valorCasa > valorVisitante ? 'casa' : valorVisitante > valorCasa ? 'visitante' : 'empate'
 
-                  if (valorCasa === 0 && valorVisitante === 0) return null
-
-                  return (
-                    <div
-                      key={index}
-                      className="grid grid-cols-3 items-center py-2 gap-x-8 border-b  border-gray-100 last:border-0 "
-                    >
-                      <div className={`text-right pr-4 text-xl font-bold tracking-[-1px] italic md:text-3xl ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-600'
-                        }`}>
-                        {stat.format ? stat.format(valorCasa) : valorCasa}
-                      </div>
-
-                      <div className="text-center">
-                        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                    return (
+                      <div key={idx} className={`flex justify-between items-center py-3 px-4 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                        <div className={`text-2xl font-bold italic ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                          {valorCasa}
+                        </div>
+                        <div className="text-sm font-semibold text-gray-600 uppercase">
                           {stat.label}
-                        </span>
+                        </div>
+                        <div className={`text-2xl font-bold italic ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                          {valorVisitante}
+                        </div>
                       </div>
+                    )
+                  })}
+                </div>
 
-                      <div className={`text-left pl-4 text-xl font-bold tracking-[-1px] italic md:text-3xl ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-600'
-                        }`}>
-                        {stat.format ? stat.format(valorVisitante) : valorVisitante}
+                {/* SEÇÃO CORRIDA */}
+                <div>
+                  <div className="bg-black text-white py-2 px-4 font-bold uppercase mb-2">
+                    CORRIDA
+                  </div>
+                  {[
+                    { label: 'JARDAS PASSADAS', categoria: 'corrida', statKey: 'jardas_corridas' },
+                    { label: 'PASSES COMPLETOS', categoria: 'corrida', statKey: 'corridas' },
+                    { label: 'PASSES TENTADOS', categoria: 'corrida', statKey: 'corridas' },
+                    { label: 'JARDAS (AVG)', categoria: 'corrida', statKey: 'jardas_corridas' },
+                    { label: 'PASSES (%)', categoria: 'corrida', statKey: 'corridas' },
+                    { label: 'TOUCHDOWNS PASSADOS', categoria: 'corrida', statKey: 'tds_corridos' },
+                    { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
+                    { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
+                    { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+                  ].map((stat, idx) => {
+                    const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
+                    const valorVisitante = getStatValue(estatisticasConsolidadas.timeVisitante, stat.categoria, stat.statKey)
+                    const winner = valorCasa > valorVisitante ? 'casa' : valorVisitante > valorCasa ? 'visitante' : 'empate'
+
+                    return (
+                      <div key={idx} className={`flex justify-between items-center py-3 px-4 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                        <div className={`text-2xl font-bold italic ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                          {valorCasa}
+                        </div>
+                        <div className="text-sm font-semibold text-gray-600 uppercase">
+                          {stat.label}
+                        </div>
+                        <div className={`text-2xl font-bold italic ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                          {valorVisitante}
+                        </div>
                       </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
+                </div>
               </div>
-            </div>
-          </div>
-        ) : (
-          <div className="bg-white rounded-xl shadow-lg p-8 text-center">
-            <Users className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h3 className="text-lg font-bold text-gray-700 mb-2">
-              Estatísticas não disponíveis
-            </h3>
-            <p className="text-sm text-gray-500">
-              {jogo.status === 'AGENDADO'
-                ? 'As estatísticas estarão disponíveis após o jogo ser finalizado.'
-                : 'Não há estatísticas registradas para este jogo.'}
-            </p>
-          </div>
-        )}
+            )}
 
-        {jogo.observacoes && (
-          <div className="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <h4 className="text-sm font-semibold text-yellow-800 mb-2">Observações</h4>
-            <p className="text-sm text-yellow-700">{jogo.observacoes}</p>
+            {/* TAB PLAY-BY-PLAY */}
+            {activeTab === 'PLAYBYPLAY' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Play-by-Play</h3>
+                {jogo.playByPlay ? (
+                  <div className="bg-gray-50 rounded-lg p-6 max-h-[600px] overflow-y-auto">
+                    <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono leading-relaxed">
+                      {jogo.playByPlay}
+                    </pre>
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-gray-500">
+                    <p className="text-lg font-semibold">Play-by-Play não disponível</p>
+                    <p className="text-sm mt-2">As jogadas deste jogo ainda não foram registradas.</p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* TAB MELHORES MOMENTOS */}
+            {activeTab === 'MELHORES_MOMENTOS' && (
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Melhores Momentos</h3>
+                {jogo.videoUrl ? (
+                  <div className="aspect-video rounded-lg overflow-hidden bg-black">
+                    <iframe
+                      width="100%"
+                      height="100%"
+                      src={jogo.videoUrl}
+                      title="Melhores Momentos do Jogo"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-full"
+                    />
+                  </div>
+                ) : (
+                  <div className="text-center py-12 text-gray-500">
+                    <p className="text-lg font-semibold">Vídeo não disponível</p>
+                    <p className="text-sm mt-2">Os melhores momentos deste jogo ainda não foram publicados.</p>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   )
