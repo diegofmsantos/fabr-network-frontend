@@ -6,6 +6,7 @@ import { useFinalNacionalData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { Loading } from '@/components/ui/Loading'
+import Link from 'next/link'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -47,7 +48,7 @@ export default function FinalNacionalPage() {
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
-if (isLoading) return <Loading />
+  if (isLoading) return <Loading />
 
   if (error) {
     return <div className="min-h-screen flex items-center justify-center">
@@ -166,6 +167,14 @@ if (isLoading) return <Loading />
                           </span>
                         )}
                       </div>
+                      {finalNacional.status === 'FINALIZADO' && finalNacional?.id && (
+                        <Link
+                          href={`/tabela/${temporada}/jogo/${finalNacional.id}`}
+                          className="text-[12px] italic uppercase hover:text-[#50B800] font-medium underline transition-colors"
+                        >
+                          Saiba como foi
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>

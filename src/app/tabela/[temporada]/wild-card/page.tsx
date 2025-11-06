@@ -6,6 +6,7 @@ import { ImageService } from '@/utils/services/ImageService'
 import Image from 'next/image'
 import { Loading } from '@/components/ui/Loading'
 import { useWildCardData } from '@/hooks/usePlayoffData'
+import Link from 'next/link'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -171,8 +172,17 @@ export default function WildCardPage() {
                                 })}
                               </span>
                             )}
+                            
                           </div>
                           <div className='text-xs text-gray-500'>{jogo.local}</div>
+                          {jogo.status === 'FINALIZADO' && (
+                              <Link
+                                href={`/tabela/${temporada}/jogo/${jogo.id}`}
+                                className="text-[12px] italic uppercase hover:text-[#50B800] font-medium underline transition-colors"
+                              >
+                                Saiba como foi
+                              </Link>
+                            )}
                         </div>
                       </div>
                     ))}

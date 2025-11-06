@@ -1,8 +1,3 @@
-// ================================
-// ARQUIVO: src/hooks/useJogadores.ts  
-// CORREÇÃO: Hook para estatísticas do jogador
-// ================================
-
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { JogadoresService } from '@/services/jogadores.service'
 import { queryKeys } from './queryKeys'

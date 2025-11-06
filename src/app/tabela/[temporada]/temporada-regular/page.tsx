@@ -51,7 +51,7 @@ const getConferenciaColor = (tipo: string) => {
   }
 }
 
-const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaKey: string }) => {
+const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; conferenciaKey: string; temporada: string }) => {
   const [rodadaAtiva, setRodadaAtiva] = useState(1)
 
   const mapeamentoConferencias: Record<string, string> = {
@@ -79,14 +79,6 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
   const maxRodadas = getMaxRodadas(conferenciaKey)
   const chaveBackend = mapeamentoConferencias[conferenciaKey] || conferenciaKey
   const jogosRodada = rodadas?.[chaveBackend]?.[rodadaAtiva] || []
-
-  console.log('🔍 QuadroRodadas debug:', {
-    conferenciaKey,
-    chaveBackend,
-    maxRodadas,
-    rodadaAtiva,
-    jogosRodada: jogosRodada.length
-  })
 
   return (
     <div className="bg-white rounded-lg p-3 mr-2 min-w-[300px] md:min-w-[650px] md:mr-4 xl:min-w-[280px] 2xl:pr-3 xl:mt-24">
@@ -145,14 +137,23 @@ const QuadroRodadas = ({ rodadas, conferenciaKey }: { rodadas: any; conferenciaK
                   />
                 </div>
               </div>
-              <div className={`text-xs mt-1 ${jogo.status === 'FINALIZADO' ? 'text-green-600' :
-                  jogo.status === 'AO VIVO' ? 'text-red-600' :
-                    jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
+              <div className={`text-xs font-semibold ${jogo.status === 'FINALIZADO' ?
+                'text-green-600' :
+                jogo.status === 'AO VIVO' ? 'text-red-600' :
+                  jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
                 }`}>
                 {jogo.status === 'FINALIZADO' ? 'Finalizado' :
                   jogo.status === 'AO VIVO' ? 'Ao Vivo' :
                     jogo.status === 'ADIADO' ? 'Adiado' : 'Agendado'}
               </div>
+              {jogo.status === 'FINALIZADO' && (
+                <Link
+                  href={`/tabela/${temporada}/jogo/${jogo.id}`}
+                  className="text-[10px] text-white italic uppercase my-1 hover:underline font-semibold  transition-colors bg-[#50B800] p-1 rounded-lg"
+                >
+                  Saiba como foi
+                </Link>
+              )}
             </div>
           ))
         ) : (
@@ -310,7 +311,11 @@ export default function TemporadaRegularPage() {
                 )}
               </div>
 
-              <QuadroRodadas rodadas={rodadas} conferenciaKey={conferenciaKey} />
+              <QuadroRodadas
+                rodadas={rodadas}
+                conferenciaKey={conferenciaKey}
+                temporada={temporada}
+              />
             </div>
           ))}
         </div>

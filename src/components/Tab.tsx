@@ -28,7 +28,7 @@ export const Tab = () => {
           <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#272731] via-[#272731]/90 to-transparent z-10 pointer-events-none"></div>
           
           <div className="overflow-x-auto scrollbar-hide">
-            <div className="flex min-w-max px-2">
+            <div className="flex min-w-max px-2 md:justify-between">
               <Link href="/" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isHomeRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image

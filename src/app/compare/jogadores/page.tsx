@@ -515,14 +515,14 @@ export default function CompararJogadoresPage() {
 
                                         return (
                                             <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold ${empate ? 'text-gray-900' : melhor1 ? 'text-green-600' : 'text-black'
+                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold md:text-2xl leading-[35px] tracking-[-1px] italic ${empate ? 'text-gray-900' : melhor1 ? 'text-green-600' : 'text-black'
                                                     }`}>
                                                     {formatado1}
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-center text-[11px] font-medium text-gray-900 md:text-base">
                                                     {stat.label}
                                                 </td>
-                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold ${empate ? 'text-gray-900' : melhor2 ? 'text-green-600' : 'text-black'
+                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold md:text-2xl leading-[35px] tracking-[-1px] italic ${empate ? 'text-gray-900' : melhor2 ? 'text-green-600' : 'text-black'
                                                     }`}>
                                                     {formatado2}
                                                 </td>

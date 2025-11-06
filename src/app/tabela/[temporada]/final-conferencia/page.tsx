@@ -6,6 +6,7 @@ import { useFinalConferenciaData } from '@/hooks/usePlayoffData'
 import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { Loading } from '@/components/ui/Loading'
+import Link from 'next/link'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -174,6 +175,14 @@ export default function FinalConferenciaPage() {
                           )}
                         </div>
                         <div className='text-xs text-gray-500'>{conferencia.jogo.local}</div>
+                        {conferencia.jogo.status === 'FINALIZADO' && (
+                          <Link
+                            href={`/tabela/${temporada}/jogo/${conferencia.jogo.id}`}
+                            className="text-[12px] italic uppercase hover:text-[#50B800] font-medium underline transition-colors"
+                          >
+                            Saiba como foi
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>

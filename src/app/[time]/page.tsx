@@ -11,7 +11,6 @@ import { Jogador } from "@/components/Jogador/Jogador"
 import { CurrentTime } from "@/components/Time/Time"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { Loading } from "@/components/ui/Loading"
-import { SelectFilter } from "@/components/ui/SelectFilter"
 import TeamNameHeader from "@/components/Time/TeamHeader"
 import ShareButton from "@/components/ui/buttonShare"
 import { createSlug } from "@/utils/helpers/formatUrl"
@@ -76,13 +75,9 @@ export default function Page() {
   const handleShowBio = () => {
 
     const params = new URLSearchParams(searchParams.toString());
-
     params.set('show', 'bio');
-
     params.delete('setor');
-
     router.replace(`?${params.toString()}`);
-
     setSelectedButton("bio")
   }
 
@@ -104,18 +99,13 @@ export default function Page() {
     const params = new URLSearchParams(searchParams.toString());
     params.set('show', 'jogadores');
     params.set('setor', encodeURIComponent(setor));
-
     router.replace(`?${params.toString()}`, { scroll: false });
   }
 
   if (isNotFoundError) {
     return (
       <NoDataFound
-        type="team"
-        temporada={temporada}
-        entityName={decodedTimeName}
-        onGoBack={() => router.back()}
-      />
+        type="team" temporada={temporada} entityName={decodedTimeName} onGoBack={() => router.back()} />
     );
   }
 
@@ -176,7 +166,6 @@ export default function Page() {
         </motion.div>
       
       </motion.div>
-
 
       {selectedButton === "jogadores" && (
         <motion.div

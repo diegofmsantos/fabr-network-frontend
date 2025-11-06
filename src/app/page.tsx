@@ -2,7 +2,7 @@ import { Lista } from "@/components/Lista"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Times",
+  title: "FABR-Network - Equipes",
 }
 
 export default async function Page() {
