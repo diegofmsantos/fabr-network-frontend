@@ -17,6 +17,7 @@ import { createSlug } from "@/utils/helpers/formatUrl"
 import Link from "next/link"
 import { useTeam } from "@/hooks/queries"
 import { NoDataFound } from "@/components/ui/NoDataFound"
+import Head from 'next/head'
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
@@ -31,6 +32,7 @@ export default function Page() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const temporada = searchParams.get('temporada') || '2025'
+  const timeSlug = params.time as string
 
   useEffect(() => {
     const currentPath = params.time?.toString() || ''
@@ -164,7 +166,7 @@ export default function Page() {
             <ButtonTime label="JOGADORES" onClick={handleShowJogadores} isSelected={selectedButton === "jogadores"} />
           </motion.div>
         </motion.div>
-      
+
       </motion.div>
 
       {selectedButton === "jogadores" && (

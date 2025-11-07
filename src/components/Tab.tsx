@@ -14,7 +14,7 @@ export const Tab = () => {
   const isHomeRoute = pathname === "/"
   const isRankingRoute = pathname.includes("/ranking")
   const isTabelaRoute = pathname.includes("/tabela")
-  const isCompararRoute = pathname.includes("/comparar")
+  const isCompararRoute = pathname.includes("/compare")
   const isMercadoRoute = pathname.includes("/mercado")
   const isNoticiasRoute = pathname.includes("/noticias")
 

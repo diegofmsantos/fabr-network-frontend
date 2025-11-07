@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Loading } from '@/components/ui/Loading'
 import { useWildCardData } from '@/hooks/usePlayoffData'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -45,6 +46,10 @@ export default function WildCardPage() {
   const temporada = params.temporada as string
 
   const { data: wildCardConferencias, isLoading, error } = useWildCardData(temporada)
+
+  useEffect(() => {
+    document.title = `FABR Network - Superliga ${temporada}`
+  }, [temporada])
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
@@ -172,17 +177,17 @@ export default function WildCardPage() {
                                 })}
                               </span>
                             )}
-                            
+
                           </div>
                           <div className='text-xs text-gray-500'>{jogo.local}</div>
                           {jogo.status === 'FINALIZADO' && (
-                              <Link
-                                href={`/tabela/${temporada}/jogo/${jogo.id}`}
-                                className="text-[12px] italic uppercase hover:text-[#50B800] font-medium underline transition-colors"
-                              >
-                                Saiba como foi
-                              </Link>
-                            )}
+                            <Link
+                              href={`/tabela/${temporada}/jogo/${jogo.id}`}
+                              className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
+                            >
+                              Saiba como foi
+                            </Link>
+                          )}
                         </div>
                       </div>
                     ))}

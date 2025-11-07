@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useRouter, usePathname } from 'next/navigation'
 import { ChevronLeft, ChevronRight, Calendar } from 'lucide-react'
 import { useClassificacaoSuperliga } from '@/hooks/useSuperliga'
@@ -149,7 +149,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; c
               {jogo.status === 'FINALIZADO' && (
                 <Link
                   href={`/tabela/${temporada}/jogo/${jogo.id}`}
-                  className="text-[10px] text-white italic uppercase my-1 hover:underline font-semibold  transition-colors bg-[#50B800] p-1 rounded-lg"
+                  className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
                 >
                   Saiba como foi
                 </Link>
@@ -190,6 +190,10 @@ export default function TemporadaRegularPage() {
     isLoading: loadingRodadas,
     error: errorRodadas
   } = useRodadas(temporada)
+
+  useEffect(() => {
+    document.title = `FABR Network - Superliga ${temporada}`
+  }, [temporada])
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 

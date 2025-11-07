@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -25,24 +25,53 @@ interface StatComparison {
 }
 
 const STATS_CONFIG: StatComparison[] = [
+    // ========== PASSE ==========
     { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
     { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
     { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_percentual' },
     { label: 'JARDAS DE PASSE', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
     { label: 'TD PASSADOS', categoria: 'passe', statKey: 'td_passados' },
-    { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+    { label: 'INTERCEPTAÇÕES SOFRIDAS', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+    { label: 'SACKS SOFRIDOS', categoria: 'passe', statKey: 'sacks_sofridos' },
+    { label: 'FUMBLES DE PASSADOR', categoria: 'passe', statKey: 'fumble_de_passador' },
+
+    // ========== CORRIDA ==========
     { label: 'CORRIDAS', categoria: 'corrida', statKey: 'corridas' },
     { label: 'JARDAS CORRIDAS', categoria: 'corrida', statKey: 'jardas_corridas', format: formatJardas },
     { label: 'TD CORRIDOS', categoria: 'corrida', statKey: 'tds_corridos' },
+    { label: 'FUMBLES DE CORREDOR', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+
+    // ========== RECEPÇÃO ==========
     { label: 'RECEPÇÕES', categoria: 'recepcao', statKey: 'recepcoes' },
+    { label: 'ALVOS', categoria: 'recepcao', statKey: 'alvo' },
     { label: 'JARDAS RECEBIDAS', categoria: 'recepcao', statKey: 'jardas_recebidas', format: formatJardas },
     { label: 'TD RECEBIDOS', categoria: 'recepcao', statKey: 'tds_recebidos' },
+
+    // ========== RETORNO ==========
+    { label: 'RETORNOS', categoria: 'retorno', statKey: 'retornos' },
+    { label: 'JARDAS RETORNADAS', categoria: 'retorno', statKey: 'jardas_retornadas', format: formatJardas },
+    { label: 'TD RETORNADOS', categoria: 'retorno', statKey: 'td_retornados' },
+
+    // ========== DEFESA ==========
     { label: 'TACKLES TOTAIS', categoria: 'defesa', statKey: 'tackles_totais' },
+    { label: 'TACKLES FOR LOSS', categoria: 'defesa', statKey: 'tackles_for_loss' },
     { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
-    { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
     { label: 'FUMBLES FORÇADOS', categoria: 'defesa', statKey: 'fumble_forcado' },
-    { label: 'FIELD GOALS', categoria: 'kicker', statKey: 'fg_bons' },
-    { label: 'EXTRA POINTS', categoria: 'kicker', statKey: 'xp_bons' },
+    { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
+    { label: 'PASSES DESVIADOS', categoria: 'defesa', statKey: 'passe_desviado' },
+    { label: 'SAFETIES', categoria: 'defesa', statKey: 'safety' },
+    { label: 'TD DEFENSIVOS', categoria: 'defesa', statKey: 'td_defensivo' },
+
+    // ========== KICKER ==========
+    { label: 'FG BONS', categoria: 'kicker', statKey: 'fg_bons' },
+    { label: 'FG TENTADOS', categoria: 'kicker', statKey: 'tentativas_de_fg' },
+    { label: 'FG (%)', categoria: 'kicker', statKey: 'fg_percentual' },
+    { label: 'FG MAIS LONGO', categoria: 'kicker', statKey: 'fg_mais_longo' },
+    { label: 'XP BONS', categoria: 'kicker', statKey: 'xp_bons' },
+    { label: 'XP TENTADOS', categoria: 'kicker', statKey: 'tentativas_de_xp' },
+    { label: 'XP (%)', categoria: 'kicker', statKey: 'xp_percentual' },
+
+    // ========== PUNTER ==========
     { label: 'PUNTS', categoria: 'punter', statKey: 'punts' },
     { label: 'JARDAS DE PUNT', categoria: 'punter', statKey: 'jardas_de_punt', format: formatJardas }
 ]
@@ -56,6 +85,10 @@ export default function CompararTimesPage() {
     const [showDropdown2, setShowDropdown2] = useState(false)
 
     const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
+
+    useEffect(() => {
+        document.title = "FABR Network - Comparar Times"
+    }, [])
 
     const timesFiltrados = useMemo(() => {
         return times
@@ -135,9 +168,29 @@ export default function CompararTimesPage() {
         return total
     }
 
-    const formatarValor = (valor: number, stat: StatComparison) => {
+    const formatarValor = (valor: number, stat: StatComparison, time?: Time) => {
         if (stat.statKey === 'passes_percentual') {
             return `${Math.round(valor)}%`
+        }
+
+        if (stat.statKey === 'fg_percentual') {
+            if (!time) return '0%'
+            const tentativas = obterValorEstatistica(time, {
+                label: '',
+                categoria: 'kicker',
+                statKey: 'tentativas_de_fg'
+            })
+            return tentativas > 0 ? `${Math.round((valor / tentativas) * 100)}%` : '0%'
+        }
+
+        if (stat.statKey === 'xp_percentual') {
+            if (!time) return '0%'
+            const tentativas = obterValorEstatistica(time, {
+                label: '',
+                categoria: 'kicker',
+                statKey: 'tentativas_de_xp'
+            })
+            return tentativas > 0 ? `${Math.round((valor / tentativas) * 100)}%` : '0%'
         }
 
         if (stat.format) {
@@ -167,7 +220,7 @@ export default function CompararTimesPage() {
                 </div>
             </div>
 
-            <div className="px-4 py-8 md:py-5 xl:ml-80 2xl:ml-[480px]">
+            <div className="px-4 py-8 md:py-5 xl:w-[1100px] xl:ml-80 2xl:ml-[600px]">
                 <div className="mb-8 xl:ml-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="relative">
@@ -339,49 +392,49 @@ export default function CompararTimesPage() {
                 {time1 && time2 && (
                     <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20 xl:ml-10">
                         <div className="overflow-x-auto">
-                            <table className="w-full">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
-                                            {time1.time.nome?.split(' ')[0]}
-                                        </th>
-                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
+                            <div className="w-full">
+                                <div className="bg-gray-50 p-2 border-b">
+                                    <div className='flex justify-between lg:justify-around'>
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                            {time1.time.nome}
+                                        </div>
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
                                             ESTATÍSTICA
-                                        </th>
-                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
-                                            {time2.time.nome?.split(' ')[0]}
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
+                                        </div>
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                            {time2.time.nome}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white divide-y divide-gray-200">
                                     {STATS_CONFIG.map((stat, index) => {
                                         const valor1 = obterValorEstatistica(time1.time, stat)
                                         const valor2 = obterValorEstatistica(time2.time, stat)
-                                        const formatado1 = formatarValor(valor1, stat)
-                                        const formatado2 = formatarValor(valor2, stat)
+                                        const formatado1 = formatarValor(valor1, stat, time1.time)
+                                        const formatado2 = formatarValor(valor2, stat, time2.time)
 
                                         const melhor1 = valor1 > valor2
                                         const melhor2 = valor2 > valor1
                                         const empate = valor1 === valor2
 
                                         return (
-                                            <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold ${empate ? 'text-gray-900' : melhor1 ? 'text-green-600' : 'text-black'
+                                            <div key={index} className={`flex justify-between items-center py-3 px-4 lg:justify-around ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-gray-900' : melhor1 ? 'text-[#63E300]' : 'text-black'
                                                     }`}>
                                                     {formatado1}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center text-[11px] font-medium text-gray-900 md:text-base">
+                                                </div>
+                                                <div className="text-sm font-semibold text-gray-600 uppercase italic tracking-[-1px] md:text-lg lg:text-center lg:min-w-[300px]">
                                                     {stat.label}
-                                                </td>
-                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold ${empate ? 'text-gray-900' : melhor2 ? 'text-green-600' : 'text-black'
+                                                </div>
+                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-gray-900' : melhor2 ? 'text-[#63E300]' : 'text-black'
                                                     }`}>
                                                     {formatado2}
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </div>
                                         )
                                     })}
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}

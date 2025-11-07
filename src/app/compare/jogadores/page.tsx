@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -140,6 +140,10 @@ export default function CompararJogadoresPage() {
     const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores('2025')
     const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
 
+    useEffect(() => {
+  document.title = "FABR Network - Comparar Jogadores"
+}, [])
+
     const jogadoresFiltrados = useMemo(() => {
         if (!posicaoSelecionada) return []
 
@@ -266,11 +270,11 @@ export default function CompararJogadoresPage() {
                         <ArrowLeft size={20} />
                         <span>Voltar</span>
                     </Link>
-                 
+
                 </div>
             </div>
 
-            <div className="px-4 py-8 md:py-5 xl:ml-60 2xl:ml-[400px] ">
+            <div className="px-4 py-8 md:py-5 xl:w-[1100px] xl:ml-60 2xl:ml-[600px] ">
                 <div className="mb-8 xl:ml-32">
                     <h2 className="text-xl font-bold mb-4">Selecione a Posição</h2>
                     <div className="flex flex-wrap gap-2 md:justify-around">
@@ -488,21 +492,21 @@ export default function CompararJogadoresPage() {
                 {jogador1 && jogador2 && (
                     <div className="bg-white rounded-lg overflow-hidden shadow-lg mb-20 xl:ml-32">
                         <div className="overflow-x-auto">
-                            <table className="w-full">
-                                <thead className="bg-gray-50">
-                                    <tr>
-                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
-                                            {jogador1.jogador.nome.split(' ')[0]}
-                                        </th>
-                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
+                            <div className="w-full">
+                                <div className="bg-gray-50 p-2">
+                                    <div className='flex justify-between lg:justify-around'>
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                            {jogador1.jogador.nome}
+                                        </div>
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
                                             ESTATÍSTICA
-                                        </th>
-                                        <th className=" px-2 py-2 text-center text-[10px] font-bold text-gray-900 uppercase tracking-wider md:text-lg">
-                                            {jogador2.jogador.nome.split(' ')[0]}
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody className="bg-white divide-y divide-gray-200">
+                                        </div>
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                            {jogador2.jogador.nome}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="bg-white divide-y divide-gray-200">
                                     {statsParaComparacao.map((stat, index) => {
                                         const valor1 = obterValorEstatistica(jogador1.jogador, stat)
                                         const valor2 = obterValorEstatistica(jogador2.jogador, stat)
@@ -514,23 +518,23 @@ export default function CompararJogadoresPage() {
                                         const empate = valor1 === valor2
 
                                         return (
-                                            <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold md:text-2xl leading-[35px] tracking-[-1px] italic ${empate ? 'text-gray-900' : melhor1 ? 'text-green-600' : 'text-black'
+                                            <div key={index} className={`flex justify-between items-center py-3 px-4 lg:justify-around ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-gray-900' : melhor1 ? 'text-[#63E300]' : 'text-black'
                                                     }`}>
                                                     {formatado1}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-center text-[11px] font-medium text-gray-900 md:text-base">
+                                                </div>
+                                                <div className="text-sm font-semibold text-gray-600 uppercase italic tracking-[-1px] md:text-lg lg:text-center lg:min-w-[300px]">
                                                     {stat.label}
-                                                </td>
-                                                <td className={`px-4 py-4 whitespace-nowrap text-center text-lg font-bold md:text-2xl leading-[35px] tracking-[-1px] italic ${empate ? 'text-gray-900' : melhor2 ? 'text-green-600' : 'text-black'
+                                                </div>
+                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-gray-900' : melhor2 ? 'text-[#63E300]' : 'text-black'
                                                     }`}>
                                                     {formatado2}
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </div>
                                         )
                                     })}
-                                </tbody>
-                            </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )}

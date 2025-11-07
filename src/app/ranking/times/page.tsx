@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { useTimes } from '@/hooks/useTimes'
 import { useJogadores } from '@/hooks/useJogadores'
 import { Loading } from "@/components/ui/Loading"
@@ -154,6 +154,10 @@ export default function TeamRankingPage() {
 
     const { data: times = [], isLoading: timesLoading } = useTimes('2025')
     const { data: players = [], isLoading: playersLoading } = useJogadores('2025')
+
+    useEffect(() => {
+        document.title = "FABR Network - Ranking de Times"
+    }, [])
 
     const loading = timesLoading || playersLoading
 

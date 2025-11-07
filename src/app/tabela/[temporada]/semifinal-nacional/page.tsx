@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { Loading } from '@/components/ui/Loading'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -45,6 +46,10 @@ export default function SemifinalNacionalPage() {
   const temporada = params.temporada as string
 
   const { data: semifinais, isLoading, error } = useSemifinalNacionalData(temporada)
+
+  useEffect(() => {
+    document.title = `FABR Network - Superliga ${temporada}`
+  }, [temporada])
 
   const navigation = getSuperligaNavigation(pathname, temporada)
 
@@ -173,7 +178,7 @@ export default function SemifinalNacionalPage() {
                         {semifinal.status === 'FINALIZADO' && (
                           <Link
                             href={`/tabela/${temporada}/jogo/${semifinal.id}`}
-                            className="text-[12px] italic uppercase hover:text-[#50B800] font-medium underline transition-colors"
+                            className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
                           >
                             Saiba como foi
                           </Link>

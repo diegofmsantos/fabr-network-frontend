@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { ArrowLeft, Trophy } from 'lucide-react'
@@ -19,24 +19,55 @@ interface StatComparison {
 }
 
 const STATS_CONFIG: StatComparison[] = [
-  { label: 'JARDAS PASSADAS', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
+  // ========== PASSE ==========
   { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
   { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
-  { label: 'JARDAS (AVG)', categoria: 'passe', statKey: 'jardas_de_passe', format: (val) => val.toString() },
-  { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos', format: (val) => val.toString() },
-  { label: 'TOUCHDOWNS PASSADOS', categoria: 'passe', statKey: 'td_passados' },
-  { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+  { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_percentual' },
+  { label: 'JARDAS DE PASSE', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
+  { label: 'TD PASSADOS', categoria: 'passe', statKey: 'td_passados' },
+  { label: 'INTERCEPTAÇÕES SOFRIDAS', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
+  { label: 'SACKS SOFRIDOS', categoria: 'passe', statKey: 'sacks_sofridos' },
+  { label: 'FUMBLES DE PASSADOR', categoria: 'passe', statKey: 'fumble_de_passador' },
+
+  // ========== CORRIDA ==========
+  { label: 'CORRIDAS', categoria: 'corrida', statKey: 'corridas' },
+  { label: 'JARDAS CORRIDAS', categoria: 'corrida', statKey: 'jardas_corridas', format: formatJardas },
+  { label: 'TD CORRIDOS', categoria: 'corrida', statKey: 'tds_corridos' },
+  { label: 'FUMBLES DE CORREDOR', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+
+  // ========== RECEPÇÃO ==========
+  { label: 'RECEPÇÕES', categoria: 'recepcao', statKey: 'recepcoes' },
+  { label: 'ALVOS', categoria: 'recepcao', statKey: 'alvo' },
+  { label: 'JARDAS RECEBIDAS', categoria: 'recepcao', statKey: 'jardas_recebidas', format: formatJardas },
+  { label: 'TD RECEBIDOS', categoria: 'recepcao', statKey: 'tds_recebidos' },
+
+  // ========== RETORNO ==========
+  { label: 'RETORNOS', categoria: 'retorno', statKey: 'retornos' },
+  { label: 'JARDAS RETORNADAS', categoria: 'retorno', statKey: 'jardas_retornadas', format: formatJardas },
+  { label: 'TD RETORNADOS', categoria: 'retorno', statKey: 'td_retornados' },
+
+  // ========== DEFESA ==========
+  { label: 'TACKLES TOTAIS', categoria: 'defesa', statKey: 'tackles_totais' },
+  { label: 'TACKLES FOR LOSS', categoria: 'defesa', statKey: 'tackles_for_loss' },
   { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
-  { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
-  { label: 'JARDAS PASSADAS', categoria: 'passe', statKey: 'jardas_de_passe', format: formatJardas },
-  { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
-  { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
-  { label: 'JARDAS (AVG)', categoria: 'corrida', statKey: 'jardas_corridas', format: (val) => val.toString() },
-  { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos', format: (val) => val.toString() },
-  { label: 'TOUCHDOWNS PASSADOS', categoria: 'passe', statKey: 'td_passados' },
-  { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
-  { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
-  { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
+  { label: 'FUMBLES FORÇADOS', categoria: 'defesa', statKey: 'fumble_forcado' },
+  { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
+  { label: 'PASSES DESVIADOS', categoria: 'defesa', statKey: 'passe_desviado' },
+  { label: 'SAFETIES', categoria: 'defesa', statKey: 'safety' },
+  { label: 'TD DEFENSIVOS', categoria: 'defesa', statKey: 'td_defensivo' },
+
+  // ========== KICKER ==========
+  { label: 'FG BONS', categoria: 'kicker', statKey: 'fg_bons' },
+  { label: 'FG TENTADOS', categoria: 'kicker', statKey: 'tentativas_de_fg' },
+  { label: 'FG (%)', categoria: 'kicker', statKey: 'fg_percentual' },
+  { label: 'FG MAIS LONGO', categoria: 'kicker', statKey: 'fg_mais_longo' },
+  { label: 'XP BONS', categoria: 'kicker', statKey: 'xp_bons' },
+  { label: 'XP TENTADOS', categoria: 'kicker', statKey: 'tentativas_de_xp' },
+  { label: 'XP (%)', categoria: 'kicker', statKey: 'xp_percentual' },
+
+  // ========== PUNTER ==========
+  { label: 'PUNTS', categoria: 'punter', statKey: 'punts' },
+  { label: 'JARDAS DE PUNT', categoria: 'punter', statKey: 'jardas_de_punt', format: formatJardas }
 ]
 
 type TabType = 'ESTATISTICAS' | 'PLAYBYPLAY' | 'MELHORES_MOMENTOS'
@@ -50,6 +81,15 @@ export default function JogoDetalhesPage() {
   const [activeTab, setActiveTab] = useState<TabType>('ESTATISTICAS')
 
   const { data: jogo, isLoading, error } = useJogoDetalhes(jogoId)
+
+  useEffect(() => {
+  if (jogo) {
+    const confronto = `${jogo.timeCasa?.sigla || 'TBD'} vs ${jogo.timeVisitante?.sigla || 'TBD'}`
+    document.title = `FABR Network - ${confronto}`
+  } else {
+    document.title = "FABR Network - Detalhes do Jogo"
+  }
+}, [jogo])
 
   const estatisticasConsolidadas = useMemo(() => {
     if (!jogo?.estatisticas || jogo.estatisticas.length === 0) {
@@ -118,6 +158,24 @@ export default function JogoDetalhesPage() {
   const dataJogoFormatada = format(new Date(jogo.dataJogo), "dd 'de' MMMM 'de' yyyy • HH:mm", { locale: ptBR })
 
   const getStatValue = (stats: any, categoria: string, statKey: string): number => {
+    if (statKey === 'passes_percentual') {
+      const completos = stats.passe?.passes_completos || 0
+      const tentados = stats.passe?.passes_tentados || 0
+      return tentados > 0 ? Math.round((completos / tentados) * 100) : 0
+    }
+
+    if (statKey === 'fg_percentual') {
+      const bons = stats.kicker?.fg_bons || 0
+      const tentados = stats.kicker?.tentativas_de_fg || 0
+      return tentados > 0 ? Math.round((bons / tentados) * 100) : 0
+    }
+
+    if (statKey === 'xp_percentual') {
+      const bons = stats.kicker?.xp_bons || 0
+      const tentados = stats.kicker?.tentativas_de_xp || 0
+      return tentados > 0 ? Math.round((bons / tentados) * 100) : 0
+    }
+
     return stats[categoria]?.[statKey] || 0
   }
 
@@ -132,7 +190,7 @@ export default function JogoDetalhesPage() {
 
   return (
     <div className="lg:ml-32 xl:ml-60 2xl:ml-[550px] absolute">
-      <div className="xl:w-[900px] md:pt-2 md:ml-10 xl:ml-[170px] z-50 xl:pt-12 xl:mt-0">
+      <div className="xl:w-[900px] md:pt-2 xl:ml-[170px] z-50 xl:pt-12 xl:mt-0">
         <div className="mb-2 relative mt-24 ml-2 xl:mt-0">
           <button
             onClick={() => router.back()}
@@ -143,12 +201,10 @@ export default function JogoDetalhesPage() {
           </button>
         </div>
 
-        {/* CABEÇALHO DO JOGO */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-4">
           <div className="bg-white p-8">
             <div className="flex flex-col">
               <div className='flex items-center justify-center gap-8'>
-                {/* TIME CASA */}
                 <div className="flex flex-col items-center justify-center text-center">
                   <div className="flex-1 md:w-32 md:h-32 mx-auto mb-4">
                     <Image
@@ -164,14 +220,13 @@ export default function JogoDetalhesPage() {
                   </h2>
                 </div>
 
-                {/* PLACAR */}
                 <div className='flex flex-col items-center'>
                   <div className="text-6xl font-bold italic tracking-[-2px] flex items-center gap-4">
-                    <span className={jogo.placarCasa! > jogo.placarVisitante! ? 'text-[#63E300]' : 'text-gray-800'}>
+                    <span className="text-gray-800">
                       {jogo.placarCasa !== null ? jogo.placarCasa : '-'}
                     </span>
                     <span className="text-4xl text-gray-400">X</span>
-                    <span className={jogo.placarVisitante! > jogo.placarCasa! ? 'text-[#63E300]' : 'text-gray-800'}>
+                    <span className="text-gray-800">
                       {jogo.placarVisitante !== null ? jogo.placarVisitante : '-'}
                     </span>
                   </div>
@@ -183,7 +238,6 @@ export default function JogoDetalhesPage() {
                   </div>
                 </div>
 
-                {/* TIME VISITANTE */}
                 <div className="flex flex-col items-center justify-center text-center">
                   <div className="flex-1 md:w-32 md:h-32 mx-auto mb-4">
                     <Image
@@ -203,12 +257,11 @@ export default function JogoDetalhesPage() {
           </div>
         </div>
 
-        {/* TABS */}
         <div className="bg-white rounded-lg shadow-lg mb-6">
           <div className="flex border-b border-gray-200">
             <button
               onClick={() => setActiveTab('ESTATISTICAS')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${activeTab === 'ESTATISTICAS'
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'ESTATISTICAS'
                 ? 'bg-[#63E300] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
@@ -217,7 +270,7 @@ export default function JogoDetalhesPage() {
             </button>
             <button
               onClick={() => setActiveTab('PLAYBYPLAY')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${activeTab === 'PLAYBYPLAY'
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'PLAYBYPLAY'
                 ? 'bg-[#63E300] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
@@ -226,7 +279,7 @@ export default function JogoDetalhesPage() {
             </button>
             <button
               onClick={() => setActiveTab('MELHORES_MOMENTOS')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors ${activeTab === 'MELHORES_MOMENTOS'
+              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'MELHORES_MOMENTOS'
                 ? 'bg-[#63E300] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
@@ -235,88 +288,49 @@ export default function JogoDetalhesPage() {
             </button>
           </div>
 
-          {/* CONTEÚDO DAS TABS */}
           <div className="p-6">
-            {/* TAB ESTATÍSTICAS */}
             {activeTab === 'ESTATISTICAS' && (
               <div className="space-y-6">
-                <h3 className="text-xl font-bold text-gray-800 uppercase">Estatísticas do Jogo</h3>
-
-                {/* SEÇÃO PASSE */}
+                <h3 className="text-xl font-bold text-gray-800 uppercase text-center italic tracking-[-1px]">Estatísticas do Jogo</h3>
                 <div>
-                  <div className="bg-black text-white py-2 px-4 font-bold uppercase mb-2">
-                    PASSE
-                  </div>
-                  {[
-                    { label: 'JARDAS PASSADAS', categoria: 'passe', statKey: 'jardas_de_passe' },
-                    { label: 'PASSES COMPLETOS', categoria: 'passe', statKey: 'passes_completos' },
-                    { label: 'PASSES TENTADOS', categoria: 'passe', statKey: 'passes_tentados' },
-                    { label: 'JARDAS (AVG)', categoria: 'passe', statKey: 'jardas_de_passe' },
-                    { label: 'PASSES (%)', categoria: 'passe', statKey: 'passes_completos' },
-                    { label: 'TOUCHDOWNS PASSADOS', categoria: 'passe', statKey: 'td_passados' },
-                    { label: 'INTERCEPTAÇÕES', categoria: 'passe', statKey: 'interceptacoes_sofridas' },
-                    { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
-                    { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
-                  ].map((stat, idx) => {
+                  {STATS_CONFIG.map((stat, idx) => {
                     const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
                     const valorVisitante = getStatValue(estatisticasConsolidadas.timeVisitante, stat.categoria, stat.statKey)
+
+                    const formatarValor = (valor: number) => {
+                      if (stat.statKey.includes('percentual')) {
+                        return `${valor}%`
+                      }
+                      if (stat.format) {
+                        return stat.format(valor)
+                      }
+                      return valor.toString()
+                    }
+
+                    const valorCasaFormatado = formatarValor(valorCasa)
+                    const valorVisitanteFormatado = formatarValor(valorVisitante)
+
                     const winner = valorCasa > valorVisitante ? 'casa' : valorVisitante > valorCasa ? 'visitante' : 'empate'
 
                     return (
-                      <div key={idx} className={`flex justify-between items-center py-3 px-4 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                        <div className={`text-2xl font-bold italic ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
-                          {valorCasa}
+                      <div key={idx} className={`flex justify-between items-center py-3 px-4 lg:justify-around ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
+                        <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                          {valorCasaFormatado}
                         </div>
-                        <div className="text-sm font-semibold text-gray-600 uppercase">
+                        <div className="text-sm font-semibold text-gray-600 uppercase italic tracking-[-1px] md:text-lg lg:text-center lg:min-w-[300px]">
                           {stat.label}
                         </div>
-                        <div className={`text-2xl font-bold italic ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
-                          {valorVisitante}
+                        <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                          {valorVisitanteFormatado}
                         </div>
                       </div>
                     )
                   })}
                 </div>
 
-                {/* SEÇÃO CORRIDA */}
-                <div>
-                  <div className="bg-black text-white py-2 px-4 font-bold uppercase mb-2">
-                    CORRIDA
-                  </div>
-                  {[
-                    { label: 'JARDAS PASSADAS', categoria: 'corrida', statKey: 'jardas_corridas' },
-                    { label: 'PASSES COMPLETOS', categoria: 'corrida', statKey: 'corridas' },
-                    { label: 'PASSES TENTADOS', categoria: 'corrida', statKey: 'corridas' },
-                    { label: 'JARDAS (AVG)', categoria: 'corrida', statKey: 'jardas_corridas' },
-                    { label: 'PASSES (%)', categoria: 'corrida', statKey: 'corridas' },
-                    { label: 'TOUCHDOWNS PASSADOS', categoria: 'corrida', statKey: 'tds_corridos' },
-                    { label: 'INTERCEPTAÇÕES', categoria: 'defesa', statKey: 'interceptacao_forcada' },
-                    { label: 'SACKS', categoria: 'defesa', statKey: 'sacks_forcado' },
-                    { label: 'FUMBLES', categoria: 'corrida', statKey: 'fumble_de_corredor' },
-                  ].map((stat, idx) => {
-                    const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
-                    const valorVisitante = getStatValue(estatisticasConsolidadas.timeVisitante, stat.categoria, stat.statKey)
-                    const winner = valorCasa > valorVisitante ? 'casa' : valorVisitante > valorCasa ? 'visitante' : 'empate'
-
-                    return (
-                      <div key={idx} className={`flex justify-between items-center py-3 px-4 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                        <div className={`text-2xl font-bold italic ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
-                          {valorCasa}
-                        </div>
-                        <div className="text-sm font-semibold text-gray-600 uppercase">
-                          {stat.label}
-                        </div>
-                        <div className={`text-2xl font-bold italic ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
-                          {valorVisitante}
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
               </div>
             )}
 
-            {/* TAB PLAY-BY-PLAY */}
             {activeTab === 'PLAYBYPLAY' && (
               <div>
                 <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Play-by-Play</h3>
@@ -335,7 +349,6 @@ export default function JogoDetalhesPage() {
               </div>
             )}
 
-            {/* TAB MELHORES MOMENTOS */}
             {activeTab === 'MELHORES_MOMENTOS' && (
               <div>
                 <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Melhores Momentos</h3>

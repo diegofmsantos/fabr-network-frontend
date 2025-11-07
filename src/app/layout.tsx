@@ -19,8 +19,8 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL('https://fabrnetwork.com.br/'),
   title: {
-    default: 'FABR-Network',
-    template: '%s'
+    default: 'FABR Network',
+    template: 'FABR Network - %s'
   },
   description: "O banco de dados do futebol americano do Brasil.",
   keywords: ['FABR', 'FABR-Network', 'BFA', 'Futebol Americano Brasil', 'Futebol Americano', 'NFL', 'NFL Brasil', 'ESPN',

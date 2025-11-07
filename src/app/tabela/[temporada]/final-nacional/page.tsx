@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { ImageService } from '@/utils/services/ImageService'
 import { Loading } from '@/components/ui/Loading'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 const SUPERLIGA_PAGES = [
   { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
@@ -46,6 +47,10 @@ export default function FinalNacionalPage() {
 
   const { data: finalNacional, isLoading, error } = useFinalNacionalData(temporada)
 
+  useEffect(() => {
+    document.title = `FABR Network - Superliga ${temporada}`
+  }, [temporada])
+
   const navigation = getSuperligaNavigation(pathname, temporada)
 
   if (isLoading) return <Loading />
@@ -55,9 +60,6 @@ export default function FinalNacionalPage() {
       <div className="text-red-400">Erro ao carregar dados: {error.message}</div>
     </div>
   }
-
-  const isJogoFinalizado = finalNacional?.status === 'FINALIZADO'
-  const temCampeao = finalNacional?.vencedor
 
   return (
     <div>
@@ -152,25 +154,31 @@ export default function FinalNacionalPage() {
                       </div>
                     </div>
 
-                    <div className="flex flex-col items-center gap-4 mb-6">
+                    <div className="flex justify-center items-center gap-4 mb-6">
                       <div className="flex items-center gap-4">
                         {finalNacional.status && (
-                          <span className={`px-4 py-2 rounded-full text-sm font-bold ${finalNacional.status === 'FINALIZADO' ? 'bg-green-100 text-green-800 border-2 border-green-300' :
+                          <span className={`px-4 py-2 rounded-full text-sm font-medium ${finalNacional.status === 'FINALIZADO' ? 'bg-green-100 text-green-800 border-2 border-green-300' :
                             finalNacional.status === 'AO VIVO' ? 'bg-red-100 text-red-800 border-2 border-red-300' :
                               finalNacional.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800 border-2 border-yellow-300' :
-                                'bg-blue-100 text-blue-800 border-2 border-blue-300'
+                                'bg-gray-100 text-gray-800'
                             }`}>
                             {finalNacional.status === 'FINALIZADO' ? '🏁 FINALIZADO' :
                               finalNacional.status === 'AO VIVO' ? '🔴 AO VIVO' :
                                 finalNacional.status === 'AGUARDANDO' ? '⏳ AGUARDANDO' :
-                                  finalNacional.status === 'AGENDADO' ? '📅 AGENDADO' : finalNacional.status}
+                                  finalNacional.status === 'AGENDADO' ? 'Agendado' : finalNacional.status}
                           </span>
                         )}
+                      </div>
+                      <div>{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric',
+                      })}
                       </div>
                       {finalNacional.status === 'FINALIZADO' && finalNacional?.id && (
                         <Link
                           href={`/tabela/${temporada}/jogo/${finalNacional.id}`}
-                          className="text-[12px] italic uppercase hover:text-[#50B800] font-medium underline transition-colors"
+                          className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
                         >
                           Saiba como foi
                         </Link>

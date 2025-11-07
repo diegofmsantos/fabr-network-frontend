@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useTimes } from '@/hooks/useTimes'
 import { useJogadores } from '@/hooks/useJogadores'
 import { Loading } from "@/components/ui/Loading"
@@ -17,6 +17,10 @@ export default function Page() {
 
     const { data: times = [], isLoading: timesLoading } = useTimes('2025')
     const { data: players = [], isLoading: jogadoresLoading } = useJogadores('2025')
+
+    useEffect(() => {
+        document.title = "FABR Network - Ranking de Jogadores"
+    }, [])
 
     const loading = timesLoading || jogadoresLoading
 
