@@ -83,13 +83,13 @@ export default function JogoDetalhesPage() {
   const { data: jogo, isLoading, error } = useJogoDetalhes(jogoId)
 
   useEffect(() => {
-  if (jogo) {
-    const confronto = `${jogo.timeCasa?.sigla || 'TBD'} vs ${jogo.timeVisitante?.sigla || 'TBD'}`
-    document.title = `FABR Network - ${confronto}`
-  } else {
-    document.title = "FABR Network - Detalhes do Jogo"
-  }
-}, [jogo])
+    if (jogo) {
+      const confronto = `${jogo.timeCasa?.sigla || 'TBD'} vs ${jogo.timeVisitante?.sigla || 'TBD'}`
+      document.title = `FABR Network - ${confronto}`
+    } else {
+      document.title = "FABR Network - Detalhes do Jogo"
+    }
+  }, [jogo])
 
   const estatisticasConsolidadas = useMemo(() => {
     if (!jogo?.estatisticas || jogo.estatisticas.length === 0) {
@@ -189,7 +189,7 @@ export default function JogoDetalhesPage() {
   }
 
   return (
-    <div className="lg:ml-32 xl:ml-60 2xl:ml-[550px] absolute">
+    <div className="lg:ml-32 xl:ml-60 2xl:ml-[550px] absolute overflow-x-hidden md:ml-4">
       <div className="xl:w-[900px] md:pt-2 xl:ml-[170px] z-50 xl:pt-12 xl:mt-0">
         <div className="mb-2 relative mt-24 ml-2 xl:mt-0">
           <button
@@ -201,54 +201,54 @@ export default function JogoDetalhesPage() {
           </button>
         </div>
 
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-4">
-          <div className="bg-white p-8">
-            <div className="flex flex-col">
-              <div className='flex items-center justify-center gap-8'>
-                <div className="flex flex-col items-center justify-center text-center">
-                  <div className="flex-1 md:w-32 md:h-32 mx-auto mb-4">
+        <div className="bg-white rounded-xl shadow-lg overflow-x-hidden mb-4">
+          <div className="bg-white p-3 overflow-x-hidden">
+            <div className='flex flex-col items-center justify-center gap-4 md:gap-8'>
+              <div className='flex items-center justify-center gap-4 md:gap-8 w-full max-w-full'>
+                <div className="flex flex-col items-center justify-center text-center flex-shrink min-w-0">
+                  <div className="w-20 h-20 md:w-32 md:h-32 mx-auto mb-4 flex-shrink-0">
                     <Image
                       src={ImageService.getTeamLogo(jogo.timeCasa.nome)}
                       alt={jogo.timeCasa.nome}
                       width={128}
                       height={128}
-                      className="object-contain"
+                      className="object-contain w-full h-full"
                     />
                   </div>
-                  <h2 className="md:text-2xl flex-1 font-bold text-gray-800 tracking-[-1px] italic uppercase">
+                  <h2 className="text-sm md:text-2xl font-bold text-gray-800 tracking-[-1px] italic uppercase max-w-[100px] md:max-w-none">
                     {jogo.timeCasa.nome}
                   </h2>
                 </div>
 
-                <div className='flex flex-col items-center'>
-                  <div className="text-6xl font-bold italic tracking-[-2px] flex items-center gap-4">
+                <div className='flex flex-col items-center flex-shrink-0'>
+                  <div className="text-4xl md:text-6xl font-bold italic tracking-[-2px] flex items-center gap-2 md:gap-4">
                     <span className="text-gray-800">
                       {jogo.placarCasa !== null ? jogo.placarCasa : '-'}
                     </span>
-                    <span className="text-4xl text-gray-400">X</span>
+                    <span className="text-2xl md:text-4xl text-gray-400">X</span>
                     <span className="text-gray-800">
                       {jogo.placarVisitante !== null ? jogo.placarVisitante : '-'}
                     </span>
                   </div>
-                  <div className="text-sm text-gray-500 mt-2 uppercase font-semibold">
+                  <div className="text-xs md:text-sm text-gray-500 mt-2 uppercase font-semibold">
                     {jogo.status === 'FINALIZADO' ? 'FINAL' : jogo.status}
                   </div>
-                  <div className="text-xs text-gray-400 mt-1">
+                  <div className="text-xs text-gray-400 mt-1 text-center px-2 break-words max-w-[200px] md:max-w-none">
                     {dataJogoFormatada} • {jogo.local || 'Local não definido'}
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center justify-center text-center">
-                  <div className="flex-1 md:w-32 md:h-32 mx-auto mb-4">
+                <div className="flex flex-col items-center justify-center text-center flex-shrink min-w-0">
+                  <div className="w-20 h-20 md:w-32 md:h-32 mx-auto mb-4 flex-shrink-0">
                     <Image
                       src={ImageService.getTeamLogo(jogo.timeVisitante.nome)}
                       alt={jogo.timeVisitante.nome}
                       width={128}
                       height={128}
-                      className="object-contain"
+                      className="object-contain w-full h-full"
                     />
                   </div>
-                  <h2 className="md:text-2xl flex-1 font-bold text-gray-800 tracking-[-1px] italic uppercase">
+                  <h2 className="text-sm md:text-2xl font-bold text-gray-800 tracking-[-1px] italic uppercase max-w-[100px] md:max-w-none">
                     {jogo.timeVisitante.nome}
                   </h2>
                 </div>
@@ -257,11 +257,11 @@ export default function JogoDetalhesPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-lg mb-6">
+        <div className="bg-white rounded-lg shadow-lg mb-24">
           <div className="flex border-b border-gray-200">
             <button
               onClick={() => setActiveTab('ESTATISTICAS')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'ESTATISTICAS'
+              className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'ESTATISTICAS'
                 ? 'bg-[#63E300] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
@@ -270,7 +270,7 @@ export default function JogoDetalhesPage() {
             </button>
             <button
               onClick={() => setActiveTab('PLAYBYPLAY')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'PLAYBYPLAY'
+              className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'PLAYBYPLAY'
                 ? 'bg-[#63E300] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
@@ -279,7 +279,7 @@ export default function JogoDetalhesPage() {
             </button>
             <button
               onClick={() => setActiveTab('MELHORES_MOMENTOS')}
-              className={`flex-1 py-4 px-6 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'MELHORES_MOMENTOS'
+              className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'MELHORES_MOMENTOS'
                 ? 'bg-[#63E300] text-black'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                 }`}
@@ -288,10 +288,10 @@ export default function JogoDetalhesPage() {
             </button>
           </div>
 
-          <div className="p-6">
+          <div>
             {activeTab === 'ESTATISTICAS' && (
               <div className="space-y-6">
-                <h3 className="text-xl font-bold text-gray-800 uppercase text-center italic tracking-[-1px]">Estatísticas do Jogo</h3>
+                <h3 className="text-xl font-bold text-gray-800 uppercase text-center italic tracking-[-1px] mt-2">Estatísticas do Jogo</h3>
                 <div>
                   {STATS_CONFIG.map((stat, idx) => {
                     const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
@@ -313,27 +313,31 @@ export default function JogoDetalhesPage() {
                     const winner = valorCasa > valorVisitante ? 'casa' : valorVisitante > valorCasa ? 'visitante' : 'empate'
 
                     return (
-                      <div key={idx} className={`flex justify-between items-center py-3 px-4 lg:justify-around ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                        <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                      <div
+                        key={stat.statKey || idx}
+                        className={`flex justify-between items-center py-3 px-2 md:px-4 gap-2 md:gap-4 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
+                      >
+                        <div className={`text-xl md:text-2xl lg:text-3xl font-bold italic tracking-[-1px] min-w-[60px] md:min-w-[80px] text-right ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
                           {valorCasaFormatado}
                         </div>
-                        <div className="text-sm font-semibold text-gray-600 uppercase italic tracking-[-1px] md:text-lg lg:text-center lg:min-w-[300px]">
+                        <div className="text-xs md:text-sm lg:text-lg font-semibold text-gray-600 uppercase italic tracking-[-1px] text-center flex-1 min-w-0 px-2">
                           {stat.label}
                         </div>
-                        <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                        <div className={`text-xl md:text-2xl lg:text-3xl font-bold italic tracking-[-1px] min-w-[60px] md:min-w-[80px] text-left ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
                           {valorVisitanteFormatado}
                         </div>
                       </div>
                     )
                   })}
+
                 </div>
 
               </div>
             )}
 
             {activeTab === 'PLAYBYPLAY' && (
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Play-by-Play</h3>
+              <div className='p-2'>
+                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 mt-2">Play-by-Play</h3>
                 {jogo.playByPlay && jogo.playByPlay.trim() !== '' ? (
                   <div className="bg-gray-50 rounded-lg p-6 max-h-[600px] overflow-y-auto">
                     <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono leading-relaxed">
@@ -350,8 +354,8 @@ export default function JogoDetalhesPage() {
             )}
 
             {activeTab === 'MELHORES_MOMENTOS' && (
-              <div>
-                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4">Melhores Momentos</h3>
+              <div className='p-2'>
+                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 mt-2">Melhores Momentos</h3>
                 {jogo.videoUrl && jogo.videoUrl.trim() !== '' ? (
                   <div className="aspect-video rounded-lg overflow-hidden bg-black">
                     <iframe
