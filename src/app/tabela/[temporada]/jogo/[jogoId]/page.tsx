@@ -337,7 +337,7 @@ export default function JogoDetalhesPage() {
 
             {activeTab === 'PLAYBYPLAY' && (
               <div className='p-2'>
-                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 mt-2">Play-by-Play</h3>
+                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 italic tracking-[-1px] text-center mt-2">Play-by-Play</h3>
                 {jogo.playByPlay && jogo.playByPlay.trim() !== '' ? (
                   <div className="bg-gray-50 rounded-lg p-6 max-h-[600px] overflow-y-auto">
                     <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono leading-relaxed">
@@ -355,7 +355,7 @@ export default function JogoDetalhesPage() {
 
             {activeTab === 'MELHORES_MOMENTOS' && (
               <div className='p-2'>
-                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 mt-2">Melhores Momentos</h3>
+                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 italic tracking-[-1px] text-center mt-2">Melhores Momentos</h3>
                 {jogo.videoUrl && jogo.videoUrl.trim() !== '' ? (
                   <div className="aspect-video rounded-lg overflow-hidden bg-black">
                     <iframe

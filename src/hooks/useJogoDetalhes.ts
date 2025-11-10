@@ -8,7 +8,7 @@ export function useJogoDetalhes(jogoId: number) {
     queryKey: queryKeys.jogos.detail(jogoId),
     queryFn: () => JogosService.getJogo(jogoId),
     enabled: !!jogoId && jogoId > 0,
-    staleTime: 1000 * 60 * 5, // 5 minutos
+    staleTime: 1000 * 60 * 5,
     retry: 2,
     refetchOnWindowFocus: false,
   })

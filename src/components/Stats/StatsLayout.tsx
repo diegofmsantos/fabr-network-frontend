@@ -1,9 +1,7 @@
 "use client"
 
-import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { RankingFilters } from '../ui/FilterButton'
-import { SelectFilter } from '../ui/SelectFilter'
 
 interface StatsLayoutProps {
     children: React.ReactNode;
@@ -13,7 +11,6 @@ interface StatsLayoutProps {
 
 export function StatsLayout({ children, initialFilter, statType }: StatsLayoutProps) {
     const router = useRouter()
-    const [season, setSeason] = useState('2024')
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
         const searchParams = new URLSearchParams(window.location.search)

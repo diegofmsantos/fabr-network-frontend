@@ -11,6 +11,7 @@ import { Loading } from '@/components/ui/Loading'
 import { ImageService } from '@/utils/services/ImageService'
 import { formatJardas } from '@/utils/services/FormatterService'
 import { getPlayerSlug, getTeamSlug } from '@/utils/helpers/formatUrl'
+import { CompareFilters } from '@/components/ui/CompareFilters'
 
 const POSICOES = [
     { key: 'QB', label: 'QB', setor: 'Ataque' },
@@ -141,8 +142,12 @@ export default function CompararJogadoresPage() {
     const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
 
     useEffect(() => {
-  document.title = "FABR Network - Comparar Jogadores"
-}, [])
+        document.title = "FABR Network - Comparar Jogadores"
+    }, [])
+
+    const handleFilterChange = (filter: 'jogadores' | 'times') => {
+        // Navegação é feita pelos Links dentro do CompareFilters
+    }
 
     const jogadoresFiltrados = useMemo(() => {
         if (!posicaoSelecionada) return []
@@ -264,17 +269,12 @@ export default function CompararJogadoresPage() {
 
     return (
         <div className="min-h-screen bg-[#ECECEC]">
-            <div className="border-b border-gray-200 px-4 py-4 xl:ml-80 2xl:ml-[550px]">
-                <div className="mt-20 max-w-7xl mx-auto flex flex-col items-center gap-5 xl:mt-7">
-                    <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-black">
-                        <ArrowLeft size={20} />
-                        <span>Voltar</span>
-                    </Link>
-
-                </div>
-            </div>
-
-            <div className="px-4 py-8 md:py-5 xl:w-[1100px] xl:ml-60 2xl:ml-[600px] ">
+            <CompareFilters
+                currentFilter="jogadores"
+                onFilterChange={handleFilterChange}
+            />
+        
+            <div className="px-4 py-8 md:py-5 xl:mt-4 xl:w-[1100px] xl:ml-60 2xl:ml-[600px] ">
                 <div className="mb-8 xl:ml-32">
                     <h2 className="text-xl font-bold mb-4">Selecione a Posição</h2>
                     <div className="flex flex-wrap gap-2 md:justify-around">

@@ -129,7 +129,6 @@ export const calculateStat = (player: Jogador, key: StatKey): string | number | 
                     ? Number((player.estatisticas.punter.jardas_de_punt / player.estatisticas.punter.punts))
                     : null
                     
-            // CORREÇÃO: Adicionar cases específicos para as 3 estatísticas de defesa
             case 'sacks_forcado':
                 return player.estatisticas.defesa.sacks_forcado || 0
             case 'tackles_for_loss':

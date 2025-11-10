@@ -10,6 +10,7 @@ import { Loading } from '@/components/ui/Loading'
 import { ImageService } from '@/utils/services/ImageService'
 import { formatJardas } from '@/utils/services/FormatterService'
 import { getTeamSlug } from '@/utils/helpers/formatUrl'
+import { CompareFilters } from '@/components/ui/CompareFilters'
 
 interface TimeSelecionado {
     time: Time
@@ -89,6 +90,10 @@ export default function CompararTimesPage() {
     useEffect(() => {
         document.title = "FABR Network - Comparar Times"
     }, [])
+
+    const handleFilterChange = (filter: 'jogadores' | 'times') => {
+        // Navegação é feita pelos Links dentro do CompareFilters
+    }
 
     const timesFiltrados = useMemo(() => {
         return times
@@ -211,16 +216,12 @@ export default function CompararTimesPage() {
 
     return (
         <div className="min-h-screen bg-[#ECECEC]">
-            <div className="border-b border-gray-200 px-4 py-4 xl:ml-80 2xl:ml-[550px]">
-                <div className="mt-20 max-w-7xl mx-auto flex flex-col items-center gap-5 xl:mt-7">
-                    <Link href="/" className="flex items-center gap-2 text-gray-600 hover:text-black">
-                        <ArrowLeft size={20} />
-                        <span>Voltar</span>
-                    </Link>
-                </div>
-            </div>
+            <CompareFilters
+                currentFilter="times"
+                onFilterChange={handleFilterChange}
+            />
 
-            <div className="px-4 py-8 md:py-5 xl:w-[1100px] xl:ml-80 2xl:ml-[600px]">
+            <div className="px-4 py-8 md:py-5 xl:mt-4 xl:w-[1100px] xl:ml-80 2xl:ml-[600px]">
                 <div className="mb-8 xl:ml-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="relative">

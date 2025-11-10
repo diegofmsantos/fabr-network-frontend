@@ -60,7 +60,6 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
               </h1>
               <p className="text-sm text-gray-500">
                 {jogo.rodada}ª Rodada
-                {jogo.grupo && ` • ${jogo.grupo.nome}`}
               </p>
             </div>
           </div>

@@ -133,7 +133,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                     </div>
 
                                     <span className="font-bold text-lg">
-                                        {formatValue(team.value, title)}
+                                        {team.value}
                                     </span>
                                 </div>
                             )}

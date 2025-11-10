@@ -19,26 +19,6 @@ export interface Regional {
   timesPorRegional: number
 }
 
-export interface PlayoffJogo {
-  id: number
-  campeonatoId: number
-  conferenciaId: number | null
-  fase: string
-  rodada: number
-  nome: string
-  timeClassificado1Id: number | null
-  timeClassificado2Id: number | null
-  jogoAnterior1Id: number | null
-  jogoAnterior2Id: number | null
-  timeVencedorId: number | null
-  dataJogo: Date | null
-  local: string | null
-  status: string
-  placarTime1: number | null
-  placarTime2: number | null
-  observacoes: string | null
-}
-
 export interface BaseEntity {
   id: number
   createdAt: string
@@ -71,7 +51,7 @@ export interface Time extends BaseEntity {
   instagram_coach: string
   coord_ofen: string
   coord_defen: string
-  titulos: Titulo[] 
+  titulos: Titulo[]
 
   jogadores?: JogadorTime[]
 
@@ -104,6 +84,30 @@ export type TimeOptional = {
   coord_defen?: string
   titulos?: Titulo[]
   jogadores?: Jogador[]
+}
+
+export interface TeamCardProps {
+  id: number
+  name: string
+  value: string
+  teamColor?: string
+  isFirst?: boolean
+}
+
+export interface TeamStatCardProps {
+  title: string
+  category: string
+  teams: TeamCardProps[]
+}
+
+export interface TeamStatCardsGridProps {
+  stats: TeamStatCardProps[]
+  category: string
+}
+
+export interface TeamInfo {
+  nome: string
+  cor: string
 }
 
 export interface Transferencia {
@@ -178,6 +182,15 @@ export interface Estatisticas {
     punts: number
     jardas_de_punt: number
   }
+}
+
+export interface StatGroup {
+  title: string
+  groupLabel: string
+  stats: Array<{
+    title: string
+    urlParam: string
+  }>
 }
 
 export type EstatisticasOptional = {
@@ -297,7 +310,7 @@ export interface JogadorTime extends BaseEntity {
   temporada: string
   numero: number
   camisa: string
-  estatisticas: Estatisticas 
+  estatisticas: Estatisticas
 
   jogador?: Jogador
   time?: Time
@@ -319,68 +332,15 @@ export interface Materia extends BaseEntity {
 
 export type Noticia = Materia
 
-// ==================== CAMPEONATOS ====================
-
-export interface FormatoCampeonato {
-  tipoDisputa: 'PONTOS CORRIDOS' | 'MATA MATA' | 'MISTO'
-  numeroRodadas: number
-  temGrupos: boolean
-  numeroGrupos?: number
-  timesGrupo?: number
-  classificadosGrupo?: number
-  temPlayoffs: boolean
-  formatoPlayoffs?: string
-}
-
-export interface Campeonato extends BaseEntity {
-  nome: string
-  temporada: string
-  tipo: 'REGULAR' | 'PLAYOFFS' | 'COPA'
-  status: 'NAO INICIADO' | 'EM ANDAMENTO' | 'FINALIZADO'
-  dataInicio: string
-  dataFim?: string
-  descricao?: string
-  formato: FormatoCampeonato
-  isSuperliga?: boolean
-  configSuperliga?: any
-
-  grupos: Grupo[]
-  jogos?: Jogo[]
-
-  _count?: {
-    grupos: number
-    jogos: number
-  }
-}
-
-export interface Grupo extends BaseEntity {
-  nome: string
-  campeonatoId: number
-  ordem: number
-
-  campeonato?: Campeonato
-  times: GrupoTime[]
-  classificacoes: ClassificacaoGrupo[]
-  jogos?: Jogo[]
-}
-
-export interface GrupoTime extends BaseEntity {
-  grupoId: number
-  timeId: number
-
-  grupo?: Grupo
-  time: Time
-}
-
 export interface Jogo extends BaseEntity {
   campeonatoId: number
-  grupoId?: number 
+  grupoId?: number
   timeVisitanteId: number
   timeCasaId: number
-  dataJogo: string 
+  dataJogo: string
   local?: string
   rodada: number
-  fase: string 
+  fase: string
   status: 'AGENDADO' | 'AO VIVO' | 'FINALIZADO' | 'ADIADO'
   placarCasa?: number
   placarVisitante?: number
@@ -395,42 +355,16 @@ export interface Jogo extends BaseEntity {
     nome: string
     temporada: string
   }
-  grupo?: {
-    id: number
-    nome: string
-  }
   timeCasa: Time
   timeVisitante: Time
   estatisticas?: EstatisticaJogo[]
-}
-
-export interface ClassificacaoGrupo extends BaseEntity {
-  grupoId: number
-  timeId: number
-  posicao: number
-  jogos: number
-  vitorias: number
-  empates: number
-  derrotas: number
-  pontosPro: number
-  pontosContra: number
-  saldoPontos: number
-  pontos: number
-  aproveitamento: number
-
-  time: Time
-  grupo?: {
-    id: number
-    nome: string
-    ordem: number
-  }
 }
 
 export interface EstatisticaJogo extends BaseEntity {
   jogoId: number
   jogadorId: number
   timeId: number
-  estatisticas: Estatisticas 
+  estatisticas: Estatisticas
 
   jogo?: Jogo
   jogador: {
@@ -442,7 +376,6 @@ export interface EstatisticaJogo extends BaseEntity {
   }
   time?: Time
 }
-
 
 export type StatKey =
   | keyof Estatisticas['passe']
@@ -523,15 +456,6 @@ export interface StatsBase {
   defesa: DefesaStats
   kicker: KickerStats
   punter: PunterStats
-}
-
-export interface StatGroup {
-  title: string
-  groupLabel: string
-  stats: Array<{
-    title: string
-    urlParam: string
-  }>
 }
 
 export interface CalculatedStats {
@@ -781,952 +705,4 @@ export interface PlayerComparisonData {
   team2: TeamComparisonTeam
   statKey: string
   statCategory: StatCategory
-}
-
-export interface ComparisonFilters {
-  temporada: string
-  categoria?: StatCategory
-  tipoEstatistica?: StatTypeEnum
-  ordenarPor?: 'nome' | 'valor' | 'diferenca'
-  mostrarApenas?: 'melhores' | 'piores' | 'todos'
-}
-
-export interface ProcessedComparison {
-  teams: {
-    time1: TeamComparisonTeam
-    time2: TeamComparisonTeam
-  }
-  comparisons: {
-    [category in StatCategory]: ComparisonCardData[]
-  }
-  highlights: {
-    [category in StatCategory]: PlayerComparisonData[]
-  }
-  charts: {
-    [category in StatCategory]: ChartDataPoint[]
-  }
-  summary: {
-    vencedor: 'time1' | 'time2' | 'empate'
-    categorias_vencidas: {
-      time1: StatCategory[]
-      time2: StatCategory[]
-      empates: StatCategory[]
-    }
-    pontuacao: {
-      time1: number
-      time2: number
-    }
-  }
-}
-
-export interface TeamComparisonResponse {
-  success: boolean
-  data: TeamComparisonData
-  message?: string
-  error?: string
-}
-
-export type StatComparison = {
-  [K in StatCategory]: {
-    [key: string]: number
-  }
-}
-
-export enum StatTypeEnum {
-  TOTAL = 'total',
-  AVERAGE = 'average',
-  PERCENTAGE = 'percentage',
-  RATIO = 'ratio'
-}
-
-export interface TeamInfo {
-  nome: string
-  cor: string
-}
-
-export interface TeamCardProps {
-  id: number
-  name: string
-  value: string
-  teamColor?: string
-  isFirst?: boolean
-}
-
-export interface TeamStatCardProps {
-  title: string
-  category: string
-  teams: TeamCardProps[]
-}
-
-export interface TeamStatCardsGridProps {
-  stats: TeamStatCardProps[]
-  category: string
-}
-
-
-export interface CriarCampeonatoRequest {
-  nome: string
-  temporada: string
-  tipo: 'REGULAR' | 'PLAYOFFS' | 'COPA'
-  dataInicio: string
-  dataFim?: string
-  descricao?: string
-  formato: FormatoCampeonato
-  grupos?: Array<{
-    nome: string
-    times: number[]
-  }>
-  gerarJogos?: boolean
-}
-
-export interface CreateTimeRequest {
-  nome: string
-  sigla: string
-  temporada: string
-  cor: string
-  cidade: string
-  bandeira_estado: string
-  fundacao: string
-  logo: string
-  capacete: string
-  estadio: string
-  presidente: string
-  head_coach: string
-  coord_ofen: string
-  coord_defen: string
-  instagram?: string
-  instagram2?: string
-  instagram_coach?: string
-  titulos?: Titulo[]
-}
-
-export interface UpdateTimeRequest extends Partial<CreateTimeRequest> {
-  id: number
-}
-
-export interface CreateJogadorRequest {
-  nome: string
-  posicao: string
-  setor: 'Ataque' | 'Defesa' | 'Special'
-  experiencia: number
-  idade: number
-  altura: number
-  peso: number
-  cidade: string
-  nacionalidade: string
-  timeFormador: string
-  instagram?: string
-  instagram2?: string
-
-  timeId: number
-  temporada: string
-  numero: number
-  camisa: string
-
-  estatisticas?: Partial<Estatisticas>
-}
-
-export interface UpdateJogadorRequest extends Partial<CreateJogadorRequest> {
-  id: number
-}
-
-
-export interface BaseFilters {
-  temporada?: string
-  page?: number
-  limit?: number
-  orderBy?: string
-  orderDirection?: 'asc' | 'desc'
-}
-
-export interface TimesFilters extends BaseFilters {
-  cidade?: string
-  setor?: string
-  ativo?: boolean
-}
-
-export interface JogadoresFilters extends BaseFilters {
-  timeId?: number
-  posicao?: string
-  setor?: 'Ataque' | 'Defesa' | 'Special'
-  idadeMin?: number
-  idadeMax?: number
-  nacionalidade?: string
-}
-
-export interface FiltroJogos {
-  campeonatoId?: number
-  timeId?: number
-  grupoId?: number
-  rodada?: number
-  status?: string
-  fase?: string
-  dataInicio?: string
-  dataFim?: string
-  limit?: number
-  offset?: number
-}
-
-
-export interface ApiResponse<T> {
-  data: T
-  message?: string
-  success: boolean
-  timestamp: string
-}
-
-export interface PaginatedResponse<T> extends ApiResponse<T[]> {
-  pagination: {
-    page: number
-    limit: number
-    total: number
-    totalPages: number
-  }
-}
-
-export interface ApiError {
-  message: string
-  code?: string
-  status?: number
-  field?: string
-}
-
-
-export type EntityStatus = 'ativo' | 'inativo' | 'suspenso'
-export type Temporada = '2024' | '2025' | '2026'
-export type TipoSetor = 'Ataque' | 'Defesa' | 'Special'
-
-
-export interface JogoCardProps {
-  jogo: Jogo
-  showDate?: boolean
-  showGroup?: boolean
-  compact?: boolean
-}
-
-export interface TabelaClassificacaoProps {
-  classificacao: ClassificacaoGrupo[]
-  grupoNome?: string
-  showGroup?: boolean
-  compact?: boolean
-}
-
-export interface CampeonatoHeaderProps {
-  campeonato: Campeonato
-  activeTab?: string
-  onTabChange?: (tab: string) => void
-}
-
-
-export interface UseQueryResult<T> {
-  data: T | undefined
-  isLoading: boolean
-  error: Error | null
-  refetch: () => void
-}
-
-export interface UseMutationResult<TData, TVariables> {
-  mutate: (variables: TVariables) => void
-  mutateAsync: (variables: TVariables) => Promise<TData>
-  isPending: boolean
-  error: Error | null
-  reset: () => void
-}
-
-
-export interface TimeChange {
-  timeId: number
-  alteracoes: Record<string, any>
-}
-
-export interface TransferenciaTemporada {
-  jogadorId: number
-  timeOrigemId: number
-  timeDestinoId: number
-  novoNumero?: number
-  novaCamisa?: string
-}
-
-export interface IniciarTemporadaData {
-  timeChanges: TimeChange[]
-  transferencias: TransferenciaTemporada[]
-}
-
-export interface IniciarTemporadaResponse {
-  message: string
-  times: number
-  jogadores: number
-  transferencias: number
-}
-
-
-export interface AdminStats {
-  totalCampeonatos: number
-  campeonatosAtivos: number
-  jogosAgendados: number
-  jogosFinalizados: number
-  timesAtivos: number
-  timesParticipantes: number
-  jogosEstaSemana: number
-
-  crescimentoCampeonatos: number
-  novosTimes: number
-  melhoriaOperacional: number
-  taxaConclusao: number
-
-  campeonatosPorStatus: Array<{
-    status: string
-    quantidade: number
-    cor: string
-  }>
-
-  jogosPorMes: Array<{
-    mes: string
-    jogos: number
-    finalizados: number
-  }>
-
-  evolucaoCampeonatos: Array<{
-    data: string
-    total: number
-    ativos: number
-  }>
-
-  statusJogos: Array<{
-    status: string
-    quantidade: number
-    porcentagem: number
-  }>
-
-  performancePorTipo: Array<{
-    tipo: string
-    quantidade: number
-    media: number
-  }>
-
-  participacaoRegional: Array<{
-    regiao: string
-    times: number
-    porcentagem: number
-  }>
-
-  tendenciaMensal: Array<{
-    mes: string
-    valor: number
-    variacao: number
-  }>
-
-  atividadesRecentes: Array<{
-    id: string
-    tipo: 'campeonato criado' | 'jogo finalizado' | 'classificacao atualizada'
-    titulo: string
-    descricao: string
-    data: string
-    usuario?: string
-  }>
-
-  alertas: Array<{
-    id: string
-    titulo: string
-    descricao: string
-    prioridade: 'alta' | 'media' | 'baixa'
-    tipo: 'warning' | 'error' | 'info'
-    data: string
-  }>
-
-  topCampeonatos: Array<{
-    id: number
-    nome: string
-    jogos: number
-    times: number
-    popularidade: number
-  }>
-
-  topTimes: Array<{
-    id: number
-    nome: string
-    campeonatos: number
-    vitorias: number
-    pontos: number
-  }>
-
-  topRegioes: Array<{
-    nome: string
-    times: number
-    campeonatos: number
-    crescimento: number
-  }>
-
-  mediaJogosPorCampeonato: number
-  tempoMedioDuracao: number
-  taxaAdiamentos: number
-  mediaGruposPorCampeonato: number
-  participacaoMedia: number
-  pontuacaoMedia: number
-
-  recentActivities: Array<{
-    id: string
-    type: string
-    message: string
-    timestamp: string
-    user?: string
-  }>
-
-  alerts: string[]
-}
-
-export interface AdminStatsParams {
-  temporada?: string
-  period?: string
-}
-
-
-export interface Notification {
-  id: string
-  type: 'success' | 'error' | 'warning' | 'info'
-  title: string
-  message?: string
-  duration?: number
-  timestamp: Date
-}
-
-
-export interface RecentActivityItem {
-  id: string
-  type: string
-  message: string
-  timestamp: string
-  user?: string
-  link?: string
-}
-
-export interface RecentActivityProps {
-  activities: RecentActivityItem[]
-  maxItems?: number
-}
-
-
-export interface CampeonatoValidation {
-  id?: number
-  nome: string
-  temporada: string
-  tipo: 'REGULAR' | 'PLAYOFFS' | 'COPA'
-  status: 'NAO INICIADO' | 'EM ANDAMENTO' | 'FINALIZADO'
-  dataInicio: Date | string
-  dataFim?: Date | string
-  descricao?: string
-  formato: FormatoCampeonato
-}
-
-export interface GrupoValidation {
-  id?: number
-  nome: string
-  campeonatoId: number
-  ordem: number
-  times?: number[]
-}
-
-export interface JogoValidation {
-  id?: number
-  campeonatoId: number
-  grupoId?: number
-  timeVisitanteId: number
-  timeCasaId: number
-  dataJogo: Date | string
-  local?: string
-  rodada: number
-  fase: 'FASE GRUPOS' | 'OITAVAS' | 'QUARTAS' | 'SEMI' | 'FINAL'
-  status: 'AGENDADO' | 'AO VIVO' | 'FINALIZADO' | 'ADIADO'
-  placarCasa?: number
-  placarVisitante?: number
-  observacoes?: string
-}
-
-
-export type FilterStatus = 'todos' | 'AGENDADO' | 'AO VIVO' | 'FINALIZADO' | 'ADIADO'
-export type ViewMode = 'calendar' | 'list' | 'table'
-
-export interface TeamComparisonProps {
-  currentTeam: Time
-  selectedSetor: string
-}
-
-export type {
-  Estatisticas as Stats,
-  EstatisticasOptional as StatsOptional,
-  StatCategory as Category,
-  StatKey as Key
-}
-
-
-export type TipoConferencia = 'SUDESTE' | 'SUL' | 'NORDESTE' | 'CENTRO NORTE'
-
-export type TipoRegional =
-  | 'SERRAMAR' | 'CANASTRA' | 'CANTAREIRA'
-  | 'ARAUCARIA' | 'PAMPA' 
-  | 'ATLANTICO'
-  | 'CERRADO' | 'AMAZONIA'
-
-export interface ConferenciaConfig {
-  tipo: TipoConferencia
-  nome: string
-  icone: string
-  totalTimes: number
-  regionais: RegionalConfig[]
-  playoffConfig: PlayoffConfig
-}
-
-export interface RegionalConfig {
-  tipo: TipoRegional
-  nome: string
-  conferencia: TipoConferencia
-  timesPorRegional: number
-  times: number[]
-}
-
-export interface PlayoffConfig {
-  semifinalDireta: number
-  wildcardVagas: number
-  estrutura: 'CONFERENCIA' | 'REGIONAL' | 'GERAL'
-}
-
-
-export const TIMES_SUPERLIGA: Record<TipoRegional, string[]> = {
-  SERRAMAR: [
-    'Vasco Almirantes',
-    'Flamengo Imperadores',
-    'Locomotiva FA',
-    'Tritões FA'
-  ],
-
-  CANASTRA: [
-    'Galo FA',
-    'Moura Lacerda Dragons',
-    'Rio Preto Weilers',
-    'Spartans FA'
-  ],
-
-  CANTAREIRA: [
-    'Corinthians Steamrollers',
-    'Cruzeiro FA',
-    'Guarulhos Rhynos',
-    'Ocelots FA'
-  ],
-
-  ARAUCARIA: [
-    'Timbó Rex',
-    'Coritiba Crocodiles',
-    'Calvary Cavaliers',
-    'Brown Spiders'
-  ],
-
-  PAMPA: [
-    'Santa Maria Soldiers',
-    'Juventude FA',
-    'Bravos FA',
-    'Istepôs FA'
-  ],
-
-  ATLANTICO: [
-    'Fortaleza Tritões',
-    'Ceará Sabres',
-    'João Pessoa Espectros',
-    'Recife Mariners',
-    'Cavalaria 2 de Julho',
-    'Caruaru Wolves'
-  ],
-
-  CERRADO: [
-    'Rondonópolis Hawks',
-    'Cuiabá Arsenal',
-    'Tubarões do Cerrado'
-  ],
-
-  AMAZONIA: [
-    'Porto Velho Miners',
-    'Manaus FA',
-    'São Raimundo Cavaliers'
-  ]
-}
-
-export const SUPERLIGA_CONFIG: ConferenciaConfig[] = [
-  {
-    tipo: 'SUDESTE',
-    nome: 'Conferência Sudeste',
-    icone: '🏭',
-    totalTimes: 12,
-    regionais: [
-      {
-        tipo: 'SERRAMAR',
-        nome: 'Regional Serramar',
-        conferencia: 'SUDESTE',
-        timesPorRegional: 4,
-        times: []
-      },
-      {
-        tipo: 'CANASTRA',
-        nome: 'Regional Canastra',
-        conferencia: 'SUDESTE',
-        timesPorRegional: 4,
-        times: []
-      },
-      {
-        tipo: 'CANTAREIRA',
-        nome: 'Regional Cantareira',
-        conferencia: 'SUDESTE',
-        timesPorRegional: 4,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2,
-      wildcardVagas: 4,
-      estrutura: 'CONFERENCIA'
-    }
-  },
-
-  {
-    tipo: 'SUL',
-    nome: 'Conferência Sul',
-    icone: '🧊',
-    totalTimes: 8,
-    regionais: [
-      {
-        tipo: 'ARAUCARIA',
-        nome: 'Regional Araucária',
-        conferencia: 'SUL',
-        timesPorRegional: 4,
-        times: []
-      },
-      {
-        tipo: 'PAMPA',
-        nome: 'Regional Pampa',
-        conferencia: 'SUL',
-        timesPorRegional: 4,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2,
-      wildcardVagas: 4,
-      estrutura: 'CONFERENCIA'
-    }
-  },
-
-  {
-    tipo: 'NORDESTE',
-    nome: 'Conferência Nordeste',
-    icone: '🌵',
-    totalTimes: 6,
-    regionais: [
-      {
-        tipo: 'ATLANTICO',
-        nome: 'Regional Atlântico',
-        conferencia: 'NORDESTE',
-        timesPorRegional: 6,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2,
-      wildcardVagas: 2,
-      estrutura: 'CONFERENCIA'
-    }
-  },
-
-  {
-    tipo: 'CENTRO NORTE',
-    nome: 'Conferência Centro-Norte',
-    icone: '🌲',
-    totalTimes: 6,
-    regionais: [
-      {
-        tipo: 'CERRADO',
-        nome: 'Regional Cerrado',
-        conferencia: 'CENTRO NORTE',
-        timesPorRegional: 3,
-        times: []
-      },
-      {
-        tipo: 'AMAZONIA',
-        nome: 'Regional Amazônia',
-        conferencia: 'CENTRO NORTE',
-        timesPorRegional: 3,
-        times: []
-      }
-    ],
-    playoffConfig: {
-      semifinalDireta: 2,
-      wildcardVagas: 2, 
-      estrutura: 'CONFERENCIA'
-    }
-  }
-]
-
-
-export interface PlayoffBracket {
-  conferencia: TipoConferencia
-  wildcards: WildCardGame[]
-  semifinais: SemifinalGame[]
-  final: FinalGame
-}
-
-export interface WildCardGame {
-  id: string
-  nome: string
-  time1: PlayoffTeam
-  time2: PlayoffTeam
-  vencedor?: PlayoffTeam
-}
-
-export interface SemifinalGame {
-  id: string
-  nome: string
-  time1: PlayoffTeam | 'VencedorWC'
-  time2: PlayoffTeam | 'VencedorWC'
-  vencedor?: PlayoffTeam
-}
-
-export interface FinalGame {
-  id: string
-  nome: string
-  time1: PlayoffTeam | 'VencedorSF'
-  time2: PlayoffTeam | 'VencedorSF'
-  vencedor?: PlayoffTeam
-}
-
-export interface PlayoffTeam {
-  timeId: number
-  nome: string
-  sigla: string
-  regional: TipoRegional
-  posicaoRegional: number
-  classificacao: 'DIRETO' | 'WILD CARD'
-}
-
-
-export interface SemifinalNacional {
-  id: string
-  nome: string
-  time1: {
-    conferencia: TipoConferencia
-    campeao: PlayoffTeam
-  }
-  time2: {
-    conferencia: TipoConferencia
-    campeao: PlayoffTeam
-  }
-  vencedor?: PlayoffTeam
-}
-
-export interface FinalNacional {
-  id: string
-  nome: 'Grande Decisão Nacional'
-  semifinal1: SemifinalNacional
-  semifinal2: SemifinalNacional
-  vencedor?: PlayoffTeam
-}
-
-export interface SuperligaBracket {
-  temporada: string
-  status: 'CONFIGURANDO' | 'FASE GRUPOS' | 'PLAYOFFS' | 'FINALIZADO'
-
-  playoffsSudeste: PlayoffBracket
-  playoffsSul: PlayoffBracket
-  playoffsNordeste: PlayoffBracket
-  playoffsCentroNorte: PlayoffBracket
-
-  semifinalNacional1: SemifinalNacional
-  semifinalNacional2: SemifinalNacional
-  finalNacional: FinalNacional
-}
-
-
-export function getConferenciaConfig(tipo: TipoConferencia): ConferenciaConfig {
-  return SUPERLIGA_CONFIG.find(c => c.tipo === tipo)!
-}
-
-export function getRegionalConfig(tipo: TipoRegional): RegionalConfig {
-  for (const conf of SUPERLIGA_CONFIG) {
-    const regional = conf.regionais.find(r => r.tipo === tipo)
-    if (regional) return regional
-  }
-  throw new Error(`Regional ${tipo} não encontrada`)
-}
-
-export function getTimesByRegional(regional: TipoRegional): string[] {
-  return TIMES_SUPERLIGA[regional] || []
-}
-
-
-export interface SuperligaJogo extends Jogo {
-  conferencia?: TipoConferencia
-  regional?: TipoRegional
-  tipoJogo: 'TEMPORADA REGULAR' | 'WILD CARD' | 'SEMIFINAL CONFERENCIA' | 'FINAL CONFERENCIA' | 'SEMIFINAL NACIONAL' | 'FINAL NACIONAL'
-}
-
-export interface ClassificacaoRegional {
-  regionalId: number
-  regional: TipoRegional
-  conferencia: TipoConferencia
-  times: ClassificacaoTime[]
-}
-
-export interface ClassificacaoTime {
-  posicao: number
-  timeId: number
-  time: Time
-  jogos: number
-  vitorias: number
-  derrotas: number
-  pontosPro: number
-  pontosContra: number
-  saldo: number
-  aproveitamento: number
-}
-
-
-export interface FaseNacional {
-  semifinais: PlayoffJogo[]
-  final: PlayoffJogo
-  campeao?: Time
-}
-
-export interface SuperligaStatus {
-  campeonatoId: number
-  fase: 'CONFIGURACAO' | 'TEMPORADA REGULAR' | 'PLAYOFFS CONFERENCIA' | 'FASE NACIONAL' | 'FINALIZADO'
-  jogosTemporadaRegular: {
-    total: number
-    finalizados: number
-    percentual: number
-  }
-  playoffsStatus: {
-    [key in TipoConferencia]?: {
-      wildcardCompleto: boolean
-      semifinalCompleto: boolean
-      finalCompleto: boolean
-      campeao?: Time
-    }
-  }
-  faseNacionalStatus?: {
-    semifinaisCompletas: boolean
-    campeaoNacional?: Time
-  }
-}
-
-
-export interface DistribuirTimesRequest {
-  campeonatoId: number
-  distribuicao: {
-    [key in TipoRegional]?: number[]
-  }
-}
-
-export interface GerarJogosRequest {
-  campeonatoId: number
-  rodadas: number
-  algoritmo: 'ROUND ROBIN' | 'CUSTOM'
-}
-
-export interface GerarPlayoffsRequest {
-  campeonatoId: number
-  conferencia: TipoConferencia
-}
-
-export interface AtualizarJogoPlayoffRequest {
-  jogoId: number
-  placarTime1: number
-  placarTime2: number
-  observacoes?: string
-}
-
-
-export interface DistribuicaoTime {
-  timeId: number
-  timeNome: string
-  conferencia: TipoConferencia
-  regional: TipoRegional
-}
-
-export interface EstatisticasSuperliga {
-  campeonatoId: number
-  temporada: string
-  totalJogos: number
-  jogosRealizados: number
-  mediaGolsPorJogo: number
-  maiorGoleada: {
-    jogo: Jogo
-    placar: string
-  }
-  artilheiros: Array<{
-    jogador: Jogador
-    time: Time
-    tds: number
-  }>
-  melhoresDefesas: Array<{
-    time: Time
-    pontosSofridos: number
-    mediaPorJogo: number
-  }>
-  melhoresAtaques: Array<{
-    time: Time
-    pontosMarcados: number
-    mediaPorJogo: number
-  }>
-}
-
-
-export interface SuperligaCardProps {
-  campeonato: Campeonato & {
-    _count?: {
-      jogos: number
-      conferencias: number
-    }
-  }
-  onEdit?: () => void
-  onDelete?: () => void
-  onViewDetails?: () => void
-}
-
-export interface ConferenciaViewProps {
-  conferencia: Conferencia & {
-    regionais: Regional[]
-    _count?: {
-      times: number
-      jogos: number
-    }
-  }
-  classificacao?: ClassificacaoRegional[]
-  jogos?: Jogo[]
-}
-
-export interface RegionalViewProps {
-  regional: Regional & {
-    conferencia: Conferencia
-  }
-  classificacao: ClassificacaoTime[]
-  jogos: Jogo[]
-}
-
-export interface PlayoffBracketViewProps {
-  bracket: PlayoffBracket 
-  onUpdateJogo?: (jogo: PlayoffJogo) => void
-}
-
-
-export interface FormDistribuirTimes {
-  [regional: string]: number[]
-}
-
-export interface FormGerarJogos {
-  rodadas: number
-  dataInicio: string
-  intervaloEntreDatas: number
-  jogosSimultaneos: boolean
-}
-
-export interface FormAtualizarPlacar {
-  placarCasa: string
-  placarVisitante: string
-  observacoes?: string
 }

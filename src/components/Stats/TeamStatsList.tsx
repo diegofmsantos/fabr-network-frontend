@@ -114,7 +114,6 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
         }
       }
 
-      // ✅ SOMA SIMPLES COM CONVERSÃO PARA NÚMERO
       teamPlayers.forEach(player => {
         switch (statMapping.category) {
           case 'passe': {
