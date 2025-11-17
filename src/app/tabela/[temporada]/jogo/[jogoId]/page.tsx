@@ -203,8 +203,8 @@ export default function JogoDetalhesPage() {
 
         <div className="bg-white rounded-xl shadow-lg overflow-x-hidden mb-4">
           <div className="bg-white p-3 overflow-x-hidden">
-            <div className='flex flex-col items-center justify-center gap-4 md:gap-8'>
-              <div className='flex items-center justify-center gap-4 md:gap-8 w-full max-w-full'>
+            <div className='flex flex-col items-center justify-center gap-4 mr-4 md:mr-0 md:gap-8'>
+              <div className='flex items-center justify-center gap-2 md:gap-8 w-full max-w-full'>
                 <div className="flex flex-col items-center justify-center text-center flex-shrink min-w-0">
                   <div className="w-20 h-20 md:w-32 md:h-32 mx-auto mb-4 flex-shrink-0">
                     <Image
@@ -340,7 +340,7 @@ export default function JogoDetalhesPage() {
                 <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 italic tracking-[-1px] text-center mt-2">Play-by-Play</h3>
                 {jogo.playByPlay && jogo.playByPlay.trim() !== '' ? (
                   <div className="bg-gray-50 rounded-lg p-6 max-h-[600px] overflow-y-auto">
-                    <pre className="whitespace-pre-wrap text-sm text-gray-700 font-mono leading-relaxed">
+                    <pre className="whitespace-pre-wrap text-sm text-gray-900 leading-relaxed font-bold">
                       {jogo.playByPlay}
                     </pre>
                   </div>
