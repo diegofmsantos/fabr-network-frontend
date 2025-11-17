@@ -117,8 +117,8 @@ export default function FinalConferenciaPage() {
                                 <Image
                                   src={ImageService.getTeamLogo(conferencia.jogo.time1)}
                                   alt={`Logo ${conferencia.jogo.time1}`}
-                                  width={40}
-                                  height={40}
+                                  width={60}
+                                  height={60}
                                   className="rounded lg:mr-4"
                                   onError={(e) => ImageService.handleTeamLogoError(e, conferencia.jogo.time1)}
                                 />
@@ -138,8 +138,8 @@ export default function FinalConferenciaPage() {
                                 <Image
                                   src={ImageService.getTeamLogo(conferencia.jogo.time2)}
                                   alt={`Logo ${conferencia.jogo.time2}`}
-                                  width={40}
-                                  height={40}
+                                  width={60}
+                                  height={60}
                                   className="rounded lg:ml-4"
                                   onError={(e) => ImageService.handleTeamLogoError(e, conferencia.jogo.time2)}
                                 />

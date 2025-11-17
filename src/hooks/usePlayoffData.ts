@@ -26,32 +26,19 @@ function getConferenciaKey(conf: any, index: number) {
   return `conf_${index}`
 }
 
-const MOCK_SEMIFINAL_NACIONAL = [
-  {
-    id: 'mock-sn-1',
-    nome: 'Semifinal Nacional 1',
-    time1: 'Rondonópolis Hawks',
-    time2: 'Recife Mariners',
-    placar1: null,
-    placar2: null,
-    status: 'AGENDADO',
-    dataJogo: '2025-11-17T00:00:00.000Z',
-    vencedor: null,
-    local: 'A definir'
-  },
-  {
-    id: 'mock-sn-2',
-    nome: 'Semifinal Nacional 2',
-    time1: 'Spartans FA',
-    time2: 'Coritiba Crocodiles',
-    placar1: null,
-    placar2: null,
-    status: 'AGENDADO',
-    dataJogo: '2025-11-16T00:00:00.000Z',
-    vencedor: null,
-    local: 'A definir'
-  }
-]
+// MOCK DA FINAL NACIONAL - Coritiba Crocodiles vs Recife Mariners
+const MOCK_FINAL_NACIONAL = {
+  id: 'mock-fn-1',
+  nome: 'FINAL NACIONAL',
+  time1: 'Coritiba Crocodiles',
+  time2: 'Recife Mariners',
+  placar1: null,
+  placar2: null,
+  status: 'AGENDADO',
+  dataJogo: '2025-12-01T00:00:00.000Z',
+  vencedor: null,
+  local: 'Arena Nacional'
+}
 
 const MOCK_PLAYOFFS = {
   wildCard: [],
@@ -221,11 +208,8 @@ export function usePlayoffData(temporada: string) {
         console.log('🎯 Semifinais COM times:', jogosComTimes.length)
         console.log('🎯 Semifinais SEM times (null):', jogosSemTimes.length)
 
-        if (jogosSemTimes.length > 0 && jogosComTimes.length === 0) {
-          console.log('⚠️ Usando MOCK de semifinais nacionais (times ainda não definidos)')
-          return MOCK_SEMIFINAL_NACIONAL
-        }
-
+        // REMOVIDO O MOCK DA SEMIFINAL NACIONAL
+        // Agora retorna diretamente os dados do banco ou array vazio
         return semifinalJogos.map((jogo: any) => ({
           id: jogo.id,
           nome: jogo.nome || 'Semifinal Nacional',
@@ -246,9 +230,19 @@ export function usePlayoffData(temporada: string) {
           jogo.fase === 'FINAL NACIONAL'
         )
 
-        if (!finalJogo) return null
+        // Se não encontrar a final no banco, usa o MOCK
+        if (!finalJogo) {
+          console.log('⚠️ Usando MOCK da Final Nacional (Coritiba Crocodiles vs Recife Mariners)')
+          return MOCK_FINAL_NACIONAL
+        }
 
-        console.log('🎯 Final nacional encontrada')
+        console.log('🎯 Final nacional encontrada no banco')
+
+        // Se os times ainda não estão definidos, usa o MOCK
+        if (!finalJogo.timeCasa?.nome || !finalJogo.timeVisitante?.nome) {
+          console.log('⚠️ Usando MOCK da Final Nacional (times ainda não definidos)')
+          return MOCK_FINAL_NACIONAL
+        }
 
         return {
           id: finalJogo.id,

@@ -119,8 +119,8 @@ export default function SemifinalNacionalPage() {
                                 <Image
                                   src={ImageService.getTeamLogo(semifinal.time1)}
                                   alt={`Logo ${semifinal.time1}`}
-                                  width={40}
-                                  height={40}
+                                  width={60}
+                                  height={60}
                                   className="rounded lg:mr-4"
                                   onError={(e) => ImageService.handleTeamLogoError(e, semifinal.time1)}
                                 />
@@ -140,8 +140,8 @@ export default function SemifinalNacionalPage() {
                                 <Image
                                   src={ImageService.getTeamLogo(semifinal.time2)}
                                   alt={`Logo ${semifinal.time2}`}
-                                  width={40}
-                                  height={40}
+                                  width={60}
+                                  height={60}
                                   className="rounded lg:ml-4"
                                   onError={(e) => ImageService.handleTeamLogoError(e, semifinal.time2)}
                                 />
@@ -156,34 +156,40 @@ export default function SemifinalNacionalPage() {
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-center gap-4 mb-4">
-                        {semifinal.status && (
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${semifinal.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
-                            semifinal.status === 'AO VIVO' ? 'bg-red-100 text-red-800' :
-                              semifinal.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
-                                'bg-gray-100 text-gray-800'
-                            }`}>
-                            {semifinal.status === 'FINALIZADO' ? 'Finalizado' :
-                              semifinal.status === 'AO VIVO' ? 'Ao Vivo' :
-                                semifinal.status === 'AGUARDANDO' ? 'Aguardando' :
-                                  semifinal.status === 'AGENDADO' ? 'Agendado' : semifinal.status}
-                          </span>
-                        )}
-                        <div>{new Date(semifinal.dataJogo).toLocaleDateString('pt-BR', {
-                          day: '2-digit',
-                          month: '2-digit',
-                          year: 'numeric',
-                        })}
+                     <div className="flex flex-col items-center justify-center gap-4 mt-3">
+                          <div>
+                            {semifinal.status && (
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium mr-3 ${semifinal.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' :
+                                semifinal.status === 'AO_VIVO' ? 'bg-red-100 text-red-800' :
+                                  semifinal.status === 'AGUARDANDO' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-gray-100 text-gray-800'
+                                }`}>
+                                {semifinal.status === 'FINALIZADO' ? 'Finalizado' :
+                                  semifinal.status === 'AO_VIVO' ? 'Ao Vivo' :
+                                    semifinal.status === 'AGUARDANDO' ? 'Aguardando' :
+                                      semifinal.status === 'AGENDADO' ? 'Agendado' : semifinal.status}
+                              </span>
+                            )}
+                            {semifinal.dataJogo && (
+                              <span className="text-xs text-gray-500">
+                                {new Date(semifinal.dataJogo).toLocaleDateString('pt-BR', {
+                                  day: '2-digit',
+                                  month: '2-digit',
+                                  year: 'numeric',
+                                })}
+                              </span>
+                            )}
+                          </div>
+                          <div className='text-xs text-gray-500'>{semifinal.local}</div>
+                          {semifinal.status === 'FINALIZADO' && (
+                            <Link
+                              href={`/tabela/${temporada}/jogo/${semifinal.id}`}
+                              className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
+                            >
+                              Saiba como foi
+                            </Link>
+                          )}
                         </div>
-                        {semifinal.status === 'FINALIZADO' && (
-                          <Link
-                            href={`/tabela/${temporada}/jogo/${semifinal.id}`}
-                            className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
-                          >
-                            Saiba como foi
-                          </Link>
-                        )}
-                      </div>
                     </div>
                   </div>
                 </div>

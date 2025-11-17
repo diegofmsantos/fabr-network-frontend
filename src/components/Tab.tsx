@@ -51,7 +51,7 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Ranking</span>
                 </div>
               </Link>
-              <Link href="/tabela/2025/semifinal-nacional" className="flex-none">
+              <Link href="/tabela/2025/final-nacional" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isTabelaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
                     src={isTabelaRoute ? "/assets/tabela.png" : "/assets/tabela-2.png"}

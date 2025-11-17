@@ -117,8 +117,8 @@ export default function SemifinalConferenciaPage() {
                                   <Image
                                     src={ImageService.getTeamLogo(jogo.time1)}
                                     alt={`Logo ${jogo.time1}`}
-                                    width={40}
-                                    height={40}
+                                    width={60}
+                                    height={60}
                                     className="rounded lg:mr-4"
                                     onError={(e) => ImageService.handleTeamLogoError(e, jogo.time1)}
                                   />
@@ -138,8 +138,8 @@ export default function SemifinalConferenciaPage() {
                                   <Image
                                     src={ImageService.getTeamLogo(jogo.time2)}
                                     alt={`Logo ${jogo.time2}`}
-                                    width={40}
-                                    height={40}
+                                    width={60}
+                                    height={60}
                                     className="rounded lg:ml-4"
                                     onError={(e) => ImageService.handleTeamLogoError(e, jogo.time2)}
                                   />

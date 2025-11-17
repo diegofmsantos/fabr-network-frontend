@@ -130,7 +130,6 @@ export default function FinalNacionalPage() {
                           </div>
                           <div className="mx-4 text-center ">
                             <span className="text-gray-400 font-bold text-3xl">×</span>
-                            <div className="text-sm text-gray-500 mt-1 ">VS</div>
                           </div>
                           <div className="flex-1 flex-col justify-between h-full p-1 min-h-[150px] rounded-xl text-center min-w-[100px] md:flex md:flex-row-reverse md:min-h-12 md:px-4">
                             <div className="flex flex-col-reverse h-full justify-between items-center gap-2 md:flex-row md:h-auto">
