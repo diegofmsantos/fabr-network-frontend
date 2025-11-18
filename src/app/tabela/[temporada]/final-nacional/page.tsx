@@ -153,7 +153,7 @@ export default function FinalNacionalPage() {
                       </div>
                     </div>
 
-                    <div className="flex justify-center items-center gap-4 mb-6">
+                    <div className="flex flex-col justify-center items-center gap-4 mb-6">
                       <div className="flex items-center gap-4">
                         {finalNacional.status && (
                           <span className={`px-4 py-2 rounded-full text-sm font-medium ${finalNacional.status === 'FINALIZADO' ? 'bg-green-100 text-green-800 border-2 border-green-300' :
@@ -168,11 +168,14 @@ export default function FinalNacionalPage() {
                           </span>
                         )}
                       </div>
-                      <div>{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', {
+                      <div className='text-gray-500 text-xs flex flex-col justify-center items-center gap-2'>{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: '2-digit',
-                        year: 'numeric',
+                        year: 'numeric', 
+                        hour: '2-digit',
+                        minute: '2-digit'
                       })}
+                      <div className='text-gray-500 text-xs'>{finalNacional.local}</div>
                       </div>
                       {finalNacional.status === 'FINALIZADO' && finalNacional?.id && (
                         <Link

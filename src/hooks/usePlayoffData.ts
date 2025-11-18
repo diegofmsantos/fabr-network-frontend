@@ -35,9 +35,9 @@ const MOCK_FINAL_NACIONAL = {
   placar1: null,
   placar2: null,
   status: 'AGENDADO',
-  dataJogo: '2025-12-01T00:00:00.000Z',
+  dataJogo: '2025-12-06T20:00:00.000Z',
   vencedor: null,
-  local: 'Arena Nacional'
+  local: 'Couto Pereira'
 }
 
 const MOCK_PLAYOFFS = {
