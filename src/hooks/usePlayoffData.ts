@@ -26,7 +26,6 @@ function getConferenciaKey(conf: any, index: number) {
   return `conf_${index}`
 }
 
-// MOCK DA FINAL NACIONAL - Coritiba Crocodiles vs Recife Mariners
 const MOCK_FINAL_NACIONAL = {
   id: 'mock-fn-1',
   nome: 'FINAL NACIONAL',
@@ -205,11 +204,6 @@ export function usePlayoffData(temporada: string) {
           !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
         )
 
-        console.log('🎯 Semifinais COM times:', jogosComTimes.length)
-        console.log('🎯 Semifinais SEM times (null):', jogosSemTimes.length)
-
-        // REMOVIDO O MOCK DA SEMIFINAL NACIONAL
-        // Agora retorna diretamente os dados do banco ou array vazio
         return semifinalJogos.map((jogo: any) => ({
           id: jogo.id,
           nome: jogo.nome || 'Semifinal Nacional',
@@ -230,7 +224,6 @@ export function usePlayoffData(temporada: string) {
           jogo.fase === 'FINAL NACIONAL'
         )
 
-        // Se não encontrar a final no banco, usa o MOCK
         if (!finalJogo) {
           console.log('⚠️ Usando MOCK da Final Nacional (Coritiba Crocodiles vs Recife Mariners)')
           return MOCK_FINAL_NACIONAL
@@ -238,7 +231,6 @@ export function usePlayoffData(temporada: string) {
 
         console.log('🎯 Final nacional encontrada no banco')
 
-        // Se os times ainda não estão definidos, usa o MOCK
         if (!finalJogo.timeCasa?.nome || !finalJogo.timeVisitante?.nome) {
           console.log('⚠️ Usando MOCK da Final Nacional (times ainda não definidos)')
           return MOCK_FINAL_NACIONAL
