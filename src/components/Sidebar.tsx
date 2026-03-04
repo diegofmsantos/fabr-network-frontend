@@ -16,7 +16,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
     const getCurrentYear = () => new Date().getFullYear();
-    const temporadaAtual = getCurrentYear().toString();
+    const temporadaAtual =  2025 //getCurrentYear().toString();
 
     useEffect(() => {
         if (pathname?.includes('/ranking')) {
