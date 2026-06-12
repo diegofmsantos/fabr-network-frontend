@@ -19,10 +19,9 @@ export function TemporadaSelector({ className = '' }: Props) {
     const nova = e.target.value as Temporada
     setTemporada(nova)
 
-    // /tabela usa a temporada no path: troca o segmento e navega.
     if (pathname?.startsWith('/tabela/')) {
       const partes = pathname.split('/')
-      // ['', 'tabela', '<temporada>', ...resto]
+
       if (partes.length >= 3) {
         partes[2] = nova
         router.push(partes.join('/'))
@@ -30,7 +29,6 @@ export function TemporadaSelector({ className = '' }: Props) {
     }
   }
 
-  // Evita mismatch de hidratação: mostra o valor padrão até o store reidratar.
   const valor = hasHydrated ? temporada : TEMPORADAS_DISPONIVEIS[0]
 
   return (

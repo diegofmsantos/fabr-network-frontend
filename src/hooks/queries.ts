@@ -29,7 +29,8 @@ export function useTemporada(explicitTemporada?: string) {
     // Caso a temporada venha explícita (ex.: rota /tabela/[temporada]), ela prevalece.
     let temporada = explicitTemporada || temporadaStore;
 
-    if (temporada !== '2025' && temporada !== '2026') {
+    const TEMPORADAS_VALIDAS = ['2024', '2025', '2026']
+    if (!TEMPORADAS_VALIDAS.includes(temporada)) {
         console.warn(`Temporada inválida: ${temporada}, usando 2025`);
         temporada = '2025';
     }

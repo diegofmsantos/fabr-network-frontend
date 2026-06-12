@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 import type { Temporada } from '@/types'
 
 export const TEMPORADAS_DISPONIVEIS: Temporada[] = ['2025', '2026']
-export const TEMPORADA_PADRAO: Temporada = '2025'
+export const TEMPORADA_PADRAO: Temporada = '2026'
 
 interface TemporadaState {
   temporada: Temporada
