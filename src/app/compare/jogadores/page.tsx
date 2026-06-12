@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo, useEffect } from 'react'
-import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useJogadores } from '@/hooks/useJogadores'
@@ -12,6 +11,7 @@ import { ImageService } from '@/utils/services/ImageService'
 import { formatJardas } from '@/utils/services/FormatterService'
 import { getPlayerSlug, getTeamSlug } from '@/utils/helpers/formatUrl'
 import { CompareFilters } from '@/components/ui/CompareFilters'
+import { useTemporada } from '@/hooks/queries'
 
 const POSICOES = [
     { key: 'QB', label: 'QB', setor: 'Ataque' },
@@ -138,15 +138,15 @@ export default function CompararJogadoresPage() {
     const [showDropdown1, setShowDropdown1] = useState(false)
     const [showDropdown2, setShowDropdown2] = useState(false)
 
-    const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores('2025')
-    const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
+    const temporada = useTemporada()
+    const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores(temporada)
+    const { data: times = [], isLoading: loadingTimes } = useTimes(temporada)
 
     useEffect(() => {
         document.title = "FABR Network - Comparar Jogadores"
     }, [])
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
-        // Navegação é feita pelos Links dentro do CompareFilters
     }
 
     const jogadoresFiltrados = useMemo(() => {
@@ -273,7 +273,7 @@ export default function CompararJogadoresPage() {
                 currentFilter="jogadores"
                 onFilterChange={handleFilterChange}
             />
-        
+
             <div className="px-4 py-8 md:py-5 xl:mt-4 xl:w-[1100px] xl:ml-60 2xl:ml-[600px] ">
                 <div className="mb-8 xl:ml-32">
                     <h2 className="text-xl font-bold mb-4">Selecione a Posição</h2>

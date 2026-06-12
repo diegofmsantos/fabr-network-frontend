@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight } from 'lucide-react';
+import { useTemporada } from '@/hooks/queries';
+import { TemporadaSelector } from '@/components/ui/TemporadaSelector';
 
 interface SidebarProps {
     className?: string;
@@ -15,8 +17,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const [activeItem, setActiveItem] = useState('');
     const [expandedItems, setExpandedItems] = useState<string[]>([]);
 
-    const getCurrentYear = () => new Date().getFullYear();
-    const temporadaAtual =  2025 //getCurrentYear().toString();
+    const temporadaAtual = useTemporada();
 
     useEffect(() => {
         if (pathname?.includes('/ranking')) {
@@ -73,6 +74,10 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             </div>
 
             <nav className="flex flex-col px-6 gap-4">
+                <div className="flex justify-center pb-2">
+                    <TemporadaSelector className="w-full" />
+                </div>
+                
                 <Link
                     href="/"
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
@@ -116,7 +121,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                 </div>
 
                 <Link
-                    href={`/tabela/${temporadaAtual}/final-nacional`}
+                    href={`/tabela/${temporadaAtual}/temporada-regular`}
                     className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
                         transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'tabela' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >

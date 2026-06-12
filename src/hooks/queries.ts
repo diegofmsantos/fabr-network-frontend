@@ -7,6 +7,7 @@ import { queryKeys } from './queryKeys'
 import { MateriasService } from '@/services/materias.service'
 import { useTimes } from '@/hooks/useTimes'
 import { useJogadores } from '@/hooks/useJogadores'
+import { useTemporadaStore } from '@/stores/temporadaStore'
 
 interface DataNotFoundError extends Error {
     code: 'NOT_FOUND';
@@ -23,10 +24,12 @@ const createNotFoundError = (temporada: string, entityName?: string): DataNotFou
 };
 
 export function useTemporada(explicitTemporada?: string) {
-    const searchParams = useSearchParams();
-    let temporada = explicitTemporada || searchParams?.get('temporada') || '2025';
+    const temporadaStore = useTemporadaStore((s) => s.temporada);
 
-    if (temporada !== '2024' && temporada !== '2025') {
+    // Caso a temporada venha explícita (ex.: rota /tabela/[temporada]), ela prevalece.
+    let temporada = explicitTemporada || temporadaStore;
+
+    if (temporada !== '2025' && temporada !== '2026') {
         console.warn(`Temporada inválida: ${temporada}, usando 2025`);
         temporada = '2025';
     }
@@ -74,44 +77,6 @@ export function useTeam(teamName: string | undefined, explicitTemporada?: string
             if (timeEncontrado) {
                 console.log(`Time encontrado na temporada ${temporada}:`, timeEncontrado.nome);
                 return timeEncontrado;
-            }
-
-            if (temporada === '2025' && teamSlug === 'Parana-HP') {
-                timeEncontrado = times.find(t =>
-                    getTeamSlug(t.nome || '') === 'Calvary-Cavaliers'
-                );
-
-                if (timeEncontrado) {
-                    console.log(`Time 'Paraná HP' encontrado como '${timeEncontrado.nome}' em 2025`);
-                    const params = new URLSearchParams(searchParams?.toString() || '');
-                    if (!params.has('temporada') && temporada) {
-                        params.set('temporada', temporada);
-                    }
-                    const novaURL = `/${getTeamSlug(timeEncontrado.nome || '')}?${params.toString()}`;
-                    setTimeout(() => {
-                        router.replace(novaURL, { scroll: false });
-                    }, 0);
-                    return timeEncontrado;
-                }
-            }
-
-            if (temporada === '2024' && teamSlug === 'Calvary-Cavaliers') {
-                timeEncontrado = times.find(t =>
-                    getTeamSlug(t.nome || '') === 'Parana-HP'
-                );
-
-                if (timeEncontrado) {
-                    console.log(`Time 'Calvary Cavaliers' encontrado como '${timeEncontrado.nome}' em 2024`);
-                    const params = new URLSearchParams(searchParams?.toString() || '');
-                    if (!params.has('temporada') && temporada) {
-                        params.set('temporada', temporada);
-                    }
-                    const novaURL = `/${getTeamSlug(timeEncontrado.nome || '')}?${params.toString()}`;
-                    setTimeout(() => {
-                        router.replace(novaURL, { scroll: false });
-                    }, 0);
-                    return timeEncontrado;
-                }
             }
 
             console.log(`Time ${teamName} não encontrado em nenhuma temporada`);

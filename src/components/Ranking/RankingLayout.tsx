@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { RankingFilters } from '../ui/FilterButton'
 import { useJogadores } from '@/hooks/useJogadores'
 import { useTimes } from '@/hooks/useTimes'
+import { useTemporada } from '@/hooks/queries'
 
 interface RankingLayoutProps {
     children: React.ReactNode
@@ -13,16 +13,12 @@ interface RankingLayoutProps {
 
 export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     const router = useRouter()
-    const searchParams = useSearchParams()
-    const [season, setSeason] = useState(searchParams.get('temporada') || '2025')
+    const season = useTemporada()
 
-    const { data: jogadores, refetch: refetchJogadores } = useJogadores(season)
-    const { data: times, refetch: refetchTimes } = useTimes(season)
+    const { data: jogadores } = useJogadores(season)
+    const { data: times } = useTimes(season)
 
-    useEffect(() => {
-        refetchJogadores()
-        refetchTimes()
-    }, [season, refetchJogadores, refetchTimes])
+
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
         if (filter === 'jogadores') {
@@ -32,11 +28,6 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
         }
     }
 
-    const handleSeasonChange = (newSeason: string) => {
-        setSeason(newSeason)
-        const currentPath = window.location.pathname
-        router.push(`${currentPath}?temporada=${newSeason}`)
-    }
 
     return (
         <div className="min-h-screen max-w-[1100px] mx-auto bg-[#ECECEC] 2xl:max-w-[1200px]">
@@ -47,7 +38,7 @@ export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
                         onFilterChange={handleFilterChange}
                     />
                 </div>
-             
+
                 {children}
             </div>
         </div>

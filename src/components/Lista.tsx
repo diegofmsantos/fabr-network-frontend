@@ -5,14 +5,14 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
 import { Loading } from "./ui/Loading"
-import { useSearchParams, useRouter } from "next/navigation"
 import { useTimes } from "@/hooks/useTimes"
+import { useTemporada } from "@/hooks/queries"
+
 
 export const Lista = () => {
-    const router = useRouter()
-    const searchParams = useSearchParams()
+
     const [lastClicked, setLastClicked] = useState<string | null>(null)
-    const [selectedTemporada, setSelectedTemporada] = useState(searchParams?.get('temporada') || '2025')
+    const selectedTemporada = useTemporada()
     const { data: times, isLoading, error } = useTimes(selectedTemporada)
 
     const itemVariants = {
@@ -27,36 +27,12 @@ export const Lista = () => {
         }
     }, [])
 
-    useEffect(() => {
-        const tempParam = searchParams?.get('temporada')
-        if (tempParam) {
-            console.log(`Parâmetro de temporada detectado: ${tempParam}`)
-            setSelectedTemporada(tempParam)
-        } else {
-            console.log('Nenhum parâmetro de temporada, usando padrão: 2025')
-            setSelectedTemporada('2025')
-        }
-    }, [searchParams])
 
     const handleClick = (teamName: string) => {
         localStorage.setItem('lastClickedTeam', teamName)
         setLastClicked(teamName)
     }
 
-    const handleTemporadaChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const novaTemporada = e.target.value
-        console.log(`Alterando temporada para: ${novaTemporada}`)
-
-        setSelectedTemporada(novaTemporada)
-
-        if (novaTemporada === '2024') {
-            console.log('Removendo parâmetro de temporada da URL (2024 é padrão)')
-            router.replace('/', { scroll: false })
-        } else {
-            console.log(`Adicionando temporada=${novaTemporada} à URL`)
-            router.replace(`/?temporada=${novaTemporada}`, { scroll: false })
-        }
-    }
 
     if (isLoading) return <div className="text-center text-gray-500 pt-56 lg:pt-32"><Loading /></div>
     if (error) return <div className="text-center text-gray-500 pt-56 lg:pt-32">Erro ao carregar times.</div>
@@ -83,17 +59,9 @@ export const Lista = () => {
                             className="relative border border-gray-300 rounded-lg overflow-hidden group"
                         >
                             <Link
-                                href={{
-                                    pathname: `/${item.nome || ''}`,
-                                    query: { temporada: selectedTemporada }
-                                }}
+                                href={`/${item.nome || ''}`}
                                 className="relative z-20 block"
-                                onClick={(e) => {
-                                    e.preventDefault()
-                                    if (item.nome) handleClick(item.nome)
-                                    const url = `/${item.nome}?temporada=${selectedTemporada}`
-                                    window.location.href = url
-                                }}
+                                onClick={() => { if (item.nome) handleClick(item.nome) }}
                             >
                                 <div
                                     className={`absolute inset-0 transition-opacity ${lastClicked === item.nome

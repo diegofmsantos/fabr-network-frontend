@@ -11,12 +11,14 @@ import { StatCategoryButtons } from "@/components/ui/StatCategoryButtons"
 import { getCategoryTitle, getStatsByCategory } from "@/utils/helpers/categoryHelpers"
 import { calculateStat, compareValues, shouldIncludePlayer } from "@/utils/services/StatsServices"
 import { Jogador, StatKey, Time } from "@/types"
+import { useTemporada } from "@/hooks/queries"
 
 export default function Page() {
     const [selectedCategory, setSelectedCategory] = useState("passe")
 
-    const { data: times = [], isLoading: timesLoading } = useTimes('2025')
-    const { data: players = [], isLoading: jogadoresLoading } = useJogadores('2025')
+    const temporada = useTemporada()
+    const { data: times = [], isLoading: timesLoading } = useTimes(temporada)
+    const { data: players = [], isLoading: jogadoresLoading } = useJogadores(temporada)
 
     useEffect(() => {
         document.title = "FABR Network - Ranking de Jogadores"

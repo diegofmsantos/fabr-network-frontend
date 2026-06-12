@@ -9,6 +9,7 @@ import { JogadorSkeleton } from "../ui/JogadorSkeleton"
 import { useSearchParams } from 'next/navigation'
 import { JogadorType, Time } from "@/types"
 import { useJogadores } from "@/hooks/useJogadores"
+import { useTemporada } from "@/hooks/queries"
 
 type Props = {
     currentTeam: Time
@@ -18,8 +19,7 @@ type Props = {
 export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
     const [jogadoresFiltrados, setJogadoresFiltrados] = useState<JogadorType[]>([])
     const [loading, setLoading] = useState(true)
-    const searchParams = useSearchParams()
-    const temporada = searchParams.get('temporada') || '2025'
+    const temporada = useTemporada()
 
     const { data: jogadores = [], isLoading } = useJogadores(temporada)
 

@@ -19,7 +19,7 @@ import { NoDataFound } from "@/components/ui/NoDataFound"
 import { Jogador, Time } from "@/types"
 import { useJogadores } from "@/hooks/useJogadores"
 import { useTimes } from "@/hooks/useTimes"
-import { usePlayerDetails } from "@/hooks/queries"
+import { usePlayerDetails, useTemporada } from "@/hooks/queries"
 import { PlayerGameStatsTable } from "@/components/Jogador/PlayerGameStatsTable"
 import { ImageService } from "@/utils/services/ImageService"
 import { formatJardas } from "@/utils/services/FormatterService"
@@ -33,17 +33,9 @@ interface DataNotFoundError extends Error {
 export default function Page() {
     const params = useParams()
     const router = useRouter()
-    const searchParams = useSearchParams()
-    const temporada = searchParams.get('temporada') || '2025'
-    const [selectedTemporada, setSelectedTemporada] = useState(temporada);
     const queryClient = useQueryClient();
 
-    useEffect(() => {
-        if (temporada && temporada !== selectedTemporada) {
-            console.log(`Atualizando temporada no estado: ${temporada}`);
-            setSelectedTemporada(temporada);
-        }
-    }, [temporada, selectedTemporada]);
+    const selectedTemporada = useTemporada();
 
     const { scrollY } = useScroll()
     const opacity = useTransform(scrollY, [0, 200], [1, 0])

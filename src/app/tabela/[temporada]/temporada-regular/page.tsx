@@ -146,6 +146,18 @@ const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; c
                   jogo.status === 'AO VIVO' ? 'Ao Vivo' :
                     jogo.status === 'ADIADO' ? 'Adiado' : 'Agendado'}
               </div>
+              {jogo.dataJogo && (
+                <div className="text-xs text-gray-400 mt-0.5">
+                  {(() => {
+                    const [datePart, timePart] = jogo.dataJogo.split('T')
+                    const [ano, mes, dia] = datePart.split('-')
+                    const hora = timePart ? timePart.substring(0, 5) : null
+                    return hora && hora !== '00:00'
+                      ? `${dia}/${mes}/${ano} às ${hora}`
+                      : `${dia}/${mes}/${ano}`
+                  })()}
+                </div>
+              )}
               {jogo.status === 'FINALIZADO' && (
                 <Link
                   href={`/tabela/${temporada}/jogo/${jogo.id}`}

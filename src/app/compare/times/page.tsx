@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useState, useMemo, useEffect } from 'react'
-import { ArrowLeft } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useTimes } from '@/hooks/useTimes'
@@ -11,6 +10,8 @@ import { ImageService } from '@/utils/services/ImageService'
 import { formatJardas } from '@/utils/services/FormatterService'
 import { getTeamSlug } from '@/utils/helpers/formatUrl'
 import { CompareFilters } from '@/components/ui/CompareFilters'
+import { useTemporada } from '@/hooks/queries'
+import { useJogadores } from '@/hooks/useJogadores'
 
 interface TimeSelecionado {
     time: Time
@@ -85,14 +86,15 @@ export default function CompararTimesPage() {
     const [showDropdown1, setShowDropdown1] = useState(false)
     const [showDropdown2, setShowDropdown2] = useState(false)
 
-    const { data: times = [], isLoading: loadingTimes } = useTimes('2025')
+    const temporada = useTemporada()
+    const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores(temporada)
+    const { data: times = [], isLoading: loadingTimes } = useTimes(temporada)
 
     useEffect(() => {
         document.title = "FABR Network - Comparar Times"
     }, [])
 
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
-        // Navegação é feita pelos Links dentro do CompareFilters
     }
 
     const timesFiltrados = useMemo(() => {

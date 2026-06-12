@@ -15,9 +15,8 @@ import TeamNameHeader from "@/components/Time/TeamHeader"
 import ShareButton from "@/components/ui/buttonShare"
 import { createSlug } from "@/utils/helpers/formatUrl"
 import Link from "next/link"
-import { useTeam } from "@/hooks/queries"
+import { useTeam, useTemporada } from "@/hooks/queries"
 import { NoDataFound } from "@/components/ui/NoDataFound"
-import Head from 'next/head'
 
 type Setor = "ATAQUE" | "DEFESA" | "SPECIAL"
 
@@ -31,7 +30,7 @@ export default function Page() {
   const params = useParams()
   const router = useRouter()
   const searchParams = useSearchParams()
-  const temporada = searchParams.get('temporada') || '2025'
+  const temporada = useTemporada()
   const timeSlug = params.time as string
 
   useEffect(() => {
@@ -124,7 +123,7 @@ export default function Page() {
           title={currentTeam.nome}
           variant="team"
           buttonStyle="absolute"
-          className="lg:right-32 xl:right-[420px] 2xl:right-[570px]"
+          className="lg:right-32 xl:right-[420px] 2xl:right-[670px]"
         />
         <motion.div
           className="max-w-[800px] p-4 mx-auto w-full h-full flex flex-col justify-center items-center rounded-b-xl xl:w-[650px] 2xl:w-[800px] "
@@ -135,7 +134,7 @@ export default function Page() {
               pathname: "/",
               query: { temporada: temporada }
             }}
-            className="absolute top-2 left-3 rounded-xl text-xs text-white py-1 px-2 lg:left-32 xl:left-[420px] 2xl:left-[570px]"
+            className="absolute top-2 left-3 rounded-xl text-xs text-white py-1 px-2 lg:left-32 xl:left-[420px] 2xl:left-[670px]"
           >
             {currentTeam.sigla || "N/A"}
             <FontAwesomeIcon icon={faAngleDown} className="ml-1" />

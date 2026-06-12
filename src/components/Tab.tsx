@@ -6,13 +6,14 @@ import { usePathname } from "next/navigation"
 import { Menu } from "lucide-react"
 import { useState } from "react"
 import { Sobre } from "./Sobre"
+import { useTemporada } from "@/hooks/queries"
+import { TemporadaSelector } from "@/components/ui/TemporadaSelector"
 
 export const Tab = () => {
   const pathname = usePathname()
   const [isAboutOpen, setIsAboutOpen] = useState(false)
 
-  const getCurrentYear = () => new Date().getFullYear();
-  const temporadaAtual = 2025 //getCurrentYear().toString();
+  const temporadaAtual = useTemporada();
 
   const isHomeRoute = pathname === "/"
   const isRankingRoute = pathname.includes("/ranking")
@@ -24,6 +25,10 @@ export const Tab = () => {
   return (
     <>
       <div className="fixed bottom-0 left-0 right-0 bg-[#272731] border-t border-gray-600 z-50 xl:hidden">
+
+        <div className="flex justify-center py-2 border-b border-gray-700">
+          <TemporadaSelector />
+        </div>
 
         <div className="relative">
           <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#272731] via-[#272731]/90 to-transparent z-10 pointer-events-none"></div>
@@ -54,7 +59,7 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Ranking</span>
                 </div>
               </Link>
-              <Link href={`/tabela/${temporadaAtual}/final-nacional`} className="flex-none">
+              <Link href={`/tabela/${temporadaAtual}/temporada-regular`} className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isTabelaRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image
                     src={isTabelaRoute ? "/assets/tabela.png" : "/assets/tabela-2.png"}

@@ -26,18 +26,7 @@ function getConferenciaKey(conf: any, index: number) {
   return `conf_${index}`
 }
 
-const MOCK_FINAL_NACIONAL = {
-  id: 'mock-fn-1',
-  nome: 'FINAL NACIONAL',
-  time1: 'Coritiba Crocodiles',
-  time2: 'Recife Mariners',
-  placar1: null,
-  placar2: null,
-  status: 'AGENDADO',
-  dataJogo: '2025-12-06T20:00:00.000Z',
-  vencedor: null,
-  local: 'Couto Pereira'
-}
+
 
 const MOCK_PLAYOFFS = {
   wildCard: [],
@@ -223,18 +212,6 @@ export function usePlayoffData(temporada: string) {
         const finalJogo = rawBracket.find((jogo: any) =>
           jogo.fase === 'FINAL NACIONAL'
         )
-
-        if (!finalJogo) {
-          console.log('⚠️ Usando MOCK da Final Nacional (Coritiba Crocodiles vs Recife Mariners)')
-          return MOCK_FINAL_NACIONAL
-        }
-
-        console.log('🎯 Final nacional encontrada no banco')
-
-        if (!finalJogo.timeCasa?.nome || !finalJogo.timeVisitante?.nome) {
-          console.log('⚠️ Usando MOCK da Final Nacional (times ainda não definidos)')
-          return MOCK_FINAL_NACIONAL
-        }
 
         return {
           id: finalJogo.id,
