@@ -10,36 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ImageService } from '@/utils/services/ImageService'
 import { Loading } from '@/components/ui/Loading'
-
-const SUPERLIGA_PAGES = [
-  { path: 'temporada-regular', title: 'TEMPORADA REGULAR' },
-  { path: 'wild-card', title: 'WILD CARD' },
-  { path: 'semifinal-conferencia', title: 'SEMIFINAL CONFERÊNCIA' },
-  { path: 'final-conferencia', title: 'FINAL CONFERÊNCIA' },
-  { path: 'semifinal-nacional', title: 'SEMIFINAL NACIONAL' },
-  { path: 'final-nacional', title: 'FINAL NACIONAL' }
-]
-
-function getSuperligaNavigation(currentPath: string, temporada: string) {
-  const currentIndex = SUPERLIGA_PAGES.findIndex(page => currentPath.includes(page.path))
-
-  if (currentIndex === -1) return { prev: null, next: null, current: null }
-
-  const prevIndex = currentIndex - 1
-  const nextIndex = currentIndex + 1
-
-  return {
-    prev: prevIndex >= 0 ? {
-      path: `/tabela/${temporada}/${SUPERLIGA_PAGES[prevIndex].path}`,
-      title: SUPERLIGA_PAGES[prevIndex].title
-    } : null,
-    next: nextIndex < SUPERLIGA_PAGES.length ? {
-      path: `/tabela/${temporada}/${SUPERLIGA_PAGES[nextIndex].path}`,
-      title: SUPERLIGA_PAGES[nextIndex].title
-    } : null,
-    current: SUPERLIGA_PAGES[currentIndex]
-  }
-}
+import { getSuperligaNavigation } from '@/utils/superliga-navigation'
 
 const getConferenciaColor = (tipo: string) => {
   switch (tipo) {
@@ -47,60 +18,83 @@ const getConferenciaColor = (tipo: string) => {
     case 'SUL': return 'bg-cyan-500'
     case 'NORDESTE': return 'bg-orange-500'
     case 'CENTRO NORTE': return 'bg-green-600'
+    case 'NORTE': return 'bg-red-700'   // D2
     default: return 'bg-gray-600'
   }
 }
 
-const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; conferenciaKey: string; temporada: string }) => {
-  const [rodadaAtiva, setRodadaAtiva] = useState(1)
-
-  const mapeamentoConferencias: Record<string, string> = {
+const QuadroRodadas = ({
+  rodadas,
+  conferenciaKey,
+  temporada,
+  divisao,
+}: {
+  rodadas: any
+  conferenciaKey: string
+  temporada: string
+  divisao: string
+}) => {
+  const capitalizadoComHifen: Record<string, string> = {
     'SUDESTE': 'Sudeste',
     'SUL': 'Sul',
     'NORDESTE': 'Nordeste',
-    'CENTRO NORTE': 'Centro-Norte'
+    'CENTRO NORTE': 'Centro-Norte',
+    'NORTE': 'Norte',
   }
 
-  const getMaxRodadas = (conferencia: string): number => {
-    switch (conferencia) {
-      case 'CENTRO NORTE':
-        return 6
-      case 'NORDESTE':
-        return 4
-      case 'SUDESTE':
-        return 4
-      case 'SUL':
-        return 4
-      default:
-        return 4
+  const blocoRodadas: Record<string, any[]> = (() => {
+    if (!rodadas) return {}
+    const candidatas = [
+      conferenciaKey,
+      capitalizadoComHifen[conferenciaKey],
+      conferenciaKey.toUpperCase(),
+      conferenciaKey.toUpperCase().replace(/-/g, ' '),
+    ].filter(Boolean) as string[]
+    for (const chave of candidatas) {
+      if (rodadas[chave]) return rodadas[chave]
     }
+    return {}
+  })()
+
+  const rodadasDisponiveis = Object.keys(blocoRodadas)
+    .map(n => parseInt(n, 10))
+    .filter(n => !isNaN(n))
+    .sort((a, b) => a - b)
+
+  const primeiraRodada = rodadasDisponiveis.length > 0 ? rodadasDisponiveis[0] : 1
+  const [rodadaAtiva, setRodadaAtiva] = useState(primeiraRodada)
+
+  useEffect(() => {
+    if (rodadasDisponiveis.length > 0 && !rodadasDisponiveis.includes(rodadaAtiva)) {
+      setRodadaAtiva(rodadasDisponiveis[0])
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.stringify(rodadasDisponiveis)])
+
+  const irAnterior = () => {
+    const idx = rodadasDisponiveis.indexOf(rodadaAtiva)
+    setRodadaAtiva(idx <= 0 ? rodadasDisponiveis[rodadasDisponiveis.length - 1] : rodadasDisponiveis[idx - 1])
+  }
+  const irProxima = () => {
+    const idx = rodadasDisponiveis.indexOf(rodadaAtiva)
+    setRodadaAtiva(idx === -1 || idx === rodadasDisponiveis.length - 1 ? rodadasDisponiveis[0] : rodadasDisponiveis[idx + 1])
   }
 
-  const maxRodadas = getMaxRodadas(conferenciaKey)
-  const chaveBackend = mapeamentoConferencias[conferenciaKey] || conferenciaKey
-  const jogosRodada = rodadas?.[chaveBackend]?.[rodadaAtiva] || []
+  const jogosRodada: any[] = blocoRodadas?.[rodadaAtiva] || []
 
   return (
     <div className="bg-white rounded-lg p-3 mr-2 min-w-[300px] md:min-w-[650px] md:mr-4 xl:min-w-[280px] 2xl:pr-3 xl:mt-24">
       <div className={`flex items-center justify-between mb-4 text-white px-4 py-2 rounded-t-lg ${getConferenciaColor(conferenciaKey)}`}>
-        <button
-          onClick={() => setRodadaAtiva(prev => prev > 1 ? prev - 1 : maxRodadas)}
-          className="p-1 hover:bg-black/20 rounded transition-colors"
-        >
+        <button onClick={irAnterior} className="p-1 hover:bg-black/20 rounded transition-colors">
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h3 className="font-bold text-lg">
-          {rodadaAtiva}ª Rodada
-        </h3>
-        <button
-          onClick={() => setRodadaAtiva(prev => prev < maxRodadas ? prev + 1 : 1)}
-          className="p-1 hover:bg-black/20 rounded transition-colors"
-        >
+        <h3 className="font-bold text-lg">{rodadaAtiva}ª Rodada</h3>
+        <button onClick={irProxima} className="p-1 hover:bg-black/20 rounded transition-colors">
           <ChevronRight className="w-5 h-5" />
         </button>
       </div>
 
-      <div className="space-y-3 ">
+      <div className="space-y-3">
         {jogosRodada.length > 0 ? (
           jogosRodada.map((jogo: any) => (
             <div key={jogo.id} className="flex flex-col items-center justify-between p-1 border bg-gray-50 rounded-lg">
@@ -109,17 +103,13 @@ const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; c
                   <Image
                     src={ImageService.getTeamLogo(jogo.timeCasa.nome)}
                     alt={`Logo ${jogo.timeCasa.nome}`}
-                    width={32}
-                    height={32}
-                    className="rounded"
+                    width={32} height={32} className="rounded"
                     onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeCasa.nome)}
                   />
                   <span className="font-medium text-sm">{jogo.timeCasa.sigla}</span>
                   <div className="text-right">
                     {jogo.status === 'FINALIZADO' ? (
-                      <div className="text-sm font-bold">
-                        {jogo.placarCasa} x {jogo.placarVisitante}
-                      </div>
+                      <div className="text-sm font-bold">{jogo.placarCasa} x {jogo.placarVisitante}</div>
                     ) : jogo.status === 'ADIADO' ? (
                       <div className="text-sm text-yellow-600">ADIADO</div>
                     ) : (
@@ -130,17 +120,14 @@ const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; c
                   <Image
                     src={ImageService.getTeamLogo(jogo.timeVisitante.nome)}
                     alt={`Logo ${jogo.timeVisitante.nome}`}
-                    width={32}
-                    height={32}
-                    className="rounded"
+                    width={32} height={32} className="rounded"
                     onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeVisitante.nome)}
                   />
                 </div>
               </div>
-              <div className={`text-xs font-semibold ${jogo.status === 'FINALIZADO' ?
-                'text-green-600' :
-                jogo.status === 'AO VIVO' ? 'text-red-600' :
-                  jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
+              <div className={`text-xs font-semibold ${jogo.status === 'FINALIZADO' ? 'text-green-600' :
+                  jogo.status === 'AO VIVO' ? 'text-red-600' :
+                    jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
                 }`}>
                 {jogo.status === 'FINALIZADO' ? 'Finalizado' :
                   jogo.status === 'AO VIVO' ? 'Ao Vivo' :
@@ -160,7 +147,7 @@ const QuadroRodadas = ({ rodadas, conferenciaKey, temporada }: { rodadas: any; c
               )}
               {jogo.status === 'FINALIZADO' && (
                 <Link
-                  href={`/tabela/${temporada}/jogo/${jogo.id}`}
+                  href={`/tabela/${divisao}/${temporada}/jogo/${jogo.id}`}
                   className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg"
                 >
                   Saiba como foi
@@ -184,30 +171,18 @@ export default function TemporadaRegularPage() {
   const router = useRouter()
   const pathname = usePathname()
   const temporada = params.temporada as string
+  const divisao = params.divisao as string  // 'd1' ou 'd2'
 
-  const {
-    data: classificacao,
-    isLoading: loadingClassificacao,
-    error: errorClassificacao
-  } = useClassificacaoSuperliga(temporada)
-
-  const {
-    data: jogos = [],
-    isLoading: loadingJogos,
-    error: errorJogos
-  } = useJogosSuperliga(temporada, { fase: 'TEMPORADA REGULAR' })
-
-  const {
-    data: rodadas,
-    isLoading: loadingRodadas,
-    error: errorRodadas
-  } = useRodadas(temporada)
+  const { data: classificacao, isLoading: loadingClassificacao, error: errorClassificacao } = useClassificacaoSuperliga(temporada)
+  const { data: jogos = [], isLoading: loadingJogos, error: errorJogos } = useJogosSuperliga(temporada, { fase: 'TEMPORADA REGULAR' })
+  const { data: rodadas, isLoading: loadingRodadas, error: errorRodadas } = useRodadas(temporada)
 
   useEffect(() => {
-    document.title = `FABR Network - Superliga ${temporada}`
-  }, [temporada])
+    document.title = `FABR Network - Superliga ${divisao.toUpperCase()} ${temporada}`
+  }, [temporada, divisao])
 
-  const navigation = getSuperligaNavigation(pathname, temporada)
+  // Usa o utilitário centralizado que já conhece [divisao]/[temporada]
+  const navigation = getSuperligaNavigation(pathname, divisao, temporada)
 
   if (loadingClassificacao || loadingJogos || loadingRodadas) return <Loading />
 
@@ -216,16 +191,11 @@ export default function TemporadaRegularPage() {
       <div className="min-h-screen bg-[#ECECEC] flex items-center justify-center">
         <div className="text-center p-8">
           <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-white mb-2">
-            Superliga não encontrada
-          </h3>
+          <h3 className="text-xl font-bold text-white mb-2">Superliga não encontrada</h3>
           <p className="text-gray-400 mb-6">
-            A Superliga {temporada} ainda não foi criada ou não há dados disponíveis.
+            A Superliga {divisao.toUpperCase()} {temporada} ainda não foi criada ou não há dados disponíveis.
           </p>
-          <Link
-            href="/"
-            className="bg-[#63E300] text-black px-4 py-2 rounded-md font-semibold hover:bg-[#50B800] transition-colors"
-          >
+          <Link href="/" className="bg-[#63E300] text-black px-4 py-2 rounded-md font-semibold hover:bg-[#50B800] transition-colors">
             Voltar para Times
           </Link>
         </div>
@@ -262,7 +232,7 @@ export default function TemporadaRegularPage() {
           </div>
         </div>
 
-        <div className="space-y-8 mb-24 pt-44 md:ml-8 xl:ml-20 2xl:w-full ">
+        <div className="space-y-8 mb-24 pt-44 md:ml-8 xl:ml-20 2xl:w-full">
           {conferencias.map(([conferenciaKey, conferencia]: [string, any]) => (
             <div key={conferenciaKey} className="ml-3 w-full flex flex-col justify-between items-center gap-8 pr-4 xl:flex-row xl:items-start xl:mb-16 max-w-5xl overflow-x-hidden">
               <div className="max-w-2xl space-y-10 w-full pr-2">
@@ -296,8 +266,7 @@ export default function TemporadaRegularPage() {
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
                                 alt={`Logo ${time.time.nome}`}
-                                width={30}
-                                height={30}
+                                width={30} height={30}
                                 className="mr-3 md:-ml-10 md:mr-2 rounded"
                                 onError={(e) => ImageService.handleTeamLogoError(e, time.time.nome)}
                               />
@@ -313,17 +282,13 @@ export default function TemporadaRegularPage() {
                             </div>
                           </div>
                         )) : (
-                          <div className="text-center py-4 text-gray-500">
-                            Nenhum time encontrado neste regional
-                          </div>
+                          <div className="text-center py-4 text-gray-500">Nenhum time encontrado neste regional</div>
                         )}
                       </div>
                     </div>
                   </div>
                 )) : (
-                  <div className="text-center py-8 text-gray-500">
-                    Dados da conferência não disponíveis
-                  </div>
+                  <div className="text-center py-8 text-gray-500">Dados da conferência não disponíveis</div>
                 )}
               </div>
 
@@ -331,6 +296,7 @@ export default function TemporadaRegularPage() {
                 rodadas={rodadas}
                 conferenciaKey={conferenciaKey}
                 temporada={temporada}
+                divisao={divisao}
               />
             </div>
           ))}

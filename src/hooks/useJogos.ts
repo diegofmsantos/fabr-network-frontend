@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { BaseService } from '@/services/base.service'
 import { queryKeys } from './queryKeys'
 import { useNotifications } from './useNotifications'
+import { useTemporadaStore } from '@/stores/temporadaStore'
 
 interface JogosFilters {
   temporada?: string
@@ -15,6 +16,7 @@ interface JogosFilters {
   regional?: string
   timeId?: number
   limite?: number
+  divisao?: string
 }
 
 interface Time {
@@ -212,9 +214,13 @@ export function useJogosTime(timeId: number, filters?: Omit<JogosFilters, 'timeI
 }
 
 export function useJogosSuperliga(temporada: string, filters?: Omit<JogosFilters, 'temporada'>) {
+  const divisao = useTemporadaStore((s) => s.divisao)
+  const hasHydrated = useTemporadaStore((s) => s.hasHydrated)
+  const divisaoAtiva = hasHydrated ? divisao : 'D1'
+
   return useQuery({
-    queryKey: [...queryKeys.jogos.all, 'superliga', temporada, filters],
-    queryFn: () => JogosService.getJogos({ ...filters, temporada }),
+    queryKey: [...queryKeys.jogos.all, 'superliga', temporada, divisaoAtiva, filters],
+    queryFn: () => JogosService.getJogos({ ...filters, temporada, divisao: divisaoAtiva }),
     enabled: !!temporada,
     staleTime: 1000 * 60 * 3,
     retry: 2,

@@ -2,9 +2,12 @@ import { Jogador, Time } from '@/types'
 import { BaseService } from './base.service'
 
 export class TimesService extends BaseService {
-  static async getTimes(temporada: string = '2025'): Promise<Time[]> {
+
+  static async getTimes(temporada: string, divisao?: string): Promise<Time[]> {
     const service = new TimesService()
-    return service.get<Time[]>(`/times`, { temporada })
+    const params: any = { temporada }
+    if (divisao) params.divisao = divisao
+    return service.get<Time[]>('/times', params)
   }
 
   static async getTime(id: number): Promise<Time> {

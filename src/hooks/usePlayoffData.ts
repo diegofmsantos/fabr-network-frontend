@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useMemo } from 'react'
 import { SuperligaService } from '@/services/superliga.service'
+import { useTemporadaStore } from '@/stores/temporadaStore'
 
 function getConferenciaColor(tipo?: string) {
   switch (tipo?.toUpperCase()) {
@@ -37,13 +38,13 @@ const MOCK_PLAYOFFS = {
 }
 
 export function usePlayoffData(temporada: string) {
-  const {
-    data: rawBracket,
-    isLoading,
-    error
-  } = useQuery({
-    queryKey: ['superliga', temporada, 'bracket'],
-    queryFn: () => SuperligaService.getBracket(temporada),
+  const divisao = useTemporadaStore((s) => s.divisao)
+  const hasHydrated = useTemporadaStore((s) => s.hasHydrated)
+  const divisaoAtiva = hasHydrated ? divisao : 'D1'
+
+  const { data: rawBracket, isLoading, error } = useQuery({
+    queryKey: ['superliga', temporada, 'bracket', divisaoAtiva],
+    queryFn: () => SuperligaService.getBracket(temporada, divisaoAtiva),
     enabled: !!temporada,
     staleTime: 1000 * 30,
     retry: 3,

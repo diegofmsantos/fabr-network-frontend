@@ -11,6 +11,7 @@ interface JogosFilters {
   regional?: string
   timeId?: number
   limite?: number
+  divisao?: string
 }
 
 interface CreateJogoData {
@@ -49,6 +50,7 @@ export class JogosService extends BaseService {
 
     if (filters?.temporada) {
       const params = new URLSearchParams()
+      if (filters.divisao) params.append('divisao', filters.divisao)
       if (filters.status) params.append('status', filters.status)
       if (filters.fase) params.append('fase', filters.fase)
       if (filters.rodada) params.append('rodada', filters.rodada.toString())

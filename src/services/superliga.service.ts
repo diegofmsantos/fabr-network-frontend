@@ -86,6 +86,7 @@ export class SuperligaService extends BaseService {
     rodada?: number
     status?: string
     limit?: number
+    divisao?: string
   }) {
     const service = new SuperligaService()
     return service.get(`/superliga/${temporada}/jogos`, filters)
@@ -141,38 +142,21 @@ export class SuperligaService extends BaseService {
     return service.post(`/superliga/${temporada}/resetar-playoffs`)
   }
 
-  static async getBracket(temporada: string): Promise<any[]> {
-  const service = new SuperligaService()
-
-  try {
-    // ✅ BUSCA ÚNICA NA TABELA JOGO - APENAS PLAYOFFS
-    const jogosPlayoffs = await service.get<any>(`/superliga/${temporada}/jogos`, {
-      fase: 'WILD CARD,SEMIFINAL DE CONFERÊNCIA,FINAL DE CONFERÊNCIA,SEMIFINAL NACIONAL,FINAL NACIONAL'
-    })
-
-    if (jogosPlayoffs && Array.isArray(jogosPlayoffs)) {
-      console.log('🎯 Usando playoffs da tabela única Jogo:', jogosPlayoffs.length)
-      return jogosPlayoffs
+  static async getBracket(temporada: string, divisao: string = 'D1'): Promise<any[]> {
+    const service = new SuperligaService()
+    try {
+      const jogosPlayoffs = await service.get<any>(`/superliga/${temporada}/jogos`, {
+        fase: 'WILD CARD,SEMIFINAL DE CONFERÊNCIA,FINAL DE CONFERÊNCIA,SEMIFINAL NACIONAL,FINAL NACIONAL',
+        divisao
+      })
+      if (jogosPlayoffs && Array.isArray(jogosPlayoffs)) return jogosPlayoffs
+      if (jogosPlayoffs?.jogos && Array.isArray(jogosPlayoffs.jogos)) return jogosPlayoffs.jogos
+      return []
+    } catch (error) {
+      console.error('❌ Erro ao buscar bracket:', error)
+      return []
     }
-
-    // Verificar se está no formato com wrapper
-    if (jogosPlayoffs &&
-      typeof jogosPlayoffs === 'object' &&
-      'jogos' in jogosPlayoffs &&
-      Array.isArray((jogosPlayoffs as any).jogos)) {
-
-      console.log('🎯 Usando playoffs da tabela única Jogo (wrapped):', (jogosPlayoffs as any).jogos.length)
-      return (jogosPlayoffs as any).jogos
-    }
-
-    console.log('🎯 Nenhum playoff encontrado')
-    return []
-
-  } catch (error) {
-    console.error('❌ Erro ao buscar bracket:', error)
-    return []
   }
-}
 
   static async getPlayoffsConferencia(temporada: string, conferencia: string) {
     const service = new SuperligaService()
@@ -268,9 +252,9 @@ export class SuperligaService extends BaseService {
     return service.get(`/superliga/${temporada}/exportar`, { formato })
   }
 
-  static async getClassificacao(temporada: string) {
+  static async getClassificacao(temporada: string, divisao: string = 'D1') {
     const service = new SuperligaService()
-    return service.get(`/superliga/${temporada}/classificacao`)
+    return service.get(`/superliga/${temporada}/classificacao`, { divisao })
   }
 
   static async getPlayoffBracket(temporada: string) {
@@ -278,12 +262,11 @@ export class SuperligaService extends BaseService {
     return service.get(`/superliga/${temporada}/bracket`)
   }
 
-  static async getRodadas(temporada: string, conferencia?: string): Promise<any> {
+  static async getRodadas(temporada: string, conferencia?: string, divisao: string = 'D1') {
     const service = new SuperligaService()
-    const params: Record<string, string> = { temporada }
+    const params: any = { divisao }
     if (conferencia) params.conferencia = conferencia
-
-    return service.get<any>('/superliga/rodadas', params)
+    return service.get(`/superliga/rodadas`, { temporada, ...params })
   }
 
   static async getBracketCompleto(temporada: string): Promise<any[]> {

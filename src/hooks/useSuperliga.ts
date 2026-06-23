@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query'
 import { SuperligaService } from '@/services/superliga.service'
+import { useTemporadaStore } from '@/stores/temporadaStore'
 
 export const superligaQueryKeys = {
   all: ['superliga'] as const,
-  
+
   temporada: (temporada: string) => [...superligaQueryKeys.all, temporada] as const,
   status: (temporada: string) => [...superligaQueryKeys.temporada(temporada), 'status'] as const,
   conferencias: (temporada: string) => [...superligaQueryKeys.temporada(temporada), 'conferencias'] as const,
@@ -19,9 +20,9 @@ export function useSuperliga(temporada: string) {
     queryKey: superligaQueryKeys.temporada(temporada),
     queryFn: () => SuperligaService.getSuperliga(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 10, 
+    staleTime: 1000 * 60 * 10,
     retry: 3,
-    refetchOnWindowFocus: false, 
+    refetchOnWindowFocus: false,
   })
 }
 
@@ -30,7 +31,7 @@ export function useStatusSuperliga(temporada: string) {
     queryKey: superligaQueryKeys.status(temporada),
     queryFn: () => SuperligaService.getStatus(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, 
+    staleTime: 1000 * 60 * 5,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -41,7 +42,7 @@ export function useConferencias(temporada: string) {
     queryKey: superligaQueryKeys.conferencias(temporada),
     queryFn: () => SuperligaService.getConferencias(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 30, 
+    staleTime: 1000 * 60 * 30,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -64,11 +65,15 @@ export function useJogosSuperliga(temporada: string, filters?: {
   rodada?: number
   status?: string
 }) {
+  const divisao = useTemporadaStore((s) => s.divisao)
+  const hasHydrated = useTemporadaStore((s) => s.hasHydrated)
+  const divisaoAtiva = hasHydrated ? divisao : 'D1'
+
   return useQuery({
-    queryKey: [...superligaQueryKeys.jogos(temporada), filters],
-    queryFn: () => SuperligaService.getJogos(temporada, filters),
+    queryKey: [...superligaQueryKeys.jogos(temporada), divisaoAtiva, filters],
+    queryFn: () => SuperligaService.getJogos(temporada, { ...filters, divisao: divisaoAtiva }),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, 
+    staleTime: 1000 * 60 * 5,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -81,8 +86,8 @@ export function useProximosJogos(temporada: string, limite: number = 5) {
     enabled: !!temporada,
     staleTime: 1000 * 60 * 3,
     retry: 2,
-    refetchInterval: 1000 * 60 * 5, 
-    refetchOnWindowFocus: true, 
+    refetchInterval: 1000 * 60 * 5,
+    refetchOnWindowFocus: true,
   })
 }
 
@@ -91,7 +96,7 @@ export function useUltimosResultados(temporada: string, limite: number = 5) {
     queryKey: [...superligaQueryKeys.jogos(temporada), 'resultados', limite],
     queryFn: () => SuperligaService.getUltimosResultados(temporada, limite),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 10, 
+    staleTime: 1000 * 60 * 10,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -114,7 +119,7 @@ export function useClassificacaoGeral(temporada: string) {
     queryKey: [...superligaQueryKeys.classificacao(temporada), 'geral'],
     queryFn: () => SuperligaService.getClassificacaoGeral(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 10, 
+    staleTime: 1000 * 60 * 10,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -147,7 +152,7 @@ export function useRankingGeral(temporada: string) {
     queryKey: [...superligaQueryKeys.classificacao(temporada), 'ranking'],
     queryFn: () => SuperligaService.getRankingGeral(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 15, 
+    staleTime: 1000 * 60 * 15,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -169,7 +174,7 @@ export function usePlayoffBracket(temporada: string) {
     queryKey: superligaQueryKeys.bracket(temporada),
     queryFn: () => SuperligaService.getBracket(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 5, 
+    staleTime: 1000 * 60 * 5,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -203,7 +208,7 @@ export function useEstatisticasSuperliga(temporada: string) {
     queryKey: [...superligaQueryKeys.temporada(temporada), 'estatisticas'],
     queryFn: () => SuperligaService.getEstatisticas(temporada),
     enabled: !!temporada,
-    staleTime: 1000 * 60 * 15, 
+    staleTime: 1000 * 60 * 15,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -214,7 +219,7 @@ export function useHistoricoSuperliga(temporadas: string[]) {
     queryKey: [...superligaQueryKeys.all, 'historico', temporadas],
     queryFn: () => SuperligaService.getHistorico(temporadas),
     enabled: temporadas.length > 0,
-    staleTime: 1000 * 60 * 60, 
+    staleTime: 1000 * 60 * 60,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -306,7 +311,7 @@ export function useTemporadas() {
   return useQuery({
     queryKey: [...superligaQueryKeys.all, 'temporadas'],
     queryFn: () => SuperligaService.listarTemporadas(),
-    staleTime: 1000 * 60 * 60, 
+    staleTime: 1000 * 60 * 60,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -316,7 +321,7 @@ export function useTemporadaAtual() {
   return useQuery({
     queryKey: [...superligaQueryKeys.all, 'atual'],
     queryFn: () => SuperligaService.getTemporadaAtual(),
-    staleTime: 1000 * 60 * 30, 
+    staleTime: 1000 * 60 * 30,
     retry: 2,
     refetchOnWindowFocus: false,
   })
@@ -355,9 +360,13 @@ export function useSuperligaPorFase(temporada: string, fase: string) {
 }
 
 export function useClassificacaoSuperliga(temporada: string) {
+  const divisao = useTemporadaStore((s) => s.divisao)
+  const hasHydrated = useTemporadaStore((s) => s.hasHydrated)
+  const divisaoAtiva = hasHydrated ? divisao : 'D1'
+
   return useQuery({
-    queryKey: [...superligaQueryKeys.classificacao(temporada)],
-    queryFn: () => SuperligaService.getClassificacao(temporada),
+    queryKey: [...superligaQueryKeys.classificacao(temporada), divisaoAtiva],
+    queryFn: () => SuperligaService.getClassificacao(temporada, divisaoAtiva),
     enabled: !!temporada,
     staleTime: 1000 * 60 * 10,
     retry: 2,
