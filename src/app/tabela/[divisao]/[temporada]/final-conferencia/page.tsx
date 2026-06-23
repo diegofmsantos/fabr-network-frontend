@@ -55,7 +55,7 @@ export default function FinalConferenciaPage() {
                     <h2 className="text-lg font-bold">{conferencia.nome || conferencia.tipo}</h2>
                   </div>
                   <div className="p-3 space-y-4">
-                    {conferencia.jogos.map((jogo: any, jogoIndex: number) => (
+                   {(conferencia.jogos || []).map((jogo: any, jogoIndex: number) => (
                       <div key={`final-conf-${jogo.id || jogoIndex}`} className="border rounded-lg p-4 hover:bg-gray-50">
                         <div className="flex items-center justify-center">
                           <div className="flex items-center gap-2 text-[12px] md:text-lg">

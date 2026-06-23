@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/react'
 import { Suspense } from "react"
 import { QueryProvider } from "@/providers/query-provider"
 import Sidebar from "@/components/Sidebar"
+import { TemporadaSelector } from "@/components/ui/TemporadaSelector"
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -66,8 +67,8 @@ export default function RootLayout({
         <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon" />
       </head>
       <body className="bg-[#ECECEC]">
-        <header className="w-full h-20 bg-[#272731] flex justify-center items-center px-2 fixed z-50 xl:hidden">
-          <Link href="/" className="w-40 h-16 flex justify-center items-center sm:w-44 sm:h-18 md:w-48 md:h-20">
+        <header className="w-full h-20 bg-[#272731] flex justify-between items-center px-4 fixed z-50 xl:hidden">
+          <Link href="/" className="w-36 h-16 flex justify-center items-center sm:w-40">
             <Image
               src="/assets/logo-fabr-color.png"
               alt="Fabr Network Logo"
@@ -78,6 +79,7 @@ export default function RootLayout({
               quality={100}
             />
           </Link>
+          <TemporadaSelector />
         </header>
         <Sidebar />
         <QueryProvider>

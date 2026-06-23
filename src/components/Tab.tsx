@@ -1,18 +1,9 @@
-/**
- * Tab.tsx — atualizado para D1/D2
- * Substitui: src/components/Tab.tsx (frontend de exibição)
- *
- * MUDANÇAS:
- *  - Remove `temporadaAtual = 2025` hardcoded
- *  - Lê temporada + divisao do store
- */
 "use client"
 
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Sobre } from "./Sobre"
 import { useTemporadaStore } from '@/stores/temporadaStore'
 
 export const Tab = () => {
