@@ -31,13 +31,14 @@ export default function FinalNacionalPage() {
   return (
     <div>
       <div className="xl:ml-60 2xl:ml-[550px] absolute">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-3 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-2">
             <button className={`p-1 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.prev && router.push(navigation.prev.path)} disabled={!navigation.prev}>
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h1 className="text-[16px] min-[375px]:text-xl min-[375px]:h-16 min-[375px]:pt-4 min-[425px]:text-[23px] font-extrabold italic leading-[55px] tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">FINAL NACIONAL</h1>
+            <h1 className="text-[22px] min-[375px]:text-[26px] min-[375px]:h-16 min-[375px]:pt-2 min-[425px]:text-[28px] font-extrabold italic leading-[55px] 
+            tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">FINAL NACIONAL</h1>
             <button className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.next && router.push(navigation.next.path)} disabled={!navigation.next}>
               <ChevronRight className="w-5 h-5" />
@@ -51,12 +52,18 @@ export default function FinalNacionalPage() {
             ) : (
               <div className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20 overflow-hidden">
                 <div className="bg-[#272731] text-white px-6 py-4">
-                  <h2 className="text-xl font-black italic tracking-tight text-center">🏆 FINAL NACIONAL</h2>
+                  <h2 className="text-xl font-black italic tracking-tight text-center">FINAL NACIONAL</h2>
                 </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-center gap-8">
+                <div className="p-2 space-y-4 min-[375px]:p-3">
+                  <div className="flex items-center justify-center gap-6">
                     <div className="flex flex-col items-center gap-3">
-                      <Image src={ImageService.getTeamLogo(finalNacional.time1)} alt={finalNacional.time1} width={100} height={100} className="rounded" onError={(e) => ImageService.handleTeamLogoError(e, finalNacional.time1)} />
+                      <Image
+                        src={ImageService.getTeamLogo(finalNacional.time1)}
+                        alt={finalNacional.time1}
+                        width={100}
+                        height={100}
+                        className="rounded"
+                        onError={(e) => ImageService.handleTeamLogoError(e, finalNacional.time1)} />
                       <span className="font-black text-lg text-center max-w-[120px]">{finalNacional.time1}</span>
                       {finalNacional.placar1 !== null && finalNacional.placar1 !== undefined && (
                         <span className="text-4xl font-black text-[#63E300]">{finalNacional.placar1}</span>
@@ -66,7 +73,13 @@ export default function FinalNacionalPage() {
                       <span className="text-gray-400 text-5xl font-bold">×</span>
                     </div>
                     <div className="flex flex-col items-center gap-3">
-                      <Image src={ImageService.getTeamLogo(finalNacional.time2)} alt={finalNacional.time2} width={100} height={100} className="rounded" onError={(e) => ImageService.handleTeamLogoError(e, finalNacional.time2)} />
+                      <Image
+                        src={ImageService.getTeamLogo(finalNacional.time2)}
+                        alt={finalNacional.time2}
+                        width={100}
+                        height={100}
+                        className="rounded"
+                        onError={(e) => ImageService.handleTeamLogoError(e, finalNacional.time2)} />
                       <span className="font-black text-lg text-center max-w-[120px]">{finalNacional.time2}</span>
                       {finalNacional.placar2 !== null && finalNacional.placar2 !== undefined && (
                         <span className="text-4xl font-black text-[#63E300]">{finalNacional.placar2}</span>

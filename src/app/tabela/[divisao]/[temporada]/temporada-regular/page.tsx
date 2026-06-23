@@ -208,7 +208,7 @@ export default function TemporadaRegularPage() {
   return (
     <div className="min-h-screen overflow-x-hidden">
       <div className="xl:ml-80 w-full max-w-5xl 2xl:ml-[550px] absolute overflow-x-hidden 2xl:overflow-x-visible">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 fixed z-50 md:h-14 md:pt-2 xl:ml-20 xl:w-[950px] xl:h-28 xl:pt-12 xl:mt-0 2xl:w-[1050px]">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-3 fixed z-50 md:h-14 md:pt-2 xl:ml-20 xl:w-[950px] xl:h-28 xl:pt-12 xl:mt-0 2xl:w-[1050px]">
           <div className="flex items-center justify-between gap-4">
             <button
               className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
@@ -218,7 +218,7 @@ export default function TemporadaRegularPage() {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h1 className="text-[22px] font-extrabold italic leading-[55px] tracking-[-2px] text-gray-900 md:text-3xl xl:text-4xl">
+            <h1 className="text-[19px] font-extrabold italic leading-[55px] tracking-[-2px] text-gray-900 min-[375px]:text-[22px] min-[425px]:text-[26px] md:text-3xl xl:text-4xl">
               TEMPORADA <span className='ml-2'>REGULAR</span>
             </h1>
             <button

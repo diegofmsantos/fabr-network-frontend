@@ -31,13 +31,14 @@ export default function WildCardPage() {
   return (
     <div>
       <div className="xl:ml-60 2xl:ml-[550px] absolute">
-        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-6 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
+        <div className="w-full border-black bg-[#ECECEC] border-b mt-20 px-3 xl:w-[900px] md:h-14 md:pt-2 xl:ml-[170px] fixed z-50 xl:h-28 xl:pt-12 xl:mt-0">
           <div className="flex items-center justify-between gap-2">
             <button className={`p-1 hover:bg-gray-100 rounded-md transition-colors ${!navigation.prev ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.prev && router.push(navigation.prev.path)} disabled={!navigation.prev}>
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h1 className="text-[16px] min-[375px]:text-xl min-[375px]:h-16 min-[375px]:pt-4 min-[425px]:text-[23px] font-extrabold italic leading-[55px] tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">WILD CARD DE CONFERÊNCIA</h1>
+            <h1 className="text-[18px] min-[375px]:text-xl min-[375px]:h-16 min-[375px]:pt-4 min-[425px]:text-[23px] font-extrabold italic leading-[55px] 
+            tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">WILD CARD DE CONFERÊNCIA</h1>
             <button className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.next && router.push(navigation.next.path)} disabled={!navigation.next}>
               <ChevronRight className="w-5 h-5" />
@@ -54,7 +55,7 @@ export default function WildCardPage() {
                   <div className={`${conferencia.cor} text-white px-6 py-4 md:text-xl`}>
                     <h2 className="text-lg font-bold">{conferencia.nome || conferencia.tipo}</h2>
                   </div>
-                  <div className="p-3 space-y-4">
+                  <div className="p-1 space-y-4 min-[375px]:p-3">
                     {conferencia.jogos.map((jogo: any, jogoIndex: number) => (
                       <div key={`wild-card-jogo-${jogo.id || jogoIndex}`} className="border rounded-lg p-4 hover:bg-gray-50">
                         <div className="flex items-center justify-center">
@@ -63,7 +64,13 @@ export default function WildCardPage() {
                               <div className="flex flex-col items-center justify-center mb-1 lg:flex-row">
                                 <div className="flex flex-col-reverse items-center justify-center lg:flex-row-reverse">
                                   <span>{jogo.time1}</span>
-                                  <Image src={ImageService.getTeamLogo(jogo.time1)} alt={`Logo ${jogo.time1}`} width={60} height={60} className="rounded lg:mr-4" onError={(e) => ImageService.handleTeamLogoError(e, jogo.time1)} />
+                                  <Image
+                                    src={ImageService.getTeamLogo(jogo.time1)}
+                                    alt={`Logo ${jogo.time1}`}
+                                    width={60}
+                                    height={60}
+                                    className="rounded lg:mr-4"
+                                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.time1)} />
                                 </div>
                                 {jogo.placar1 !== undefined && <div className="text-lg font-bold mt-1 md:text-2xl lg:ml-4">{jogo.placar1}</div>}
                               </div>
@@ -73,7 +80,13 @@ export default function WildCardPage() {
                               <div className="flex flex-col items-center justify-center mb-1 lg:flex-row-reverse">
                                 <div className="flex flex-col-reverse items-center justify-center lg:flex-row">
                                   <span>{jogo.time2}</span>
-                                  <Image src={ImageService.getTeamLogo(jogo.time2)} alt={`Logo ${jogo.time2}`} width={60} height={60} className="rounded lg:ml-4" onError={(e) => ImageService.handleTeamLogoError(e, jogo.time2)} />
+                                  <Image
+                                    src={ImageService.getTeamLogo(jogo.time2)}
+                                    alt={`Logo ${jogo.time2}`}
+                                    width={60}
+                                    height={60}
+                                    className="rounded lg:ml-4"
+                                    onError={(e) => ImageService.handleTeamLogoError(e, jogo.time2)} />
                                 </div>
                                 {jogo.placar2 !== undefined && <div className="text-lg font-bold mt-1 md:text-2xl lg:mr-4">{jogo.placar2}</div>}
                               </div>

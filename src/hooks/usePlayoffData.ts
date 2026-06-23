@@ -4,11 +4,12 @@ import { SuperligaService } from '@/services/superliga.service'
 import { useTemporadaStore } from '@/stores/temporadaStore'
 
 function getConferenciaColor(tipo?: string) {
-  switch (tipo?.toUpperCase()) {
+  switch (tipo?.toUpperCase().replace(/-/g, ' ')) {
     case 'SUDESTE': return 'bg-red-600'
     case 'SUL': return 'bg-cyan-500'
     case 'NORDESTE': return 'bg-orange-500'
-    case 'CENTRO-NORTE': return 'bg-green-600'
+    case 'CENTRO NORTE': return 'bg-green-600'
+    case 'NORTE': return 'bg-red-700'
     default: return 'bg-gray-600'
   }
 }
@@ -158,11 +159,11 @@ export function usePlayoffData(temporada: string) {
               key: confKey,
               nome: getConferenciaNome(conf),
               cor: getConferenciaColor(conf),
-              jogo: null
+              jogos: []
             })
           }
 
-          conferenciasMap.get(confKey).jogo = {
+          conferenciasMap.get(confKey).jogos.push({
             id: jogo.id,
             time1: jogo.timeCasa?.nome || 'A definir',
             time2: jogo.timeVisitante?.nome || 'A definir',
@@ -174,7 +175,7 @@ export function usePlayoffData(temporada: string) {
             vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
               jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
-          }
+          })
         })
 
         return Array.from(conferenciasMap.values())
@@ -186,13 +187,6 @@ export function usePlayoffData(temporada: string) {
         )
 
         console.log('🎯 Semifinais nacionais encontradas:', semifinalJogos.length)
-
-        const jogosComTimes = semifinalJogos.filter((jogo: any) =>
-          jogo.timeCasa?.nome && jogo.timeVisitante?.nome
-        )
-        const jogosSemTimes = semifinalJogos.filter((jogo: any) =>
-          !jogo.timeCasa?.nome || !jogo.timeVisitante?.nome
-        )
 
         return semifinalJogos.map((jogo: any) => ({
           id: jogo.id,
