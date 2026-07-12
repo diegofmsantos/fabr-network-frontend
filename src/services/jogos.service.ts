@@ -14,34 +14,6 @@ interface JogosFilters {
   divisao?: string
 }
 
-interface CreateJogoData {
-  campeonatoId: number
-  timeCasaId: number
-  timeVisitanteId: number
-  dataJogo: string
-  local?: string
-  rodada: number
-  fase: string
-  conferencia?: string
-  regional?: string
-  temporada?: string
-  observacoes?: string
-}
-
-interface UpdateJogoData {
-  dataJogo?: string
-  local?: string
-  observacoes?: string
-  status?: string
-}
-
-interface AtualizarResultadoData {
-  placarCasa: number
-  placarVisitante: number
-  status?: string
-  observacoes?: string
-}
-
 export class JogosService extends BaseService {
 
 
@@ -111,76 +83,4 @@ export class JogosService extends BaseService {
     return service.get<Jogo[]>(`/superliga/${temporada}/ultimos-resultados`, { limite })
   }
 
-  static async criarJogo(dados: CreateJogoData): Promise<Jogo> {
-    const service = new JogosService()
-    return service.post<Jogo>('/admin/jogos', dados)
-  }
-
-  static async atualizarJogo(id: number, dados: UpdateJogoData): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put<Jogo>(`/admin/jogos/${id}`, dados)
-  }
-
-  static async deletarJogo(id: number): Promise<void> {
-    const service = new JogosService()
-    return service.delete(`/admin/jogos/${id}`)
-  }
-
-  static async atualizarResultado(
-    id: number,
-    dados: AtualizarResultadoData
-  ): Promise<{ message: string; jogo: Jogo }> {
-    const service = new JogosService()
-    return service.put(`/admin/jogos/${id}/resultado`, dados)
-  }
-
-  static async finalizarJogo(id: number): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put<Jogo>(`/admin/jogos/${id}/finalizar`, {})
-  }
-
-  static async adiarJogo(id: number, novaData?: string): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put<Jogo>(`/admin/jogos/${id}/adiar`, { novaData })
-  }
-
-  static async iniciarJogo(id: number): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put<Jogo>(`/admin/jogos/${id}/iniciar`, {})
-  }
-
-  static async getEstatisticasJogo(id: number): Promise<any[]> {
-    const service = new JogosService()
-    return service.get(`/admin/jogos/${id}/estatisticas`)
-  }
-
-  static async importarEstatisticas(
-    jogoId: number,
-    arquivo: File,
-    dataJogo: string
-  ): Promise<any> {
-    const service = new JogosService()
-    return service.upload('/admin/atualizar-estatisticas', arquivo, {
-      id_jogo: jogoId.toString(),
-      data_jogo: dataJogo
-    })
-  }
-
-  static async getEstatisticasGerais(filters?: JogosFilters): Promise<{
-    totalJogos: number
-    jogosFinalizados: number
-    jogosAgendados: number
-    jogosAoVivo: number
-    jogosAdiados: number
-    proximosJogos: Jogo[]
-    ultimosResultados: Jogo[]
-  }> {
-    const service = new JogosService()
-    return service.get('/admin/jogos/estatisticas', filters)
-  }
-
-  static async buscarJogos(query: string, filters?: JogosFilters): Promise<Jogo[]> {
-    const service = new JogosService()
-    return service.get('/admin/jogos/buscar', { ...filters, query })
-  }
 }

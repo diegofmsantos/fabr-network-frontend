@@ -36,35 +36,4 @@ export class BaseService {
     return response.data
   }
 
-  protected async post<T>(url: string, data?: any): Promise<T> {
-    const response = await this.api.post<T>(url, data)
-    return response.data
-  }
-
-  protected async put<T>(url: string, data?: any): Promise<T> {
-    const response = await this.api.put<T>(url, data)
-    return response.data
-  }
-
-  protected async delete<T>(url: string): Promise<T> {
-    const response = await this.api.delete<T>(url)
-    return response.data
-  }
-
-  protected async upload<T>(url: string, file: File, additionalData?: Record<string, any>): Promise<T> {
-    const formData = new FormData()
-    formData.append('arquivo', file)
-    
-    if (additionalData) {
-      Object.entries(additionalData).forEach(([key, value]) => {
-        formData.append(key, String(value))
-      })
-    }
-
-    const response = await this.api.post<T>(url, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-    
-    return response.data
-  }
 }

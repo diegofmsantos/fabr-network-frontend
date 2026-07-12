@@ -1,9 +1,8 @@
 "use client"
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import { BaseService } from '@/services/base.service'
 import { queryKeys } from './queryKeys'
-import { useNotifications } from './useNotifications'
 import { useTemporadaStore } from '@/stores/temporadaStore'
 
 interface JogosFilters {
@@ -140,41 +139,6 @@ class JogosService extends BaseService {
     const service = new JogosService()
     return service.get<Jogo>(`/admin/jogos/${id}`)
   }
-
-  static async atualizarResultado(id: number, dados: {
-    placarCasa: number
-    placarVisitante: number
-    status?: string
-    observacoes?: string
-  }): Promise<{ message: string; jogo: Jogo }> {
-    const service = new JogosService()
-    return service.put(`/admin/jogos/${id}/resultado`, dados)
-  }
-
-  static async finalizarJogo(id: number): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put(`/admin/jogos/${id}/finalizar`, {})
-  }
-
-  static async adiarJogo(id: number, novaData?: string): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put(`/admin/jogos/${id}/adiar`, { novaData })
-  }
-
-  static async criarJogo(dados: Partial<Jogo>): Promise<Jogo> {
-    const service = new JogosService()
-    return service.post('/admin/jogos', dados)
-  }
-
-  static async atualizarJogo(id: number, dados: Partial<Jogo>): Promise<Jogo> {
-    const service = new JogosService()
-    return service.put(`/admin/jogos/${id}`, dados)
-  }
-
-  static async deletarJogo(id: number): Promise<void> {
-    const service = new JogosService()
-    return service.delete(`/admin/jogos/${id}`)
-  }
 }
 
 
@@ -228,181 +192,6 @@ export function useJogosSuperliga(temporada: string, filters?: Omit<JogosFilters
   })
 }
 
-export function useAtualizarResultadoJogo() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: ({
-      id,
-      dados
-    }: {
-      id: number,
-      dados: {
-        placarCasa: number
-        placarVisitante: number
-        status?: string
-        observacoes?: string
-      }
-    }) => JogosService.atualizarResultado(id, dados),
-    onSuccess: (result, { id }) => {
-      queryClient.setQueryData(queryKeys.jogos.detail(id), result.jogo)
-
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.jogos.lists()
-      })
-
-      if (result.jogo.temporada) {
-        queryClient.invalidateQueries({
-          queryKey: ['superliga', result.jogo.temporada]
-        })
-      }
-
-      notifications.success('Resultado atualizado!', 'Placar do jogo foi salvo com sucesso')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao atualizar resultado', error.message || 'Tente novamente')
-    }
-  })
-}
-
-export function useFinalizarJogo() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: (jogoId: number) => JogosService.finalizarJogo(jogoId),
-    onSuccess: (updatedJogo) => {
-      queryClient.setQueryData(queryKeys.jogos.detail(updatedJogo.id), updatedJogo)
-
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.jogos.lists()
-      })
-
-      if (updatedJogo.temporada) {
-        queryClient.invalidateQueries({
-          queryKey: ['superliga', updatedJogo.temporada]
-        })
-      }
-
-      notifications.success('Jogo finalizado!', 'Jogo foi marcado como finalizado')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao finalizar jogo', error.message || 'Tente novamente')
-    },
-  })
-}
-
-export function useAdiarJogo() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: ({ jogoId, novaData }: { jogoId: number; novaData?: string }) =>
-      JogosService.adiarJogo(jogoId, novaData),
-    onSuccess: (updatedJogo) => {
-      queryClient.setQueryData(queryKeys.jogos.detail(updatedJogo.id), updatedJogo)
-
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.jogos.lists()
-      })
-
-      if (updatedJogo.temporada) {
-        queryClient.invalidateQueries({
-          queryKey: ['superliga', updatedJogo.temporada]
-        })
-      }
-
-      notifications.success('Jogo adiado!', 'Jogo foi adiado com sucesso')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao adiar jogo', error.message || 'Tente novamente')
-    },
-  })
-}
-
-export function useCriarJogo() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: (dados: Partial<Jogo>) => JogosService.criarJogo(dados),
-    onSuccess: (newJogo) => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.jogos.lists()
-      })
-
-      queryClient.setQueryData(queryKeys.jogos.detail(newJogo.id), newJogo)
-
-      if (newJogo.temporada) {
-        queryClient.invalidateQueries({
-          queryKey: ['superliga', newJogo.temporada]
-        })
-      }
-
-      notifications.success('Jogo criado!', 'Jogo foi criado com sucesso')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao criar jogo', error.message || 'Tente novamente')
-    },
-  })
-}
-
-export function useAtualizarJogo() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: ({ id, dados }: { id: number; dados: Partial<Jogo> }) =>
-      JogosService.atualizarJogo(id, dados),
-    onSuccess: (updatedJogo, { id }) => {
-      queryClient.setQueryData(queryKeys.jogos.detail(id), updatedJogo)
-
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.jogos.lists()
-      })
-
-      if (updatedJogo.temporada) {
-        queryClient.invalidateQueries({
-          queryKey: ['superliga', updatedJogo.temporada]
-        })
-      }
-
-      notifications.success('Jogo atualizado!', 'Jogo foi atualizado com sucesso')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao atualizar jogo', error.message || 'Tente novamente')
-    },
-  })
-}
-
-export function useDeletarJogo() {
-  const queryClient = useQueryClient()
-  const notifications = useNotifications()
-
-  return useMutation({
-    mutationFn: (id: number) => JogosService.deletarJogo(id),
-    onSuccess: (_, id) => {
-      queryClient.removeQueries({
-        queryKey: queryKeys.jogos.detail(id)
-      })
-
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.jogos.lists()
-      })
-
-      queryClient.invalidateQueries({
-        queryKey: ['superliga']
-      })
-
-      notifications.success('Jogo removido!', 'Jogo foi excluído com sucesso')
-    },
-    onError: (error: any) => {
-      notifications.error('Erro ao remover jogo', error.message || 'Tente novamente')
-    },
-  })
-}
-
 export function useEstatisticasJogos(filters?: JogosFilters) {
   const { data: jogos = [] } = useJogos(filters)
 
@@ -420,7 +209,3 @@ export function useEstatisticasJogos(filters?: JogosFilters) {
       .sort((a, b) => new Date(b.dataJogo).getTime() - new Date(a.dataJogo).getTime())[0]
   }
 }
-
-export const useUpdateJogo = useAtualizarJogo
-export const useDeleteJogo = useDeletarJogo
-export const useCreateJogo = useCriarJogo

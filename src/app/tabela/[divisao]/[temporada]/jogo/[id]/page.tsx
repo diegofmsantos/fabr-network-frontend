@@ -75,7 +75,7 @@ type TabType = 'ESTATISTICAS' | 'PLAYBYPLAY' | 'MELHORES_MOMENTOS'
 export default function JogoDetalhesPage() {
   const params = useParams()
   const router = useRouter()
-  const jogoId = parseInt(params.jogoId as string)
+  const jogoId = parseInt(params.id as string)
   const temporada = params.temporada as string
 
   const [activeTab, setActiveTab] = useState<TabType>('ESTATISTICAS')
@@ -97,7 +97,7 @@ export default function JogoDetalhesPage() {
     }
 
     const consolidarPorTime = (timeId: number) => {
-      const estatisticasTime = jogo.estatisticas?.filter(e => e.timeId === timeId) || []
+      const estatisticasTime = jogo.estatisticas?.filter((e: any) => e.timeId === timeId) || []
 
       const consolidado: any = {
         passe: {},
@@ -109,7 +109,7 @@ export default function JogoDetalhesPage() {
         retorno: {}
       }
 
-      estatisticasTime.forEach(est => {
+      estatisticasTime.forEach((est: any) => {
         const stats = est.estatisticas
 
         Object.keys(stats).forEach(categoria => {

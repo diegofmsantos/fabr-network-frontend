@@ -15,25 +15,6 @@ export class TimesService extends BaseService {
     return service.get<Time>(`/times/${id}`)
   }
 
-  static async createTime(time: Omit<Time, 'id'>): Promise<Time> {
-    const service = new TimesService()
-    const timeData = {
-      ...time,
-      temporada: time.temporada || '2025'
-    }
-    return service.post<Time>('/times', timeData)
-  }
-
-  static async updateTime(id: number, time: Partial<Time>): Promise<Time> {
-    const service = new TimesService()
-    return service.put<Time>(`/times/${id}`, time)
-  }
-
-  static async deleteTime(id: number): Promise<void> {
-    const service = new TimesService()
-    return service.delete(`/times/${id}`)
-  }
-
   static async getTimeJogadores(timeId: number, temporada?: string): Promise<Jogador[]> {
     const service = new TimesService()
     const params = temporada ? { temporada } : {}
