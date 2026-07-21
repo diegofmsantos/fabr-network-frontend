@@ -140,7 +140,7 @@ const QuadroRodadas = ({
                     const [ano, mes, dia] = datePart.split('-')
                     const hora = timePart ? timePart.substring(0, 5) : null
                     return hora && hora !== '00:00'
-                      ? `${dia}/${mes}/${ano} às ${hora}`
+                      ? `${dia}/${mes}/${ano} às ${hora}h`
                       : `${dia}/${mes}/${ano}`
                   })()}
                 </div>
