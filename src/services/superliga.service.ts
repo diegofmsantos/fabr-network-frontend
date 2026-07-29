@@ -149,4 +149,9 @@ export class SuperligaService extends BaseService {
     return service.get<any>(`/superliga/jogo/${jogoId}`)
   }
 
+  static async getJogosPeriodo(inicio: string, fim: string): Promise<{ jogos: any[]; total: number }> {
+    const service = new SuperligaService()
+    return service.get(`/superliga/jogos-periodo`, { inicio, fim })
+  }
+
 }

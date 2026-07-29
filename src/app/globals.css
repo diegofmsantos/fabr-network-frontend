@@ -108,3 +108,30 @@ body {
   display: block;
   margin: 1rem auto;
 }
+
+/* Indicador "Ao Vivo" piscando (vermelho/verde) enquanto há jogos rolando no fim de semana */
+@keyframes live-blink {
+  0%, 49% {
+    color: #DC2626;
+  }
+  50%, 100% {
+    color: #63E300;
+  }
+}
+
+@keyframes live-blink-bg {
+  0%, 49% {
+    background-color: #DC2626;
+  }
+  50%, 100% {
+    background-color: #63E300;
+  }
+}
+
+.animate-live-blink {
+  animation: live-blink 1s steps(1) infinite;
+}
+
+.animate-live-blink-bg {
+  animation: live-blink-bg 1s steps(1) infinite;
+}

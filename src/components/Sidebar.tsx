@@ -16,6 +16,7 @@ import { usePathname } from 'next/navigation'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { useTemporadaStore } from '@/stores/temporadaStore'
 import { TemporadaSelector } from '@/components/ui/TemporadaSelector'
+import { useJanelaAoVivo } from '@/hooks/useJanelaAoVivo'
 
 interface SidebarProps {
     className?: string
@@ -29,6 +30,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const temporada = useTemporadaStore((s) => s.temporada)
     const divisao = useTemporadaStore((s) => s.divisao)
     const hasHydrated = useTemporadaStore((s) => s.hasHydrated)
+    const { isLive } = useJanelaAoVivo()
 
     // URL base da tabela baseada na liga ativa
     const divSlug = (hasHydrated ? divisao : 'D1').toLowerCase()
@@ -44,6 +46,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
             if (!expandedItems.includes('compare')) setExpandedItems(prev => [...prev, 'compare'])
         } else if (pathname?.includes('/noticia')) {
             setActiveItem('noticias')
+        } else if (pathname?.includes('/ao-vivo')) {
+            setActiveItem('ao-vivo')
         } else if (pathname?.includes('/mercado')) {
             setActiveItem('mercado')
         } else if (pathname?.includes('/tabela')) {
@@ -166,10 +170,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
 
                 <Link
                     href="/noticias"
-                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center 
+                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center
             transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'noticias' ? 'bg-[#373740] text-[#63E300]' : 'text-white'}`}
                 >
                     Notícias
+                </Link>
+
+                <Link
+                    href="/ao-vivo"
+                    className={`text-xl uppercase font-extrabold italic tracking-[-1px] py-2 px-6 rounded-lg flex items-center gap-2
+            transition-colors duration-300 hover:bg-[#373740] ${activeItem === 'ao-vivo' ? 'bg-[#373740]' : ''} ${isLive ? 'animate-live-blink' : activeItem === 'ao-vivo' ? 'text-[#63E300]' : 'text-white'}`}
+                >
+                    {isLive && <span className="w-2.5 h-2.5 rounded-full animate-live-blink-bg" />}
+                    Ao Vivo
                 </Link>
 
                 <Link

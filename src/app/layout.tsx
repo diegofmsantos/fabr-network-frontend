@@ -81,14 +81,14 @@ export default function RootLayout({
           </Link>
           <TemporadaSelector />
         </header>
-        <Sidebar />
         <QueryProvider>
+          <Sidebar />
           <Suspense fallback={<div></div>}>
             {children}
           </Suspense>
+          <Tab />
         </QueryProvider>
         <Analytics />
-        <Tab />
       </body>
     </html>
   )

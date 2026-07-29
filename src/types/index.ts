@@ -328,6 +328,7 @@ export interface Materia extends BaseEntity {
   texto: string
   autor: string
   autorImage: string
+  tipo: 'NORMAL' | 'AO_VIVO'
   createdAt: string
   updatedAt: string
 }

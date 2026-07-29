@@ -8,9 +8,11 @@ import { createSlug } from '@/utils/helpers/formatUrl'
 
 export default function NoticiasPage() {
     const {
-        data: noticias = [],
+        data: todasNoticias = [],
         isLoading: loading
     } = useNoticias()
+
+    const noticias = todasNoticias.filter(n => n.tipo !== 'AO_VIVO')
 
     if (loading) {
         return (
@@ -21,7 +23,7 @@ export default function NoticiasPage() {
     }
 
     return (
-        <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:mr-12 2xl:mr-60 xl:pt-0">
+        <div className="bg-[#ECECEC] min-h-screen pb-20 pt-4 lg:pt-6 max-w-[900px] mx-auto xl:ml-96 xl:mr-4 2xl:ml-[550px] 2xl:mr-20 xl:pt-0">
             <div className="mx-auto max-w-7xl px-4 mt-20 mb-10">
                 <div className="grid grid-cols-1 gap-6">
                     {noticias.map((noticia) => (

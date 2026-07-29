@@ -156,8 +156,23 @@ export function usePlayerDetails(
     });
 }
 
+export function useNoticiaAoVivo() {
+    const { data: noticias = [], isLoading } = useNoticias()
+
+    const noticiaAoVivo = [...noticias]
+        .filter(n => n.tipo === 'AO_VIVO')
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+
+    return {
+        data: noticiaAoVivo,
+        noticias,
+        isLoading
+    }
+}
+
 export function useNoticiaDetalhes(id: number) {
-    const { data: noticias = [], isLoading: noticiasLoading } = useNoticias()
+    const { data: todasNoticias = [], isLoading: noticiasLoading } = useNoticias()
+    const noticias = todasNoticias.filter(n => n.tipo !== 'AO_VIVO')
 
     return useQuery({
         queryKey: [...queryKeys.materias.detail(id), 'with-all'],
