@@ -6,12 +6,12 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Radio } from "lucide-react"
 import { useTemporadaStore } from '@/stores/temporadaStore'
-import { useJanelaAoVivo } from '@/hooks/useJanelaAoVivo'
+import { useJanelaRedzone } from '@/hooks/useJanelaRedzone'
 
 export const Tab = () => {
   const pathname = usePathname()
   const [isAboutOpen, setIsAboutOpen] = useState(false)
-  const { isLive } = useJanelaAoVivo()
+  const { isLive } = useJanelaRedzone()
 
   const temporada = useTemporadaStore((s) => s.temporada)
   const divisao = useTemporadaStore((s) => s.divisao)
@@ -27,7 +27,7 @@ export const Tab = () => {
   const isCompararRoute = pathname.includes("/compare")
   const isMercadoRoute = pathname.includes("/mercado")
   const isNoticiasRoute = pathname.includes("/noticias")
-  const isAoVivoRoute = pathname.includes("/ao-vivo")
+  const isRedzoneRoute = pathname.includes("/redzone")
 
   return (
     <>
@@ -68,10 +68,10 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Notícias</span>
                 </div>
               </Link>
-              <Link href="/ao-vivo" className="flex-none">
-                <div className={`flex flex-col items-center px-3 py-3 ${isLive ? 'animate-live-blink' : isAoVivoRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+              <Link href="/redzone" className="flex-none">
+                <div className={`flex flex-col items-center px-3 py-3 ${isLive ? 'animate-live-blink' : isRedzoneRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Radio size={25} className={isLive ? 'animate-live-blink' : ''} />
-                  <span className="text-[12px] whitespace-nowrap">Ao Vivo</span>
+                  <span className="text-[12px] whitespace-nowrap">Redzone</span>
                 </div>
               </Link>
               <Link href="/mercado" className="flex-none">

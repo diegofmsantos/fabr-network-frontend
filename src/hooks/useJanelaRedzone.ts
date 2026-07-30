@@ -40,10 +40,10 @@ function calcularFimDeSemanaAlvo(agoraEpocaBrasil: number) {
 }
 
 /**
- * Calcula se estamos dentro da janela "ao vivo" do fim de semana atual:
+ * Calcula se estamos dentro da janela "Redzone" do fim de semana atual:
  * do início do primeiro jogo de sábado até 3h após o último jogo do fim de semana.
  */
-export function useJanelaAoVivo() {
+export function useJanelaRedzone() {
     const [agoraReal, setAgoraReal] = useState(() => Date.now())
 
     useEffect(() => {
@@ -55,7 +55,7 @@ export function useJanelaAoVivo() {
     const { inicio, fim } = calcularFimDeSemanaAlvo(agoraEpocaBrasil)
 
     const { data } = useQuery({
-        queryKey: ['jogos-periodo-ao-vivo', inicio.toISOString(), fim.toISOString()],
+        queryKey: ['jogos-periodo-redzone', inicio.toISOString(), fim.toISOString()],
         queryFn: () => SuperligaService.getJogosPeriodo(inicio.toISOString(), fim.toISOString()),
         staleTime: 1000 * 60 * 10,
         refetchInterval: 1000 * 60 * 10,

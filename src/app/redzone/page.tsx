@@ -5,10 +5,10 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useNoticiaAoVivo } from '@/hooks/queries'
+import { useNoticiaRedzone } from '@/hooks/queries'
 
-export default function AoVivoPage() {
-  const { data: noticia, isLoading } = useNoticiaAoVivo()
+export default function RedzonePage() {
+  const { data: noticia, isLoading } = useNoticiaRedzone()
 
   if (isLoading) {
     return (
@@ -36,7 +36,7 @@ export default function AoVivoPage() {
   }
 
   return (
-    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:ml-96 xl:mr-12 2xl:ml-[550px] 2xl:mr-20 2xl:max-w-[1000px]">
+    <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:ml-96 xl:mr-12 2xl:ml-[600px] 2xl:mr-20 2xl:max-w-[1000px]">
       <Link
         href={`/`}
         className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-300/40 z-50 xl:left-[380px] 2xl:left-[550px]'

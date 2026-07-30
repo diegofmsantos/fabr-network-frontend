@@ -109,7 +109,7 @@ body {
   margin: 1rem auto;
 }
 
-/* Indicador "Ao Vivo" piscando (vermelho/verde) enquanto há jogos rolando no fim de semana */
+/* Indicador "Redzone" piscando (vermelho/verde) enquanto há jogos rolando no fim de semana */
 @keyframes live-blink {
   0%, 49% {
     color: #DC2626;

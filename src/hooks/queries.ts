@@ -156,15 +156,15 @@ export function usePlayerDetails(
     });
 }
 
-export function useNoticiaAoVivo() {
+export function useNoticiaRedzone() {
     const { data: noticias = [], isLoading } = useNoticias()
 
-    const noticiaAoVivo = [...noticias]
-        .filter(n => n.tipo === 'AO_VIVO')
+    const noticiaRedzone = [...noticias]
+        .filter(n => n.tipo === 'REDZONE')
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
 
     return {
-        data: noticiaAoVivo,
+        data: noticiaRedzone,
         noticias,
         isLoading
     }
@@ -172,7 +172,7 @@ export function useNoticiaAoVivo() {
 
 export function useNoticiaDetalhes(id: number) {
     const { data: todasNoticias = [], isLoading: noticiasLoading } = useNoticias()
-    const noticias = todasNoticias.filter(n => n.tipo !== 'AO_VIVO')
+    const noticias = todasNoticias.filter(n => n.tipo !== 'REDZONE')
 
     return useQuery({
         queryKey: [...queryKeys.materias.detail(id), 'with-all'],
