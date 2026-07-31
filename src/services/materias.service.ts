@@ -6,4 +6,9 @@ export class MateriasService extends BaseService {
     const service = new MateriasService()
     return service.get<Materia[]>('/materias')
   }
+
+  static async getMateria(id: number): Promise<Materia> {
+    const service = new MateriasService()
+    return service.get<Materia>(`/materias/${id}`)
+  }
 }

@@ -110,7 +110,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                         alt={`Camisa`}
                         className="object-contain"
                         priority
-                        quality={100}
+                        quality={85}
                         onError={(e) => ImageService.handlePlayerShirtError(e, player.team, player.camisa)}
                       />
                     </div>

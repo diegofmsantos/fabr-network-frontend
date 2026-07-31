@@ -125,7 +125,7 @@ export const BannerImage: React.FC<BannerImageProps> = ({ bannerCode, type, widt
       width={width}
       height={height}
       className={className}
-      quality={100}
+      quality={85}
     />
   );
 };

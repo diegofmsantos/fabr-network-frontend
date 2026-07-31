@@ -156,37 +156,48 @@ export function usePlayerDetails(
     });
 }
 
-export function useNoticiaRedzone() {
-    const { data: noticias = [], isLoading } = useNoticias()
+/**
+ * A listagem (`useNoticias`) só traz campos leves (sem o corpo `texto` do artigo,
+ * que pode ter várias centenas de KB por causa de imagens). Esse hook busca o
+ * registro completo de UMA matéria por vez, só quando a página realmente precisa
+ * renderizar o corpo do artigo.
+ */
+export function useMateriaCompleta(id: number | undefined) {
+    return useQuery({
+        queryKey: id ? queryKeys.materias.detail(id) : [...queryKeys.materias.all, 'detail', 'disabled'],
+        queryFn: () => MateriasService.getMateria(id as number),
+        enabled: !!id,
+        staleTime: 1000 * 60 * 10,
+    })
+}
 
-    const noticiaRedzone = [...noticias]
+export function useNoticiaRedzone() {
+    const { data: noticias = [], isLoading: listaLoading } = useNoticias()
+
+    const resumoRedzone = [...noticias]
         .filter(n => n.tipo === 'REDZONE')
         .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
 
+    const { data: noticiaCompleta, isLoading: completaLoading } = useMateriaCompleta(resumoRedzone?.id)
+
     return {
-        data: noticiaRedzone,
+        data: noticiaCompleta,
         noticias,
-        isLoading
+        isLoading: listaLoading || (!!resumoRedzone && completaLoading)
     }
 }
 
 export function useNoticiaDetalhes(id: number) {
     const { data: todasNoticias = [], isLoading: noticiasLoading } = useNoticias()
     const noticias = todasNoticias.filter(n => n.tipo !== 'REDZONE')
+    const existeNaListaPublica = noticias.some(n => n.id === id)
 
-    return useQuery({
-        queryKey: [...queryKeys.materias.detail(id), 'with-all'],
-        queryFn: async () => {
-            const noticia = noticias.find(n => n.id === id)
-            if (!noticia) {
-                throw new Error('Notícia não encontrada')
-            }
-            return {
-                noticia,
-                noticias
-            }
-        },
-        enabled: !!id && noticias.length > 0,
-        staleTime: 1000 * 60 * 10,
-    })
+    const { data: noticiaCompleta, isLoading: completaLoading } = useMateriaCompleta(
+        existeNaListaPublica ? id : undefined
+    )
+
+    return {
+        data: noticiaCompleta ? { noticia: noticiaCompleta, noticias } : undefined,
+        isLoading: noticiasLoading || (existeNaListaPublica && completaLoading)
+    }
 }

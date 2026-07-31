@@ -47,7 +47,7 @@ export const CurrentTime = ({ currentTeam }: Props) => {
                                 {currentTeam.cidade?.toUpperCase() ?? 'Cidade não disponível'}
                             </div>
                             <div className="w-6 h-4">
-                                <Image src={bandeiraspath} alt="bandeira do estado" width={40} height={20} quality={100} className="w-auto h-auto"/>
+                                <Image src={bandeiraspath} alt="bandeira do estado" width={40} height={20} quality={85} className="w-auto h-auto"/>
                             </div>
                         </div>
                     </div>

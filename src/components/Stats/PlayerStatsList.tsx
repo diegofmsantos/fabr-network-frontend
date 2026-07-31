@@ -138,7 +138,7 @@ const formatStatValue = (value: number | null): string => {
                         alt={`Camisa do ${player.nome}`}
                         className="object-contain"
                         priority
-                        quality={100}
+                        quality={85}
                         loading="eager"
                       />
                     </div>

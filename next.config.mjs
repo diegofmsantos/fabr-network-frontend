@@ -5,8 +5,10 @@ const nextConfig = {
   reactStrictMode: true,
   
   images: {
-    domains: ['assets.vercel.com'],
-    unoptimized: true,
+    remotePatterns: [
+      { protocol: 'https', hostname: 'assets.vercel.com' },
+      { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
+    ],
   },
 };
 

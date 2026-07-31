@@ -108,7 +108,7 @@ export const Jogador = ({ currentTeam, selectedSetor }: Props) => {
                                 width={100}
                                 height={100}
                                 alt="Camisa"
-                                quality={100}
+                                quality={85}
                                 className="w-16 h-20 md:w-20 md:h-24"
 
                             />

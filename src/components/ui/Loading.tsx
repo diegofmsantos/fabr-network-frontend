@@ -20,7 +20,7 @@ export const Loading = () => {
                     alt="Custom Image"
                     width={112} 
                     height={112}
-                    quality={100}
+                    quality={85}
                     className="object-contain"
                 />
             </div>

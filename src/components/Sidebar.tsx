@@ -80,7 +80,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
                         width={200}
                         height={100}
                         priority
-                        quality={100}
+                        quality={85}
                         className="w-auto h-auto"
                     />
                 </Link>

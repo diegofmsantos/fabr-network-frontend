@@ -76,7 +76,7 @@ export default function RootLayout({
               height={95}
               className="w-full h-auto object-contain"
               priority
-              quality={100}
+              quality={85}
             />
           </Link>
           <TemporadaSelector />

@@ -19,7 +19,7 @@ export const SemJogador = () => {
           className="flex items-center gap-2 bg-green-500 text-white px-6 py-2 rounded-full hover:bg-green-600 transition-colors"
         >
           WhatsApp
-          <Image src={`/assets/whatsapp.png`} alt="logo whatsapp" width={20} height={20} quality={100} priority />
+          <Image src={`/assets/whatsapp.png`} alt="logo whatsapp" width={20} height={20} quality={85} priority />
         </Link>
       </div>
     </div>

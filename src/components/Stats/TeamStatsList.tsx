@@ -227,7 +227,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
                       alt={`Capacete do ${team.time.nome}`}
                       className="object-contain"
                       priority
-                      quality={100}
+                      quality={85}
                       onError={(e) => ImageService.handleTeamHelmetError(e, team.time.nome)}
                     />
                   </div>

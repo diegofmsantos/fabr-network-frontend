@@ -257,7 +257,7 @@ export default function Page() {
                                                     alt='logo-bandeira'
                                                     width={40}
                                                     height={40}
-                                                    quality={100}
+                                                    quality={85}
                                                     className="w-auto h-auto"
                                                     onError={(e) => {
                                                         console.warn(`Erro ao carregar bandeira: ${currentJogador.nacionalidade}`);
@@ -273,7 +273,7 @@ export default function Page() {
                                             alt='logo'
                                             width={100}
                                             height={100}
-                                            quality={100}
+                                            quality={85}
                                             priority
                                             onError={(e) => {
                                                 console.warn(`Erro ao carregar logo: ${logoPath}`);
@@ -288,7 +288,7 @@ export default function Page() {
                                         alt={`${currentTime?.nome || ''} camisa`}
                                         width={200}
                                         height={250}
-                                        quality={100}
+                                        quality={85}
                                         className="w-48 h-60 ml-auto"
                                         priority
                                     />

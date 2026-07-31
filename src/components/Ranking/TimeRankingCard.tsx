@@ -111,7 +111,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
                                             alt={`Capacete do ${team.name}`}
                                             className="object-contain"
                                             priority
-                                            quality={100}
+                                            quality={85}
                                             onError={(e) => ImageService.handleTeamHelmetError(e, team.name)}
                                         />
                                     </div>

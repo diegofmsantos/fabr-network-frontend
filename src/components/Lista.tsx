@@ -78,7 +78,7 @@ export const Lista = () => {
                                             alt="Capacete"
                                             width={90}
                                             height={90}
-                                            quality={100}
+                                            quality={85}
                                             priority
                                             className="w-24 h-14 rotate-12 md:h-16 md:mt-2"
                                             style={{ imageRendering: 'crisp-edges', WebkitFontSmoothing: 'antialiased', objectFit: 'contain' }}
@@ -89,7 +89,7 @@ export const Lista = () => {
                                             alt="Logo"
                                             width={35}
                                             height={35}
-                                            quality={100}
+                                            quality={85}
                                             priority
                                             className="md:w-14"
                                             style={{ imageRendering: 'crisp-edges', WebkitFontSmoothing: 'antialiased' }}

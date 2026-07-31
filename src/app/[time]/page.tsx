@@ -152,7 +152,7 @@ export default function Page() {
                   alt="capacete do time"
                   width={160}
                   height={160}
-                  quality={100}
+                  quality={85}
                   style={{ width: '160px', height: '160px', objectFit: 'contain' }}
                   priority
                 />
