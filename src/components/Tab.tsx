@@ -56,6 +56,12 @@ export const Tab = () => {
                   <span className="text-[12px] whitespace-nowrap">Tabela</span>
                 </div>
               </Link>
+              <Link href="/redzone" className="flex-none">
+                <div className={`flex flex-col items-center px-3 py-3 ${isLive ? 'animate-live-blink' : isRedzoneRoute ? "text-[#63E300]" : "text-gray-400"}`}>
+                  <Radio size={25} className={isLive ? 'animate-live-blink' : ''} />
+                  <span className="text-[12px] whitespace-nowrap">Redzone</span>
+                </div>
+              </Link>
               <Link href="/compare" className="flex-none">
                 <div className={`flex flex-col items-center px-3 py-3 ${isCompararRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image src={isCompararRoute ? "/assets/compare.png" : "/assets/compare-2.png"} alt="compare" width={25} height={25} />
@@ -66,12 +72,6 @@ export const Tab = () => {
                 <div className={`flex flex-col items-center px-3 py-3 ${isNoticiasRoute ? "text-[#63E300]" : "text-gray-400"}`}>
                   <Image src={isNoticiasRoute ? "/assets/noticias.png" : "/assets/noticias-2.png"} alt="noticias" width={25} height={25} />
                   <span className="text-[12px] whitespace-nowrap">Notícias</span>
-                </div>
-              </Link>
-              <Link href="/redzone" className="flex-none">
-                <div className={`flex flex-col items-center px-3 py-3 ${isLive ? 'animate-live-blink' : isRedzoneRoute ? "text-[#63E300]" : "text-gray-400"}`}>
-                  <Radio size={25} className={isLive ? 'animate-live-blink' : ''} />
-                  <span className="text-[12px] whitespace-nowrap">Redzone</span>
                 </div>
               </Link>
               <Link href="/mercado" className="flex-none">
