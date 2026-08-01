@@ -23,7 +23,7 @@ export default function RedzonePage() {
       <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:ml-96 xl:mr-12 2xl:ml-[550px] 2xl:mr-20 2xl:max-w-[1000px]">
         <Link
           href={`/`}
-          className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-300/40 z-50 xl:left-[380px] 2xl:left-[550px]'
+          className='hidden xl:flex fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 justify-center items-center bg-gray-300/40 z-50 xl:left-[380px] 2xl:left-[550px]'
         >
           <FontAwesomeIcon icon={faAngleLeft} />
         </Link>
@@ -39,7 +39,7 @@ export default function RedzonePage() {
     <div className="bg-[#ECECEC] min-h-screen pb-16 pt-[83px] max-w-[800px] mx-auto xl:ml-96 xl:mr-12 2xl:ml-[600px] 2xl:mr-20 2xl:max-w-[1000px]">
       <Link
         href={`/`}
-        className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-300/40 z-50 xl:left-[380px] 2xl:left-[550px]'
+        className='hidden xl:flex fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 justify-center items-center bg-gray-300/40 z-50 xl:left-[380px] 2xl:left-[550px]'
       >
         <FontAwesomeIcon icon={faAngleLeft} />
       </Link>
