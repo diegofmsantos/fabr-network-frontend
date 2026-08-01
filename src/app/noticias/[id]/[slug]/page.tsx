@@ -154,10 +154,10 @@ export default function NoticiaDetalhes() {
             className="materia-content prose max-w-none flex flex-col gap-1 [&_a]:text-[#0066cc] [&_a]:underline hover:[&_a]:no-underline [&>p]:mb-2 [&>p]:leading-relaxed [&>strong]:font-bold [&>em]:italic"
             dangerouslySetInnerHTML={{
               __html: noticia.texto
-                .replace(/<p>&nbsp;<\/p>/g, '')
+                .replace(/<p[^>]*>(\s|&nbsp;)*<\/p>/gi, '')
                 .split('\n')
                 .filter((line: string) => line.trim())
-                .map((line: string) => `<p>${line}</p>`)
+                .map((line: string) => /^<p[\s>]/i.test(line.trim()) ? line : `<p>${line}</p>`)
                 .join('')
                 .replace(/&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-fA-F]{1,6});/gi, (match: string) => {
                   const entities: { [key: string]: string } = {
