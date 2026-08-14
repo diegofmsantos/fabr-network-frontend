@@ -661,6 +661,7 @@ export default function Page() {
                         <PlayerGameStatsTable
                             jogadorId={currentJogador?.id || 0}
                             jogadorSetor={currentJogador?.setor || ''}
+                            temporada={selectedTemporada}
                         />
                     </div>
                 </div>

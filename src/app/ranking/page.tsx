@@ -106,6 +106,7 @@ export default function Page() {
                             { key: "fumble_de_passador", title: "FUMBLES " }
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
 
                     <RankingGroup
@@ -118,6 +119,7 @@ export default function Page() {
                             { key: "fumble_de_corredor", title: "FUMBLES" }
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
 
                     <RankingGroup
@@ -130,6 +132,7 @@ export default function Page() {
                             { key: "alvo", title: "ALVOS" },
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
 
                     <RankingGroup
@@ -141,6 +144,7 @@ export default function Page() {
                             { key: "td_retornados", title: "TOUCHDOWNS" },
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
 
                     <RankingGroup
@@ -156,6 +160,7 @@ export default function Page() {
                             { key: "safety", title: "SAFETIES" }
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
 
                     <RankingGroup
@@ -170,6 +175,7 @@ export default function Page() {
                             { key: "tentativas_de_xp", title: "XP TENTADOS" },
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
 
                     <RankingGroup
@@ -180,6 +186,7 @@ export default function Page() {
                             { key: "jardas_de_punt", title: "JARDAS" }
                         ]}
                         players={players}
+                        temporada={temporada}
                     />
                 </div>
             </div>

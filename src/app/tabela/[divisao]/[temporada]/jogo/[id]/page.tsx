@@ -137,11 +137,11 @@ export default function JogoDetalhesPage() {
     return (
       <div className="min-h-screen bg-[#ECECEC] flex items-center justify-center">
         <div className="text-center p-8">
-          <Trophy className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-          <h3 className="text-xl font-bold text-gray-800 mb-2">
+          <Trophy className="w-16 h-16 text-black mx-auto mb-4" />
+          <h3 className="text-xl font-bold text-black mb-2">
             Jogo não encontrado
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-black mb-6">
             Não foi possível carregar os detalhes deste jogo.
           </p>
           <button
@@ -194,7 +194,7 @@ export default function JogoDetalhesPage() {
         <div className="mb-2 relative mt-24 ml-2 xl:mt-0">
           <button
             onClick={() => router.back()}
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors mb-4"
+            className="inline-flex items-center gap-2 text-black hover:text-black transition-colors mb-4"
           >
             <ArrowLeft className="w-5 h-5" />
             <span className="font-medium">Voltar para Tabela</span>
@@ -215,25 +215,25 @@ export default function JogoDetalhesPage() {
                       className="object-contain w-full h-full"
                     />
                   </div>
-                  <h2 className="text-sm md:text-2xl font-bold text-gray-800 tracking-[-1px] italic uppercase max-w-[100px] md:max-w-none">
+                  <h2 className="text-sm md:text-2xl font-bold text-black tracking-[-1px] italic uppercase max-w-[100px] md:max-w-none">
                     {jogo.timeCasa.nome}
                   </h2>
                 </div>
 
                 <div className='flex flex-col items-center flex-shrink-0'>
                   <div className="text-4xl md:text-6xl font-bold italic tracking-[-2px] flex items-center gap-2 md:gap-4">
-                    <span className="text-gray-800">
+                    <span className="text-black">
                       {jogo.placarCasa !== null ? jogo.placarCasa : '-'}
                     </span>
-                    <span className="text-2xl md:text-4xl text-gray-400">X</span>
-                    <span className="text-gray-800">
+                    <span className="text-2xl md:text-4xl text-black">X</span>
+                    <span className="text-black">
                       {jogo.placarVisitante !== null ? jogo.placarVisitante : '-'}
                     </span>
                   </div>
-                  <div className="text-xs md:text-sm text-gray-500 mt-2 uppercase font-semibold">
+                  <div className="text-xs md:text-sm text-black mt-2 uppercase font-semibold">
                     {jogo.status === 'FINALIZADO' ? 'FINAL' : jogo.status}
                   </div>
-                  <div className="text-xs text-gray-400 mt-1 text-center px-2 break-words max-w-[200px] md:max-w-none">
+                  <div className="text-xs text-black mt-1 text-center px-2 break-words max-w-[200px] md:max-w-none">
                     {dataJogoFormatada} • {jogo.local || 'Local não definido'}
                   </div>
                 </div>
@@ -248,7 +248,7 @@ export default function JogoDetalhesPage() {
                       className="object-contain w-full h-full"
                     />
                   </div>
-                  <h2 className="text-sm md:text-2xl font-bold text-gray-800 tracking-[-1px] italic uppercase max-w-[100px] md:max-w-none">
+                  <h2 className="text-sm md:text-2xl font-bold text-black tracking-[-1px] italic uppercase max-w-[100px] md:max-w-none">
                     {jogo.timeVisitante.nome}
                   </h2>
                 </div>
@@ -258,12 +258,12 @@ export default function JogoDetalhesPage() {
         </div>
 
         <div className="bg-white rounded-lg shadow-lg mb-24">
-          <div className="flex border-b border-gray-200">
+          <div className="flex border-b border-black">
             <button
               onClick={() => setActiveTab('ESTATISTICAS')}
               className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'ESTATISTICAS'
                 ? 'bg-[#63E300] text-black'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-black hover:bg-black'
                 }`}
             >
               ESTATÍSTICAS
@@ -272,7 +272,7 @@ export default function JogoDetalhesPage() {
               onClick={() => setActiveTab('PLAYBYPLAY')}
               className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'PLAYBYPLAY'
                 ? 'bg-[#63E300] text-black'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-black hover:bg-black'
                 }`}
             >
               PLAY-BY-PLAY
@@ -281,7 +281,7 @@ export default function JogoDetalhesPage() {
               onClick={() => setActiveTab('MELHORES_MOMENTOS')}
               className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'MELHORES_MOMENTOS'
                 ? 'bg-[#63E300] text-black'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-gray-100 text-black hover:bg-black'
                 }`}
             >
               MELHORES MOMENTOS
@@ -291,7 +291,7 @@ export default function JogoDetalhesPage() {
           <div>
             {activeTab === 'ESTATISTICAS' && (
               <div className="space-y-6">
-                <h3 className="text-xl font-bold text-gray-800 uppercase text-center italic tracking-[-1px] mt-2">Estatísticas do Jogo</h3>
+                <h3 className="text-xl font-bold text-black uppercase text-center italic tracking-[-1px] mt-2">Estatísticas do Jogo</h3>
                 <div>
                   {STATS_CONFIG.map((stat, idx) => {
                     const valorCasa = getStatValue(estatisticasConsolidadas.timeCasa, stat.categoria, stat.statKey)
@@ -317,13 +317,13 @@ export default function JogoDetalhesPage() {
                         key={stat.statKey || idx}
                         className={`flex justify-between items-center py-3 px-2 md:px-4 gap-2 md:gap-4 ${idx % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}
                       >
-                        <div className={`text-xl md:text-2xl lg:text-3xl font-bold italic tracking-[-1px] min-w-[60px] md:min-w-[80px] text-right ${winner === 'casa' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                        <div className={`text-xl md:text-2xl lg:text-3xl font-bold italic tracking-[-1px] min-w-[60px] md:min-w-[80px] text-right ${winner === 'casa' ? 'text-[#63E300]' : 'text-black'}`}>
                           {valorCasaFormatado}
                         </div>
-                        <div className="text-xs md:text-sm lg:text-lg font-semibold text-gray-600 uppercase italic tracking-[-1px] text-center flex-1 min-w-0 px-2">
+                        <div className="text-xs md:text-sm lg:text-lg font-semibold text-black uppercase italic tracking-[-1px] text-center flex-1 min-w-0 px-2">
                           {stat.label}
                         </div>
-                        <div className={`text-xl md:text-2xl lg:text-3xl font-bold italic tracking-[-1px] min-w-[60px] md:min-w-[80px] text-left ${winner === 'visitante' ? 'text-[#63E300]' : 'text-gray-800'}`}>
+                        <div className={`text-xl md:text-2xl lg:text-3xl font-bold italic tracking-[-1px] min-w-[60px] md:min-w-[80px] text-left ${winner === 'visitante' ? 'text-[#63E300]' : 'text-black'}`}>
                           {valorVisitanteFormatado}
                         </div>
                       </div>
@@ -337,15 +337,15 @@ export default function JogoDetalhesPage() {
 
             {activeTab === 'PLAYBYPLAY' && (
               <div className='p-2'>
-                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 italic tracking-[-1px] text-center mt-2">Play-by-Play</h3>
+                <h3 className="text-xl font-bold text-black uppercase mb-4 italic tracking-[-1px] text-center mt-2">Play-by-Play</h3>
                 {jogo.playByPlay && jogo.playByPlay.trim() !== '' ? (
                   <div className="bg-gray-50 rounded-lg p-6 max-h-[600px] overflow-y-auto">
-                    <pre className="whitespace-pre-wrap text-sm text-gray-900 leading-relaxed font-bold">
+                    <pre className="whitespace-pre-wrap text-sm text-black leading-relaxed font-bold">
                       {jogo.playByPlay}
                     </pre>
                   </div>
                 ) : (
-                  <div className="text-center py-12 text-gray-500">
+                  <div className="text-center py-12 text-black">
                     <p className="text-lg font-semibold">Play-by-Play não disponível</p>
                     <p className="text-sm mt-2">As jogadas deste jogo ainda não foram registradas.</p>
                   </div>
@@ -355,7 +355,7 @@ export default function JogoDetalhesPage() {
 
             {activeTab === 'MELHORES_MOMENTOS' && (
               <div className='p-2'>
-                <h3 className="text-xl font-bold text-gray-800 uppercase mb-4 italic tracking-[-1px] text-center mt-2">Melhores Momentos</h3>
+                <h3 className="text-xl font-bold text-black uppercase mb-4 italic tracking-[-1px] text-center mt-2">Melhores Momentos</h3>
                 {jogo.videoUrl && jogo.videoUrl.trim() !== '' ? (
                   <div className="aspect-video rounded-lg overflow-hidden bg-black">
                     <iframe
@@ -370,7 +370,7 @@ export default function JogoDetalhesPage() {
                     />
                   </div>
                 ) : (
-                  <div className="text-center py-12 text-gray-500">
+                  <div className="text-center py-12 text-black">
                     <p className="text-lg font-semibold">Vídeo não disponível</p>
                     <p className="text-sm mt-2">Os melhores momentos deste jogo ainda não foram publicados.</p>
                   </div>

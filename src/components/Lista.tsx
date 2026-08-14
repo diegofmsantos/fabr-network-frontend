@@ -34,9 +34,9 @@ export const Lista = () => {
     }
 
 
-    if (isLoading) return <div className="text-center text-gray-500 pt-56 lg:pt-32"><Loading /></div>
-    if (error) return <div className="text-center text-gray-500 pt-56 lg:pt-32">Erro ao carregar times.</div>
-    if (!times || times.length === 0) return <div className="text-center text-gray-500 pt-56 lg:pt-32">Nenhum time encontrado para a temporada {selectedTemporada}.</div>
+    if (isLoading) return <div className="text-center text-black pt-56 lg:pt-32"><Loading /></div>
+    if (error) return <div className="text-center text-black pt-56 lg:pt-32">Erro ao carregar times.</div>
+    if (!times || times.length === 0) return <div className="text-center text-black pt-56 lg:pt-32">Nenhum time encontrado para a temporada {selectedTemporada}.</div>
 
     return (
         <div className="flex flex-col w-full">

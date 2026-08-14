@@ -51,7 +51,7 @@ export function TemporadaSelector({ className = '' }: Props) {
       aria-label="Selecionar liga e temporada"
       value={valorAtual}
       onChange={handleChange}
-      className={`bg-[#373740] text-white text-sm font-bold italic rounded-md px-3 py-1.5 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-[#63E300] cursor-pointer ${className}`}
+      className={`bg-[#373740] text-white text-sm font-bold italic rounded-md px-3 py-1.5 border border-black focus:outline-none focus:ring-2 focus:ring-[#63E300] cursor-pointer ${className}`}
     >
       {LIGAS_DISPONIVEIS.map((liga) => (
         <option key={liga.label} value={`${liga.divisao}|${liga.temporada}`}>

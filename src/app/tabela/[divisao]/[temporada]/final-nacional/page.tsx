@@ -38,7 +38,7 @@ export default function FinalNacionalPage() {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <h1 className="text-[22px] min-[375px]:text-[26px] min-[375px]:h-16 min-[375px]:pt-2 min-[425px]:text-[28px] font-extrabold italic leading-[55px] 
-            tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">FINAL NACIONAL</h1>
+            tracking-[-2px] text-black md:pt-0 md:h-10 md:text-3xl xl:text-4xl">FINAL NACIONAL</h1>
             <button className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.next && router.push(navigation.next.path)} disabled={!navigation.next}>
               <ChevronRight className="w-5 h-5" />
@@ -48,7 +48,7 @@ export default function FinalNacionalPage() {
         <div className="mt-44 h-full mb-24 ml-3 xl:ml-20">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
             {!finalNacional ? (
-              <div className="text-center py-1 md:ml-40 xl:ml-96"><div className="text-gray-600 text-lg">Final Nacional ainda não definida.</div></div>
+              <div className="text-center py-1 md:ml-40 xl:ml-96"><div className="text-black text-lg">Final Nacional ainda não definida.</div></div>
             ) : (
               <div className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] lg:min-w-[900px] lg:ml-10 xl:ml-20 overflow-hidden">
                 <div className="bg-[#272731] text-white px-6 py-4">
@@ -70,7 +70,7 @@ export default function FinalNacionalPage() {
                       )}
                     </div>
                     <div className="flex flex-col items-center">
-                      <span className="text-gray-400 text-5xl font-bold">×</span>
+                      <span className="text-black text-5xl font-bold">×</span>
                     </div>
                     <div className="flex flex-col items-center gap-3">
                       <Image
@@ -87,9 +87,9 @@ export default function FinalNacionalPage() {
                     </div>
                   </div>
                   <div className="flex flex-col items-center gap-2 mt-6">
-                    {finalNacional.status && <span className={`px-4 py-1 rounded-full text-sm font-bold ${finalNacional.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>{finalNacional.status === 'FINALIZADO' ? '🏆 Finalizado' : finalNacional.status === 'AGENDADO' ? 'Agendado' : finalNacional.status}</span>}
-                    {finalNacional.dataJogo && <span className="text-sm text-gray-500">{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
-                    {finalNacional.local && <span className="text-sm text-gray-500">📍 {finalNacional.local}</span>}
+                    {finalNacional.status && <span className={`px-4 py-1 rounded-full text-sm font-bold ${finalNacional.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-black'}`}>{finalNacional.status === 'FINALIZADO' ? '🏆 Finalizado' : finalNacional.status === 'AGENDADO' ? 'Agendado' : finalNacional.status}</span>}
+                    {finalNacional.dataJogo && <span className="text-sm text-black">{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
+                    {finalNacional.local && <span className="text-sm text-black">📍 {finalNacional.local}</span>}
                     {finalNacional.vencedor && <div className="mt-2 text-lg font-black text-[#63E300]">🏆 Campeão: {finalNacional.vencedor}</div>}
                     {finalNacional.status === 'FINALIZADO' && finalNacional.id && (
                       <Link href={`/tabela/${divisao}/${temporada}/jogo/${finalNacional.id}`} className="text-[10px] text-gray-300 italic uppercase hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg mt-2">Saiba como foi</Link>

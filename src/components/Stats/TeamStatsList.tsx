@@ -185,7 +185,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
       <div className="bg-[#ECECEC] max-w-[1200px] mx-auto">
         <Link
           href={`/ranking/times`}
-          className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-400/40 z-50 xl:left-96 2xl:left-[650px]'
+          className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-black/40 z-50 xl:left-96 2xl:left-[650px]'
         >
           <FontAwesomeIcon icon={faAngleLeft} />
         </Link>
@@ -223,7 +223,7 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
                     <Image
                       src={ImageService.getTeamHelmet(team.time.nome, team.time.capacete)}
                       fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      sizes="200px"
                       alt={`Capacete do ${team.time.nome}`}
                       className="object-contain"
                       priority

@@ -227,7 +227,7 @@ export default function CompararTimesPage() {
                 <div className="mb-8 xl:ml-10">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div className="relative">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-black mb-2">
                                 Primeiro Time
                             </label>
                             <input
@@ -239,11 +239,11 @@ export default function CompararTimesPage() {
                                 }}
                                 onFocus={() => setShowDropdown1(true)}
                                 placeholder={`Buscar time...`}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
+                                className="w-full px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
                             />
 
                             {showDropdown1 && searchTerm1 && timesDropdown1.length > 0 && (
-                                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                <div className="absolute z-10 w-full mt-1 bg-white border border-black rounded-lg shadow-lg max-h-60 overflow-y-auto">
                                     {timesDropdown1.map((time) => (
                                         <button
                                             key={time.id}
@@ -259,7 +259,7 @@ export default function CompararTimesPage() {
                                             />
                                             <div>
                                                 <div className="font-medium">{time.nome}</div>
-                                                <div className="text-sm text-gray-500">
+                                                <div className="text-sm text-black">
                                                     {time.cidade} • {time.sigla}
                                                 </div>
                                             </div>
@@ -270,7 +270,7 @@ export default function CompararTimesPage() {
                         </div>
 
                         <div className="relative">
-                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                            <label className="block text-sm font-medium text-black mb-2">
                                 Segundo Time
                             </label>
                             <input
@@ -282,11 +282,11 @@ export default function CompararTimesPage() {
                                 }}
                                 onFocus={() => setShowDropdown2(true)}
                                 placeholder={`Buscar time...`}
-                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
+                                className="w-full px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#63E300] focus:border-transparent"
                             />
 
                             {showDropdown2 && searchTerm2 && timesDropdown2.length > 0 && (
-                                <div className="absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto">
+                                <div className="absolute z-10 w-full mt-1 bg-white border border-black rounded-lg shadow-lg max-h-60 overflow-y-auto">
                                     {timesDropdown2.map((time) => (
                                         <button
                                             key={time.id}
@@ -302,7 +302,7 @@ export default function CompararTimesPage() {
                                             />
                                             <div>
                                                 <div className="font-medium">{time.nome}</div>
-                                                <div className="text-sm text-gray-500">
+                                                <div className="text-sm text-black">
                                                     {time.cidade} • {time.sigla}
                                                 </div>
                                             </div>
@@ -398,18 +398,18 @@ export default function CompararTimesPage() {
                             <div className="w-full">
                                 <div className="bg-gray-50 p-2 border-b">
                                     <div className='flex justify-between lg:justify-around'>
-                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-black uppercase tracking-wider md:text-lg">
                                             {time1.time.nome}
                                         </div>
-                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-black uppercase tracking-wider md:text-lg">
                                             ESTATÍSTICA
                                         </div>
-                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-gray-900 uppercase tracking-wider md:text-lg">
+                                        <div className=" px-2 py-2 text-center text-[10px] font-bold italic text-black uppercase tracking-wider md:text-lg">
                                             {time2.time.nome}
                                         </div>
                                     </div>
                                 </div>
-                                <div className="bg-white divide-y divide-gray-200">
+                                <div className="bg-white divide-y divide-black">
                                     {STATS_CONFIG.map((stat, index) => {
                                         const valor1 = obterValorEstatistica(time1.time, stat)
                                         const valor2 = obterValorEstatistica(time2.time, stat)
@@ -422,14 +422,14 @@ export default function CompararTimesPage() {
 
                                         return (
                                             <div key={index} className={`flex justify-between items-center py-3 px-4 lg:justify-around ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`}>
-                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-gray-900' : melhor1 ? 'text-[#63E300]' : 'text-black'
+                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-black' : melhor1 ? 'text-[#63E300]' : 'text-black'
                                                     }`}>
                                                     {formatado1}
                                                 </div>
-                                                <div className="text-sm font-semibold text-gray-600 uppercase italic tracking-[-1px] md:text-lg lg:text-center lg:min-w-[300px]">
+                                                <div className="text-sm font-semibold text-black uppercase italic tracking-[-1px] md:text-lg lg:text-center lg:min-w-[300px]">
                                                     {stat.label}
                                                 </div>
-                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-gray-900' : melhor2 ? 'text-[#63E300]' : 'text-black'
+                                                <div className={`text-2xl font-bold italic md:text-3xl tracking-[-1px] ${empate ? 'text-black' : melhor2 ? 'text-[#63E300]' : 'text-black'
                                                     }`}>
                                                     {formatado2}
                                                 </div>
@@ -444,7 +444,7 @@ export default function CompararTimesPage() {
 
                 {(!time1 || !time2) && (
                     <div className="text-center py-12">
-                        <div className="text-gray-500 text-lg">
+                        <div className="text-black text-lg">
                             Selecione dois times para compará-los
                         </div>
                     </div>

@@ -10,7 +10,7 @@ export const useTeamInfo = (times: Time[]) => {
     const team = times.find((t) => t.id === timeId)
     return {
       nome: team?.nome || 'time-desconhecido',
-      cor: team?.cor || '#CCCCCC',
+      cor: team?.cor || '#000000',
     }
   }
 }

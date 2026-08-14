@@ -33,7 +33,7 @@ export const PlayerStatSelect: React.FC<PlayerStatSelectProps> = ({ currentStat 
             <select
                 value={selectedStat}
                 onChange={(e) => handleStatChange(e.target.value)}
-                className="w-full p-2 rounded-md border border-gray-300 bg-white"
+                className="w-full p-2 rounded-md border border-black bg-white"
             >
                 {statGroups.map((group) => (
                     <optgroup key={group.groupLabel} label={group.title}>

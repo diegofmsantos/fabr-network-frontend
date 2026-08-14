@@ -27,7 +27,7 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
       case 'AO VIVO': return 'bg-red-100 text-red-800'
       case 'FINALIZADO': return 'bg-green-100 text-green-800'
       case 'ADIADO': return 'bg-yellow-100 text-yellow-800'
-      default: return 'bg-gray-100 text-gray-800'
+      default: return 'bg-gray-100 text-black'
     }
   }
 
@@ -49,16 +49,16 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
             {onBack && (
               <button
                 onClick={onBack}
-                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+                className="p-2 hover:bg-black rounded-full transition-colors"
               >
                 <ArrowLeft className="w-5 h-5" />
               </button>
             )}
             <div>
-              <h1 className="text-xl font-bold text-gray-900">
+              <h1 className="text-xl font-bold text-black">
                 Detalhes do Jogo
               </h1>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-black">
                 {jogo.rodada}ª Rodada
               </p>
             </div>
@@ -75,11 +75,11 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           <div className="flex items-center gap-3 p-4 bg-blue-50 rounded-lg">
             <Calendar className="w-6 h-6 text-blue-600" />
             <div>
-              <p className="font-medium text-gray-900">Data</p>
-              <p className="text-sm text-gray-600">
+              <p className="font-medium text-black">Data</p>
+              <p className="text-sm text-black">
                 {format(new Date(jogo.dataJogo), "dd 'de' MMMM 'de' yyyy", { locale: ptBR })}
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-black">
                 {format(new Date(jogo.dataJogo), "HH:mm", { locale: ptBR })}
               </p>
             </div>
@@ -89,8 +89,8 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
             <div className="flex items-center gap-3 p-4 bg-green-50 rounded-lg">
               <MapPin className="w-6 h-6 text-green-600" />
               <div>
-                <p className="font-medium text-gray-900">Local</p>
-                <p className="text-sm text-gray-600">{jogo.local}</p>
+                <p className="font-medium text-black">Local</p>
+                <p className="text-sm text-black">{jogo.local}</p>
               </div>
             </div>
           )}
@@ -98,8 +98,8 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           <div className="flex items-center gap-3 p-4 bg-purple-50 rounded-lg">
             <Trophy className="w-6 h-6 text-purple-600" />
             <div>
-              <p className="font-medium text-gray-900">Fase</p>
-              <p className="text-sm text-gray-600">
+              <p className="font-medium text-black">Fase</p>
+              <p className="text-sm text-black">
                 {jogo.fase === 'FASE_GRUPOS' ? 'Fase de Grupos' : jogo.fase}
               </p>
             </div>
@@ -118,10 +118,10 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
                   className="mb-4 rounded-lg"
                   onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeCasa.nome || '')}
                 />
-                <h2 className={`text-xl font-bold mb-2 ${winner === 'casa' ? 'text-green-600' : 'text-gray-900'}`}>
+                <h2 className={`text-xl font-bold mb-2 ${winner === 'casa' ? 'text-green-600' : 'text-black'}`}>
                   {jogo.timeCasa.nome}
                 </h2>
-                <p className="text-sm text-gray-500 uppercase tracking-wide">
+                <p className="text-sm text-black uppercase tracking-wide">
                   {jogo.timeCasa.sigla}
                 </p>
                 {winner === 'casa' && (
@@ -136,19 +136,19 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
             <div className="flex-shrink-0 mx-8">
               <div className="text-center">
                 <div className="flex items-center gap-4">
-                  <div className={`text-6xl font-bold ${winner === 'casa' ? 'text-green-600' : 'text-gray-700'}`}>
+                  <div className={`text-6xl font-bold ${winner === 'casa' ? 'text-green-600' : 'text-black'}`}>
                     {hasScore ? jogo.placarCasa : '-'}
                   </div>
-                  <div className="text-4xl font-light text-gray-400">×</div>
-                  <div className={`text-6xl font-bold ${winner === 'visitante' ? 'text-green-600' : 'text-gray-700'}`}>
+                  <div className="text-4xl font-light text-black">×</div>
+                  <div className={`text-6xl font-bold ${winner === 'visitante' ? 'text-green-600' : 'text-black'}`}>
                     {hasScore ? jogo.placarVisitante : '-'}
                   </div>
                 </div>
                 {isFinished && winner === 'empate' && (
-                  <p className="mt-2 text-sm font-medium text-gray-600">Empate</p>
+                  <p className="mt-2 text-sm font-medium text-black">Empate</p>
                 )}
                 {!isFinished && (
-                  <p className="mt-2 text-sm text-gray-500">
+                  <p className="mt-2 text-sm text-black">
                     {jogo.status === 'AO VIVO' ? 'Em andamento' : 'Aguardando início'}
                   </p>
                 )}
@@ -165,10 +165,10 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
                   className="mb-4 rounded-lg"
                   onError={(e) => ImageService.handleTeamLogoError(e, jogo.timeVisitante.nome || '')}
                 />
-                <h2 className={`text-xl font-bold mb-2 ${winner === 'visitante' ? 'text-green-600' : 'text-gray-900'}`}>
+                <h2 className={`text-xl font-bold mb-2 ${winner === 'visitante' ? 'text-green-600' : 'text-black'}`}>
                   {jogo.timeVisitante.nome}
                 </h2>
-                <p className="text-sm text-gray-500 uppercase tracking-wide">
+                <p className="text-sm text-black uppercase tracking-wide">
                   {jogo.timeVisitante.sigla}
                 </p>
                 {winner === 'visitante' && (
@@ -207,7 +207,7 @@ export const JogoDetalhes: React.FC<JogoDetalhesProps> = ({ jogo, onBack }) => {
           
           <Link
             href={`/campeonatos/${jogo.campeonatoId}`}
-            className="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-2 border border-black text-black rounded-lg hover:bg-gray-50 transition-colors"
           >
             <Trophy className="w-4 h-4" />
             Ver Campeonato

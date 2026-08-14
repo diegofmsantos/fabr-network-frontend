@@ -41,9 +41,9 @@ export default function NoticiasPage() {
                                 <div className="flex flex-col justify-between w-full md:w-3/5 p-4">
                                     <div>
                                         <h2 className="text-xl font-bold mb-2">{noticia.titulo}</h2>
-                                        <p className="text-gray-400">{noticia.subtitulo}</p>
+                                        <p className="text-black">{noticia.subtitulo}</p>
                                     </div>
-                                    <div className="flex justify-between items-center text-sm text-gray-500 mt-4">
+                                    <div className="flex justify-between items-center text-sm text-black mt-4">
                                         <div className="flex items-center gap-3">
                                             <div className="relative w-10 h-10">
                                                 <Image

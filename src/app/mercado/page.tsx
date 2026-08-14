@@ -67,7 +67,7 @@ export default function MercadoPage() {
       <div className="mt-24 flex flex-col gap-4 max-w-7xl mx-auto px-4 lg:mt-24">
 
         {/* Cabeçalho com info da temporada e busca */}
-        <div className="bg-[#272731] rounded-lg p-4 mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="bg-[#000] rounded-lg p-4 mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <p className="text-white font-bold text-lg">Mercado de Transferências</p>
             <p className="text-gray-400 text-sm">
@@ -88,8 +88,8 @@ export default function MercadoPage() {
 
         {timesOrdenados.length === 0 ? (
           <div className="bg-white p-6 rounded-lg shadow-md text-center">
-            <p className="text-gray-500 font-bold text-lg mb-2">Nenhuma transferência encontrada</p>
-            <p className="text-gray-600">
+            <p className="text-black font-bold text-lg mb-2">Nenhuma transferência encontrada</p>
+            <p className="text-black">
               {searchTerm
                 ? `Nenhum resultado para "${searchTerm}".`
                 : `Não há dados de transferências para ${labels.origem} → ${labels.destino}.`}
@@ -100,7 +100,7 @@ export default function MercadoPage() {
             <div key={timeDestino} className="rounded-lg shadow-md overflow-hidden mb-6">
 
               {/* Cabeçalho do time destino */}
-              <div className="bg-[#272731] text-white p-4 flex items-center gap-3">
+              <div className="bg-[#000] text-white p-4 flex items-center gap-3">
                 <Image
                   src={`/assets/times/logos/${transferenciasDoTime[0]?.timeDestinoLogo}`}
                   alt={`${timeDestino} logo`}
@@ -126,11 +126,11 @@ export default function MercadoPage() {
                   >
                     <div className="flex gap-5 justify-between w-full items-center">
                       <div className="ml-4 flex flex-col gap-3">
-                        <div className="text-sm font-semibold text-gray-900 md:text-lg">
+                        <div className="text-sm font-semibold text-black md:text-lg">
                           {transferencia.jogador}{' '}
-                          <span className="text-gray-500 font-normal">({transferencia.posicao})</span>
+                          <span className="text-black font-normal">({transferencia.posicao})</span>
                         </div>
-                        <div className="text-[14px] text-gray-600">
+                        <div className="text-[14px] text-black">
                           {transferencia.timeOrigem} → {transferencia.timeDestino}
                         </div>
                       </div>
@@ -145,12 +145,12 @@ export default function MercadoPage() {
                             className="rounded-full"
                             onError={handleImgError}
                           />
-                          <span className="text-xs text-gray-500 mt-1 md:text-sm">
+                          <span className="text-xs text-black mt-1 md:text-sm">
                             {transferencia.timeOrigem}
                           </span>
                         </div>
 
-                        <FontAwesomeIcon icon={faArrowRight} className="text-gray-400 w-4 h-4" />
+                        <FontAwesomeIcon icon={faArrowRight} className="text-black w-4 h-4" />
 
                         <div className="flex flex-col items-center">
                           <Image
@@ -161,7 +161,7 @@ export default function MercadoPage() {
                             className="rounded-full"
                             onError={handleImgError}
                           />
-                          <span className="text-xs text-gray-500 mt-1 md:text-sm">
+                          <span className="text-xs text-black mt-1 md:text-sm">
                             {transferencia.timeDestino}
                           </span>
                         </div>

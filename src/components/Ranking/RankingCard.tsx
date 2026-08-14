@@ -106,7 +106,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
                       <Image
                         src={ImageService.getPlayerShirt(player.team, player.camisa)}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="200px"
                         alt={`Camisa`}
                         className="object-contain"
                         priority
@@ -140,7 +140,7 @@ export const RankingCard: React.FC<RankingCardProps> = ({ title, category, playe
       {players.length > 0 && (
         <Link
           href={getStatsUrl()}
-          className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3] xl:w-[450px]"
+          className="block text-center border border-black bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3] xl:w-[450px]"
         >
           Ver Mais
         </Link>

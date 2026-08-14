@@ -14,6 +14,7 @@ interface RankingGroupProps {
   title: string;
   stats: { key: StatKey; title: string }[]
   players: Jogador[]
+  temporada: string
 }
 
 const SLIDER_SETTINGS = {
@@ -40,14 +41,14 @@ const SLIDER_SETTINGS = {
   ],
 }
 
-export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players }) => {
-  const { data: times = [], isLoading } = useTimes('2025')
+export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players, temporada }) => {
+  const { data: times = [], isLoading } = useTimes(temporada)
 
   const getTeamInfo = (timeId: number) => {
     const team = times.find((t) => t.id === timeId)
     return {
       nome: team?.nome || 'time-desconhecido',
-      cor: team?.cor || '#CCCCCC',
+      cor: team?.cor || '#000000',
     }
   }
 

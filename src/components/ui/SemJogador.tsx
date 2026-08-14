@@ -7,10 +7,10 @@ export const SemJogador = () => {
       <div className="flex flex-col gap-2 items-center">
         <Image src="/assets/image.png" alt="Aviso" width={80} height={80} className="mb-2" />
         <h2 className="text-md font-bold text-center bg-yellow-300 px-2 py-1 rounded-xl">JOGADORES INDISPONÍVEIS</h2>
-        <p className="text-sm text-center text-gray-600 font-bold leading-tight md:text-lg">
+        <p className="text-sm text-center text-black font-bold leading-tight md:text-lg">
           Se você é atleta deste time,<span className="font-normal"> não seja ejetado da nossa plataforma.</span>
         </p>
-        <p className="text-center text-gray-600 text-sm md:text-lg">
+        <p className="text-center text-black text-sm md:text-lg">
           <span className="font-bold">Fale conosco</span> para realizarmos a sua <span className="font-bold">coleta de dados</span> e tenha a sua falta declinada.
         </p>
         <Link

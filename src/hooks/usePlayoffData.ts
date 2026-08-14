@@ -10,7 +10,7 @@ function getConferenciaColor(tipo?: string) {
     case 'NORDESTE': return 'bg-orange-500'
     case 'CENTRO NORTE': return 'bg-green-600'
     case 'NORTE': return 'bg-red-700'
-    default: return 'bg-gray-600'
+    default: return 'bg-black'
   }
 }
 

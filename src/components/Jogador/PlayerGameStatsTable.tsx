@@ -12,6 +12,7 @@ import { formatJardas } from '@/utils/services/FormatterService'
 interface PlayerGameStatsTableProps {
   jogadorId: number
   jogadorSetor: string
+  temporada: string
 }
 
 interface ColumnConfig {
@@ -33,17 +34,10 @@ interface GameStatsRow {
 
 export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
   jogadorId,
-  jogadorSetor
+  jogadorSetor,
+  temporada
 }) => {
-  const { data: estatisticasJogo = [], isLoading, error } = useJogosJogador(jogadorId, '2025')
-
-  console.log('🔍 [PlayerGameStatsTable] Debug:', {
-    jogadorId,
-    estatisticasJogo: estatisticasJogo.length,
-    primeiraEstatistica: estatisticasJogo[0],
-    isLoading,
-    error
-  })
+  const { data: estatisticasJogo = [], isLoading, error } = useJogosJogador(jogadorId, temporada)
 
   const allColumns: ColumnConfig[] = [
     {
@@ -187,7 +181,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
   if (isLoading) {
     return (
       <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
+        <h3 className="text-xl font-bold text-black mb-4">Estatísticas Jogo a Jogo</h3>
         <Loading />
       </div>
     )
@@ -197,8 +191,8 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
     console.error('🚨 Erro ao carregar estatísticas do jogador:', error)
     return (
       <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <div className="text-center text-gray-600 py-8">
+        <h3 className="text-xl font-bold text-black mb-4">Estatísticas Jogo a Jogo</h3>
+        <div className="text-center text-black py-8">
           <p>📊 Estatísticas de jogos ainda não disponíveis.</p>
           <p className="text-sm mt-2">Os dados aparecerão após a importação dos resultados e estatísticas dos jogos.</p>
         </div>
@@ -209,8 +203,8 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
   if (gameStatsRows.length === 0) {
     return (
       <div className="bg-white rounded-lg p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-4">Estatísticas Jogo a Jogo</h3>
-        <div className="text-center text-gray-600 py-8">
+        <h3 className="text-xl font-bold text-black mb-4">Estatísticas Jogo a Jogo</h3>
+        <div className="text-center text-black py-8">
           <p>Nenhuma estatística de jogo encontrada para este jogador.</p>
           <p className="text-sm mt-2">As estatísticas aparecerão após os jogos serem disputados e as estatísticas importadas.</p>
         </div>
@@ -224,12 +218,12 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
       <div className="overflow-x-auto">
         <table className="w-full text-base">
           <thead>
-            <tr className=" border-b border-gray-300">
-              <th className="text-left py-3 px-3 text-gray-700 font-medium text-[14px] uppercase sticky left-0 ">DATA</th>
-              <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase">ADV.</th>
-              <th className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase">RESULTADO</th>
+            <tr className=" border-b border-black">
+              <th className="text-left py-3 px-3 text-black font-medium text-[14px] uppercase sticky left-0 ">DATA</th>
+              <th className="text-center py-3 px-3 text-black font-medium text-[14px] uppercase">ADV.</th>
+              <th className="text-center py-3 px-3 text-black font-medium text-[14px] uppercase">RESULTADO</th>
               {activeColumns.map((column) => (
-                <th key={column.key} className="text-center py-3 px-3 text-gray-700 font-medium text-[14px] uppercase whitespace-nowrap">
+                <th key={column.key} className="text-center py-3 px-3 text-black font-medium text-[14px] uppercase whitespace-nowrap">
                   {column.label}
                 </th>
               ))}
@@ -238,7 +232,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
           <tbody>
             {gameStatsRows.map((row, index) => (
               <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-white'}>
-                <td className="py-3 px-3 text-gray-900 font-medium sticky left-0 bg-inherit">
+                <td className="py-3 px-3 text-black font-medium sticky left-0 bg-inherit">
                   {row.data}
                 </td>
                 <td className="py-3 px-3 text-center">
@@ -252,10 +246,10 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
                         className="rounded"
                       />
                     )}
-                    <span className="text-sm text-gray-700">{row.adversario}</span>
+                    <span className="text-sm text-black">{row.adversario}</span>
                   </div>
                 </td>
-                <td className="py-3 px-3 text-center text-gray-700 text-sm">
+                <td className="py-3 px-3 text-center text-black text-sm">
                   <span className={`inline-block px-2 py-1 rounded text-xs ${row.local === 'Casa' ? 'bg-blue-100 text-blue-800' : 'bg-orange-100 text-orange-800'
                     }`}>
                     {row.local}
@@ -263,7 +257,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
                   <div className="mt-1">{row.resultado}</div>
                 </td>
                 {activeColumns.map((column) => (
-                  <td key={column.key} className="py-3 px-3 text-center text-gray-900">
+                  <td key={column.key} className="py-3 px-3 text-center text-black">
                     {getStat(row.estatisticas, column)}
                   </td>
                 ))}

@@ -31,7 +31,7 @@ export const PlayerStatsList: React.FC<PlayerStatsListProps> = ({ players, times
     return {
       id: team?.id || 0,
       nome: team?.nome || 'Time Desconhecido',
-      cor: team?.cor || '#CCCCCC'
+      cor: team?.cor || '#000000'
     }
   }
 
@@ -83,7 +83,7 @@ const formatStatValue = (value: number | null): string => {
     <div className="px-4">
       <Link
         href={`/ranking`}
-        className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-gray-400/40 z-50 xl:left-96 2xl:left-[650px]'
+        className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-black/40 z-50 xl:left-96 2xl:left-[650px]'
       >
         <FontAwesomeIcon icon={faAngleLeft} />
       </Link>
@@ -134,7 +134,7 @@ const formatStatValue = (value: number | null): string => {
                       <Image
                         src={ImageService.getPlayerShirt(time.nome, player.camisa || '')}
                         fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="200px"
                         alt={`Camisa do ${player.nome}`}
                         className="object-contain"
                         priority

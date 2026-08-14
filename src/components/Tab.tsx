@@ -31,10 +31,10 @@ export const Tab = () => {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 bg-[#272731] border-t border-gray-600 z-50 xl:hidden">
+      <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-gray-600 z-50 xl:hidden">
         <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#272731] via-[#272731]/90 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-[#272731] via-[#272731]/90 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-black via-black/90 to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-6 bg-gradient-to-l from-black via-black/90 to-transparent z-10 pointer-events-none"></div>
 
           <div className="overflow-x-auto scrollbar-hide">
             <div className="flex min-w-max px-2 md:justify-between">

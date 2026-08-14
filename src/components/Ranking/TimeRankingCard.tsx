@@ -144,7 +144,7 @@ export const TeamRankingCard: React.FC<TeamRankingCardProps> = ({ title, categor
 
             <Link
                 href={getViewMoreUrl(category, title)}
-                className="block text-center border border-gray-400 bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3] xl:mr-6"
+                className="block text-center border border-black bg-white text-[17px] text-black font-bold py-1 mt-1 rounded-md hover:bg-[#C1C2C3] xl:mr-6"
             >
                 Ver Mais
             </Link>

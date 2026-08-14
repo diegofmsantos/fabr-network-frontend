@@ -90,7 +90,7 @@ export const prepareTeamStatsForCards = (
       return {
         id: team?.id || 0,
         nome: team?.nome || 'Time Desconhecido',
-        cor: team?.cor || '#CCCCCC'
+        cor: team?.cor || '#000000'
       };
     };
 

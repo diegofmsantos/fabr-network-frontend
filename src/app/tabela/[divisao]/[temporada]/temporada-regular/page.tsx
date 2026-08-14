@@ -19,7 +19,7 @@ const getConferenciaColor = (tipo: string) => {
     case 'NORDESTE': return 'bg-orange-500'
     case 'CENTRO NORTE': return 'bg-green-600'
     case 'NORTE': return 'bg-red-700'   // D2
-    default: return 'bg-gray-600'
+    default: return 'bg-black'
   }
 }
 
@@ -127,14 +127,14 @@ const QuadroRodadas = ({
               </div>
               <div className={`text-xs font-semibold ${jogo.status === 'FINALIZADO' ? 'text-green-600' :
                   jogo.status === 'AO VIVO' ? 'text-red-600' :
-                    jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-gray-500'
+                    jogo.status === 'ADIADO' ? 'text-yellow-600' : 'text-black'
                 }`}>
                 {jogo.status === 'FINALIZADO' ? 'Finalizado' :
                   jogo.status === 'AO VIVO' ? 'Ao Vivo' :
                     jogo.status === 'ADIADO' ? 'Adiado' : 'Agendado'}
               </div>
               {jogo.dataJogo && (
-                <div className="text-xs text-gray-400 mt-0.5">
+                <div className="text-xs text-black mt-0.5">
                   {(() => {
                     const [datePart, timePart] = jogo.dataJogo.split('T')
                     const [ano, mes, dia] = datePart.split('-')
@@ -156,7 +156,7 @@ const QuadroRodadas = ({
             </div>
           ))
         ) : (
-          <div className="text-center text-gray-500 py-4">
+          <div className="text-center text-black py-4">
             <p className="text-sm">Nenhum jogo encontrado</p>
             <p className="text-xs">para esta rodada</p>
           </div>
@@ -190,9 +190,9 @@ export default function TemporadaRegularPage() {
     return (
       <div className="min-h-screen bg-[#ECECEC] flex items-center justify-center">
         <div className="text-center p-8">
-          <Calendar className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+          <Calendar className="w-16 h-16 text-black mx-auto mb-4" />
           <h3 className="text-xl font-bold text-white mb-2">Superliga não encontrada</h3>
-          <p className="text-gray-400 mb-6">
+          <p className="text-black mb-6">
             A Superliga {divisao.toUpperCase()} {temporada} ainda não foi criada ou não há dados disponíveis.
           </p>
           <Link href="/" className="bg-[#63E300] text-black px-4 py-2 rounded-md font-semibold hover:bg-[#50B800] transition-colors">
@@ -218,7 +218,7 @@ export default function TemporadaRegularPage() {
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
-            <h1 className="text-[19px] font-extrabold italic leading-[55px] tracking-[-2px] text-gray-900 min-[375px]:text-[22px] min-[425px]:text-[26px] md:text-3xl xl:text-4xl">
+            <h1 className="text-[19px] font-extrabold italic leading-[55px] tracking-[-2px] text-black min-[375px]:text-[22px] min-[425px]:text-[26px] md:text-3xl xl:text-4xl">
               TEMPORADA <span className='ml-2'>REGULAR</span>
             </h1>
             <button
@@ -246,7 +246,7 @@ export default function TemporadaRegularPage() {
                     </div>
 
                     <div className="bg-white w-full rounded-lg shadow-sm border overflow-hidden p-6 min-w-[320px] max-w-[650px]">
-                      <div className="grid grid-cols-8 gap-3 pb-4 border-b text-gray-500">
+                      <div className="grid grid-cols-8 gap-3 pb-4 border-b text-black">
                         <div>#</div>
                         <div className="col-span-2 font-bold">TIME</div>
                         <div className="col-span-5 flex justify-between md:justify-evenly md:gap-1">
@@ -261,7 +261,7 @@ export default function TemporadaRegularPage() {
                       <div className="space-y-4 mt-4">
                         {regional?.times && Array.isArray(regional.times) ? regional.times.map((time: any) => (
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-end border-b">
-                            <div className="text-gray-600 text-sm">{time.posicao}º</div>
+                            <div className="text-black text-sm">{time.posicao}º</div>
                             <div className="col-span-2 -ml-3 -mt-2 flex items-end">
                               <Image
                                 src={ImageService.getTeamLogo(time.time.nome)}
@@ -270,8 +270,8 @@ export default function TemporadaRegularPage() {
                                 className="mr-3 md:-ml-10 md:mr-2 rounded"
                                 onError={(e) => ImageService.handleTeamLogoError(e, time.time.nome)}
                               />
-                              <span className="text-[14px] font-bold text-gray-900 text-wrap md:text-[15px] md:hidden">{time.time.sigla}</span>
-                              <span className="hidden md:block text-[15px] text-gray-900 whitespace-nowrap">{time.time.nome}</span>
+                              <span className="text-[14px] font-bold text-black text-wrap md:text-[15px] md:hidden">{time.time.sigla}</span>
+                              <span className="hidden md:block text-[15px] text-black whitespace-nowrap">{time.time.nome}</span>
                             </div>
                             <div className="col-span-5 flex justify-between md:justify-evenly md:gap-1">
                               <div className="text-center text-sm md:text-base">{time.vitorias}</div>
@@ -282,13 +282,13 @@ export default function TemporadaRegularPage() {
                             </div>
                           </div>
                         )) : (
-                          <div className="text-center py-4 text-gray-500">Nenhum time encontrado neste regional</div>
+                          <div className="text-center py-4 text-black">Nenhum time encontrado neste regional</div>
                         )}
                       </div>
                     </div>
                   </div>
                 )) : (
-                  <div className="text-center py-8 text-gray-500">Dados da conferência não disponíveis</div>
+                  <div className="text-center py-8 text-black">Dados da conferência não disponíveis</div>
                 )}
               </div>
 

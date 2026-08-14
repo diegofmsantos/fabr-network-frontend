@@ -45,7 +45,7 @@ export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats
         const team = times.find((t) => t.id === timeId)
         return {
             nome: team?.nome || 'Time Desconhecido',
-            cor: team?.cor || '#CCCCCC',
+            cor: team?.cor || '#000000',
         }
     }
 

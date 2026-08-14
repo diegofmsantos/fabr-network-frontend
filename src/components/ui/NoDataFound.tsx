@@ -19,22 +19,22 @@ export const NoDataFound: React.FC<NoDataFoundProps> = ({ type, temporada, entit
         <div className="mb-6">
           <div className="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
             {isPlayer ? (
-              <User className="w-8 h-8 text-gray-400" />
+              <User className="w-8 h-8 text-black" />
             ) : (
-              <Users className="w-8 h-8 text-gray-400" />
+              <Users className="w-8 h-8 text-black" />
             )}
           </div>
           
           <div className="flex items-center justify-center gap-2 mb-2">
             <AlertCircle className="w-5 h-5 text-amber-500" />
-            <h2 className="text-xl font-bold text-gray-900">
+            <h2 className="text-xl font-bold text-black">
               {isPlayer ? 'Jogador' : 'Time'} Não Encontrado
             </h2>
           </div>
         </div>
 
         <div className="space-y-3 mb-6">
-          <p className="text-gray-600">
+          <p className="text-black">
             {entityName && (
               <span className="font-semibold block mb-2">"{entityName}"</span>
             )}
@@ -42,17 +42,17 @@ export const NoDataFound: React.FC<NoDataFoundProps> = ({ type, temporada, entit
             <span className="font-semibold text-blue-600">{temporada}</span>.
           </p>
           
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+          <div className="flex items-center justify-center gap-2 text-sm text-black">
             <Calendar className="w-4 h-4" />
             <span>Temporada {temporada}</span>
           </div>
         </div>
 
         <div className="space-y-3">
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-black">
             Possíveis motivos:
           </p>
-          <ul className="text-xs text-gray-400 space-y-1">
+          <ul className="text-xs text-black space-y-1">
             <li>• {isPlayer ? 'Jogador' : 'Time'} não participou desta temporada</li>
             <li>• Dados ainda não foram importados</li>
           </ul>

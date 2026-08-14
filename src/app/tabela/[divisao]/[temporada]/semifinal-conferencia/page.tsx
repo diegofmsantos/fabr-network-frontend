@@ -38,7 +38,7 @@ export default function SemifinalConferenciaPage() {
               <ChevronLeft className="w-5 h-5" />
             </button>
             <h1 className="text-[18px] min-[375px]:text-xl min-[375px]:h-16 min-[375px]:pt-4 min-[425px]:text-[23px] font-extrabold italic 
-            leading-[55px] tracking-[-2px] text-gray-900 md:pt-0 md:h-10 md:text-3xl xl:text-4xl">SEMIFINAL DE CONFERÊNCIA</h1>
+            leading-[55px] tracking-[-2px] text-black md:pt-0 md:h-10 md:text-3xl xl:text-4xl">SEMIFINAL DE CONFERÊNCIA</h1>
             <button className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${!navigation.next ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
               onClick={() => navigation.next && router.push(navigation.next.path)} disabled={!navigation.next}>
               <ChevronRight className="w-5 h-5" />
@@ -48,7 +48,7 @@ export default function SemifinalConferenciaPage() {
         <div className="mt-44 h-full mb-24 ml-3 xl:ml-20">
           <div className="flex flex-col gap-8 min-[375px]:ml-4 min-[425px]:ml-2">
             {(!semifinalConferencias || semifinalConferencias.length === 0) ? (
-              <div className="text-center py-1 md:ml-40 xl:ml-96"><div className="text-gray-600 text-lg">Nenhum jogo de Semifinal de Conferência configurado ainda.</div></div>
+              <div className="text-center py-1 md:ml-40 xl:ml-96"><div className="text-black text-lg">Nenhum jogo de Semifinal de Conferência configurado ainda.</div></div>
             ) : (
               semifinalConferencias.map((conferencia: any) => (
                 <div key={conferencia.key} className="bg-white rounded-lg shadow-sm border min-[375px]:w-80 min-[425px]:w-96 md:min-w-[720px] 
@@ -61,7 +61,7 @@ export default function SemifinalConferenciaPage() {
                       <div key={`semifinal-conf-${jogo.id || jogoIndex}`} className="border rounded-lg p-4 hover:bg-gray-50">
                         <div className="flex items-center justify-center">
                           <div className="flex items-center gap-2 text-[12px] md:text-lg">
-                            <div className="flex flex-col px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                            <div className="flex flex-col px-4 py-2 rounded-lg font-medium text-black text-center min-w-[100px] lg:flex-row">
                               <div className="flex flex-col items-center justify-center mb-1 lg:flex-row">
                                 <div className="flex flex-col-reverse items-center justify-center lg:flex-row-reverse">
                                   <span>{jogo.time1}</span>
@@ -76,8 +76,8 @@ export default function SemifinalConferenciaPage() {
                                 {jogo.placar1 !== undefined && <div className="text-lg font-bold mt-1 md:text-2xl lg:ml-4">{jogo.placar1}</div>}
                               </div>
                             </div>
-                            <span className="text-gray-400 text-3xl font-bold mx-2">×</span>
-                            <div className="flex-col px-4 py-2 rounded-lg font-medium text-gray-700 text-center min-w-[100px] lg:flex-row">
+                            <span className="text-black text-3xl font-bold mx-2">×</span>
+                            <div className="flex-col px-4 py-2 rounded-lg font-medium text-black text-center min-w-[100px] lg:flex-row">
                               <div className="flex flex-col items-center justify-center mb-1 lg:flex-row-reverse">
                                 <div className="flex flex-col-reverse items-center justify-center lg:flex-row">
                                   <span>{jogo.time2}</span>
@@ -96,10 +96,10 @@ export default function SemifinalConferenciaPage() {
                         </div>
                         <div className="flex flex-col items-center justify-center gap-2 mt-3">
                           <div>
-                            {jogo.status && <span className={`px-2 py-1 rounded-full text-xs font-medium mr-3 ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : jogo.status === 'AO VIVO' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'}`}>{jogo.status === 'FINALIZADO' ? 'Finalizado' : jogo.status === 'AO VIVO' ? 'Ao Vivo' : jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}</span>}
-                            {jogo.dataJogo && <span className="text-xs text-gray-500">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
+                            {jogo.status && <span className={`px-2 py-1 rounded-full text-xs font-medium mr-3 ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : jogo.status === 'AO VIVO' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-black'}`}>{jogo.status === 'FINALIZADO' ? 'Finalizado' : jogo.status === 'AO VIVO' ? 'Ao Vivo' : jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}</span>}
+                            {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
                           </div>
-                          <div className='text-xs text-gray-500'>{jogo.local}</div>
+                          <div className='text-xs text-black'>{jogo.local}</div>
                           {jogo.status === 'FINALIZADO' && (
                             <Link href={`/tabela/${divisao}/${temporada}/jogo/${jogo.id}`} className="text-[10px] text-gray-300 italic uppercase my-1 hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg">Saiba como foi</Link>
                           )}

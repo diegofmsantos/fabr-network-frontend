@@ -105,11 +105,11 @@ const ShareButton: React.FC<ShareButtonProps> = ({
                             <div className="text-xl font-bold text-center">{title}</div>
                         </div>
                     </div>
-                    <div className="border-t border-gray-100">
+                    <div className="border-t border-black">
                         <div className="py-1">
                             <button
                                 onClick={shareToWhatsApp}
-                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="flex items-center w-full px-4 py-2 text-sm text-black hover:bg-gray-100"
                             >
                                 <MessageCircle className="w-5 h-5 mr-3 text-green-500" />
                                 WhatsApp
@@ -117,7 +117,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
                             <button
                                 onClick={shareToFacebook}
-                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="flex items-center w-full px-4 py-2 text-sm text-black hover:bg-gray-100"
                             >
                                 <Facebook className="w-5 h-5 mr-3 text-blue-600" />
                                 Facebook
@@ -125,7 +125,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
                             <button
                                 onClick={shareToTwitter}
-                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="flex items-center w-full px-4 py-2 text-sm text-black hover:bg-gray-100"
                             >
                                 <Twitter className="w-5 h-5 mr-3 text-blue-400" />
                                 Twitter
@@ -133,7 +133,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
                             <button
                                 onClick={shareToInstagram}
-                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="flex items-center w-full px-4 py-2 text-sm text-black hover:bg-gray-100"
                             >
                                 <Instagram className="w-5 h-5 mr-3 text-pink-600" />
                                 Instagram
@@ -141,9 +141,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({
 
                             <button
                                 onClick={copyToClipboard}
-                                className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                className="flex items-center w-full px-4 py-2 text-sm text-black hover:bg-gray-100"
                             >
-                                <Link className="w-5 h-5 mr-3 text-gray-500" />
+                                <Link className="w-5 h-5 mr-3 text-black" />
                                 Copiar link
                             </button>
                         </div>

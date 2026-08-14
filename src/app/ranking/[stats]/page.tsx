@@ -9,6 +9,7 @@ import { StatsLayout } from '@/components/Stats/StatsLayout'
 import { useStats } from '@/hooks/useStats'
 import { useTeamInfo } from '@/hooks/useTeamInfo'
 import { PlayerStatsList } from '@/components/Stats/PlayerStatsList'
+import { useTemporada } from '@/hooks/queries'
 
 const getStatGroup = (statParam: string): string => {
     for (const group of statGroups) {
@@ -33,7 +34,7 @@ const PlayerStatSelect = React.memo(({ currentStat }: { currentStat: string }) =
             <select
                 value={currentStat}
                 onChange={(e) => handleStatChange(e.target.value)}
-                className="w-full p-2 rounded-md border border-gray-300 bg-white"
+                className="w-full p-2 rounded-md border border-black bg-white"
             >
                 {statGroups.map((group) => (
                     <optgroup key={group.groupLabel} label={group.title}>
@@ -54,7 +55,8 @@ PlayerStatSelect.displayName = 'PlayerStatSelect'
 function PlayerStatsContent() {
     const searchParams = useSearchParams()
     const statParam = searchParams.get('stat') || 'passe-jardas'
-    const { players, times, loading } = useStats()
+    const temporada = useTemporada()
+    const { players, times, loading } = useStats(temporada)
     const getTeamInfo = useTeamInfo(times)
     const statMapping = getStatMapping(statParam)
 

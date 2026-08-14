@@ -71,7 +71,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ className = '' }) => {
     const isCompareTimes = pathname?.includes('/compare/times')
 
     return (
-        <aside className={`hidden xl:flex flex-col w-80 h-[800px] bg-[#272731] fixed left-32 top-10 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
+        <aside className={`hidden xl:flex flex-col w-80 h-[800px] bg-black fixed left-32 top-10 bottom-28 rounded-lg z-40 xl:w-72 xl:left-16 2xl:w-96 2xl:left-32 ${className}`}>
             <div className="flex justify-center items-center">
                 <Link href="/">
                     <Image
