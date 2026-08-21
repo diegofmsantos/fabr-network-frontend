@@ -44,10 +44,10 @@ const formatValueForDisplay = (value: string, title: string): string => {
   }
 
    const numValue = parseFloat(value);
-  if (!isNaN(numValue) && numValue >= 1000) {
+  if (!isNaN(numValue)) {
     return numValue.toLocaleString('pt-BR');
   }
-  
+
   return value;
 }
 

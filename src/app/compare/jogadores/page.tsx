@@ -249,7 +249,7 @@ export default function CompararJogadoresPage() {
             return stat.format(valor)
         }
 
-        return valor.toString()
+        return valor.toLocaleString('pt-BR')
     }
 
     const statsParaComparacao = useMemo(() => {

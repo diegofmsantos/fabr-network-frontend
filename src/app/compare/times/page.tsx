@@ -204,7 +204,7 @@ export default function CompararTimesPage() {
             return stat.format(valor)
         }
 
-        return valor.toString()
+        return valor.toLocaleString('pt-BR')
     }
 
     if (loadingTimes) {

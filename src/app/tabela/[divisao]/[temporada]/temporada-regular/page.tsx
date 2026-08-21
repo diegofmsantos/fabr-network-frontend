@@ -62,11 +62,23 @@ const QuadroRodadas = ({
     .sort((a, b) => a - b)
 
   const primeiraRodada = rodadasDisponiveis.length > 0 ? rodadasDisponiveis[0] : 1
-  const [rodadaAtiva, setRodadaAtiva] = useState(primeiraRodada)
+
+  // Abre direto na próxima rodada a acontecer (primeira com algum jogo ainda
+  // não finalizado). Se a temporada já terminou, cai na última rodada.
+  const rodadaPadrao = (() => {
+    if (rodadasDisponiveis.length === 0) return primeiraRodada
+    const proxima = rodadasDisponiveis.find(n => {
+      const jogosDaRodada: any[] = blocoRodadas[n] || []
+      return jogosDaRodada.some(jogo => jogo.status !== 'FINALIZADO')
+    })
+    return proxima !== undefined ? proxima : rodadasDisponiveis[rodadasDisponiveis.length - 1]
+  })()
+
+  const [rodadaAtiva, setRodadaAtiva] = useState(rodadaPadrao)
 
   useEffect(() => {
     if (rodadasDisponiveis.length > 0 && !rodadasDisponiveis.includes(rodadaAtiva)) {
-      setRodadaAtiva(rodadasDisponiveis[0])
+      setRodadaAtiva(rodadaPadrao)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(rodadasDisponiveis)])

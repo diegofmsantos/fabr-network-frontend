@@ -68,19 +68,24 @@ export class ImageService {
     debugInfo?: string
   ): void {
     const target = event.currentTarget;
-    
+
     // ✅ IMPORTANTE: Evitar loop infinito
     if (target.src === fallbackSrc || target.dataset.errorHandled === 'true') {
       return;
     }
-    
+
     // Marcar que o erro já foi tratado
     target.dataset.errorHandled = 'true';
-    
+
     if (debugInfo && process.env.NODE_ENV === 'development') {
       console.warn(`Failed to load image: ${debugInfo}`);
     }
-    
+
+    // O Next.js Image (fill/responsive) gera um srcset com várias resoluções.
+    // Sem limpar isso, o navegador continua priorizando essas variações
+    // (todas quebradas) sobre a troca manual do src, deixando o ícone de
+    // imagem quebrada visível em vez do fallback.
+    target.removeAttribute('srcset');
     target.src = fallbackSrc;
   }
 

@@ -175,7 +175,7 @@ export const PlayerGameStatsTable: React.FC<PlayerGameStatsTableProps> = ({
       return formatJardas(value)
     }
 
-    return value.toString()
+    return typeof value === 'number' ? value.toLocaleString('pt-BR') : String(value)
   }
 
   if (isLoading) {

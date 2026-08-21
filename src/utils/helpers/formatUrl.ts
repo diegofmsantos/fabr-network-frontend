@@ -101,9 +101,9 @@ export const normalizeValue = (value: string | number | null, statKey: StatKey):
     if (percentageStats.includes(statKey as string)) {
         return `${Math.round(value)}%`;
     } else if (averageStats.includes(statKey as string)) {
-        return value.toFixed(1);
+        return value.toFixed(1).replace('.', ',');
     }
-    return Math.round(value).toString();
+    return value.toLocaleString('pt-BR');
 }
 
 export const formatStatValue = (value: number | null, statKey: string, title: string): string => {
@@ -127,5 +127,5 @@ export const formatStatValue = (value: number | null, statKey: string, title: st
         return value.toFixed(1).replace('.', ',');
     }
 
-    return Math.round(value).toLocaleString('pt-BR');
+    return value.toLocaleString('pt-BR');
 };

@@ -563,27 +563,27 @@ export default function Page() {
                                 <div className="bg-white flex flex-col gap-4 p-4 rounded-lg">
                                     <Stats
                                         label1='TACKELS (TOTAIS)'
-                                        label2={defesaSafe.tackles_totais}
+                                        label2={defesaSafe.tackles_totais.toLocaleString('pt-BR')}
                                         label3='TACKLES (FOR LOSS)'
-                                        label4={defesaSafe.tackles_for_loss}
+                                        label4={defesaSafe.tackles_for_loss.toLocaleString('pt-BR')}
                                     />
                                     <Stats
                                         label1='SACKS'
-                                        label2={defesaSafe.sacks_forcado}
+                                        label2={defesaSafe.sacks_forcado.toLocaleString('pt-BR')}
                                         label3='FUMBLES FORÇADOS'
-                                        label4={defesaSafe.fumble_forcado}
+                                        label4={defesaSafe.fumble_forcado.toLocaleString('pt-BR')}
                                     />
                                     <Stats
                                         label1='INTERCEPTAÇÕES'
-                                        label2={defesaSafe.interceptacao_forcada}
+                                        label2={defesaSafe.interceptacao_forcada.toLocaleString('pt-BR')}
                                         label3='PASSES DESVIADOS'
-                                        label4={defesaSafe.passe_desviado}
+                                        label4={defesaSafe.passe_desviado.toLocaleString('pt-BR')}
                                     />
                                     <Stats
                                         label1='SAFETY'
-                                        label2={defesaSafe.safety}
+                                        label2={defesaSafe.safety.toLocaleString('pt-BR')}
                                         label3='TOUCHDOWNS'
-                                        label4={defesaSafe.td_defensivo}
+                                        label4={defesaSafe.td_defensivo.toLocaleString('pt-BR')}
                                         noBorder
                                     />
                                 </div>

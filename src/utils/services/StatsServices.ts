@@ -200,13 +200,34 @@ export const shouldIncludePlayer = (player: Jogador, key: StatKey, category: str
     }
 }
 
+const CATEGORIA_MINIMOS: Record<string, string> = {
+    'PASSE': 'PASSE',
+    'CORRIDA': 'CORRIDA',
+    'RECEPCAO': 'RECEPCAO',
+    'RECEPÇÃO': 'RECEPCAO',
+    'RETORNO': 'RETORNO',
+    'DEFESA': 'DEFESA',
+    'KICKER': 'KICKER',
+    'CHUTE': 'KICKER',
+    'PUNTER': 'PUNTER',
+    'PUNT': 'PUNTER',
+}
+
+// Diferentes telas passam a categoria em formatos distintos (chave do banco,
+// slug de URL, título de exibição, com ou sem acento) — normaliza tudo para
+// o mesmo rótulo antes de comparar, para o filtro de mínimo de amostra
+// funcionar igual em todas elas.
+const normalizeCategoria = (category: string): string => {
+    return CATEGORIA_MINIMOS[category.toUpperCase()] || category.toUpperCase()
+}
+
 export const meetsMinimumRequirements = (player: Jogador, category: string): boolean => {
     try {
         if (!player.estatisticas) {
             return false
         }
 
-        switch (category) {
+        switch (normalizeCategoria(category)) {
             case 'DEFESA': {
                 const defStats = player.estatisticas.defesa
                 const defTotal =
