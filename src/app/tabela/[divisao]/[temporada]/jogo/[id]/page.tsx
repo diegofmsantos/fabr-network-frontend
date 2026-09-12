@@ -263,7 +263,7 @@ export default function JogoDetalhesPage() {
               onClick={() => setActiveTab('ESTATISTICAS')}
               className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'ESTATISTICAS'
                 ? 'bg-[#63E300] text-black'
-                : 'bg-gray-100 text-black hover:bg-black'
+                : 'bg-gray-100 text-black hover:bg-gray-200'
                 }`}
             >
               ESTATÍSTICAS
@@ -272,7 +272,7 @@ export default function JogoDetalhesPage() {
               onClick={() => setActiveTab('PLAYBYPLAY')}
               className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'PLAYBYPLAY'
                 ? 'bg-[#63E300] text-black'
-                : 'bg-gray-100 text-black hover:bg-black'
+                : 'bg-gray-100 text-black hover:bg-gray-200'
                 }`}
             >
               PLAY-BY-PLAY
@@ -281,7 +281,7 @@ export default function JogoDetalhesPage() {
               onClick={() => setActiveTab('MELHORES_MOMENTOS')}
               className={`flex-1 py-4 px-2 text-sm font-bold uppercase transition-colors italic tracking-[-1px] md:text-lg ${activeTab === 'MELHORES_MOMENTOS'
                 ? 'bg-[#63E300] text-black'
-                : 'bg-gray-100 text-black hover:bg-black'
+                : 'bg-gray-100 text-black hover:bg-gray-200'
                 }`}
             >
               MELHORES MOMENTOS
