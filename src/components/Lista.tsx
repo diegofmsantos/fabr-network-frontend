@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "framer-motion"
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Loading } from "./ui/Loading"
 import { useTimes } from "@/hooks/useTimes"
 import { useTemporada } from "@/hooks/queries"
@@ -14,6 +14,11 @@ export const Lista = () => {
     const [lastClicked, setLastClicked] = useState<string | null>(null)
     const selectedTemporada = useTemporada()
     const { data: times, isLoading, error } = useTimes(selectedTemporada)
+
+    const timesOrdenados = useMemo(
+        () => [...(times ?? [])].sort((a, b) => (a.sigla ?? "").localeCompare(b.sigla ?? "")),
+        [times]
+    )
 
     const itemVariants = {
         hidden: { opacity: 0, x: 50 },
@@ -50,8 +55,7 @@ export const Lista = () => {
                 variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
                 key={`grid-temporada-${selectedTemporada}`}
             >
-                {times
-                    .sort((a, b) => (a.sigla ?? "").localeCompare(b.sigla ?? ""))
+                {timesOrdenados
                     .map((item) => (
                         <motion.div
                             key={`${item.id}-${selectedTemporada}`}

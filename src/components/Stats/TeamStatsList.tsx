@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -33,13 +33,8 @@ const toNumber = (value: any): number => {
   return 0;
 }
 
-export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, statMapping }) => {
-
-  const calculateTeamStat = (timeId: number): number | null => {
-    if (!timeId) return null
-
+const calculateTeamStat = (teamPlayers: Jogador[], statMapping: StatConfig): number | null => {
     try {
-      const teamPlayers = players.filter(player => player.timeId === timeId)
       let total = 0
       let divisor = 0
 
@@ -159,108 +154,103 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
       console.error(`Erro ao calcular estatística:`, error)
       return null
     }
-  }
+}
 
-  const rankedTeams = times
-    .map(time => ({
-      time,
-      value: calculateTeamStat(time.id || 0)
-    }))
-    .filter((team): team is { time: Time; value: number } =>
-      team.value !== null &&
-      typeof team.value === 'number' &&
-      !isNaN(team.value) &&
-      team.value > 0
-    )
-    .sort((a, b) => {
-      if (a.value === null || b.value === null) return 0
-      if (b.value === a.value) {
-        return a.time.nome.localeCompare(b.time.nome)
-      }
-      return b.value - a.value
-    })
-
-  const TeamListItem: React.FC<{ team: RankedTeam; index: number }> = ({ team, index }) => {
-    return (
-      <div className="bg-[#ECECEC] max-w-[1200px] mx-auto">
-        <Link
-          href={`/ranking/times`}
-          className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-black/40 z-50 xl:left-96 2xl:left-[650px]'
+const TeamListItem: React.FC<{ team: RankedTeam; index: number; statMapping: StatConfig }> = React.memo(({ team, index, statMapping }) => {
+  return (
+    <div className="bg-[#ECECEC] max-w-[1200px] mx-auto">
+      <Link
+        href={`/${encodeURIComponent(team.time.nome || '')}`}
+        className="block"
+      >
+        <div
+          className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md
+                    ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"}`}
+          style={{ backgroundColor: index === 0 ? team.time.cor : undefined }}
         >
-          <FontAwesomeIcon icon={faAngleLeft} />
-        </Link>
-
-        <div>
-          <Link
-            key={`team-${team.time.id}-${index}`}
-            href={`/${encodeURIComponent(team.time.nome || '')}`}
-            className={`block`}
-          >
-            <li
-              className={`flex items-center justify-center p-2 px-4 border-b border-b-[#D9D9D9] rounded-md 
-                        ${index === 0 ? "bg-gray-100 text-black shadow-lg" : "bg-white text-black"}`}
-              style={{ backgroundColor: index === 0 ? team.time.cor : undefined }}
-            >
-              {index === 0 ? (
-                <div className="flex justify-around items-center w-full text-white min-[375px]:px-4 md:justify-around md:pl-6">
-                  <div className="flex flex-col justify-center pt-4">
-                    <p className="text-[25px] font-bold">{index + 1}</p>
-                    <h4 className="font-extrabold italic text-xl max-w-36 uppercase leading-4 md:text-[28px] md:leading-6">{team.time.nome}</h4>
-                    <div className="flex items-center gap-1 ">
-                      <Image
-                        src={ImageService.getTeamLogo(team.time.nome)}
-                        width={60}
-                        height={60}
-                        alt={`Logo do time ${team.time.nome}`}
-                        onError={(e) => ImageService.handleTeamLogoError(e, team.time.nome)}
-                      />
-                    </div>
-                    <span className="font-extrabold italic text-[40px]">
-                      {formatValue(team.value, statMapping.title)}
-                    </span>
-                  </div>
-                  <div className="relative w-[200px] h-[200px]">
-                    <Image
-                      src={ImageService.getTeamHelmet(team.time.nome, team.time.capacete)}
-                      fill
-                      sizes="200px"
-                      alt={`Capacete do ${team.time.nome}`}
-                      className="object-contain"
-                      priority
-                      quality={85}
-                      onError={(e) => ImageService.handleTeamHelmetError(e, team.time.nome)}
-                    />
-                  </div>
+          {index === 0 ? (
+            <div className="flex justify-around items-center w-full text-white min-[375px]:px-4 md:justify-around md:pl-6">
+              <div className="flex flex-col justify-center pt-4">
+                <p className="text-[25px] font-bold">{index + 1}</p>
+                <h4 className="font-extrabold italic text-xl max-w-36 uppercase leading-4 md:text-[28px] md:leading-6">{team.time.nome}</h4>
+                <div className="flex items-center gap-1 ">
+                  <Image
+                    src={ImageService.getTeamLogo(team.time.nome)}
+                    width={60}
+                    height={60}
+                    alt={`Logo do time ${team.time.nome}`}
+                    onError={(e) => ImageService.handleTeamLogoError(e, team.time.nome)}
+                  />
                 </div>
-              ) : (
-                <div className="w-full h-auto flex justify-between items-center gap-2 min-[350px]:px-4 min-[425px]:px-7 md:justify-around">
-                  <div className="flex items-center md:w-60">
-                    <span className="font-bold flex items-center gap-2">
-                      <div>{index + 1}</div>
-                      <Image
-                        src={ImageService.getTeamLogo(team.time.nome)}
-                        width={40}
-                        height={40}
-                        alt={`Logo do time ${team.time.nome}`}
-                        className='mr-4'
-                        onError={(e) => ImageService.handleTeamLogoError(e, team.time.nome)}
-                      />
-                    </span>
-                    <div className=" text-sm">
-                      {team.time.nome}
-                    </div>
-                  </div>
-                  <span className="font-bold text-lg">
-                    {formatValue(team.value, statMapping.title)}
-                  </span>
+                <span className="font-extrabold italic text-[40px]">
+                  {formatValue(team.value, statMapping.title)}
+                </span>
+              </div>
+              <div className="relative w-[200px] h-[200px]">
+                <Image
+                  src={ImageService.getTeamHelmet(team.time.nome, team.time.capacete)}
+                  fill
+                  sizes="200px"
+                  alt={`Capacete do ${team.time.nome}`}
+                  className="object-contain"
+                  priority
+                  quality={85}
+                  onError={(e) => ImageService.handleTeamHelmetError(e, team.time.nome)}
+                />
+              </div>
+            </div>
+          ) : (
+            <div className="w-full h-auto flex justify-between items-center gap-2 min-[350px]:px-4 min-[425px]:px-7 md:justify-around">
+              <div className="flex items-center md:w-60">
+                <span className="font-bold flex items-center gap-2">
+                  <div>{index + 1}</div>
+                  <Image
+                    src={ImageService.getTeamLogo(team.time.nome)}
+                    width={40}
+                    height={40}
+                    alt={`Logo do time ${team.time.nome}`}
+                    className='mr-4'
+                    onError={(e) => ImageService.handleTeamLogoError(e, team.time.nome)}
+                  />
+                </span>
+                <div className=" text-sm">
+                  {team.time.nome}
                 </div>
-              )}
-            </li>
-          </Link>
+              </div>
+              <span className="font-bold text-lg">
+                {formatValue(team.value, statMapping.title)}
+              </span>
+            </div>
+          )}
         </div>
-      </div>
-    )
-  }
+      </Link>
+    </div>
+  )
+})
+TeamListItem.displayName = 'TeamListItem'
+
+export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, statMapping }) => {
+  const rankedTeams = useMemo(() => {
+    const playersByTeam = new Map<number, Jogador[]>()
+    for (const player of players) {
+      if (!player.timeId) continue
+      const list = playersByTeam.get(player.timeId)
+      if (list) list.push(player)
+      else playersByTeam.set(player.timeId, [player])
+    }
+
+    return times
+      .map(time => ({
+        time,
+        value: time.id ? calculateTeamStat(playersByTeam.get(time.id) ?? [], statMapping) : null
+      }))
+      .filter((team): team is { time: Time; value: number } =>
+        typeof team.value === 'number' && !isNaN(team.value) && team.value > 0
+      )
+      .sort((a, b) =>
+        b.value === a.value ? a.time.nome.localeCompare(b.time.nome) : b.value - a.value
+      )
+  }, [players, times, statMapping])
 
   if (!rankedTeams.length) {
     return (
@@ -275,9 +265,15 @@ export const TeamStatsList: React.FC<TeamStatsListProps> = ({ players, times, st
 
   return (
     <div className="bg-[#ECECEC] py-8 max-w-[1200px] mx-auto">
+      <Link
+        href={`/ranking/times`}
+        className='fixed top-8 left-5 rounded-full text-xs text-[#63E300] p-2 w-8 h-8 flex justify-center items-center bg-black/40 z-50 xl:left-96 2xl:left-[650px]'
+      >
+        <FontAwesomeIcon icon={faAngleLeft} />
+      </Link>
       <div className="">
         {rankedTeams.map((team, index) => (
-          <TeamListItem key={`team-list-${team.time.id}-${index}`} team={team} index={index} />
+          <TeamListItem key={`team-list-${team.time.id}`} team={team} index={index} statMapping={statMapping} />
         ))}
       </div>
     </div>

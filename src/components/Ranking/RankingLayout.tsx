@@ -2,9 +2,6 @@
 
 import { useRouter } from 'next/navigation'
 import { RankingFilters } from '../ui/FilterButton'
-import { useJogadores } from '@/hooks/useJogadores'
-import { useTimes } from '@/hooks/useTimes'
-import { useTemporada } from '@/hooks/queries'
 
 interface RankingLayoutProps {
     children: React.ReactNode
@@ -13,13 +10,6 @@ interface RankingLayoutProps {
 
 export function RankingLayout({ children, initialFilter }: RankingLayoutProps) {
     const router = useRouter()
-    const season = useTemporada()
-
-    const { data: jogadores } = useJogadores(season)
-    const { data: times } = useTimes(season)
-
-
-
     const handleFilterChange = (filter: 'jogadores' | 'times') => {
         if (filter === 'jogadores') {
             router.push('/ranking')

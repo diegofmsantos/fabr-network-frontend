@@ -5,6 +5,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useMemo } from 'react'
 import { useParams } from 'next/navigation'
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
@@ -16,7 +17,9 @@ import { createSlug } from '@/utils/helpers/formatUrl'
 function shuffleAndFilterNews(allNews: Noticia[], currentNewsId: number, limit: number = 6) {
   return allNews
     .filter(news => news.id !== currentNewsId)
-    .sort(() => Math.random() - 0.5)
+    .map(news => ({ news, r: Math.random() }))
+    .sort((a, b) => a.r - b.r)
+    .map(({ news }) => news)
     .slice(0, limit)
 }
 
@@ -30,7 +33,12 @@ export default function NoticiaDetalhes() {
   } = useNoticiaDetalhes(noticiaId)
 
   const noticia = data?.noticia
-  const noticias = data?.noticias || []
+  const noticias = data?.noticias
+
+  const maisNoticias = useMemo(
+    () => (noticias ? shuffleAndFilterNews(noticias, noticiaId) : []),
+    [noticias, noticiaId]
+  )
 
   const SLIDER_SETTINGS = {
     dots: true,
@@ -92,6 +100,7 @@ export default function NoticiaDetalhes() {
                 src={noticia.imagem || '/placeholder-avatar.png'}
                 alt={noticia.titulo}
                 width={1200}
+                sizes="(max-width: 900px) 100vw, 900px"
                 height={800}
                 className="w-full rounded-lg"
                 onError={(e) => {
@@ -117,6 +126,7 @@ export default function NoticiaDetalhes() {
                   src={noticia.autorImage || '/placeholder-avatar.png'}
                   alt={noticia.autor}
                   fill
+                  sizes="40px"
                   className="rounded-full object-cover"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
@@ -185,7 +195,7 @@ export default function NoticiaDetalhes() {
 
             <div className="mb-6 pl-4 pr-4 overflow-x-hidden overflow-y-hidden">
               <Slider {...SLIDER_SETTINGS}>
-                {shuffleAndFilterNews(noticias, noticia.id).map((newsItem) => (
+                {maisNoticias.map((newsItem) => (
                   <div key={newsItem.id} className="px-2">
                     {/* 🔧 CORREÇÃO: Adicionar createSlug ao href */}
                     <Link href={`/noticias/${newsItem.id}/${createSlug(newsItem.titulo)}`}>
@@ -195,6 +205,7 @@ export default function NoticiaDetalhes() {
                             src={newsItem.imagem || '/placeholder-news.png'}
                             alt={newsItem.titulo}
                             fill
+                            sizes="(max-width: 768px) 80vw, 300px"
                             className="object-cover rounded-t-lg"
                             loading="lazy"
                             onError={(e) => {
@@ -219,6 +230,7 @@ export default function NoticiaDetalhes() {
                                   src={newsItem.autorImage || '/placeholder-news.png'}
                                   alt={newsItem.autor}
                                   fill
+                                  sizes="40px"
                                   className="rounded-full object-cover"
                                   onError={(e) => {
                                     const target = e.target as HTMLImageElement;

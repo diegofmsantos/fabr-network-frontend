@@ -1,11 +1,16 @@
 import { useQuery } from '@tanstack/react-query'
 import { JogadoresService } from '@/services/jogadores.service'
 import { queryKeys } from './queryKeys'
+import { useTemporadaStore } from '@/stores/temporadaStore'
 
 export function useJogadores(temporada: string = '2025') {
+  const divisaoStore = useTemporadaStore((s) => s.divisao)
+  const hasHydrated = useTemporadaStore((s) => s.hasHydrated)
+  const divisaoAtiva = hasHydrated ? divisaoStore : 'D1'
+
   return useQuery({
-    queryKey: queryKeys.jogadores.list(temporada),
-    queryFn: () => JogadoresService.getJogadores(temporada),
+    queryKey: [...queryKeys.jogadores.list(temporada), divisaoAtiva],
+    queryFn: () => JogadoresService.getJogadores(temporada, divisaoAtiva),
     staleTime: 1000 * 60 * 5,
     gcTime: 1000 * 60 * 10,
     retry: 2,

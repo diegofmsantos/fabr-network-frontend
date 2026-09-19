@@ -11,7 +11,6 @@ import { formatJardas } from '@/utils/services/FormatterService'
 import { getTeamSlug } from '@/utils/helpers/formatUrl'
 import { CompareFilters } from '@/components/ui/CompareFilters'
 import { useTemporada } from '@/hooks/queries'
-import { useJogadores } from '@/hooks/useJogadores'
 
 interface TimeSelecionado {
     time: Time
@@ -87,7 +86,6 @@ export default function CompararTimesPage() {
     const [showDropdown2, setShowDropdown2] = useState(false)
 
     const temporada = useTemporada()
-    const { data: jogadores = [], isLoading: loadingJogadores } = useJogadores(temporada)
     const { data: times = [], isLoading: loadingTimes } = useTimes(temporada)
 
     useEffect(() => {
@@ -155,21 +153,16 @@ export default function CompararTimesPage() {
             }
         })
 
+        // Percentual do time = total de passes completos / total de passes tentados
+        // (as estatísticas ficam em JogadorTime.estatisticas, não em jogador.estatisticas)
         if (stat.statKey === 'passes_percentual') {
-            const jogadoresComPasses = time.jogadores.filter(jt =>
-                jt.jogador?.estatisticas?.passe?.passes_tentados &&
-                jt.jogador.estatisticas.passe.passes_tentados > 0
-            )
-
-            if (jogadoresComPasses.length === 0) return 0
-
-            const somaPercentuais = jogadoresComPasses.reduce((acc, jt) => {
-                const passe = jt.jogador!.estatisticas!.passe
-                const percentual = (passe.passes_completos / passe.passes_tentados) * 100
-                return acc + percentual
-            }, 0)
-
-            return Math.round(somaPercentuais / jogadoresComPasses.length)
+            let completos = 0
+            let tentados = 0
+            time.jogadores.forEach(jt => {
+                completos += Number(jt?.estatisticas?.passe?.passes_completos || 0)
+                tentados += Number(jt?.estatisticas?.passe?.passes_tentados || 0)
+            })
+            return tentados > 0 ? Math.round((completos / tentados) * 100) : 0
         }
 
         return total
@@ -341,6 +334,7 @@ export default function CompararTimesPage() {
                                                 <Image
                                                     src={time1.teamLogo}
                                                     fill
+                                                    sizes="160px"
                                                     alt="Logo"
                                                     className="object-contain scale-150"
                                                     style={{
@@ -377,6 +371,7 @@ export default function CompararTimesPage() {
                                                 <Image
                                                     src={time2.teamLogo}
                                                     fill
+                                                    sizes="160px"
                                                     alt="Logo"
                                                     className="object-contain scale-150"
                                                     style={{

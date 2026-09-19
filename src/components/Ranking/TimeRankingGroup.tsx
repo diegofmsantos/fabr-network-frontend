@@ -1,6 +1,7 @@
 import React from 'react'
 import Slider from 'react-slick'
 import { useTimes } from '@/hooks/useTimes'
+import { useTemporada } from '@/hooks/queries'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { NoStats } from '../ui/NoStats'
@@ -39,7 +40,8 @@ const SLIDER_SETTINGS = {
 }
 
 export const TeamRankingGroup: React.FC<TeamRankingGroupProps> = ({ title, stats, teamStats }) => {
-    const { data: times = [], isLoading } = useTimes('2025')
+    const temporada = useTemporada()
+    const { data: times = [], isLoading } = useTimes(temporada)
 
     const getTeamInfo = (timeId: number) => {
         const team = times.find((t) => t.id === timeId)

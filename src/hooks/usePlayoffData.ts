@@ -92,8 +92,8 @@ export function usePlayoffData(temporada: string) {
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
-              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasa?.id ? jogo.timeCasa?.nome :
+              jogo.timeVencedorId === jogo.timeVisitante?.id ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
@@ -132,8 +132,8 @@ export function usePlayoffData(temporada: string) {
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
-              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeCasa?.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasa?.id ? jogo.timeCasa?.nome :
+              jogo.timeVencedorId === jogo.timeVisitante?.id ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
@@ -172,8 +172,8 @@ export function usePlayoffData(temporada: string) {
             placar2: jogo.placarVisitante,
             status: jogo.status,
             dataJogo: jogo.dataJogo,
-            vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
-              jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+            vencedor: jogo.timeVencedorId === jogo.timeCasa?.id ? jogo.timeCasa?.nome :
+              jogo.timeVencedorId === jogo.timeVisitante?.id ? jogo.timeVisitante?.nome : null,
             local: jogo.local || 'Estádio'
           })
         })
@@ -197,8 +197,8 @@ export function usePlayoffData(temporada: string) {
           placar2: jogo.placarVisitante,
           status: jogo.status,
           dataJogo: jogo.dataJogo,
-          vencedor: jogo.timeVencedorId === jogo.timeCasaId ? jogo.timeCasa?.nome :
-            jogo.timeVencedorId === jogo.timeVisitanteId ? jogo.timeVisitante?.nome : null,
+          vencedor: jogo.timeVencedorId === jogo.timeCasa?.id ? jogo.timeCasa?.nome :
+            jogo.timeVencedorId === jogo.timeVisitante?.id ? jogo.timeVisitante?.nome : null,
           local: jogo.local || 'Arena Nacional'
         }))
       })(),
@@ -207,6 +207,8 @@ export function usePlayoffData(temporada: string) {
         const finalJogo = rawBracket.find((jogo: any) =>
           jogo.fase === 'FINAL NACIONAL'
         )
+
+        if (!finalJogo) return null
 
         return {
           id: finalJogo.id,
@@ -217,8 +219,8 @@ export function usePlayoffData(temporada: string) {
           placar2: finalJogo.placarVisitante,
           status: finalJogo.status,
           dataJogo: finalJogo.dataJogo,
-          vencedor: finalJogo.timeVencedorId === finalJogo.timeCasaId ? finalJogo.timeCasa?.nome :
-            finalJogo.timeVencedorId === finalJogo.timeVisitanteId ? finalJogo.timeVisitante?.nome : null,
+          vencedor: finalJogo.timeVencedorId === finalJogo.timeCasa?.id ? finalJogo.timeCasa?.nome :
+            finalJogo.timeVencedorId === finalJogo.timeVisitante?.id ? finalJogo.timeVisitante?.nome : null,
           local: finalJogo.local || 'Arena Nacional'
         }
       })()

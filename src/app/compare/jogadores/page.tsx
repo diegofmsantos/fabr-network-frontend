@@ -431,6 +431,7 @@ export default function CompararJogadoresPage() {
                                                 <Image
                                                     src={ImageService.getPlayerShirt(jogador1.time, jogador1.jogador.camisa || '')}
                                                     fill
+                                                    sizes="160px"
                                                     alt="Camisa"
                                                     className="object-contain scale-150"
                                                     style={{
@@ -473,6 +474,7 @@ export default function CompararJogadoresPage() {
                                                 <Image
                                                     src={ImageService.getPlayerShirt(jogador2.time, jogador2.jogador.camisa || '')}
                                                     fill
+                                                    sizes="160px"
                                                     alt="Camisa"
                                                     className="object-contain scale-150"
                                                     style={{

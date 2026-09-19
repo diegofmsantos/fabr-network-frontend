@@ -2,9 +2,9 @@ import { EstatisticaJogo, Jogador } from '@/types'
 import { BaseService } from './base.service'
 
 export class JogadoresService extends BaseService {
-  static async getJogadores(temporada: string = '2025'): Promise<Jogador[]> {
+  static async getJogadores(temporada: string = '2025', divisao?: string): Promise<Jogador[]> {
     const service = new JogadoresService()
-    return service.get<Jogador[]>(`/jogadores/jogadores`, { temporada })
+    return service.get<Jogador[]>(`/jogadores/jogadores`, { temporada, ...(divisao ? { divisao } : {}) })
   }
 
   static async getJogador(id: number): Promise<Jogador> {

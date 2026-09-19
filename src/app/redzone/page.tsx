@@ -55,6 +55,7 @@ export default function RedzonePage() {
                 src={noticia.imagem || '/placeholder-avatar.png'}
                 alt={noticia.titulo}
                 width={1200}
+                sizes="(max-width: 900px) 100vw, 900px"
                 height={800}
                 className="w-full rounded-lg"
                 onError={(e) => {
@@ -78,6 +79,7 @@ export default function RedzonePage() {
                   src={noticia.autorImage || '/placeholder-avatar.png'}
                   alt={noticia.autor}
                   fill
+                  sizes="40px"
                   className="rounded-full object-cover"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement

@@ -34,6 +34,7 @@ export default function NoticiasPage() {
                                         src={noticia.imagem}
                                         alt={noticia.titulo}
                                         width={800}
+                                        sizes="(max-width: 768px) 100vw, 360px"
                                         height={600}
                                         className="object-cover w-full h-full"
                                     />
@@ -50,6 +51,7 @@ export default function NoticiasPage() {
                                                     src={noticia.autorImage || '/placeholder-avatar.png'}
                                                     alt={noticia.autor}
                                                     fill
+                                                    sizes="40px"
                                                     className="rounded-full object-cover"
                                                     onError={(e) => {
                                                         const target = e.target as HTMLImageElement;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Slider from 'react-slick'
 import { useTimes } from '@/hooks/useTimes'
 import { RankingCard } from './RankingCard'
@@ -44,20 +44,30 @@ const SLIDER_SETTINGS = {
 export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, players, temporada }) => {
   const { data: times = [], isLoading } = useTimes(temporada)
 
+  const teamsById = useMemo(() => new Map(times.map((t) => [t.id, t])), [times])
+
   const getTeamInfo = (timeId: number) => {
-    const team = times.find((t) => t.id === timeId)
+    const team = teamsById.get(timeId)
     return {
       nome: team?.nome || 'time-desconhecido',
       cor: team?.cor || '#000000',
     }
   }
 
-  const hasValidPlayers = stats.some(stat => {
-    const validPlayers = players
-      .filter(player => shouldIncludePlayer(player, stat.key, title))
-      .length > 0;
-    return validPlayers;
-  });
+  const rankings = useMemo(
+    () =>
+      stats.map((stat) => ({
+        stat,
+        top: players
+          .filter((player) => shouldIncludePlayer(player, stat.key, title))
+          .map((player) => ({ player, value: calculateStat(player, stat.key) }))
+          .sort((a, b) => compareValues(a.value, b.value))
+          .slice(0, 5),
+      })),
+    [stats, players, title]
+  )
+
+  const hasValidPlayers = rankings.some((r) => r.top.length > 0)
 
   if (isLoading) {
     return <div className="mb-6 pl-4 py-8">Carregando estatísticas...</div>;
@@ -76,17 +86,8 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
     <div className="pl-4 pb-8 mb-10 overflow-x-hidden overflow-y-hidden mx-auto xl:px-12 xl:overflow-x xl:overflow-y">
       <h2 className="text-4xl mt-8 pl-2 font-extrabold italic mb-4 leading-[30px] tracking-[-2px] lg:pl-16 xl:pl-20">{title}</h2>
       <Slider {...SLIDER_SETTINGS}>
-        {stats.map((stat, index) => {
-          const filteredPlayers = players
-            .filter(player => shouldIncludePlayer(player, stat.key, title))
-            .sort((a, b) => {
-              const aValue = calculateStat(a, stat.key);
-              const bValue = calculateStat(b, stat.key);
-              return compareValues(aValue, bValue);
-            })
-            .slice(0, 5);
-
-          if (filteredPlayers.length === 0) {
+        {rankings.map(({ stat, top }, index) => {
+          if (top.length === 0) {
             return (
               <div key={index}>
                 <div className="inline-block text-sm font-bold mb-2 bg-black text-white p-2 rounded-xl">
@@ -103,14 +104,13 @@ export const RankingGroup: React.FC<RankingGroupProps> = ({ title, stats, player
                 title={stat.title}
                 category={title}
                 stat={stat.key}
-                players={filteredPlayers.map((player, playerIndex) => {
+                players={top.map(({ player, value: rawValue }, playerIndex) => {
                   const teamInfo = getTeamInfo(player.timeId ?? 0)
-                  const value = calculateStat(player, stat.key)
                   return {
                     id: player.id,
                     name: player.nome,
                     team: teamInfo.nome,
-                    value: normalizeValue(value, stat.key),
+                    value: normalizeValue(rawValue, stat.key),
                     camisa: player.camisa || '', 
                     teamColor: playerIndex === 0 ? teamInfo.cor : undefined,
                     teamLogo: ImageService.getTeamLogo(teamInfo.nome),
