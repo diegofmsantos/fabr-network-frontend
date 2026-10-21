@@ -23,6 +23,20 @@ const getConferenciaColor = (tipo: string) => {
   }
 }
 
+// Times eliminados por decisão disciplinar: ficam sempre na última posição do regional.
+// Chave: temporada -> nomes dos times.
+const TIMES_DESCLASSIFICADOS: Record<string, string[]> = {
+  '2026': ['Spartans FA'],
+}
+
+const ordenarComDesclassificados = (times: any[], temporada: string) => {
+  const desclassificados = TIMES_DESCLASSIFICADOS[temporada] ?? []
+  if (!desclassificados.length) return times
+  const classificados = times.filter((t) => !desclassificados.includes(t.time?.nome))
+  const eliminados = times.filter((t) => desclassificados.includes(t.time?.nome))
+  return [...classificados, ...eliminados].map((t, i) => ({ ...t, posicao: i + 1 }))
+}
+
 const QuadroRodadas = ({
   rodadas,
   conferenciaKey,
@@ -271,7 +285,7 @@ export default function TemporadaRegularPage() {
                       </div>
 
                       <div className="space-y-4 mt-4">
-                        {regional?.times && Array.isArray(regional.times) ? regional.times.map((time: any) => (
+                        {regional?.times && Array.isArray(regional.times) ? ordenarComDesclassificados(regional.times, temporada).map((time: any) => (
                           <div key={time.timeId} className="grid grid-cols-8 py-2 md:items-end border-b">
                             <div className="text-black text-sm">{time.posicao}º</div>
                             <div className="col-span-2 -ml-3 -mt-2 flex items-end">
