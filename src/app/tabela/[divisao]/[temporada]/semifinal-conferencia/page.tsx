@@ -9,6 +9,7 @@ import { Loading } from '@/components/ui/Loading'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { getSuperligaNavigation } from '@/utils/superliga-navigation'
+import { formatHoraJogo } from '@/utils/helpers/formatHoraJogo'
 
 export default function SemifinalConferenciaPage() {
   const params = useParams()
@@ -97,7 +98,7 @@ export default function SemifinalConferenciaPage() {
                         <div className="flex flex-col items-center justify-center gap-2 mt-3">
                           <div>
                             {jogo.status && <span className={`px-2 py-1 rounded-full text-xs font-medium mr-3 ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : jogo.status === 'AO VIVO' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-black'}`}>{jogo.status === 'FINALIZADO' ? 'Finalizado' : jogo.status === 'AO VIVO' ? 'Ao Vivo' : jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}</span>}
-                            {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
+                            {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}{formatHoraJogo(jogo.dataJogo) && ` • ${formatHoraJogo(jogo.dataJogo)}`}</span>}
                           </div>
                           <div className='text-xs text-black'>{jogo.local}</div>
                           {jogo.status === 'FINALIZADO' && (

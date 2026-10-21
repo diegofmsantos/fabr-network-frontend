@@ -9,6 +9,7 @@ import { Loading } from '@/components/ui/Loading'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { getSuperligaNavigation } from '@/utils/superliga-navigation'
+import { formatHoraJogo } from '@/utils/helpers/formatHoraJogo'
 
 export default function FinalNacionalPage() {
   const params = useParams()
@@ -88,7 +89,7 @@ export default function FinalNacionalPage() {
                   </div>
                   <div className="flex flex-col items-center gap-2 mt-6">
                     {finalNacional.status && <span className={`px-4 py-1 rounded-full text-sm font-bold ${finalNacional.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-black'}`}>{finalNacional.status === 'FINALIZADO' ? '🏆 Finalizado' : finalNacional.status === 'AGENDADO' ? 'Agendado' : finalNacional.status}</span>}
-                    {finalNacional.dataJogo && <span className="text-sm text-black">{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
+                    {finalNacional.dataJogo && <span className="text-sm text-black">{new Date(finalNacional.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}{formatHoraJogo(finalNacional.dataJogo) && ` • ${formatHoraJogo(finalNacional.dataJogo)}`}</span>}
                     {finalNacional.local && <span className="text-sm text-black">📍 {finalNacional.local}</span>}
                     {finalNacional.vencedor && <div className="mt-2 text-lg font-black text-[#63E300]">🏆 Campeão: {finalNacional.vencedor}</div>}
                     {finalNacional.status === 'FINALIZADO' && finalNacional.id && (

@@ -9,6 +9,7 @@ import { Loading } from '@/components/ui/Loading'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { getSuperligaNavigation } from '@/utils/superliga-navigation'
+import { formatHoraJogo } from '@/utils/helpers/formatHoraJogo'
 
 export default function SemifinalNacionalPage() {
   const params = useParams()
@@ -83,7 +84,7 @@ export default function SemifinalNacionalPage() {
                     </div>
                     <div className="flex flex-col items-center gap-2 mt-4">
                       {jogo.status && <span className={`px-3 py-1 rounded-full text-sm font-medium ${jogo.status === 'FINALIZADO' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-black'}`}>{jogo.status === 'FINALIZADO' ? 'Finalizado' : jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}</span>}
-                      {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
+                      {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}{formatHoraJogo(jogo.dataJogo) && ` • ${formatHoraJogo(jogo.dataJogo)}`}</span>}
                       <div className='text-xs text-black'>{jogo.local}</div>
                       {jogo.status === 'FINALIZADO' && (
                         <Link href={`/tabela/${divisao}/${temporada}/jogo/${jogo.id}`} className="text-[10px] text-gray-300 italic uppercase hover:underline font-semibold bg-[#272731] py-1 px-2 rounded-lg">Saiba como foi</Link>

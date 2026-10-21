@@ -9,6 +9,7 @@ import { useWildCardData } from '@/hooks/usePlayoffData'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { getSuperligaNavigation } from '@/utils/superliga-navigation'
+import { formatHoraJogo } from '@/utils/helpers/formatHoraJogo'
 
 export default function WildCardPage() {
   const params = useParams()
@@ -100,7 +101,7 @@ export default function WildCardPage() {
                                 {jogo.status === 'FINALIZADO' ? 'Finalizado' : jogo.status === 'AO VIVO' ? 'Ao Vivo' : jogo.status === 'AGUARDANDO' ? 'Aguardando' : jogo.status === 'AGENDADO' ? 'Agendado' : jogo.status}
                               </span>
                             )}
-                            {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}</span>}
+                            {jogo.dataJogo && <span className="text-xs text-black">{new Date(jogo.dataJogo).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })}{formatHoraJogo(jogo.dataJogo) && ` • ${formatHoraJogo(jogo.dataJogo)}`}</span>}
                           </div>
                           <div className='text-xs text-black'>{jogo.local}</div>
                           {jogo.status === 'FINALIZADO' && (
