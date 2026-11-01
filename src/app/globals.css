@@ -135,3 +135,7 @@ body {
 .animate-live-blink-bg {
   animation: live-blink-bg 1s steps(1) infinite;
 }
+
+.animate-live-blink-bg {
+  animation: live-blink-bg 1s steps(1) infinite;
+}

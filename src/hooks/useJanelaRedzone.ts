@@ -70,8 +70,11 @@ export function useJanelaRedzone() {
             .filter(j => new Date(j.dataJogo).getUTCDay() === 6)
             .map(j => new Date(j.dataJogo).getTime())
 
+        // Jogo em 00:00 = horário ainda não definido: vale o dia inteiro.
+        const fimDoJogo = (t: number) => (t % UM_DIA_MS === 0 ? t + UM_DIA_MS - 1 : t + TRES_HORAS_MS)
+
         const inicioJanela = datasSabado.length > 0 ? Math.min(...datasSabado) : Math.min(...datasTodas)
-        const fimJanela = Math.max(...datasTodas) + TRES_HORAS_MS
+        const fimJanela = Math.max(...datasTodas.map(fimDoJogo))
 
         return agoraEpocaBrasil >= inicioJanela && agoraEpocaBrasil <= fimJanela
     }, [data, agoraEpocaBrasil])
